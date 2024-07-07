@@ -1,0 +1,941 @@
+---
+title: "Getting Started with `dplyr`"
+subtitle: "And the Pipe |>"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+
+
+```{r}
+#| include: false
+
+library(dplyr)
+library(readr)
+
+nhanes_orig <- read_rds('data/NHANES_analysis_pre_exclusions.rds')
+nhanes <- nhanes_orig
+
+```
+
+## From Last Time
+
+- Any questions on programming fundamentals from last time?
+
+    - For review, see [chapter 3 from R4DS](https://r4ds.hadley.nz/data-transform){.external target="_blank"}
+    
+    - For recipes, you can check the [fourth](https://posit.cloud/learn/recipes/basics/BasicB1){.external target="_blank"}, [fifth](https://posit.cloud/learn/recipes/basics/BasicB2){.external target="_blank"}, and [seventh](https://posit.cloud/learn/recipes/basics/BasicB4){.external target="_blank"} recipes under Visualize Data on Posit Cloud
+
+:::{.callout-tip}
+
+Although challenging, these are the backbone of R and _will_ get easier with practice
+
+:::
+
+## From Last Time
+
+- Any questions on the reading / primer?
+
+- We've seen the R fundamentals on accession with vectors and functions; now let's take the next step and work with data frames
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Data frames
+
+- An introduction to the pipe `|>`
+
+- Data isolation
+
+- Tidy evaluation and a teaser on data transformation
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/skinner-dplyr.jpg){fig-align="center"}
+:::
+:::
+
+::::
+
+
+# Data Frames (Are Amazing!)
+
+## Data Frames - Why They're Amazing
+
+- Data frames are the most widely used data storage object within R
+
+- They are amazing and useful for many reasons:
+
+   - They are the default receptacle for any rectangular data
+   
+   - Most functions in R will readily accept a data frame for their
+   
+        `data=` argument
+   
+   - Conveniently package related variables together
+   
+       Recall, we think of them as vectors we've bound column-wise
+   
+---
+
+## Data Frames - Why They're Amazing
+
+- Functions can be applied to data frames and their behavior will generally be consistent and uniform
+
+    Filtering on rows will return all columns and vice versa
+    
+- Columns can hold vectors of different classes; this is very intuitive
+
+    - View data frames as having <b>rows as observations</b> and <b>columns are many kind of variables</b>
+
+    - Other data storage objects (e.g. matrices) only hold one class
+    
+- The packages in the `tidyverse` extend this and prioritize engaging with data frames via the `tibble`
+
+
+---
+
+
+##  Data Frames - The Tibble
+
+- Tibbles _are_ data frames, just a special "tidy" flavor
+
+![](img/tidy-1.png){fig-align="center"}
+
+- Primary distinction between the data frame's `data.frame` class<br>and the tibble's `tbl` class is with respect to printing to console and when subsetting
+
+---
+
+## Data Frames - The NHANES Data Set
+
+
+![](img/nhanes.png){fig-align="center"}
+
+- Program of studies designed to assess health and nutritional status in children and adults nationally
+
+- Started in the 1960's and became a continuous program in 1999
+
+- Includes demographic, socioeconmoic, dietary, and health-related questions
+
+:::{style="text-align: center"}
+
+What does all this mean?
+
+:::
+
+## Data Frames - NHANES is Big and Messy
+
+
+
+```{r}
+#| echo: false
+#| class-output: "custom-height"
+
+nhanes
+
+```
+
+
+## Data Frames - NHANES is Big and Messy
+
+::::{.columns}
+
+::: {.column}
+
+- Trying to plot this data will _probably_ work but you won't be happy with the results
+
+- Most stock summarization functions like `mean()` or `sd()` will almost certainly fail
+
+- We need to clean up the data set into something more tractable
+
+:::{style="text-align: center"}
+
+But how?
+
+:::
+
+:::
+
+:::{.column}
+
+![](img/expect_reality.jpg){fig-align="center" width=350}
+
+:::
+
+::::
+
+
+## Data Frames - We'll Use `dplyr`
+
+![](img/dplyr_func.png){fig-align="center"}
+
+:::{.footer}
+
+Ignore the bitter grumblings of your instructor
+
+:::
+
+
+---
+
+## Data Frames - A Clean NHANES
+
+After a bit of work with `dplyr` we can eventually get this
+
+
+
+
+```{r}
+#| echo: false
+#| class-output: "custom-height custom-height-small"
+
+nhanes <- read_rds('data/NHANES_analysis_pre_exclusions.rds') |> 
+  select(exam, age, sex, bp_sys_mmhg, n_msr_sbp, bp_meds) |> 
+  tidyr::drop_na() |> 
+  group_by(exam) |> 
+  slice(1:2) |> 
+  ungroup()
+
+nhanes
+
+```
+
+
+
+# First Let's Tell a Story (Workflow)
+
+---
+
+## Workflows - Program a Story
+
+Here is the legendary tale of Little Bunny Foo Foo
+
+> Little bunny Foo Foo <br/>
+> Went hopping through the forest <br/>
+> Scooping up the field mice <br/>
+> And bopping them on the head 
+
+- How would we go about programming this in R?
+
+. . .
+
+```{r}
+#| eval: false
+
+# Assign little_bunny() to foo_foo
+foo_foo <- little_bunny()
+
+```
+
+- Now `foo_foo` can be modified...but how?
+
+---
+
+## Workflows - Making New Objects
+
+We could save each intermediate step as a new object:
+
+```{r}
+#| eval: false
+#| code-line-numbers: 1-2|4-5|7-8|10-11
+
+# Little bunny Foo Foo
+foo_foo <- little_bunny()
+
+# Went hopping through the forest
+foo_foo_1 <- hop(foo_foo, through = forest) 
+
+# Scooping up the field mice
+foo_foo_2 <- scoop(foo_foo_1, up = field_mice) 
+
+# And bopping them on the head
+foo_foo_3 <- bop(foo_foo_2, on = head) 
+
+```
+
+- Problems: 
+
+    - The code is cluttered with unimportant names
+
+    - You have to carefully increment the suffix on each line
+
+---
+
+## Workflows - Overwrite the Original Object
+
+We could overwrite the original object which can reduce typing errors:
+
+```{r} 
+#| eval: false
+
+ # Little bunny Foo Foo
+foo_foo <- little_bunny()
+
+# Went hopping through the forest
+foo_foo <- hop(foo_foo, through = forest) 
+
+# Scooping up the field mice
+foo_foo <- scoop(foo_foo, up = field_mice) 
+
+# And bopping them on the head
+foo_foo <- bop(foo_foo, on = head) 
+```
+
+- Debugging is painful and tedious; the pipeline has to be done _de novo_
+
+- Repetition (7 `foo_foo`s) obfuscates the code making it hard to follow
+
+---
+
+## Workflows - Functional Composition Nests
+
+Abandon assignment operations and just nest the functions together:
+
+```{r}
+#| eval: false
+
+bop(
+  scoop(
+    hop(
+      little_bunny(), # Little bunny Foo Foo
+      through = forest # Went hopping through the forest
+    ),
+    up = field_mice # Scooping up the field mice
+  ), 
+  on = head # And bopping them on the head
+)
+```
+
+Or as I would type...
+
+```{r}
+#| eval: false
+
+#Make pre-goon foo_foo
+foo_foo <- bop(scoop(hop(little_bunny(), through=forest), up=field_mice), on=head)
+
+```
+
+No one likes to read or type this (except Chad)
+
+---
+
+## Workflows - The Pipe `|>`
+
+Last, we could use the pipe operator `|>`:
+
+```{r}
+#| eval: false
+
+foo_foo <-
+  little_bunny() |>          # Little bunny Foo Foo
+  hop(through = forest) |>   # Went hopping through the forest
+  scoop(up = field_mice) |>  # Scooping up the field mice
+  bop(on = head)             # And bopping them on the head
+
+```
+
+. . .
+
+Pros
+
+- Focuses on the function verbs and not the object nouns
+
+- Unlike the nested composition, this flows as a series of imperative actions: Foo Foo hops, then scoops, then bops
+
+---
+
+## Workflows - The Pipe `|>`
+
+Last, we could use the pipe operator `|>`:
+
+```{r}
+#| eval: false
+
+foo_foo <-
+  little_bunny() |>          # Little bunny Foo Foo
+  hop(through = forest) |>   # Went hopping through the forest
+  scoop(up = field_mice) |>  # Scooping up the field mice
+  bop(on = head)             # And bopping them on the head
+
+```
+
+Cons
+
+- If you’ve never seen `|>` before, you’ll have no idea what this code does 
+
+Luckily, its behavior is intuitive which makes it very easy to share and describe to others
+
+---
+
+## Workflows - So What's a Pipe?
+
+- Simply, a pipe takes the object on the left hand side and makes it the <b>first</b> argument for the function on the right hand side 
+
+```{r}
+
+# Create a series of numbers and assign it to x
+x <- 1:10
+
+# Now take the mean of x
+mean(x)
+
+# This is equivalent to the above code
+x |> mean()
+
+```
+
+- We call `|>` a "pipe" since it literally pipes whatever is on the left into the first argument on the right
+
+
+---
+
+## Workflows - So What's a Pipe?
+
+- More broadly, the pipe makes these two snippets equivalent
+
+```{r}
+#| eval: false
+
+# Use the function and specify all arguments
+nifty_function(main_arg = xx, other_arg = yy, last_arg = zz)
+
+# Start with xx and pipe it into main_arg before executing the function
+xx |> 
+  nifty_function(other_arg = yy, last_arg = zz)
+
+```
+
+- Now we don't need to specify a value for the `main_arg` argument since `|>` automatically passes `xx` for us
+
+---
+
+## Workflows - The Strength of the Pipe
+
+- The value is in making written code more human readable as you apply a series of functions
+
+```{r}
+#| eval: false
+#| code-line-numbers: 1-5|8-13
+
+
+# Using the functions like they're a matryoshka doll
+another_neat_one(
+  nifty_function(main_arg = xx, other_arg = yy, last_arg = zz),
+  another_arg = ww
+)
+
+
+# Start with xx and then apply the functions in series
+xx |> 
+  nifty_function(other_arg = yy, last_arg = zz) |> 
+  another_neat_one(another_arg = ww)
+
+# Stylistic tip: end lines at the |> 
+
+```
+
+- Thus avoids clunky temporary objects and densely nested functions
+
+---
+
+## Workflows - When _Not_ to Pipe
+
+1. If your pipes are longer than ~5 steps use intermediate R objects with _meaningful names_
+
+    - This will make debugging easier as you can troubleshoot the intermediary objects
+    - Your code will be more understandable; variable names can help communicate intent
+
+
+
+---
+
+## Workflows - When _Not_ to Pipe
+
+1. If your pipes are longer than ~5 steps use intermediate R objects with _meaningful names_
+
+2. You have multiple inputs or outputs being manipulated
+
+    - If multiple objects are being coalesced, it is better to have parallel workflows that meet at the end
+
+:::{.callout-warning}
+
+Pipes can only ever pass one essential from left to right
+
+:::
+
+
+---
+
+## Workflows - When _Not_ to Pipe
+
+1. If your pipes are longer than ~5 steps use intermediate R objects with _meaningful names_
+
+2. You have multiple inputs or outputs being manipulated
+
+3. Your workflow has a complex dependency structure 
+
+    - Pipes are fundamentally linear and expressing complex relationships with them is generally confusing
+    - They can behave very poorly under iterative (repeating) processes
+
+
+---
+
+## Workflows - There are Two Pipes
+
+
+- R introduced `|>` as a native operator installed with R 4.1 in 2021
+
+- This was designed to supplant the `%>%` operator which has been part of the tidyverse since the end of 2013 in the `magrittr` package
+
+::::{.columns}
+
+:::{.column width=60%}
+
+- They are largely functionally identical although
+   `|>` is more limited than `%>%`
+
+- `%>%` is still used and you will almost certainly see it in code
+
+- Both have R version dependencies:<br>`%>%` R>=3.5 and  `|>` R>=4.1
+
+:::
+
+:::{.column width=40%}
+
+![](img/pipe.jpg){fig-align="center" width="100%"}
+
+:::
+
+::::
+
+
+# Isolation with `dplyr`
+
+## Isolation - `dplyr` Functions
+
+- `dplyr` has several functions to make data frame isolation easier
+
+    - `filter()` will subset a data frame by <b>rows</b>
+    
+    - `select()` instead subsets a data frame by <b>columns</b>
+    
+    - `arrange()` let's you reorganize a data frame according to <b>row</b>
+    
+- Importantly, the row functions do not alter your columns and column functions do not alter rows
+    
+- As part of the tidyverse, these `dplyr` functions will always return the same type of output as their original input e.g. start with a data frame and end with a data frame 
+
+## Isolation - Before You Subset Your Data
+
+:::{style="display: flex; align-items: center; height=100%;"}
+
+:::{.callout-important}
+
+[WHEN SUBSETTING, ALWAYS MAKE A NEW OBJECT!!<br><br>NEVER OVERWRITE YOUR SOURCE DATA!!]{style="color: red; font-size: 180%"}
+
+:::
+
+:::
+
+- Let's try to work with the NHANES data set
+
+---
+
+## Isolation - Recall the Reduced NHANES Data
+
+```{r}
+#| echo: false
+#| class-output: "custom-height custom-height-small"
+
+nhanes
+
+```
+
+---
+
+
+## Isolation - `filter()`
+
+- `filter()` keeps rows that match specified conditions
+
+- It takes a data frame as the first argument followed by an expression that can resolve to a logical vector
+
+- The logical vector uses common operators like `<`, `>`, `==`, and `!=`
+
+- Multiple logical expressions on multiple columns can be used with set operators like `&`, `|`, and `!`
+
+Question:<br>In NHANES, how many males were taking medications to lower blood pressure?
+
+---
+
+## Isolation - `filter()` in NHANES
+
+- First filter to only males
+
+```{r}
+#| code-line-numbers: 1-1
+
+males <- filter(nhanes, sex == 'Male') #<<
+males_bp_meds <- filter(males, bp_meds == 'Yes')
+answer <- nrow(males_bp_meds)
+
+```
+
+```{r}
+#| echo: false
+males
+```
+
+---
+
+## Isolation - `filter()` in NHANES
+
+- Then only those males on BP medication
+
+```{r}
+#| code-line-numbers: 2-2
+
+males <- filter(nhanes, sex == 'Male') 
+males_bp_meds <- filter(males, bp_meds == 'Yes') #<<
+answer <- nrow(males_bp_meds)
+
+```
+
+```{r}
+#| echo: false
+males_bp_meds
+```
+
+---
+
+## Isolation - `filter()` in NHANES
+
+- Use `nrow()` to get the number of rows in the filtered set
+
+
+```{r}
+#| code-line-numbers: 3-3
+
+males <- filter(nhanes, sex == 'Male') 
+males_bp_meds <- filter(males, bp_meds == 'Yes') 
+answer <- nrow(males_bp_meds) #<<
+
+```
+<br>
+```{r}
+answer
+```
+
+- Now let's clean up the workflow
+
+---
+
+## Isolation - `filter()` with a Pipe Solution
+
+```{r}
+
+answer <- 
+  nhanes |> 
+  filter(sex == 'Male' & bp_meds == 'Yes') |> 
+  nrow()
+
+answer
+
+```
+
+- To create the `answer`, 
+
+   - Start with `nhanes`, <b>THEN</b>
+
+    - Filter to contain only males on BP meds, <b>THEN</b>
+
+    - Count the number of rows which were left over
+
+---
+
+## Isolation - Other `dplyr` functions
+
+- `select()` extracts columns from a data set; it's like `$` but much more versatile and consistent e.g. it won't return a vector
+
+- `arrange()` will sort a data frame row-wise by a specified column / variable; can wrap the variable in `desc()` for descending order
+
+- `slice()` and its relatives index rows by their location; again like `[]` but more consistent and versatile
+
+- The full list of `dplyr` functions can be found on the package's [help page](https://dplyr.tidyverse.org/reference/index.html){.external target="_blank"}
+
+Next question:<br>In NHANES, what was the highest systolic blood pressure in males?
+
+---
+
+## Isolation - NHANES Highest BP in Males
+
+Start with NHANES and begin piping `|>`
+
+```{r}
+#| eval: false
+#| code-line-numbers: 1-1
+
+nhanes |> #<<
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> 
+  slice(1) |> 
+  as.numeric()
+
+```
+
+```{r}
+#| echo: false
+#| class-output: "short-height short-height-small"
+
+nhanes
+```
+
+---
+
+## Isolation - NHANES Highest BP in Males
+
+Apply `filter()` on the column sex to return only males
+
+```{r}
+#| eval: false
+#| code-line-numbers: 2-2
+
+nhanes |> 
+  filter(sex == 'Male') |> #<<
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> 
+  slice(1) |> 
+  as.numeric()
+
+```
+
+```{r}
+#| echo: false
+#| class-output: "short-height short-height-small"
+
+nhanes |>
+  filter(sex == 'Male')
+```
+
+---
+
+## Isolation - NHANES Highest BP in Males
+
+Use `arrange()` to sort the filtered set for descending by systolic BP 
+
+```{r}
+#| eval: false
+#| code-line-numbers: 3-3
+
+nhanes |> 
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> #<<
+  select(bp_sys_mmhg) |> 
+  slice(1) |> 
+  as.numeric()
+
+```
+
+```{r}
+#| echo: false
+#| class-output: "short-height short-height-small"
+
+nhanes |>
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) 
+```
+
+---
+
+## Isolation - NHANES Highest BP in Males
+
+Use `select()` to extract the bp_sys_mmhg column of interest 
+
+```{r}
+#| eval: false
+#| code-line-numbers: 4-4
+
+nhanes |> 
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> #<<
+  slice(1) |> 
+  as.numeric()
+
+```
+
+```{r}
+#| echo: false
+#| class-output: "short-height short-height-small"
+
+nhanes |>
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg)
+```
+
+---
+
+## Isolation - NHANES Highest BP in Males
+
+With `slice()` index out the 1^st^ row which is the highest systolic BP 
+
+```{r}
+#| eval: false
+#| code-line-numbers: 5-5
+
+nhanes |> 
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> 
+  slice(1) |> #<<
+  as.numeric()
+
+```
+
+```{r}
+#| echo: false
+#| class-output: "short-height short-height-small"
+
+nhanes |>
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> 
+  slice(1)
+```
+
+---
+
+## Isolation - NHANES Highest BP in Males
+
+Since the output has remained a consistent tibble, coerce it to numeric
+
+```{r}
+#| eval: false
+#| code-line-numbers: 6-6
+
+nhanes |>
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> 
+  slice(1) |> 
+  as.numeric() #<<
+
+```
+
+```{r}
+#| echo: false
+#| class-output: "short-height short-height-small"
+
+nhanes |>
+  filter(sex == 'Male') |> 
+  arrange(desc(bp_sys_mmhg)) |> 
+  select(bp_sys_mmhg) |> 
+  slice(1) |> 
+  as.numeric()
+```
+
+---
+
+## Isolation - Common Logical Operators in R
+
+:::{style="font-size: 75%"}
+
+Operator    | Definition                   | Operator     | Definition
+------------|------------------------------|--------------|----------------
+`<`         | less than                    |`x`&nbsp;&#124;&nbsp;`y`     | `x` OR `y` 
+`<=`        |	less than or equal to        |`is.na(x)`    | test if `x` is `NA`
+`>`         | greater than                 |`!is.na(x)`   | test if `x` is not `NA`
+`>=`        |	greater than or equal to     |`x %in% y`    | test if `x` is in `y`
+`==`        |	exactly equal to             |`!(x %in% y)` | test if `x` is not in `y`
+`!=`        |	not equal to                 |`!x`          | not `x`
+`&`         | and                          | `x & y`      | `x` AND `y`
+
+:::
+
+`%in%` is a new, but powerful, operator
+
+`x == "value1" | x == "value2"` is equivalent to<br>`x %in% c("value1", "value2")`
+
+# Tidy Evaluation
+
+## Tidy Evaluation
+
+- The tidyverse makes extensive use of <b>tidy evaluation</b> which dictates how most functions access variables within a data frame 
+
+- There are two main variants, <b>data masking</b> and <b>tidy selection</b>
+
+- When you check tidyverse function documentations you can look for `<data-masking>` or `<tidy-select>` to see which flavor you can use
+
+---
+
+## Tidy Evaluation
+
+1. Data masking - as seen with `filter()` and `arrange()`, you can use data frame variable as if they were variables in the global environment
+
+    - Instead of `data_frame$my_var` you can use `my_var` within tidyverse functions as is and without quotes
+
+
+2. Tidy selection - so far only seen with `select()` but allows you to choose variables based on position, name, or type, for example...
+    
+    - `select(df, 1)` selects the first column (position/indexing)
+        
+    - `select(df, c(a, b, c))` selects columns `a`, `b`, and `c`
+        
+    - `select(df, where(is.numeric))` selects all numeric columns
+        
+
+---
+
+## Next Time - More on `dplyr`
+
+- Working with `dplyr` functions to organize, transform, summarize, and create new data
+
+    - `group_by()` to divide a data set into groups
+    
+    - `summarize()` for aggregated measures like sum, mean, etc
+    
+    - `mutate()` to transform old columns into new ones
+
+- Continuing to build workflows and comments on style and organization
+
+- Still focused on [chapter 3](https://r4ds.hadley.nz/data-transform){.external target="_blank"} in R4DS
+
+- Continue to go through the recipes under [Transform Tables](https://r4ds.hadley.nz/data-transform){.external target="_blank"} on<br>Posit Cloud
+

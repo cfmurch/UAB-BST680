@@ -1,0 +1,905 @@
+---
+title: "Programming Basics"
+subtitle: "Functions, Accession, Vectors"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(dplyr)
+library(magick)
+```
+
+## Catch Up
+
+- Any questions on basics of visualization from last time?
+
+    - For review, see [chapter 2 from R4DS](https://r4ds.hadley.nz/data-visualize){.external target="_blank"}
+    
+    - For recipes, you can check the [first](https://posit.cloud/learn/recipes/visualize/VisualizeA1A){.external target="_blank"}, [second](https://posit.cloud/learn/recipes/visualize/VisualizeA3){.external target="_blank"}, and [eighth](https://posit.cloud/learn/recipes/visualize/VisualizeA3){.external target="_blank"} recipes under Visualize Data on Posit Cloud
+
+- Any questions on the reading / primer?
+
+    - You've gotten some experience running R code with visualization but now we need to dive into the fundamentals
+
+---
+
+## Agenda
+
+
+<!-- :::{.columns  style="display: flex; align-items: center; height=100%;"} -->
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Functions
+
+- Accessing Data
+
+- Vectors
+
+Full disclosure: 
+
+- These topics are extremely important
+
+- They will also seem boringly useless...
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: 2%"}
+![](img/bored.jpg)
+:::
+:::
+
+::::
+
+## Review - Coding Basics
+
+- We already know R can serve as a calculator
+
+```{r}
+#| eval: false
+#| echo: true
+
+7 + 3 * 5
+#> [1] 22
+
+```
+
+- We also know we can take data and <b>assign</b> it to the R essentials using the assignment operator `<-`
+
+```{r}
+#| eval: false
+#| echo: true
+
+xx <- 7 + 3 * 5
+xx
+#> [1] 22 
+```
+
+- Finally, we write <b>comments</b> using `#` to tell others about our code
+```{r}
+#| eval: false
+#| echo: true
+
+#I assigned a value to xx
+xx <- 7 + 3 * 5
+```
+
+
+
+## Review - The R Essentials Short List
+
+We're already touched on the "nouns" and "verbs" as the R Essentials
+
+. . . 
+
+- The nouns are <b>objects</b> which store some sort of data or information
+
+    -   These are the vectors, data frames, and lists
+    
+    -   But most R processes make objects e.g. your plots from last time were also objects
+    
+. . .
+
+- The verbs are <b>functions</b> which do work on objects using arguments
+
+```{r}
+#| eval: false
+#| echo: true
+
+function_name(argument1 = value1, argument2 = value2, ...)
+
+```
+
+- Let's dive a bit deeper into functions
+
+
+
+# Functions
+
+---
+
+## Functions - A Basic Example
+
+Broadly, a function starts with <b>inputs</b>, applies a <b>process</b>, and finally returns one or more outputs
+
+- Functions are everywhere and not just in programming, for example...
+
+    + inputs: eggs, chocolate chips, flour, sugar, butter
+    
+    + process: preheat oven, mix ingredients, bake, let cool
+    
+    + outputs: delicious chocolate chip cookies
+    
+It's worth mentioning an <b>algorithm</b> is the high-level "recipe" (a procedural series of steps) while the function is the actual implementation, whether in code or otherwise
+    
+---
+
+## Functions - Functions in R
+
+In R, the function output is usually assigned to a new variable
+
+```{r}
+#| eval: false
+#| echo: true
+
+cookie_batch <- make_cookies(batch_size = 12)
+
+```
+
+- Working with our R Essentials list:
+    - `make_cookies()` is the function
+    - `batch_size` is the (only listed) argument
+    - `12` is the value we provide for the `batch_size` argument
+    - `cookie_batch` is the object which we assign the output 
+    
+        from `make_cookies()` to
+    
+## Functions - Functions in R
+
+In R, the function output is usually assigned to a new variable
+
+```{r}
+#| eval: false
+#| echo: true
+
+cookie_batch <- make_cookies(batch_size = 12)
+
+```
+
+- A command like this creates a new object in the global environment that can now be accessed using subsequent commands
+
+```{r}
+#| eval: false
+#| echo: true
+
+full_chad <- shove_food_in_face(to = chad, what = cookie_batch)
+```
+
+- Rather than create `full_chad` we can also modify the original `chad`
+
+```{r}
+#| eval: false
+#| echo: true
+#| 
+chad <- shove_food_in_face(to = chad, what = cookie_batch)
+```
+
+- Note, both the `to` argument and output of `shove_food_in_face()` operate on `chad`
+
+
+---
+
+## Functions - Working with Arguments
+
+- Arguments are the parameters we pass to a function and all arguments must be specified
+
+- However, many arguments have <b>default</b> values
+
+    - These values are used when a value is not specified
+    
+    - However, they can be changed if desired when calling the function
+    
+- Arguments without default values <b>MUST</b> be specified
+
+- Finally, all argument values that are specified must* exist in the global environment when the function is called
+
+
+---
+
+## Functions - Winning the Argument
+
+- Let's look at the help page for `mean()` and check the default method
+
+![](img/mean_help.png){fig-align="center"}
+
+- We see `x` does not have defaults but `trim` and `na.rm` do
+
+
+---
+
+## Functions - Winning the argument
+
+- So `x` must be specified and must exist otherwise we get an errors
+
+```{r}
+#| eval: true
+#| echo: true
+#| error: true
+
+#Specify a vector
+xx <- c(1,2,3,4,5)
+
+#Get the mean
+mean(xx)
+
+#But if we don't specify a value for x we get an error
+mean()
+
+#Furthermore, it must exist
+mean(yy)
+
+
+```
+
+---
+
+## Functions - Winning the argument
+
+- You don't have to specify defaults but you can modify them
+
+```{r}
+#| eval: true
+#| echo: true
+#| error: true
+
+#Specify a vector with an NA
+xx <- c(1,2,3,4,5,NA)
+
+#By default, na.rm is set to false so NA is returned
+mean(xx)
+
+#But we can modify na.rm to TRUE to drop NA's from x
+mean(xx, na.rm = TRUE)
+
+
+```
+
+- When reading the help menu for a function, be sure to check the arguments to see what they do and which ones have defaults you may (or may not) want to modify
+
+
+---
+
+## Functions - Back to the Environment
+
+- We previously discussed <b>environments</b> as the container where things created in R are "stored"
+
+:::{.columns}
+
+:::{.column}
+
+- The current local session / workspace is the <b>global environment</b> where objects we create are stored by default
+
+
+- But we also talked about "scoping" which dictates how we access the R essentials we make
+
+:::
+
+:::{.column}
+
+RStudio's Environment Pane
+![](img/env_tab.png){fig-align="center"}
+
+:::
+
+:::
+
+## Functions - Scoping and Local Environments
+
+- Our workspace is the `global environment` so when we make an assignment this is where things usually get accessed
+
+
+```{r}
+#| echo: true
+
+x <- 1:5
+```
+
+- But dataframes and lists also create their own internal environments
+
+```{r}
+#| echo: true
+
+df <- tibble(x = c('a','b','c','d','e'))
+```
+
+- Importantly, we now have two `x`'s
+
+:::{style="margin-top: -2%"}
+
+1) The vector of numbers in our global environment
+
+2) The variable/column of letters which exists inside the `df` tibble
+
+:::
+
+
+
+
+## Functions - Scoping and Local Environments
+
+- Getting to the vector `x` is easy, it exists in the global environment
+
+:::{style="margin-top: -2%"}
+
+```{r}
+#| echo: true
+
+x
+```
+
+:::
+
+:::{style="margin-top: 2%"}
+
+:::::{.columns}
+
+::::{.column width="33%"}
+
+- But what about the variable inside of `df`?
+
+    It exists <i>within</i> `df` but the tibble is what's inside the global environment
+
+::::
+
+::::{.column width=33%}
+
+
+```{r}
+#| echo: true
+
+df
+```
+
+So how do we access the `x` in `df`?
+
+::::
+
+::::{.column width="33%"}
+
+
+![](img/lost.jpeg)
+
+::::
+
+:::::
+
+:::
+
+
+
+
+# Accessing Data
+
+---
+
+## Accessing Data - Tibbles and Data Frames
+
+Let's build on `df` and call it `dummy_data`
+
+```{r}
+#| label: dataframe_access_0
+#| include: false
+
+dummy_data <- tibble(char_var = c("A", "B", "C", "D", "E"),
+                     num_var = c(1, 2, 3, 4, 5))
+```
+
+```{r}
+#| label: dataframe_access_1
+#| echo: true
+#| output: true
+
+
+dummy_data <- tibble(char_var = c("A", "B", "C", "D", "E"),
+                     num_var = c(1, 2, 3, 4, 5))
+dummy_data
+```
+
+- So `dummy_data` exists in the _global_ environment while `char_var` and `num_var` exist in `dummy_data`'s _local_ environment
+
+
+## Accessing Data - Accessing by Position
+
+- As mentioned previously, all data frames and tibbles are rectangular using rows and columns with well defined positions
+
+- In R, we can access data with elements in well defined positions by using bracket notation `[]`; this is <b>indexing</b>
+
+- In the case of rectangular data sets, a value by the i^th^ row and j^th^ column position using square brackets `dummy_data[i,j]`
+
+```{r}
+#| label: dataframe_access_2
+#| eval: false
+#| echo: true
+#Getting the value at the 2nd row and 1st column
+dummy_data[2,1]
+
+#> "A"
+```
+
+## Accessing Data - Accessing by Position
+
+- We can also extract entire i^th^ row (whole observations) or a set of rows by leaving the column index blank
+
+:::{style="margin-top: -2%"}
+
+```{r}
+#| label: dataframe_access_3
+#| eval: false
+#| echo: true
+#| code-line-numbers: 1-6|7-14
+#Getting the entire third observation
+dummy_data[3,]
+#> # A tibble: 1 × 2
+#>   Char_var Num_var
+#>   <chr>      <dbl>
+#> 1 C              3
+
+#Getting the 3rd and 5th observations 
+dummy_data[c(3,5),]
+#> # A tibble: 2 × 2
+#>   Num_var Char_var
+#> <chr>      <dbl>
+#> 1 C              3
+#> 2 E              5
+```
+
+:::
+
+. . .
+
+-   Columns (whole sets of variable values) can be accessed similarly but...
+
+
+
+## Accessing Data - Accessing Variables
+
+-   Data frames can also have an individual column accessed by the column/variable name
+
+-   You'll frequently see this using the `$` operator
+
+```{r}
+#| label: dataframe_access_4
+#| eval: false
+#| echo: true
+#Pulling num_var using a $
+dummy_data$num_var
+
+#> [1] 1 2 3 4 5
+```
+
+. . .
+
+-   Double brackets `[[]]` can also pass the column name as a character
+
+```{r}
+#| label: dataframe_access_5
+#| eval: false
+#| echo: true
+#Getting char_var as a string
+dummy_data[["char_var"]]
+
+#> [1] "A" "B" "C" "D" "E"
+```
+
+## Use Caution When Accessing Data Frame Variables
+
+:::{.callout-important}
+When using `$` or `[[]]` to access a data frame or tibble variable, you get back a vector _NOT_ a data frame
+:::
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: 1-2|4-5|7-8
+
+is.data.frame(dummy_data$num_var)
+#> FALSE
+
+is.vector(dummy_data$num_var)
+#> TRUE  
+
+class(dummy_data$num_var)
+#> [1] "numeric"
+```
+
+. . .
+
+- The object <b>class</b> matter a lot as we'll be discussing soon with vectors
+
+  
+## Accessing Data - Scoping in the `tidyverse`
+  
+  
+- The `tidyverse` has its own ways of accessing column variables called __tidy evaluation__
+
+- Functions in the `tidyverse` try to behave consistently and intuitively by letting you work with variable names directly and returning outputs similar to your inputs (e.g. get a tibble when you operate on a tibble)
+
+- We'll see this in action next time when we start to work with functions in the `dplyr` package, for example
+
+```{r}
+#| eval: false
+#| echo: true
+dplyr::select(dummy_data, num_var)
+```
+
+
+
+# Vectors
+
+---
+
+## Vectors - The Basics
+
+- Although we mainly deal in data frames, the <b>vector</b> is the garden variety R object
+
+- We make vectors using the `c()` command which means <b>combine</b>, <b> concatonate</b>, or <b>coerce</b>
+
+- Any given vector will always be the same "type" of data, or class
+
+    e.g. we saw `num_var` in `dummy_data` was the "numeric" class
+
+```{r}
+#| echo: true
+
+class(dummy_data$num_var)
+
+```
+
+- Data frames are just a set of equal length vectors as columns, each with their own class
+
+
+
+## Vectors - Back to Class
+
+- Some of the most common data classes include:
+
+    |Class      |Examples
+    |-----------|-----------------------------------|
+    |logical    |TRUE, FALSE                        |
+    |integer    |1, 357, -25, 0, etc                |
+    |numeric    |6, 1.24, 5.00001, `pi`, etc        |
+    |character  |"a", "words with spaces", "1", etc |
+    |date       |2024-06-15                         |
+    
+    
+## Vectors - Back to Class
+
+- We can create either atomic vectors in the global environment or as part of a data frame using `c()`
+
+```{r}
+#| echo: true
+#| code-line-numbers: 1-5|7-9
+
+# Atomic vector examples -- # full name - abbreviation
+lgl_var <- c(TRUE, FALSE)   # logical   = lgl
+int_var <- c(1L, 6L, 10L)   # integer   = int
+dbl_var <- c(1, 2.5, 4.5)   # double    = dbl
+chr_var <- c("a", "b", "c") # character = chr
+
+#We also use c() when adding a vector to a dataframe
+df <- data.frame(xx = c(1,2,3),
+                 yy = c("a","b","c"))
+```
+
+
+
+## Vectors - Logicals
+
+- Logical values must be either `TRUE` or `FALSE` although they have convenient properties
+
+- `TRUE` is equivalent to `1` and `FALSE` is `0`
+
+:::{style="margin-top: -2%"}
+
+```{r}
+#| echo: true
+TRUE + TRUE
+```
+
+:::
+
+- But R can evaluate logicals with some convenient operators
+
+    |           |           |           |
+    |:---------:|:---------:|:---------:|
+    | `&` - AND | `|` - OR  | `!` - NOT |
+
+- We'll see these come up a lot along with the <b>equality</b> operator `==`
+
+
+## Vectors - Logical Sets 
+
+![](img/transform-logical.png){fig-align="center"}
+
+
+---
+
+## Vectors - Logical AND
+
+```{r}
+#| echo: true
+
+x <- TRUE; y <- FALSE
+
+# Both are true
+x & y
+
+```
+
+![](img/transform-logical.png){fig-align="center"}
+
+---
+
+## Vectors - Logical OR
+
+```{r}
+#| echo: true
+
+x <- TRUE; y <- FALSE
+
+# Either is true
+x | y
+
+```
+
+
+![](img/transform-logical.png){fig-align="center"}
+
+
+
+## Vectors - Logical XOR
+
+```{r}
+#| echo: true
+
+x <- TRUE; y <- FALSE
+
+# Exactly one is true
+xor(x, y)
+
+```
+
+- You'll get lots of practice using these BOO-lean operators
+
+:::{style="margin-top: -2%"}
+
+![](img/boolean.jpeg){fig-align="center"}
+:::
+
+
+
+
+---
+
+## Vectors - Integer and Double Vectors
+
+- These two types are collectively called `numeric` vectors; `double` means "double precision" and is important for programming
+
+- When you attempt to combine different data types into a single vector R will attempt to coerce a vector to its most generalizable class
+
+```{r}
+#| echo: true
+
+#Make a vector with logicals, integers (2L), and doubles
+vec <- c(TRUE, FALSE, 2L, pi)
+
+#This gives a numeric vector
+class(vec)
+```
+
+- All logicals are integers and all integers are numerics but not vice versa
+
+---
+
+## Vectors - Characters and Strings
+
+- Character values in R represent strings and are the most general class
+
+- All characters are surrounded by quotes, either double `"` (`"hi"`) or single `'` (`'bye'`)
+
+- Best practice recommends using `"` to create strings and then using `'` if you have a quote inside of the string
+
+```{r}
+#| echo: true
+
+string1 <- "a string"
+string1
+
+```
+
+
+```{r}
+#| echo: true
+
+string2 <- "a 'string' value"
+string2
+
+```
+
+---
+
+## Vectors - Dates
+
+- We'll discuss these in depth later with the `lubridate` package
+
+- Calendar and time math is tricky, for now it's enough to know these special classes exist
+
+```{r}
+#| echo: true
+
+#Get today's date
+today <- Sys.Date()
+today
+```
+
+```{r}
+#| echo: true
+
+#Get today's class
+class(today)
+```
+
+```{r}
+#| echo: true
+
+#Today's date as a "POSIX"
+as.POSIXct(today)
+```
+
+
+
+## Vectors - Indexing
+
+- Just like data frames, vectors can be indexed using square brackets `[]`
+
+```{r}
+#| echo: TRUE
+#| eval: true
+
+#Make a vector
+x <- c(0, 5, 10)
+
+#Then get the first value
+x[1]
+```
+
+- To get more than one value, index a vector by another vector
+
+```{r}
+#| echo: true
+#| eval: true
+
+#Get the 2nd and 3rd values
+x[c(2,3)]
+```
+
+## Vectors - Indexing
+
+- You can even index by an object that's had a vector assigned to it
+
+```{r}
+#| echo: true
+#| eval: true
+
+#Make a new vector y
+y <- c(2,3)
+
+#Use y to get the 2nd and 3rd values
+x[y]
+```
+
+- This is exceptionally powerful in programming
+
+---
+
+## Vectors - Indexing with Logicals
+
+- Logical values can also be used to subset vectors
+
+```{r}
+#| echo: true
+#| eval: true
+
+#This is the same as x[1]
+x[c(TRUE, FALSE, FALSE)]
+
+#This is equivalent to x[c(2,3)]
+x[c(FALSE, TRUE, TRUE)]
+```
+
+:::{.callout-important}
+These boolean vectors need to be the same length as the vector you're subsetting
+:::
+
+---
+
+## Vectors - Indexing with Logicals
+
+Since logicals can subset vectors we can do some clever subsetting
+
+```{r}
+#| echo: true
+
+#First, see which values are less than 6
+x < 6
+
+#Since this is a logical vector, we can use it to index x
+#i.e. return all values of x < 6
+x[x < 6] 
+
+#As always, we can also assign the boolean vector to an object
+y <- (x >= 5)
+#Now y will return all values of x >= 5
+x[y]
+```
+
+- We'll see this in action when we isolate data frames next time as well
+
+---
+
+## Vectors - Summarizing Functions
+
+- `mean()`, `median()`, `min()`, `max()`, `sum()`,  and `table()` are all useful summary functions for vectors
+
+- `mean` and `sum` in particular can be useful for computing proportions and counts of `TRUE` conditions, for example:
+
+```{r}
+#| echo: true
+
+#The number of x values greater than 0
+sum(x > 0)
+
+#The proportion of x values greater than 0
+mean(x > 0)
+
+```
+
+---
+
+## Next Time
+
+- How to use these programming fundamentals to manipulate data frames
+
+- Working with the `dplyr` package for isolation to <b>filter</b> rows and <b>select</b> columns
+
+- Making new variables with `mutate()` and building a workflow with pipes `|>`
+
+- Be familiar with [chapter 4](https://r4ds.hadley.nz/data-transform){.external target="_blank"} in R4DS
+
+
+
+

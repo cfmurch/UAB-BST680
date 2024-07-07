@@ -1,0 +1,806 @@
+---
+title: "Transforming data with `dplyr`"
+subtitle: "Working with Factors"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: false
+
+library(dplyr)
+library(ggplot2)
+library(readr)
+
+nhanes <- read_rds('data/NHANES_analysis_post_exclusions.rds') |> 
+  select(seqn, exam, age, sex, race_ethnicity, education, 
+    starts_with('bp'), acr_mgg, starts_with('chol')) |> 
+  mutate(bp_high_aware = as.numeric(bp_high_aware == 'Yes'))
+
+
+```
+
+
+
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Brief Review
+
+- Transformations with `dplyr`
+
+- Factors in R
+
+- Groups and Summarization
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/data_clean.png){fig-align="center"}
+:::
+:::
+
+::::
+
+
+## Brief Review - Workflows with the Pipe
+
+- Consider the following sequence of actions 
+
+    1. Find key
+    2. Unlock car 
+    3. Start car 
+    4. Drive to school 
+    5. Park
+    
+## Brief Review - Workflows with the Pipe
+
+- Expressed as a set of nested functions in R:
+
+```{r}
+#| eval: false
+
+park(drive(start_car(find("keys")), to = "campus"))
+```
+
+- Writing it out using pipes gives a human intuitive structure:
+
+```{r}
+#| eval: false
+
+find("keys") |>
+  start_car() |>
+  drive(to = "campus") |>
+  park()
+```
+
+:::{.callout-tip}
+
+Write data for computers but write code for humans
+
+:::
+
+---
+
+## Brief Review - Piping to Other Arguments
+
+- To send results to a function argument other than first one or to use the previous result for multiple arguments use `_`
+
+```{r} 
+#| code-line-numbers: 3-3
+
+nhanes |>
+  filter(sex == "Female") |>
+  lm(bp_sys_mmhg ~ age, data = _) #<<
+```
+
+## Brief Review - Piping to Other Arguments
+
+- If using `%>%` from `magrittr`, you use `.`
+
+```{r}
+#| fig-height: 1.8 
+#| fig-width: 3.75
+#| code-line-numbers: 3-3
+
+nhanes %>%
+  filter(sex == "Female") %>%
+  lm(bp_sys_mmhg ~ age, data = .) #<<
+```
+
+- `.` can be passed to multiple arguments in the same function unlike `|>`
+
+- For more details on `magrittr`'s pipes check this [2021 blog](https://www.r-bloggers.com/2021/09/the-four-pipes-of-magrittr/){.external target="_blank"} and this [post by Hadley](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/){.external target="_blank"} comparing `|>` and `%>%`
+
+
+
+## Brief Review - Last Time on `dplyr`
+
+![](img/dplyr_func.png){fig-align="center"}
+
+
+## Brief Review - Last Time on `dplyr`
+
+- First was <b>isolation</b> to focus on data of interest
+
+    - `filter()` keeps rows that match specified conditions by resolving the variable to a logical vector 
+
+    - `select()` extracts columns from a data set like `$` but more consistent and verstatile (i.e. better)
+
+    - `arrange()` will sort a data frame row-wise by a specified column / variable; can wrap the variable in `desc()` for descending order
+
+    - `slice()` and its relatives index rows by location; like `[]` but better
+
+- Other `dplyr` utility includes <b>transformation</b> and <b>summarization</b>
+
+
+
+# Transforming Data
+
+---
+
+## Transformation - NHANES Data
+
+With [NHANES](https://wwwn.cdc.gov/nchs/nhanes/Default.aspx){.external target="_blank"}, today we have the full set of `r nrow(nhanes)` observations
+
+
+```{r}
+#| class-output: "custom-height"
+
+glimpse(nhanes, width = 60)
+```
+
+---
+
+## Transformation - `dplyr`'s rules {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"} 
+
+- `dplyr` has the usual `tidyverse` conventions
+
+    1. First argument is _always_ a data frame
+
+    2. Subsequent arguments say what to do with that data frame
+
+    3. _Always_ return a data frame
+
+. . .
+
+- It also follows standard R conventions (unlike some other packages)
+
+    4. Doesntn't modify in place i.e. makes copies when assigning
+
+    5. Conducts lazy evaluation i.e. objects are only evaluated when called
+
+---
+
+## Transformation - More of `dplyr`'s Functions {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+:::{style="line-height: 85%"}
+
+A non-comprehensive list of `dplyr`'s single-table functions
+
+- `select`, `rename`: select / rename specific columns by name
+- `pull`: extract a data frame column as a vector
+- `filter`: pick rows matching criteria
+- `slice`: pick rows using location indexing
+- `arrange`: reorder rows by variables
+- `mutate`: add new variables based on existing variables
+- `summarise`: reduce variables to aggregate measures
+- `count`: special case of `summarise` that computes frequencies.
+- [Many more!](https://dplyr.tidyverse.org/reference/index.html){.external target="_blank"}
+
+:::
+
+---
+
+## Transformation - Using `mutate()` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- `mutate()` defines and inserts a new variable into a data frame<br>or tibble
+
+- The new variable is derived from columns that _already exist_ in the data frame via data masking
+
+- Other arguments control includes where the new variable is inserted
+
+- An important optional argument is `.by` which we'll discuss soon
+
+---
+
+## Transformation - `mutate()` for Numerics {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- `mutate()` is useful for algebraic manipulation
+
+- For example, let's make LDL cholesterol from total and<br>HDL cholesterol
+
+```{r}
+
+nhanes <- 
+  nhanes |>
+    mutate(chol_ldl_mgdl = chol_total_mgdl - chol_hdl_mgdl,
+           .before = chol_total_mgdl
+    )
+
+```
+
+- Note the use of data masking
+
+
+## Transformation - _Always Check Your Work_
+
+```{r}
+#| class-output: "custom-height"
+
+glimpse(nhanes, width = 60)
+```
+
+---
+
+## Transformation - Conditional Variables {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- But what about non-numeric outputs e.g. these in NHANES
+
+1. `albuminuria`: 
+
+    + 'Yes' if ACR > 30 mg / g
+    
+    + 'No' otherwise.
+
+2. `bp_cat`:
+
+    + 'Normotensive' if SBP < 130 and DBP < 80 mm Hg
+
+    + 'Hypertension' if SBP is 130 to < 140 or DBP is 80 to < 90 mm Hg
+
+    + 'Uncontrolled' if SBP is > 140 or DBP is > 90 mm Hg
+
+---
+
+
+## Transformation - `mutate()` Conditionally {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+:::{style="margin-top: -2%"}
+
+- `mutate()` can also be used to create <b>conditional variables</b><br>where one state is for condition x and another is for condition y
+
+- Instead of numeric expressions, we can generate vectors of logicals which inform how the new variables are created
+
+- `dplyr` provides two main functions for making conditional changes driven by logical vectors
+
+    1. `if_else()` for variables with 2 categories where one condition evaluates to `TRUE` and the other evaluates to `FALSE`
+
+    2. `case_when()` for variables with >2 categories which is more flexible but more complex to code
+
+:::
+
+---
+
+## Transformation - `mutate()` with `if_else()` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- `albuminuria` using `if_else()`: 
+
+    + 'Yes' if ACR > 30 mg / g
+    
+    + 'No' otherwise.
+
+```{r}
+
+nhanes <- nhanes |> 
+  mutate(
+    albuminuria = if_else(
+      condition = acr_mgg > 30,
+      true = 'Yes', 
+      false = 'No'
+    )
+  )
+
+```
+
+- `if_else()` relies on the boolean vector from condition followed by the true and false results
+
+---
+
+## Transformation - _Always Check Your Work_
+
+
+::::{.columns}
+
+:::{.column}
+
+- Yes, this will slow you down in the short term
+
+- Yes, it is very much worth it.
+
+```{r}
+
+table(nhanes$albuminuria, nhanes$acr_mgg > 30)
+
+```
+
+:::
+
+:::{.column}
+
+![](img/doublecheck.jpg){fig-align="center"}
+
+:::
+
+::::
+---
+
+## Transformation - Using `case_when()` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- `bp_cat` using `case_when()`:
+
+    + 'Normotensive' if SBP < 130 and DBP < 80 mm Hg
+    
+    + 'Hypertension' if SBP is 130 to < 140 or DBP is 80 to < 90 mm Hg
+    
+    + 'Uncontrolled' if SBP is > 140 or DBP is > 90 mm Hg
+
+```{r}
+
+nhanes <- nhanes |> 
+  mutate(
+    bp_cat = case_when(
+      bp_sys_mmhg  < 130 & bp_dia_mmhg  < 80 ~ "Normotensive",
+      bp_sys_mmhg  < 140 & bp_dia_mmhg  < 90 ~ "Hypertension",
+      bp_sys_mmhg >= 140 | bp_dia_mmhg >= 90 ~ "Uncontrolled",
+      TRUE ~ NA_character_ # added for clarity
+    )
+  )
+
+```
+
+---
+
+## Transformation - _Always Check your Work!_
+
+- Get creative depending on what your output is
+
+```{r}
+ggplot(nhanes) + 
+  aes(x = bp_sys_mmhg, y = bp_dia_mmhg, col = bp_cat) + 
+  geom_point()
+```
+
+---
+
+## Transformation - Question
+
+- What kind of variables do you think `albuminura` and `bp_cat` are?
+
+. . .
+
+```{r}
+nhanes |> select(c(albuminuria, bp_cat))
+```
+
+- They're characters but we want them as <b>categorical</b> variables
+
+
+# Factors for Categorical Data
+
+---
+
+## Factors - Under the Hood in R 
+
+
+- Factors are how we store _true_ categorical information
+
+- Categorical variables have a fixed set of finite and pre-defined<br>values called <b>levels</b>
+
+
+
+```{r}
+
+fctr <- factor(
+  x = c(1, 2, 2, 3),
+  levels = c(1,2,3),
+  labels = c("A", "B", "C")
+)
+
+fctr
+
+```
+
+- But under the hood, R is really storing these as integers 1, 2, 3, etc.
+
+
+---
+
+## Factors - Their Behavior Can Be...Confusing
+
+
+::::{.columns}
+
+:::{.column width="55%"}
+
+```{r}
+#| error: true
+
+#Make a factor
+x1 <- factor(c("Dec", "Apr", "May", "Jan"))
+x1
+
+#Now sort it
+sort(x1)
+
+#Now let's add "Mar" to it
+c(x1, "Mar")
+
+#Instead lets replace May with Mar
+x1[3] <- "Mar"
+x1
+```
+
+:::
+
+:::{.column width="45%"}
+
+:::{.fragment}
+
+```{r}
+#| echo: false
+#| fig-align: "center"
+#| out-width: "75%"
+
+knitr::include_graphics('img/skeptic.png')
+
+```
+
+:::
+
+:::
+
+::::
+
+---
+
+## Factors - When to Convert to a Factor
+
+- Convert character/numeric vectors to factors if: 
+
+    1. You want to impose an ordering that is not alphabetical
+
+```{r}
+
+count(nhanes, bp_cat)
+
+```
+
+---
+
+## Factors - When to Convert to a Factor
+
+- Convert character/numeric vectors to factors if: 
+
+    1. You want to impose an ordering that is not alphabetical
+
+```{r}
+
+nhanes <- nhanes |> 
+  mutate(
+    bp_cat = factor(
+      x = bp_cat, 
+      levels = c('Normotensive', 'Hypertension', 'Uncontrolled')
+    )
+  )
+
+count(nhanes, bp_cat)
+
+```
+
+---
+
+## Factors - When to Convert to a Factor
+
+- Convert character/numeric vectors to factors if: 
+
+    2. You have a numeric variable that should be categorical or groups
+
+```{r}
+
+count(nhanes, bp_high_aware)
+
+```
+
+---
+
+## Factors - When to Convert to a Factor
+
+- Convert character/numeric vectors to factors if: 
+
+    2. You have a numeric variable that should be categorical or groups
+
+```{r}
+
+nhanes <- nhanes |> 
+  mutate(
+    bp_high_aware = factor(
+      x = bp_high_aware, 
+      levels = c(0, 1),
+      labels = c("No", "Yes")
+    )
+  )
+
+count(nhanes, bp_high_aware)
+
+```
+
+---
+
+## Factors - Additional Utility with `forcats` {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- Base R has very few functions to meaningfully engage with<br>factors, instead we'll use the `forcats` package
+
+- Nearly every function begins with `fct_`
+
+- Much of the confusing factor behavior with factors we discussed can be avoided by using `forcats`
+
+## Factors - Relevel Factors {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- Relevel factors (change their order) with `fct_relevel`
+
+```{r}
+
+library(forcats)
+
+nhanes |> 
+  mutate(
+    bp_cat = fct_relevel(
+      bp_cat, 'Uncontrolled', 'Hypertension'
+    )
+  ) |> 
+  count(bp_cat)
+
+```
+
+- `fct_reorder()` uses numeric/variable reordering e.g. by frequency
+
+---
+
+
+## Factors - Coding NA to its Own Level {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- `fct_na_value_to_level()` sets factors with missing values (i.e. `NA`) levels to their own category
+
+```{r}
+
+count(nhanes, education)
+
+```
+
+--- 
+
+## Factors - Coding NA to its Own Level {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+:::{style="width: 80%"}
+
+```{r}
+
+
+nhanes <- nhanes |> 
+  mutate(
+    education = fct_na_value_to_level(
+      f = education,
+      level = 'Missing' 
+    )
+  )
+
+count(nhanes, education)
+
+```
+
+:::
+
+- Can do the reverse and convert levels to `NA` with `fct_na_level_value()`
+
+---
+
+## Factors - Add Additional Levels {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- Add levels to a factor with `fct_expand()`
+
+```{r}
+
+nhanes <- nhanes |>
+  mutate(
+    education = fct_expand(
+      f = education,
+      "Graduate Degree"
+    )
+  )
+
+count(nhanes, education, .drop = FALSE)
+
+```
+
+## Factors - Dropping Unused Levels {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- Drop unused levels with `fct_drop()`
+
+```{r}
+
+nhanes <- nhanes |>
+  mutate(
+    education = fct_drop(
+      f = education
+    )
+  )
+
+count(nhanes, education, .drop = FALSE)
+
+```
+
+---
+
+## Factors - Collaps Levels Together  {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- Collapse factors (lump categories) with `fct_collapse()` 
+
+```{r}
+
+nhanes |> 
+  mutate(
+    bp_cat = fct_collapse(
+      bp_cat, 
+      "Hypertensive" = c("Hypertension", "Uncontrolled")
+    )
+  ) |> 
+  count(bp_cat)
+
+```
+
+- `fct_recode()` is a more explicit but more powerful recoding tool
+
+---
+
+## Factors - Collaps Levels Together  {background-image="img/hex-forcats.png" background-size="10%" background-position="95% 5%"}
+
+- Explicitly recode levels manually with `fct_recode()`
+
+```{r}
+
+nhanes |> 
+  mutate(
+    education = fct_recode(
+      education,
+      # new level = old level
+      'less_than_hs' = 'Less than high school',
+      'hs_some_college' = 'High school/some college',
+      'college_grad' = 'College graduate'        
+    )
+  ) |> 
+  count(education)
+
+```
+
+
+# Summarization and Groups
+
+## Summarization - Aggregation with `dplyr`  {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- In `dplyr` you can use `summarise()` to summarize your data
+
+- As expected, using `summarise()` on a data frame returns a data frame
+
+```{r}
+nhanes |>
+  summarise(
+    mean_sbp = mean(bp_sys_mmhg),
+    mean_dbp = mean(bp_dia_mmhg),
+    prevalence_alb = mean(albuminuria == 'Yes', na.rm = TRUE)
+  )
+  
+```
+
+- Other aggregations like `sum()`, `count()`, `n()`, etc work as well
+
+---
+
+## Summarization - Using `.by` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- A very powerful argument is `.by` which lets you select columns to group by for the summarise operations
+
+```{r}
+nhanes |>
+  summarise(
+    mean_sbp = mean(bp_sys_mmhg),
+    prevalence_alb = mean(albuminuria == 'Yes', na.rm = TRUE),
+    .by = sex)
+  
+```
+
+---
+
+## Grouping - Using `group_by()` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- The `group_by()` function gives the same functionality 
+
+```{r}
+#| code-line-numbers: 2-2
+
+nhanes |>
+  group_by(sex) |> 
+  summarise(mean_sbp = mean(bp_sys_mmhg),
+    prevalence_alb = mean(albuminuria == 'Yes', na.rm = TRUE))
+  
+```
+
+- Both `mutate()` and `summarise()` honor groups; `mutate()` on groups is useful when applying values such as the `first()` observation or summary measures
+
+
+## Grouping - Using `group_by()` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- `group_by()` can accept multiple variables for functions applied to categorical combinations 
+
+```{r}
+#| code-line-numbers: 2-2
+
+nhanes |>
+  group_by(sex, education) |> 
+  summarise(mean_sbp = mean(bp_sys_mmhg),
+    prevalence_alb = mean(albuminuria == 'Yes', na.rm = TRUE))
+  
+```
+
+---
+
+## Grouping - Using `ungroup()` {background-image="img/dplyr.svg" background-size="10%" background-position="95% 5%"}
+
+- Note, `sex` was still applied as a group to the NHANES summary
+
+- A grouped data frame or tibble is structurally the same as an ungrouped, the distinction is how downstream functions are applied
+
+- `group_by()` "unwraps" as functions are applied to the grouped data frame, eventually returning you to your original ungrouped dataframe
+
+- When using nested grouping, you may need to use `ungroup()` to get back to your original data frame or tibble
+
+- Always check your work!!
+
+
+---
+
+## Learning More
+
+- As always, cheatsheets available on the tidyverse website(https://rstudio.cloud/learn/cheat-sheets){.external target="_blank"}
+
+- Package websites:
+
+    + `dplyr`: https://dplyr.tidyverse.org/index.html
+    
+    + forcats: https://forcats.tidyverse.org/
+
+- `dplyr` has MANY functions we didn't discuss that can be very useful for isolation, transformation, and summarization

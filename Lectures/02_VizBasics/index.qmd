@@ -1,0 +1,690 @@
+---
+title: "Basics of Data Visualization"
+subtitle: "Introduction to ggplot2"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| message: false
+#| warning: false
+
+
+library(dplyr)
+library(magick)
+library(ggplot2)
+
+```
+
+## Agenda
+
+-   Tips on getting help (`reprex`)
+
+-   Data frames 101
+
+-   Exploratory data analysis
+
+-   Data visualization using `ggplot2`
+
+-   Visualizing Star Wars
+
+-   Aesthetics
+
+-   Upcoming visualization topics
+
+# `reprex`
+
+------------------------------------------------------------------------
+
+## What is `reprex`?
+
+`reprex` stands for __reproducible example__; The `reprex` [R package](https://reprex.tidyverse.org/){.external target="_blank"} helps create reproducible examples for posts on GitHub, StackOverflow, etc.
+
+. . .
+
+::: columns
+::: {.column width="60%"}
+When seeking help for a programming problem...
+
+-   break the problem down to its essential components
+
+-   keep the code minimal, not overwhelming
+
+-   describe issues concisely but clearly
+:::
+
+::: {.column .fragment width="40%"}
+![](img/reprex_meme.jpg){fig-align="center" width="60%"}
+:::
+:::
+
+::: footer
+For getting started check out the [`reprex` site](https://reprex.tidyverse.org/){.external target="_blank"} or the reprex_example in this project [Posit cloud](https://rstudio.cloud/spaces/15174/project/1048666)
+:::
+
+
+# Working With Data Frames 
+
+## Data Frames - The Basics
+
+-   Last time we talked about objects in R that store data
+
+. . .
+
+-   Most frequently we'll be working with **data frames**
+
+-   Some standard data frame properties in R:
+
+    -   Place [_variables in columns_]{style="color: red"}
+    -   Have [_observations as rows_]{style="color: red"}
+    -   Are [_rectangular_]{style="color: red"} such that...
+        -   all columns are equal length 
+        -   all rows are equal length
+        
+    
+## Data Frames - Some Definitions
+
+-   A __variable__ is some sort of quality, quantity or property of the data
+
+-   Variables are comprised of __values__ which are specific instances or measures of a variable
+
+-   An __observation__ is a set of measurements under similar conditions, it can be thought of as a unique set of values specific to those conditions
+
+-   __Tabular data__ takes a set of values each associated with a variable and an observation and gives a rectangular structure
+
+-   The `tidyverse` calls this tabular data __tidy__ when each value is its own cell, each variable is its own column, each observation is its own row
+
+## Data Frames - Tidy Data Example
+
+![](img/tidy-1.png){fig-align="center"}
+
+:::{.callout-note}
+Tidy data <u>can</u> allow for missing values, you'll see these as `NA` or `<NA>`
+:::
+
+
+We'll talk about accessing this data next week
+
+
+
+# Exploratory Data Analysis<br>a.k.a. (EDA)
+
+------------------------------------------------------------------------
+
+## EDA - What is it?
+
+-   Procedures to initially investigate data by analyzing and focusing on its main characteristics
+
+. . .
+
+-   The easiest point of entry is visualization, our focus of today
+
+. . .
+
+-   Summarization is another method but that will come later since it involves:
+
+    -   data isolation (coming soon)
+
+    -   data transformation (after isolation)
+    
+    -   downstream data processing (after transformation)
+
+
+
+## EDA - What Collaborators Think it Does
+
+![](img/patterns.jpg){fig-align="center"}
+
+## EDA - What it _Actually_ Does
+
+EDA should always be your first pass at data analysis
+
+-   Gives a basic understanding of structure and organization
+
+-   Helps spot anomalies that are both real (outliers) or imaginary (errors)
+
+-   Checks basic assumptions that precede formal analysis
+
+-   Determine missingness of key variables
+
+-   It gets you familiar with your data which enhances communication
+
+Visualization is a great form of EDA
+
+
+# Data Visualization
+
+------------------------------------------------------------------------
+
+## Data Visualization
+
+::: {style="font-style:italic; text-align: center; font-family: Georgia"}
+"The simple graph has brought more information to the data analyst’s mind than any other device" — John Tukey"
+:::
+
+-   Data visualization is the creation and study of some sort of visual representation of data
+
+-   There are many tools for visualizing data, including R
+
+-   Within R there are many approaches/systems for making data visualizations, `ggplot2` will be our system of choice
+
+------------------------------------------------------------------------
+
+## About `ggplot2`
+
+-   `ggplot2` is the name of the package and gets loaded with a library call to gain access to its functions
+
+-   The `gg` in "`ggplot2`" stands for _Grammar of Graphics_
+
+-   Inspired by the book **Grammar of Graphics** by Leland Wilkinson
+
+-   `ggplot()` is the main backbone function in `ggplot2` i.e. it gives your blank plot canvas
+
+-   Graphic specification and customization is layered in using the plus operator (`+`) followed by supporting `ggplot2` functions
+
+
+## Getting Help with `ggplot2`
+
+![](img/ggplot2_logo.png){fig-align="center"}
+
+-   For help with `ggplot2`, see [<http://ggplot2.tidyverse.org/>]{.external target="_blank"}
+
+    -   A cheat sheet can be found right on the front page along with a reference guide
+    
+-   In R4DS this is covered in chapter 1 as an introduction followed by more in-depth customization in chapters 9 and 11
+
+
+------------------------------------------------------------------------
+
+## Data Visualization with `ggplot2`
+
+In its simplest form, code for `ggplot` has three basic components:
+
+::: {.incremental}
+1. A __data__ argument which indicates what dataset is being visualized
+
+2. An __aesthetics__ function using `aes()` which indicates how variables from the dataset are mapped to your plot
+
+    For example, you define what variables map to the x-axis and y-axis
+    
+3. One or more __geoms__ which define the geometrical objects that graphically represent the data
+:::
+. . .
+
+Afterwards, additional customizations can be added in as desired
+
+. . .
+
+Again, we add in additional customizations (or even extra geoms) using `+`
+
+
+## Data Visualization with `ggplot2` - The Code
+
+
+Altogether, this gives a basic code format that looks like this:
+
+. . .
+
+```{r}
+#| label: ggplot_basic_02
+#| eval: false
+#| echo: true
+#| code-line-numbers: 1-2|3-4|5-6|7-8
+#| 
+
+#Make a ggplot call and define your dataset
+ggplot(data = dataset) +
+  #Define your aesthetics mapping
+  aes(x = x_variable, y = y_variable) +
+  #Define your graphical primitivies aka the geoms
+  geom_xxx() +
+  #Add other ggplot2 functionality as needed
+  other_functions()
+
+```
+
+. . .
+
+::: {.callout-tip}
+The `aes()` portion is often placed inside `ggplot()` or `geom_xxx()` calls via the `mapping` argument
+```{r}
+#| label: ggplot_basic_03
+#| eval: false
+#| echo: true
+ggplot2(data = dataset, mapping = aes(x = x_variable, y = y_variable))
+```
+:::
+
+------------------------------------------------------------------------
+
+## Data Visualization in R4DS - Palmer Penguins
+
+```{r}
+penguins <- palmerpenguins::penguins
+```
+
+R4DS gives an example `ggplot2` build using Palmer Penguins
+
+```{r}
+#| label: palmer1
+#| echo: true
+#| output-location: column
+#| fig-width: 5.5
+#| fig-height: 4
+#ggplot() call only
+
+ggplot(
+  data = penguins
+  )
+```
+::: {style="text-align: center"}
+_1. Beginning with the "blank canvas" of the plot_
+:::
+
+## Data Visualization in R4DS - Palmer Penguins
+
+R4DS gives an example `ggplot2` build using Palmer Penguins
+
+```{r}
+#| label: palmer2
+#| echo: true
+#| output-location: column
+#| fig-width: 5.5
+#| fig-height: 4
+#Define aes() mapping
+
+ggplot(
+  data = penguins,
+  mapping = aes(
+    x = flipper_length_mm, 
+    y = body_mass_g)
+  )
+```
+::: {style="text-align: center"}
+_2. Adding in the aesthetics mapping for the x and y-axis_
+:::
+
+
+## Data Visualization in R4DS - Palmer Penguins
+
+R4DS gives an example `ggplot2` build using Palmer Penguins
+
+```{r}
+#| label: palmer3
+#| echo: true
+#| output-location: column
+#| fig-width: 5.5
+#| fig-height: 4
+#Add geom_point()
+
+ggplot(
+  data = penguins,
+  mapping = aes(
+    x = flipper_length_mm, 
+    y = body_mass_g)
+  ) +
+  geom_point()
+```
+::: {style="text-align: center"}
+_3. Finally defining points as the geometric objects to get a scatterplot_
+:::
+
+
+# Visualizing Star Wars
+
+------------------------------------------------------------------------
+
+## EDA on Star Wars
+
+-   Many packages have datasets readily available; you can check what's in base R with `data()`
+
+-   The `dplyr` package has one dataset on Star Wars characters
+
+-   Once we load `dplyr` we have he `starwars` tibble accessible in our environment
+
+![](img/starwars_font.png){fig-align="center"}
+
+## Star Wars - Begin by Looking at the Data
+
+:::{style="margin-bottom: -1%"}
+- `starwars` is a <b>tibble</b>, a special type of data frame that's tidy
+:::
+
+```{r}
+#| label: starwars_header
+#| echo: true
+#| eval: false
+ 
+#The object starwars is both a "data.frame" (data frame) and a "tbl" (tibble)
+class(starwars)
+#> [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+:::{style="margin-bottom: -1%"}
+-   Printing a tibble to the console gives expanded dataset information 
+:::
+
+```{r}
+print(starwars, n=5)
+```
+
+
+## Star Wars - What's in the Data Set?
+
+<br>
+
+![](img/star_font_2.png){fig-align="center" height=200}
+
+
+:::{style="text-align: center; font-size: 150%; margin-top:-2%"}
+_What does each row represent?_
+<br>
+<br>
+_What does each column represent?_
+:::
+------------------------------------------------------------------------
+
+## Star Wars - Luke Skywalker, Observation 1
+
+![](img/luke-skywalker.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+## Star Wars - Other Ways to Investigate
+
+- The `dplyr` package also has the `glimpse()` function 
+
+:::{style="display: flex; align-items: center; justify-content: center"}
+```{r}
+#| label: starwars_glimpse2
+glimpse(starwars)
+```
+:::
+
+------------------------------------------------------------------------
+
+## Star Wars - Other Ways to Investigate
+
+:::{.columns}
+
+:::{.column}
+Run `?starwars` **in the Console** to view the help documentation
+
+```{r}
+#| echo: true
+#| eval: false
+#| include: true
+
+#Check the help for the starwars object
+?starwars
+
+#Search help for the term "starwars"
+??"starwars"
+```
+
+**Question**: How many rows and columns does this dataset have?
+
+**Make a prediction**: What relationship do you expect to see between height and mass?
+
+:::
+
+:::{.column}
+
+![](img/star_help.png){fig-align="center" height=600}
+
+:::
+
+:::
+
+------------------------------------------------------------------------
+
+## Star Wars - Mass vs. Height
+
+
+```{r}
+#| label: starwars_basic_plot
+#| fig-width: 6
+#| fig-height: 3
+#| fig-align: center
+#| echo: true
+#| warning: true
+#| message: true
+
+ggplot(data = starwars) +
+  aes(x = height, y = mass) +
+  geom_point()
+```
+
+
+------------------------------------------------------------------------
+
+## Star Wars - What's that Warning?
+
+-   Not all characters have height and mass data, so 28 aren't plotted
+
+```{r}
+#| label: starwars_warn
+#| echo: true
+## Warning: Removed 28 rows containing missing values (geom_point).
+```
+
+```{r}
+print(starwars[is.na(starwars$height),], n=6)
+```
+
+:::{.callout-important}
+We'll suppress the warning to save room but take note `ggplot2` is telling you about missingness
+:::
+
+------------------------------------------------------------------------
+
+## Star Wars - Mass vs. Height - Data Anomalies
+
+- How would you describe this relationship?
+
+- Who is the not so tall but really chonky character?
+
+```{r}
+#| label: starwars_basic_plot_2
+#| fig-width: 6
+#| fig-height: 3
+#| fig-align: center
+#| warning: false
+#| echo: false
+
+ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+  geom_point() +
+  geom_point(data=starwars |> filter(mass > 1000), color = "red") +
+  geom_point(data=starwars |> filter(mass > 1000), shape = "circle open", size = 3, color = "red")
+```
+
+## Star Wars - Jabba the Plott
+
+```{r}
+#| label: jabba_the_plot_code
+#| echo: false  
+#| warning: false
+#| message: false
+#| include: false
+
+jabba <- image_read("img/jabba.png")
+
+#fig <- image_graph(width = 2400, height = 1200, res = 300)
+#ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
+# geom_point() + 
+#geom_point(data=starwars |> filter(mass > 1000), color = "red") +
+#  geom_point(data=starwars |> filter(mass > 1000), shape = "circle open", size = 3, color = "red") + 
+# annotate("text", x=198, y=1300, label="Oh lawd, he comin'!")
+#dev.off()
+
+#out <- fig |> image_composite(jabba, offset = "+1000+30")
+
+#image_write(out, "img/jabbaplot.png", format = "png")
+```
+
+
+
+```{r}
+#| label: jabba_the_plot
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/jabbaplot.png")
+```
+
+
+# Aesthetics
+
+------------------------------------------------------------------------
+
+## Aesthetics Options
+
+We've already seen aesthetics with x-axis and y-axis mapping
+
+Aesthetics are visual characteristics that can be __mapped__ to data to aid understanding
+
+These are geom specific, examples from `geom_point()`
+
+-   `color`
+
+-   `size`
+
+-   `shape`
+
+-   `alpha` (transparency)
+
+
+------------------------------------------------------------------------
+
+## Aesthetics - Adding Gender to Mass vs. Height
+
+```{r}
+#| label: starwars_gender
+#| fig-width: 7
+#| fig-height: 3.5
+#| warning: false
+
+starwars2 <- starwars
+starwars2$gender <- forcats::fct_expand(starwars2$gender, "Jabba!!")
+starwars2$gender[starwars2$name=="Jabba Desilijic Tiure"] <- "Jabba!!"
+
+ggplot(data = starwars2) + 
+  aes(x = height, y = mass, color = gender) +
+  geom_point() + 
+  scale_color_brewer(palette = "Dark2", na.value="grey")
+```
+
+
+## Aesthetics - Some Aesthetics of Other Geoms
+
+-   `geom_line()` also has "linetype" for solid or dashed lines
+
+-   `geom_bar()` uses "fill" for the body of the bar instead of "color"
+
+```{r}
+#| fig-align: center
+
+ggplot(data = starwars2) + 
+  aes(x = height, y = mass, fill = gender) +
+  geom_bar(stat="identity", position=position_dodge(), color=NA) + 
+  coord_cartesian(xlim=c(50,235), ylim=c(0, 250))
+
+```
+
+------------------------------------------------------------------------
+
+## Aesthetics - Mappings Are Data Type Dependent
+
+-   Categorical variables are measured (often counted) on a discrete scale
+
+```{r}
+#| label: discrete_aesthetics
+#| eval: true
+#| echo: false
+
+df <- tibble::tibble(
+  Aesthetics = c("color", "size", "shape"),
+  Discrete = c(
+    "different color for each category", 
+    "discrete steps in sizes", 
+    "different shapes for each category"
+  ),
+  Continuous = c(
+    "color gradient",
+    "linear mapping between radius and value",
+    "shouldn't (and doesn't) work"
+  )
+)
+
+
+
+gt::gt(df[, c(1,2)], rowname_col = 'Aesthetics') |> 
+  gt::tab_stubhead('Aesthetics') |> 
+  gt::cols_align('center') |> 
+  gt::tab_options(table.width = gt::pct(100))
+
+```
+
+-   Continuous variable are measured on a continuous scale
+
+```{r}
+#| label: continuous_aesthetics
+#| eval: true
+#| echo: false
+
+gt::gt(df[, c(1,3)], rowname_col = 'Aesthetics') |> 
+  gt::tab_stubhead('Aesthetics') |> 
+  gt::cols_align('center') |> 
+  gt::tab_options(table.width = gt::pct(100))
+
+```
+
+
+# Looking Ahead
+
+## Looking Ahead - Further Customization
+
+When we return to plotting in a couple of weeks we'll discuss:
+
+-   Plotting with other geoms for line charts, box plots, histograms / density plots, tile plots, and many more
+
+-   Advanced aesthetics and greater customization control
+
+-   Plotting summary values e.g. means and error bars
+
+-   Labelling and emphasizing datapoints of interest
+
+
+## Looking Ahead - Today's Exercise
+
+For the exercise today we'll be working with the `gapminder` dataset and adding in some additional concepts
+
+-   Multiple geoms - line of fit over scatterplots
+
+-   Working with x-axis and y-axis scales e.g. log transformations
+
+-   Labelling axis and titles
+
+This is also going to force you to start to work with the help menu, cheat sheets, and Posit Cloud recipes to start to answer your own questions
+
+_Rachel and I are here to help but also ask each other!_
+
+
+
+
+
+
+

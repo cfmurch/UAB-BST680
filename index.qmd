@@ -1,0 +1,10 @@
+---
+title: "BST680 2024"
+---
+
+This is the website for BST680 for 2024
+
+Navigation can be done from the navbar
+
+To download exercise .R and .qmd files, go to the [Downloads](downloads.qmd) section
+

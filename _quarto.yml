@@ -1,0 +1,81 @@
+project:
+  type: website
+
+website:
+  title: "BST680 2024"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+  sidebar:
+    style: "docked"
+    logo: "uab_logo.png"
+    search: true
+    contents:
+      - section: "Lecture HTML"
+        contents: 
+          - text: "01 - Introducing Your Tools"
+            href: "Lectures/01_Tools/index.qmd"
+            target: _blank 
+          - text: "02 - Visualization Basics"
+            href: "Lectures/02_VizBasics/index.qmd"
+            target: _blank 
+          - text: "03 - Programming Basics"
+            href: "Lectures/03_Programming/index.qmd"
+            target: _blank 
+          - text: "04 - Data Isolation"
+            href: "Lectures/04_Isolation/index.qmd"
+            target: _blank 
+          - text: "05 - Data Transformation"
+            href: "Lectures/05_Transform/index.qmd"
+            target: _blank
+      - section: "Lecture PDF"
+        contents:
+          - text: "01 - Introducing Your Tools"
+            href: "pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf"
+            target: _blank
+          - text: "02 - Visualization Basics"
+            href: "pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf"
+            target: _blank 
+          - text: "03 - Programming Basics"
+            href: "pdfs/BST680 - 2024 - 03 Programming Basics.pdf"
+            target: _blank 
+          - text: "04 - Data Isolation"
+            href: "pdfs/BST680 - 2024 - 04 dplyr Basics.pdf"
+            target: _blank 
+          - text: "05 - Data Transformation"
+            href: "pdfs/BST680 - 2024 - 05 Transforming Data.pdf"
+            target: _blank
+      - section: "Additional Info"
+        contents:
+          - text: "01a - Intro to Quarto and gt()"
+            href: "html_files/01_Intro/intro_to_Quarto.qmd"
+      - section: "Assignments"
+        contents: 
+          - text: "01 - Working with Tables"
+            href: "html_files/01_Intro/exercises.qmd" 
+          - text: "02 - Visualization Basics"
+            href: "html_files/02_Visual/exercises_start_here.qmd" 
+          - text: "03 - Programming Basics"
+            href: "html_files/03_Program/class_exercises.qmd" 
+          - text: "04 - Isolation with dplyr"
+            href: "html_files/04_Isolate/class_exercises.qmd" 
+          - text: "05 - Data Transformation"
+            
+      - section: "Downloads"
+        contents: 
+          - text: "Exercise Downloads"
+            href: "downloads.qmd"
+      
+            
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    link-external-newwindow: true
+
+
+
+

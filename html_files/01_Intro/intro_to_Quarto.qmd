@@ -1,0 +1,467 @@
+---
+title: "Introduction to Quarto and gt"
+author: "Chad Murchison"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+
+---
+
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| include: false
+
+# YAML is above
+knitr::opts_chunk$set(echo = TRUE)
+
+library(gt)
+library(tidyverse)
+
+data(iris)
+
+```
+
+<br>
+In this tutorial we'll discuss some basics of Quarto and the `gt()` vignette for tables
+
+# Quarto and RStudio
+
+This is a Quarto document which follows the Pandoc Markdown format
+
+Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents; for more details on using Quarto see <https://quarto.org/>
+
+As a literate document, When you click the __Render__ button, or use `Ctrl+Shift+K` on the keyboard, a document will be generated that includes both content as well as the output of any embedded R code chunks within the document
+
+For a more directed tutorial on getting started with Quarto in RStudio (or any other supported programming language) you can being at [Hello, Quarto](https://quarto.org/docs/get-started/hello/rstudio.html){.external target="_blank"}
+
+## The YAML
+
+Everything begins and ends with the YAML found at the top of this .qmd file
+
+In addition to specifying metadata related to the document (e.g. author), you can control several aspects of how the document is formatted
+
+We'll touch on the important ones but you can find brief descriptions on the various formatting options at the [Quarto Reference Page](https://quarto.org/docs/reference/){.external target="_blank"}
+
+```{r}
+#| label: YAML
+#| eval: false
+
+#The current contents of the YAML
+---
+title: "Introduction to Quarto and gt"
+author: "Chad Murchison"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+```
+
+## Markdown basics
+
+We can find a lot of details on the basics of Markdown that are used by Quarto at <https://quarto.org/docs/authoring/markdown-basics.html>, some of which we'll be discussing here
+
+### And example - Subsections
+
+The pound symbol lets you create new sections and subsections in your Quarto document. A single pound creates a new section, double pound creates a subsection, triple pound creates sub-subsection, and so on
+
+## Paged data
+
+Tables can easily be displayed, even with next to no modification on the R side
+
+The `df-print: paged` option is a wonderful option. It allows you to print data in an interactive way
+
+```{r}
+iris
+```
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+#| label: pressure
+#| echo: false
+#| message: true
+
+ggplot(iris) + 
+  aes(x = Petal.Length,  y = Petal.Width, col = Species) + 
+  geom_point(position = 'jitter')
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Themes
+
+Quarto includes 25 different themes from the [Boostwatch](https://bootswatch.com/){.external target="_blank"}
+
+A full list can be found on the Quarto Guide on [HTML Theming](https://quarto.org/docs/output-formats/html-themes.html){.external target="_blank"}
+
+Try replacing the word 'united' in the YAML header with some of these theme and find something you like 
+
+You will spend a lot of time staring at these documents, so it's worth investing some time to make them look nice
+
+
+## Code highlights
+
+The highlight arguemtn specifies the syntax highlighting style
+
+All standard Pandoc highlight themes are supported, along with several others; you can find a full list at <https://quarto.org/docs/output-formats/html-code.html#highlighting>
+
+Pass null to prevent syntax highlighting
+
+
+
+# Tabulate with `gt()`
+
+This is largely taken from the **gt** vignette found at <https://gt.rstudio.com/articles/gt.html> and adapted for Quarto
+
+The **gt** package is all about making it simple to produce nice-looking display tables. Display tables? Well yes, we are trying to distinguish between data tables (e.g., tibbles, `data.frame`s, etc.) and those tables you'd find in a web page, a journal article, or in a magazine. Such tables can likewise be called presentation tables, summary tables, or just tables really. 
+
+We can think of display tables as output only, where we'd not want to use them as input ever again. Other features include annotations, table element styling, and text transformations that serve to communicate the subject matter more clearly.
+
+## Basics of `gt`
+
+Let's use a less common dataset that is available in the R **datasets** package: `islands`. It's actually not a data frame but a named vector. That's okay though, the code below converts it into a tibble (we'll learn more about these later):
+
+```{r}
+
+# ctrl + alt + p will run all previous code.
+# ctrl + enter will run highlighted code
+
+# how pipes work: 
+# mean(x) is equivalent to x |> mean()
+
+islands_tbl <- tibble::enframe(islands, value = 'size') |>
+  dplyr::arrange(desc(size)) |>
+  dplyr::slice(1:10)
+
+# Display the table
+islands_tbl
+
+```
+
+Given that `islands_tbl` is a tibble, we now have a suitable input for **gt**. 
+
+The main entry point into the **gt** API is the `gt()` function. If we pass `islands_tbl` to the *function* `gt()`, we'll get a **gt Table** as output. As an aside, we could have easily used a data frame instead as valid **Table Data** for **gt**.
+
+```{r}
+#| label: simple_gt_table
+
+# Create a display table showing ten of
+# the largest islands in the world
+gt_tbl_1 <- gt::gt(data = islands_tbl)
+
+# Show the gt Table
+gt_tbl_1
+
+```
+
+That doesn't look too bad. Sure, it's basic but we really didn't really ask for much. We did receive a proper table with column labels and the data. Also, that default striping is a nice touch. Oftentimes however, you'll want a bit more: a **Table header**, a **Stub**, and sometimes *footnotes* and *source notes* in the **Table Footer** part.
+
+## Adding parts
+
+The **gt** package makes it relatively easy to add parts so that the resulting **gt Table** better conveys the information you want to present. These table parts work well together and there the possible variations in arrangement can handle most tabular presentation needs. The previous **gt Table** demonstrated had only two parts, the **Column Labels** and the **Table Body**. The next few examples will show all of the other table parts that are available.
+
+This is the way the main parts of a table (and their subparts) fit together:
+
+<p align="center"><img src="img/gt_parts_of_a_table.svg" width=100%></p>
+
+The parts (roughly from top to bottom) are:
+
+- the **Table Header** (optional; with a **title** and possibly a **subtitle**)
+- the **Stub** and the **Stub Head** (optional; contains *row labels*, optionally within *row groups* having *row group labels* and possibly *summary labels* when a summary is present)
+- the **Column Labels** (contains *column labels*, optionally under *spanner column labels*)
+- the **Table Body** (contains *columns* and *rows* of *cells*)
+- the **Table Footer** (optional; possibly with **footnotes** and **source notes**)
+
+The way that we add parts like the **Table Header** and *footnotes* in the **Table Footer** is to use the `tab_*()` family of functions. A **Table Header** is easy to add so let's see how the previous table looks with a **title** and a **subtitle**. We can add this part using the `tab_header()` function:
+
+```{r table_with_heading}
+#| label: table_with_heading
+
+# Make a display table with the `islands_tbl`
+# table; put a heading just above the column labels
+gt_tbl_2 <- gt::tab_header(
+  data = gt_tbl_1,
+  title = "Large Landmasses of the World",
+  subtitle = "The top ten largest are presented"
+)
+
+# Show the gt Table
+gt_tbl_2
+
+```
+
+The **Header** table part provides an opportunity to describe the data that's presented. The `subtitle`, which functions as a subtitle, is an optional part of the **Header**. We may also style the `title` and `subtitle` using Markdown! We do this by wrapping the values passed to `title` or `subtitle` with the `md()` function. Here is an example:
+
+```{r heading_w_markdown}
+#| label: heading_w_markdown
+
+# Use markdown for the heading's `title` and `subtitle` to
+# add bold and italicized characters
+
+gt_tbl_3 <- gt::tab_header(
+  data = gt_tbl_1,
+  title = md("__Large Landmasses of the World__"),
+  subtitle = md("The *top ten* largest are presented")
+)
+
+# Show the gt Table
+gt_tbl_3
+
+```
+
+A **source note** can be added to the table's **footer** through use of the `tab_source_note()` function. It works in the same way as `tab_header()` (it also allows for Markdown inputs) except it can be called multiple times---each invocation results in the addition of a source note.
+
+```{r}
+# Display the `islands_tbl` data with a heading and
+# two source notes
+
+gt_tbl_4 <- gt::tab_source_note(
+  data = gt_tbl_3,
+  source_note = "Source: The World Almanac and Book of Facts, 1975, page 406."
+)
+
+gt_tbl_5 <- gt::tab_source_note(
+  data = gt_tbl_4,
+  source_note = md("McNeil, D.R. (1977) _Interactive Data Analysis_. Wiley.")
+)
+
+# Show the gt Table
+gt_tbl_5
+```
+
+## The stub
+
+The **Stub** is the area to the left in a table that contains *row labels*, and may contain *row group labels*, and *summary labels*. Those subparts can be grouped in a sequence of *row groups*. The **Stub Head** provides a location for a label that describes the **Stub**. The **Stub** is optional since there are cases where a **Stub** wouldn't be useful (e.g., the display tables presented above were just fine without a **Stub**).
+
+An easy way to generate a **Stub** part is by specifying a stub column in the `gt()` function with the `rowname_col` argument. Alternatively, we can have an input dataset with a column named `rowname`---this magic column will signal to **gt** that that column should be used as the stub, making *row labels*. Let's add a stub with our `islands_tbl` dataset by modifying the call to `gt()`:
+
+```{r}
+# Create a gt table showing ten of the
+# largest islands in the world; this
+# time with a stub
+gt_tbl_1 <- gt::gt(islands_tbl, rowname_col = "name")
+
+# Show the gt Table
+gt_tbl_1
+```
+
+Notice that the landmass names are off the the left in an unstriped area? That's the **stub**. We can apply what's known as a **stubhead label**. This label can be added with the `tab_stubhead()` function:
+
+```{r}
+# Generate a simple table with a stub
+# and add a stubhead label
+gt_tbl_1 <- gt::tab_stubhead(data = gt_tbl_1, label = "landmass")
+
+# Show the gt Table
+gt_tbl_1
+```
+
+A very important thing to note here is that the table now has one column. Before, when there was no **stub**, two columns were present (with **column labels** `name` and `size`) but now column number `1` (the only column) is `size`.
+
+To apply our table parts as before (up to and including the footnotes) we use the following statements:
+
+```{r}
+# Display the `islands_tbl` data with a stub,
+# a heading, source notes, and footnotes
+
+# Make a display table with the `islands_tbl`
+# table; put a heading just above the column labels
+gt_tbl_2 <- gt::tab_header(
+  data = gt_tbl_1,
+  title = md("__Large Landmasses of the World__"),
+  subtitle = md("The _top ten_ largest are presented")
+)
+
+gt_tbl_3 <- gt::tab_source_note(
+  data = gt_tbl_2,
+  source_note = "Source: The World Almanac and Book of Facts, 1975, page 406."
+)
+
+gt_tbl_4 <- gt::tab_source_note(
+  data = gt_tbl_3,
+  source_note = md("McNeil, D.R. (1977) _Interactive Data Analysis_. Wiley.")
+)
+
+
+# Show the gt Table
+gt_tbl_4
+
+
+
+```
+
+Let's incorporate row groups into the display table. This divides rows into groups, creating *row groups*, and results in a display of a *row group labels* right above the each group. This can be easily done with a table containing row labels. We can make a new *row group* with each call of the `tab_row_group()` function. The inputs are group names in the `group` argument, and row references in the `rows` argument. We can use any of the strategies to reference rows as we did we footnotes (e.g., vectors of names/indices, select helpers, etc.).
+
+Here we will create three row groups (with row group labels `continent`, `country`, and `subregion`) to have a grouping of rows.
+
+```{r}
+
+# Add a column to islands_tbl
+islands_tbl$group <- c(
+  "Continents",
+  "Continents",
+  "Continents",
+  "Continents",
+  "Continents",
+  "Continents",
+  "Other",
+  "Other",
+  "Other",
+  "Other"
+)
+
+gt_tbl_1 <- gt::gt(islands_tbl, rowname_col = "name", groupname_col = 'group')
+gt_tbl_2 <- gt::tab_stubhead(data = gt_tbl_1, label = "landmass")
+
+gt_tbl_3 <- gt::tab_header(
+  data = gt_tbl_2,
+  title = md("__Large Landmasses of the World__"),
+  subtitle = md("The _top ten_ largest are presented")
+)
+
+gt_tbl_4 <- gt::tab_source_note(
+  data = gt_tbl_3,
+  source_note = "Source: The World Almanac and Book of Facts, 1975, page 406."
+)
+
+gt_tbl_5 <- gt::tab_source_note(
+  data = gt_tbl_4,
+  source_note = md("McNeil, D.R. (1977) _Interactive Data Analysis_. Wiley.")
+)
+
+# Show the gt Table
+gt_tbl_5
+
+```
+
+Two *row groups* have been made since there are two unique categories under `groupname`. Across the top of each *row group* is the *row group label* contained in a separate row (these cut across the field and they contain nothing but the *row group label*). A rearrangement of rows is carried out to ensure each of the rows is collected within the appropriate *row groups*.
+
+Having groups of rows in *row groups* is a great way to present information - let's make it even cleaner. The `tab_style()` function lets you access and modify any conceivable part of your table. In this example, we'll access the rows that describe groups and then we'll set their text to be __bold__.
+
+```{r}
+
+gt_tbl_6 <- gt::tab_style(
+  data = gt_tbl_5,
+  locations = cells_row_groups(), 
+  style = cell_text(weight = 'bold')
+)
+
+gt_tbl_6
+
+```
+
+
+We will circle back to grouping rows when we have learned about `group_by` in the `dplyr` package. We will also talk about including data summaries particular to each group is a natural extension of this idea. This process of adding summary rows with *summary labels* is covered [here](https://gt.rstudio.com/articles/creating-summary-lines.html){.external target="_blank"} if you are eager to learn more.
+
+## Column labels
+
+The table's **Column Labels** part contains, at a minimum, columns and their *column labels*. The last example had a single column: `size`. Let's give it a better label.
+
+```{r}
+
+gt_tbl_7 <- gt::cols_label(
+  .data = gt_tbl_6,
+  size = "Area in square miles"
+)
+
+# Show the gt Table
+gt_tbl_7
+
+```
+
+If you have some experience with html code, you can apply the `html` function to format your labels: 
+
+
+```{r}
+
+gt_tbl_7 <- gt::cols_label(
+  .data = gt_tbl_6,
+  size = html("Area, miles<sup>2</sup>")
+)
+
+# Show the gt Table
+gt_tbl_7
+
+```
+
+## Format values
+
+The last thing we'll do to finish this table is format values in a specific column. 
+
+
+```{r}
+
+gt::fmt_number(
+  data = gt_tbl_7, 
+  columns = 'size', 
+  sep_mark = ',',
+  decimals = 0
+)
+
+```
+
+## But _why_?
+
+Clearly, this is not as straightforward as writing our numbers in a Microsoft Word document. In fact, you probably could have completed 3 tables in Microsoft Word in the amount of time it took me to explain how this code works. So, why bother? 
+
+_Agility_ and _Accuracy_. 
+
+- You will be asked to re-do analyses over and over. 
+
+- In some cases, the tables will be very thorough and tedious. 
+
+- If you learn this now, you can _automate_ your analysis so that the tables you make are self-populated.
+
+    + No more copying and pasting your numbers
+    
+    + No more errors from copying and pasting numbers to the incorrect place!
+
+- You will also feel like a programming wizard _every time_ your tables can be updated in an automated way.  
+
+## Learning more
+
+This covers a minimal first example and we will be learning more about `gt()` throughout the semester 
+
+To learn more about the package or to get help when you are using `gt` for homework, the [package website](https://gt.rstudio.com/index.html){.external target="_blank"} is a great resource
+
+
+# Tabulate with other functions like `knitr::kable()` and `kableExtra`
+
+It is worth mentioning there are several table options which can be supported by Markdown.  For example, there's the `kable()` function of `knitr` with additional support by `kableExtra`.  These are mentioned not because you need to know both `gt()` and `kable()`. In fact, all you _need_ to know is the `gt` package to succeed in this class, but it's worth providing information on `knitr` and `kableExtra`.  In many ways `kable()` can be seen as the predecessor of `gt()` and is still useful. It is a straightforward way to tabulate data in html, LateX, and MS Word documents with many principles across all three formats. Later on, we'll take about formatting tables very specifically for Word and PowerPoint using the `officer` and `officedown` packages, although Quarto will take us most of the way there. 
+
+We don't discuss it in depth since `kable()` does not behave quite as well in Quarto documents for reasons that aren't worth going too into.  It can work more effectively with R Markdown files but we will focus on Quarto here.  If you want a deeper dive into what `kable()` can do, you can start with the `kableExtra` vignette found at <https://haozhu233.github.io/kableExtra/awesome_table_in_html.html>.
+
+The following summary table (found at at the `gtsummary` [vignette site](https://www.danieldsjoberg.com/gtsummary/articles/rmarkdown.html){.external target="_blank"}) shows what Quarto/Markdown output types are supported by which print engines.
+
+![](img/tables_markdown.png)
+
+
+
+
+

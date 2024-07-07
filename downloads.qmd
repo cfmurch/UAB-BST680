@@ -1,0 +1,27 @@
+---
+title: "BST680 Downloads"
+---
+
+# Exercise Downloads
+
+All exercises can be downloaded here in both .qmd and .R formats
+
+## 01 - Introducing Your Tools
+
+Exercises - <a href="_static/01_exercises.qmd" download>[.qmd file]</a>
+
+## 02 - Visualization Basics
+
+Exercises - <a href="_static/02_exercises.qmd" download>[.qmd file]</a>
+
+## 03 - Programming Basics
+
+Exercises - <a href="_static/03_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/03_class_exercises.R" download>[.R file]</a>
+
+## 04 - Data Isolation
+
+Exercises - <a href="_static/04_class_exercises.qmd" download>[.qmd file]</a> and <a href="_tatic/04_class_exercises.R" download>[.R file]</a>
+
+## 05 - Data Transformation
+
+<!-- Exercises - <a href="static/05_class_exercises.qmd" download>[.qmd file]</a> and <a href="static/05_class_exercises.R" download>[.R file]</a> -->

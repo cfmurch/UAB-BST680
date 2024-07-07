@@ -1,0 +1,13 @@
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: slides.scss
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+
