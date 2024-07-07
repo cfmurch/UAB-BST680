@@ -1,9 +1,9 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "BST680 2024"
-  output-dir: docs
   navbar:
     left:
       - href: index.qmd
