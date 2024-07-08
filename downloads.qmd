@@ -38,6 +38,6 @@ Data and Solutions folder - <a href="_static/04_solutions.zip" download>[.zip fi
 
 ## 05 - Data Transformation
 
-Exercises - <a href="static/05_class_exercises.qmd" download>[.qmd file]</a> and <a href="static/05_class_exercises.R" download>[.R file]</a>
+Exercises - <a href="_static/05_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/05_class_exercises.R" download>[.R file]</a>
 
 Data and Solutions folder - <a href="_static/05_solutions.zip" download>[.zip file]</a>

@@ -1,0 +1,14 @@
+name: bst680_2024
+title: BST680_2024
+username: cfmurch
+account: cfmurch
+server: adrcpositconnect.dom.uab.edu
+hostUrl: https://adrcpositconnect.dom.uab.edu/__api__
+appId: 8
+bundleId:
+url: https://adrcpositconnect.dom.uab.edu/content/15fcb0e5-b148-4e83-8e6f-c13d94b11b0a/
+version: 1
+quarto_version: 1.4.555
+quarto_engines: markdown, knitr
+asMultiple: FALSE
+asStatic: FALSE
