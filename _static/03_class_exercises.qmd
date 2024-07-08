@@ -57,6 +57,7 @@ How many cases were diagnosed on the 10th, 25th, and 50th day?
 Your output should look like this:
 
 ```{r}
+#| echo: false
 
 read_rds('solutions/01_solution.rds')
 
@@ -75,6 +76,7 @@ How many total cases were diagnosed on or before day 50?
 Your output should look like this:
 
 ```{r}
+#| echo: false
 
 read_rds('solutions/02_solution.rds')
 
@@ -93,6 +95,7 @@ Find the first day when the number of new cases exceeded 50.
 Your output should look like this:
 
 ```{r}
+#| echo: false
 
 read_rds('solutions/03_solution.rds')
 
@@ -111,6 +114,7 @@ How many days have had 1000 or more new cases identified?
 Your output should look like this:
 
 ```{r}
+#| echo: false
 
 read_rds('solutions/04_solution.rds')
 
@@ -129,6 +133,7 @@ Create a vector containing the mean, median, minimum, and maximum values of `cas
 Your output should look like this:
 
 ```{r}
+#| echo: false
 
 read_rds('solutions/05_solution.rds')
 
@@ -149,6 +154,7 @@ Use the `enframe()` function on the named vector from the previous exercise. The
 Your output should look like this:
 
 ```{r}
+#| echo: false
 
 read_rds('solutions/06_solution.rds')
 

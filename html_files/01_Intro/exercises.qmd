@@ -31,7 +31,7 @@ format:
 ```{r}
 
 library(gt)
-readr::read_rds('iris_exercise.rds')
+readr::read_rds('solutions/iris_table.rds')
 
 ```
 

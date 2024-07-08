@@ -62,6 +62,7 @@ website:
           - text: "04 - Isolation with dplyr"
             href: "html_files/04_Isolate/class_exercises.qmd" 
           - text: "05 - Data Transformation"
+            href: "html_files/05_Transform/class_exercises.qmd"
             
       - section: "Downloads"
         contents: 

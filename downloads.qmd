@@ -6,22 +6,38 @@ title: "BST680 Downloads"
 
 All exercises can be downloaded here in both .qmd and .R formats
 
+### Rendering .qmd files
+
+To properly render Quarto Markdown files, be sure to download the .rds solutions and data files
+
+Solutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render
+
 ## 01 - Introducing Your Tools
 
 Exercises - <a href="_static/01_exercises.qmd" download>[.qmd file]</a>
+
+Solutions folder - <a href="_static/01_solutions.zip" download>[.zip file]</a>
 
 ## 02 - Visualization Basics
 
 Exercises - <a href="_static/02_exercises.qmd" download>[.qmd file]</a>
 
+Solutions folder - <a href="_static/02_solutions.zip" download>[.zip file]</a>
+
 ## 03 - Programming Basics
 
 Exercises - <a href="_static/03_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/03_class_exercises.R" download>[.R file]</a>
+
+Solutions folder - <a href="_static/03_solutions.zip" download>[.zip file]</a>
 
 ## 04 - Data Isolation
 
 Exercises - <a href="_static/04_class_exercises.qmd" download>[.qmd file]</a> and <a href="_tatic/04_class_exercises.R" download>[.R file]</a>
 
+Data and Solutions folder - <a href="_static/04_solutions.zip" download>[.zip file]</a>
+
 ## 05 - Data Transformation
 
-<!-- Exercises - <a href="static/05_class_exercises.qmd" download>[.qmd file]</a> and <a href="static/05_class_exercises.R" download>[.R file]</a> -->
+Exercises - <a href="static/05_class_exercises.qmd" download>[.qmd file]</a> and <a href="static/05_class_exercises.R" download>[.R file]</a>
+
+Data and Solutions folder - <a href="_static/05_solutions.zip" download>[.zip file]</a>
