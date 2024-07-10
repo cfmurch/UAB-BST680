@@ -483,8 +483,8 @@
     "objectID": "Lectures/03_Programming/index.html#catch-up",
     "href": "Lectures/03_Programming/index.html#catch-up",
     "title": "Programming Basics",
-    "section": "Catch Up",
-    "text": "Catch Up\n\nAny questions on basics of visualization from last time?\n\nFor review, see chapter 2 from R4DS\nFor recipes, you can check the first, second, and eighth recipes under Visualize Data on Posit Cloud\n\nAny questions on the reading / primer?\n\nYou’ve gotten some experience running R code with visualization but now we need to dive into the fundamentals",
+    "section": "",
+    "text": "Any questions on basics of visualization from last time?\n\nFor review, see chapter 2 from R4DS\nFor recipes, you can check the first, second, and eighth recipes under Visualize Data on Posit Cloud\n\nAny questions on the reading / primer?\n\nYou’ve gotten some experience running R code with visualization but now we need to dive into the fundamentals",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -520,7 +520,7 @@
     "href": "Lectures/03_Programming/index.html#review---the-r-essentials-short-list",
     "title": "Programming Basics",
     "section": "Review - The R Essentials Short List",
-    "text": "Review - The R Essentials Short List\nWe’re already touched on the “nouns” and “verbs” as the R Essentials\n\n\nThe nouns are objects which store some sort of data or information\n\nThese are the vectors, data frames, and lists\nBut most R processes make objects e.g. your plots from last time were also objects\n\n\n\n\n\nThe verbs are functions which do work on objects using arguments\n\n\nfunction_name(argument1 = value1, argument2 = value2, ...)\n\n\nLet’s dive a bit deeper into functions",
+    "text": "Review - The R Essentials Short List\nWe’re already touched on the “nouns” and “verbs” as the R Essentials\n. . .\n\nThe nouns are objects which store some sort of data or information\n\nThese are the vectors, data frames, and lists\nBut most R processes make objects e.g. your plots from last time were also objects\n\n\n. . .\n\nThe verbs are functions which do work on objects using arguments\n\n\nfunction_name(argument1 = value1, argument2 = value2, ...)\n\n\nLet’s dive a bit deeper into functions",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -580,7 +580,7 @@
     "href": "Lectures/03_Programming/index.html#functions---winning-the-argument",
     "title": "Programming Basics",
     "section": "Functions - Winning the Argument",
-    "text": "Functions - Winning the Argument\n\nLet’s look at the help page for mean() and check the default method\n\n\n\nWe see x does not have defaults but trim and na.rm do",
+    "text": "Functions - Winning the Argument\n\nLet’s look at the help page for mean() and check the default method\n\n\n\n\n\n\n\nWe see x does not have defaults but trim and na.rm do",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -676,7 +676,7 @@
     "href": "Lectures/03_Programming/index.html#accessing-data---accessing-by-position-1",
     "title": "Programming Basics",
     "section": "Accessing Data - Accessing by Position",
-    "text": "Accessing Data - Accessing by Position\n\nWe can also extract entire ith row (whole observations) or a set of rows by leaving the column index blank\n\n\n\n#Getting the entire third observation\ndummy_data[3,]\n#&gt; # A tibble: 1 × 2\n#&gt;   Char_var Num_var\n#&gt;   &lt;chr&gt;      &lt;dbl&gt;\n#&gt; 1 C              3\n\n#Getting the 3rd and 5th observations \ndummy_data[c(3,5),]\n#&gt; # A tibble: 2 × 2\n#&gt;   Num_var Char_var\n#&gt; &lt;chr&gt;      &lt;dbl&gt;\n#&gt; 1 C              3\n#&gt; 2 E              5\n\n\n\n\nColumns (whole sets of variable values) can be accessed similarly but…",
+    "text": "Accessing Data - Accessing by Position\n\nWe can also extract entire ith row (whole observations) or a set of rows by leaving the column index blank\n\n\n\n#Getting the entire third observation\ndummy_data[3,]\n#&gt; # A tibble: 1 × 2\n#&gt;   Char_var Num_var\n#&gt;   &lt;chr&gt;      &lt;dbl&gt;\n#&gt; 1 C              3\n\n#Getting the 3rd and 5th observations \ndummy_data[c(3,5),]\n#&gt; # A tibble: 2 × 2\n#&gt;   Num_var Char_var\n#&gt; &lt;chr&gt;      &lt;dbl&gt;\n#&gt; 1 C              3\n#&gt; 2 E              5\n\n\n. . .\n\nColumns (whole sets of variable values) can be accessed similarly but…",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -688,7 +688,7 @@
     "href": "Lectures/03_Programming/index.html#accessing-data---accessing-variables",
     "title": "Programming Basics",
     "section": "Accessing Data - Accessing Variables",
-    "text": "Accessing Data - Accessing Variables\n\nData frames can also have an individual column accessed by the column/variable name\nYou’ll frequently see this using the $ operator\n\n\n#Pulling num_var using a $\ndummy_data$num_var\n\n#&gt; [1] 1 2 3 4 5\n\n\n\nDouble brackets [[]] can also pass the column name as a character\n\n\n#Getting char_var as a string\ndummy_data[[\"char_var\"]]\n\n#&gt; [1] \"A\" \"B\" \"C\" \"D\" \"E\"",
+    "text": "Accessing Data - Accessing Variables\n\nData frames can also have an individual column accessed by the column/variable name\nYou’ll frequently see this using the $ operator\n\n\n#Pulling num_var using a $\ndummy_data$num_var\n\n#&gt; [1] 1 2 3 4 5\n\n. . .\n\nDouble brackets [[]] can also pass the column name as a character\n\n\n#Getting char_var as a string\ndummy_data[[\"char_var\"]]\n\n#&gt; [1] \"A\" \"B\" \"C\" \"D\" \"E\"",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -700,7 +700,7 @@
     "href": "Lectures/03_Programming/index.html#use-caution-when-accessing-data-frame-variables",
     "title": "Programming Basics",
     "section": "Use Caution When Accessing Data Frame Variables",
-    "text": "Use Caution When Accessing Data Frame Variables\n\n\n\n\n\n\nImportant\n\n\nWhen using $ or [[]] to access a data frame or tibble variable, you get back a vector NOT a data frame\n\n\n\n\nis.data.frame(dummy_data$num_var)\n#&gt; FALSE\n\nis.vector(dummy_data$num_var)\n#&gt; TRUE  \n\nclass(dummy_data$num_var)\n#&gt; [1] \"numeric\"\n\n\n\nThe object class matter a lot as we’ll be discussing soon with vectors",
+    "text": "Use Caution When Accessing Data Frame Variables\n\n\n\n\n\n\nImportant\n\n\n\nWhen using $ or [[]] to access a data frame or tibble variable, you get back a vector NOT a data frame\n\n\n\nis.data.frame(dummy_data$num_var)\n#&gt; FALSE\n\nis.vector(dummy_data$num_var)\n#&gt; TRUE  \n\nclass(dummy_data$num_var)\n#&gt; [1] \"numeric\"\n\n. . .\n\nThe object class matter a lot as we’ll be discussing soon with vectors",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -844,7 +844,7 @@
     "href": "Lectures/03_Programming/index.html#vectors---dates",
     "title": "Programming Basics",
     "section": "Vectors - Dates",
-    "text": "Vectors - Dates\n\nWe’ll discuss these in depth later with the lubridate package\nCalendar and time math is tricky, for now it’s enough to know these special classes exist\n\n\n#Get today's date\ntoday &lt;- Sys.Date()\ntoday\n\n[1] \"2024-07-08\"\n\n\n\n#Get today's class\nclass(today)\n\n[1] \"Date\"\n\n\n\n#Today's date as a \"POSIX\"\nas.POSIXct(today)\n\n[1] \"2024-07-08 UTC\"",
+    "text": "Vectors - Dates\n\nWe’ll discuss these in depth later with the lubridate package\nCalendar and time math is tricky, for now it’s enough to know these special classes exist\n\n\n#Get today's date\ntoday &lt;- Sys.Date()\ntoday\n\n[1] \"2024-07-10\"\n\n\n\n#Get today's class\nclass(today)\n\n[1] \"Date\"\n\n\n\n#Today's date as a \"POSIX\"\nas.POSIXct(today)\n\n[1] \"2024-07-10 UTC\"",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -880,7 +880,7 @@
     "href": "Lectures/03_Programming/index.html#vectors---indexing-with-logicals",
     "title": "Programming Basics",
     "section": "Vectors - Indexing with Logicals",
-    "text": "Vectors - Indexing with Logicals\n\nLogical values can also be used to subset vectors\n\n\n#This is the same as x[1]\nx[c(TRUE, FALSE, FALSE)]\n\n[1] 0\n\n#This is equivalent to x[c(2,3)]\nx[c(FALSE, TRUE, TRUE)]\n\n[1]  5 10\n\n\n\n\n\n\n\n\nImportant\n\n\nThese boolean vectors need to be the same length as the vector you’re subsetting",
+    "text": "Vectors - Indexing with Logicals\n\nLogical values can also be used to subset vectors\n\n\n#This is the same as x[1]\nx[c(TRUE, FALSE, FALSE)]\n\n[1] 0\n\n#This is equivalent to x[c(2,3)]\nx[c(FALSE, TRUE, TRUE)]\n\n[1]  5 10\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThese boolean vectors need to be the same length as the vector you’re subsetting",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -1804,7 +1804,7 @@
     "href": "downloads.html",
     "title": "BST680 Downloads",
     "section": "",
-    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
     "crumbs": [
       "Home",
       "Downloads",
@@ -1961,8 +1961,8 @@
     "objectID": "Lectures/02_VizBasics/index.html#agenda",
     "href": "Lectures/02_VizBasics/index.html#agenda",
     "title": "Basics of Data Visualization",
-    "section": "Agenda",
-    "text": "Agenda\n\nTips on getting help (reprex)\nData frames 101\nExploratory data analysis\nData visualization using ggplot2\nVisualizing Star Wars\nAesthetics\nUpcoming visualization topics",
+    "section": "",
+    "text": "Tips on getting help (reprex)\nData frames 101\nExploratory data analysis\nData visualization using ggplot2\nVisualizing Star Wars\nAesthetics\nUpcoming visualization topics",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -1974,7 +1974,7 @@
     "href": "Lectures/02_VizBasics/index.html#what-is-reprex",
     "title": "Basics of Data Visualization",
     "section": "What is reprex?",
-    "text": "What is reprex?\nreprex stands for reproducible example; The reprex R package helps create reproducible examples for posts on GitHub, StackOverflow, etc.\n\n\n\nWhen seeking help for a programming problem…\n\nbreak the problem down to its essential components\nkeep the code minimal, not overwhelming\ndescribe issues concisely but clearly\n\n\n\n\n\n\n\n\n\n\nFor getting started check out the reprex site or the reprex_example in this project Posit cloud",
+    "text": "What is reprex?\nreprex stands for reproducible example; The reprex R package helps create reproducible examples for posts on GitHub, StackOverflow, etc.\n. . .\n\n\nWhen seeking help for a programming problem…\n\nbreak the problem down to its essential components\nkeep the code minimal, not overwhelming\ndescribe issues concisely but clearly\n\n\n\n\n\n\n\n\n\n\nFor getting started check out the reprex site or the reprex_example in this project Posit cloud",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -1986,7 +1986,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-frames---the-basics",
     "title": "Basics of Data Visualization",
     "section": "Data Frames - The Basics",
-    "text": "Data Frames - The Basics\n\nLast time we talked about objects in R that store data\n\n\n\nMost frequently we’ll be working with data frames\nSome standard data frame properties in R:\n\nPlace variables in columns\nHave observations as rows\nAre rectangular such that…\n\nall columns are equal length\nall rows are equal length",
+    "text": "Data Frames - The Basics\n\nLast time we talked about objects in R that store data\n\n. . .\n\nMost frequently we’ll be working with data frames\nSome standard data frame properties in R:\n\nPlace variables in columns\nHave observations as rows\nAre rectangular such that…\n\nall columns are equal length\nall rows are equal length",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2010,7 +2010,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-frames---tidy-data-example",
     "title": "Basics of Data Visualization",
     "section": "Data Frames - Tidy Data Example",
-    "text": "Data Frames - Tidy Data Example\n\n\n\n\n\n\n\nNote\n\n\nTidy data can allow for missing values, you’ll see these as NA or &lt;NA&gt;\n\n\n\nWe’ll talk about accessing this data next week",
+    "text": "Data Frames - Tidy Data Example\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nTidy data can allow for missing values, you’ll see these as NA or &lt;NA&gt;\n\n\nWe’ll talk about accessing this data next week",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2022,7 +2022,7 @@
     "href": "Lectures/02_VizBasics/index.html#eda---what-is-it",
     "title": "Basics of Data Visualization",
     "section": "EDA - What is it?",
-    "text": "EDA - What is it?\n\nProcedures to initially investigate data by analyzing and focusing on its main characteristics\n\n\n\nThe easiest point of entry is visualization, our focus of today\n\n\n\n\nSummarization is another method but that will come later since it involves:\n\ndata isolation (coming soon)\ndata transformation (after isolation)\ndownstream data processing (after transformation)",
+    "text": "EDA - What is it?\n\nProcedures to initially investigate data by analyzing and focusing on its main characteristics\n\n. . .\n\nThe easiest point of entry is visualization, our focus of today\n\n. . .\n\nSummarization is another method but that will come later since it involves:\n\ndata isolation (coming soon)\ndata transformation (after isolation)\ndownstream data processing (after transformation)",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2082,7 +2082,7 @@
     "href": "Lectures/02_VizBasics/index.html#getting-help-with-ggplot2",
     "title": "Basics of Data Visualization",
     "section": "Getting Help with ggplot2",
-    "text": "Getting Help with ggplot2\n\n\nFor help with ggplot2, see http://ggplot2.tidyverse.org/\n\nA cheat sheet can be found right on the front page along with a reference guide\n\nIn R4DS this is covered in chapter 1 as an introduction followed by more in-depth customization in chapters 9 and 11",
+    "text": "Getting Help with ggplot2\n\n\n\n\n\n\nFor help with ggplot2, see http://ggplot2.tidyverse.org/\n\nA cheat sheet can be found right on the front page along with a reference guide\n\nIn R4DS this is covered in chapter 1 as an introduction followed by more in-depth customization in chapters 9 and 11",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2094,7 +2094,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-visualization-with-ggplot2",
     "title": "Basics of Data Visualization",
     "section": "Data Visualization with ggplot2",
-    "text": "Data Visualization with ggplot2\nIn its simplest form, code for ggplot has three basic components:\n\n\nA data argument which indicates what dataset is being visualized\nAn aesthetics function using aes() which indicates how variables from the dataset are mapped to your plot\nFor example, you define what variables map to the x-axis and y-axis\nOne or more geoms which define the geometrical objects that graphically represent the data\n\n\n\nAfterwards, additional customizations can be added in as desired\n\n\nAgain, we add in additional customizations (or even extra geoms) using +",
+    "text": "Data Visualization with ggplot2\nIn its simplest form, code for ggplot has three basic components:\n\n\nA data argument which indicates what dataset is being visualized\nAn aesthetics function using aes() which indicates how variables from the dataset are mapped to your plot\nFor example, you define what variables map to the x-axis and y-axis\nOne or more geoms which define the geometrical objects that graphically represent the data\n\n\n. . .\nAfterwards, additional customizations can be added in as desired\n. . .\nAgain, we add in additional customizations (or even extra geoms) using +",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2106,7 +2106,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-visualization-with-ggplot2---the-code",
     "title": "Basics of Data Visualization",
     "section": "Data Visualization with ggplot2 - The Code",
-    "text": "Data Visualization with ggplot2 - The Code\nAltogether, this gives a basic code format that looks like this:\n\n\n#Make a ggplot call and define your dataset\nggplot(data = dataset) +\n  #Define your aesthetics mapping\n  aes(x = x_variable, y = y_variable) +\n  #Define your graphical primitivies aka the geoms\n  geom_xxx() +\n  #Add other ggplot2 functionality as needed\n  other_functions()\n\n\n\n\n\n\n\n\n\nTip\n\n\nThe aes() portion is often placed inside ggplot() or geom_xxx() calls via the mapping argument\n\nggplot2(data = dataset, mapping = aes(x = x_variable, y = y_variable))",
+    "text": "Data Visualization with ggplot2 - The Code\nAltogether, this gives a basic code format that looks like this:\n. . .\n\n#Make a ggplot call and define your dataset\nggplot(data = dataset) +\n  #Define your aesthetics mapping\n  aes(x = x_variable, y = y_variable) +\n  #Define your graphical primitivies aka the geoms\n  geom_xxx() +\n  #Add other ggplot2 functionality as needed\n  other_functions()\n\n. . .\n\n\n\n\n\n\nTip\n\n\n\nThe aes() portion is often placed inside ggplot() or geom_xxx() calls via the mapping argument\n\nggplot2(data = dataset, mapping = aes(x = x_variable, y = y_variable))",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2118,7 +2118,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-visualization-in-r4ds---palmer-penguins",
     "title": "Basics of Data Visualization",
     "section": "Data Visualization in R4DS - Palmer Penguins",
-    "text": "Data Visualization in R4DS - Palmer Penguins\nR4DS gives an example ggplot2 build using Palmer Penguins\n\n\n#ggplot() call only\n\nggplot(\n  data = penguins\n  )\n\n\n\n\n\n\n\n\n\n\n\n1. Beginning with the “blank canvas” of the plot",
+    "text": "Data Visualization in R4DS - Palmer Penguins\n\npenguins &lt;- palmerpenguins::penguins\n\nR4DS gives an example ggplot2 build using Palmer Penguins\n\n#ggplot() call only\n\nggplot(\n  data = penguins\n  )\n\n\n\n\n\n\n\n\n\n1. Beginning with the “blank canvas” of the plot",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2130,7 +2130,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-visualization-in-r4ds---palmer-penguins-1",
     "title": "Basics of Data Visualization",
     "section": "Data Visualization in R4DS - Palmer Penguins",
-    "text": "Data Visualization in R4DS - Palmer Penguins\nR4DS gives an example ggplot2 build using Palmer Penguins\n\n\n#Define aes() mapping\n\nggplot(\n  data = penguins,\n  mapping = aes(\n    x = flipper_length_mm, \n    y = body_mass_g)\n  )\n\n\n\n\n\n\n\n\n\n\n\n2. Adding in the aesthetics mapping for the x and y-axis",
+    "text": "Data Visualization in R4DS - Palmer Penguins\nR4DS gives an example ggplot2 build using Palmer Penguins\n\n#Define aes() mapping\n\nggplot(\n  data = penguins,\n  mapping = aes(\n    x = flipper_length_mm, \n    y = body_mass_g)\n  )\n\n\n\n\n\n\n\n\n\n2. Adding in the aesthetics mapping for the x and y-axis",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2142,7 +2142,7 @@
     "href": "Lectures/02_VizBasics/index.html#data-visualization-in-r4ds---palmer-penguins-2",
     "title": "Basics of Data Visualization",
     "section": "Data Visualization in R4DS - Palmer Penguins",
-    "text": "Data Visualization in R4DS - Palmer Penguins\nR4DS gives an example ggplot2 build using Palmer Penguins\n\n\n#Add geom_point()\n\nggplot(\n  data = penguins,\n  mapping = aes(\n    x = flipper_length_mm, \n    y = body_mass_g)\n  ) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n\n3. Finally defining points as the geometric objects to get a scatterplot",
+    "text": "Data Visualization in R4DS - Palmer Penguins\nR4DS gives an example ggplot2 build using Palmer Penguins\n\n#Add geom_point()\n\nggplot(\n  data = penguins,\n  mapping = aes(\n    x = flipper_length_mm, \n    y = body_mass_g)\n  ) +\n  geom_point()\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\n\n3. Finally defining points as the geometric objects to get a scatterplot",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2166,7 +2166,7 @@
     "href": "Lectures/02_VizBasics/index.html#star-wars---begin-by-looking-at-the-data",
     "title": "Basics of Data Visualization",
     "section": "Star Wars - Begin by Looking at the Data",
-    "text": "Star Wars - Begin by Looking at the Data\n\n\nstarwars is a tibble, a special type of data frame that’s tidy\n\n\n\n#The object starwars is both a \"data.frame\" (data frame) and a \"tbl\" (tibble)\nclass(starwars)\n#&gt; [1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n\nPrinting a tibble to the console gives expanded dataset information\n\n\n\n\n# A tibble: 87 × 14\n  name      height  mass hair_color skin_color eye_color birth_year sex   gender\n  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; \n1 Luke Sky…    172    77 blond      fair       blue            19   male  mascu…\n2 C-3PO        167    75 &lt;NA&gt;       gold       yellow         112   none  mascu…\n3 R2-D2         96    32 &lt;NA&gt;       white, bl… red             33   none  mascu…\n4 Darth Va…    202   136 none       white      yellow          41.9 male  mascu…\n5 Leia Org…    150    49 brown      light      brown           19   fema… femin…\n# ℹ 82 more rows\n# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,\n#   vehicles &lt;list&gt;, starships &lt;list&gt;",
+    "text": "Star Wars - Begin by Looking at the Data\n\n\nstarwars is a tibble, a special type of data frame that’s tidy\n\n\n\n#The object starwars is both a \"data.frame\" (data frame) and a \"tbl\" (tibble)\nclass(starwars)\n#&gt; [1] \"tbl_df\"     \"tbl\"        \"data.frame\"\n\n\n\nPrinting a tibble to the console gives expanded dataset information\n\n\n\nprint(starwars, n=5)\n\n# A tibble: 87 × 14\n  name      height  mass hair_color skin_color eye_color birth_year sex   gender\n  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; \n1 Luke Sky…    172    77 blond      fair       blue            19   male  mascu…\n2 C-3PO        167    75 &lt;NA&gt;       gold       yellow         112   none  mascu…\n3 R2-D2         96    32 &lt;NA&gt;       white, bl… red             33   none  mascu…\n4 Darth Va…    202   136 none       white      yellow          41.9 male  mascu…\n5 Leia Org…    150    49 brown      light      brown           19   fema… femin…\n# ℹ 82 more rows\n# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,\n#   vehicles &lt;list&gt;, starships &lt;list&gt;",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2202,7 +2202,7 @@
     "href": "Lectures/02_VizBasics/index.html#star-wars---other-ways-to-investigate",
     "title": "Basics of Data Visualization",
     "section": "Star Wars - Other Ways to Investigate",
-    "text": "Star Wars - Other Ways to Investigate\n\nThe dplyr package also has the glimpse() function\n\n\n\n\nRows: 87\nColumns: 14\n$ name       &lt;chr&gt; \"Luke Skywalker\", \"C-3PO\", \"R2-D2\", \"Darth Vader\", \"Leia Or…\n$ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, 180, 2…\n$ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0, 84.0, 77.…\n$ hair_color &lt;chr&gt; \"blond\", NA, NA, \"none\", \"brown\", \"brown, grey\", \"brown\", N…\n$ skin_color &lt;chr&gt; \"fair\", \"gold\", \"white, blue\", \"white\", \"light\", \"light\", \"…\n$ eye_color  &lt;chr&gt; \"blue\", \"yellow\", \"red\", \"yellow\", \"brown\", \"blue\", \"blue\",…\n$ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 24.0, 57.0, …\n$ sex        &lt;chr&gt; \"male\", \"none\", \"none\", \"male\", \"female\", \"male\", \"female\",…\n$ gender     &lt;chr&gt; \"masculine\", \"masculine\", \"masculine\", \"masculine\", \"femini…\n$ homeworld  &lt;chr&gt; \"Tatooine\", \"Tatooine\", \"Naboo\", \"Tatooine\", \"Alderaan\", \"T…\n$ species    &lt;chr&gt; \"Human\", \"Droid\", \"Droid\", \"Human\", \"Human\", \"Human\", \"Huma…\n$ films      &lt;list&gt; &lt;\"A New Hope\", \"The Empire Strikes Back\", \"Return of the J…\n$ vehicles   &lt;list&gt; &lt;\"Snowspeeder\", \"Imperial Speeder Bike\"&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, \"Imp…\n$ starships  &lt;list&gt; &lt;\"X-wing\", \"Imperial shuttle\"&gt;, &lt;&gt;, &lt;&gt;, \"TIE Advanced x1\",…",
+    "text": "Star Wars - Other Ways to Investigate\n\nThe dplyr package also has the glimpse() function\n\n\n\nglimpse(starwars)\n\nRows: 87\nColumns: 14\n$ name       &lt;chr&gt; \"Luke Skywalker\", \"C-3PO\", \"R2-D2\", \"Darth Vader\", \"Leia Or…\n$ height     &lt;int&gt; 172, 167, 96, 202, 150, 178, 165, 97, 183, 182, 188, 180, 2…\n$ mass       &lt;dbl&gt; 77.0, 75.0, 32.0, 136.0, 49.0, 120.0, 75.0, 32.0, 84.0, 77.…\n$ hair_color &lt;chr&gt; \"blond\", NA, NA, \"none\", \"brown\", \"brown, grey\", \"brown\", N…\n$ skin_color &lt;chr&gt; \"fair\", \"gold\", \"white, blue\", \"white\", \"light\", \"light\", \"…\n$ eye_color  &lt;chr&gt; \"blue\", \"yellow\", \"red\", \"yellow\", \"brown\", \"blue\", \"blue\",…\n$ birth_year &lt;dbl&gt; 19.0, 112.0, 33.0, 41.9, 19.0, 52.0, 47.0, NA, 24.0, 57.0, …\n$ sex        &lt;chr&gt; \"male\", \"none\", \"none\", \"male\", \"female\", \"male\", \"female\",…\n$ gender     &lt;chr&gt; \"masculine\", \"masculine\", \"masculine\", \"masculine\", \"femini…\n$ homeworld  &lt;chr&gt; \"Tatooine\", \"Tatooine\", \"Naboo\", \"Tatooine\", \"Alderaan\", \"T…\n$ species    &lt;chr&gt; \"Human\", \"Droid\", \"Droid\", \"Human\", \"Human\", \"Human\", \"Huma…\n$ films      &lt;list&gt; &lt;\"A New Hope\", \"The Empire Strikes Back\", \"Return of the J…\n$ vehicles   &lt;list&gt; &lt;\"Snowspeeder\", \"Imperial Speeder Bike\"&gt;, &lt;&gt;, &lt;&gt;, &lt;&gt;, \"Imp…\n$ starships  &lt;list&gt; &lt;\"X-wing\", \"Imperial shuttle\"&gt;, &lt;&gt;, &lt;&gt;, \"TIE Advanced x1\",…",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2238,7 +2238,7 @@
     "href": "Lectures/02_VizBasics/index.html#star-wars---whats-that-warning",
     "title": "Basics of Data Visualization",
     "section": "Star Wars - What’s that Warning?",
-    "text": "Star Wars - What’s that Warning?\n\nNot all characters have height and mass data, so 28 aren’t plotted\n\n\n## Warning: Removed 28 rows containing missing values (geom_point).\n\n\n\n# A tibble: 6 × 14\n  name      height  mass hair_color skin_color eye_color birth_year sex   gender\n  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; \n1 Arvel Cr…     NA    NA brown      fair       brown             NA male  mascu…\n2 Finn          NA    NA black      dark       dark              NA male  mascu…\n3 Rey           NA    NA brown      light      hazel             NA fema… femin…\n4 Poe Dame…     NA    NA brown      light      brown             NA male  mascu…\n5 BB8           NA    NA none       none       black             NA none  mascu…\n6 Captain …     NA    NA none       none       unknown           NA fema… femin…\n# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,\n#   vehicles &lt;list&gt;, starships &lt;list&gt;\n\n\n\n\n\n\n\n\nImportant\n\n\nWe’ll suppress the warning to save room but take note ggplot2 is telling you about missingness",
+    "text": "Star Wars - What’s that Warning?\n\nNot all characters have height and mass data, so 28 aren’t plotted\n\n\n## Warning: Removed 28 rows containing missing values (geom_point).\n\n\nprint(starwars[is.na(starwars$height),], n=6)\n\n# A tibble: 6 × 14\n  name      height  mass hair_color skin_color eye_color birth_year sex   gender\n  &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; \n1 Arvel Cr…     NA    NA brown      fair       brown             NA male  mascu…\n2 Finn          NA    NA black      dark       dark              NA male  mascu…\n3 Rey           NA    NA brown      light      hazel             NA fema… femin…\n4 Poe Dame…     NA    NA brown      light      brown             NA male  mascu…\n5 BB8           NA    NA none       none       black             NA none  mascu…\n6 Captain …     NA    NA none       none       unknown           NA fema… femin…\n# ℹ 5 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,\n#   vehicles &lt;list&gt;, starships &lt;list&gt;\n\n\n\n\n\n\n\n\nImportant\n\n\n\nWe’ll suppress the warning to save room but take note ggplot2 is telling you about missingness",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2286,7 +2286,7 @@
     "href": "Lectures/02_VizBasics/index.html#aesthetics---adding-gender-to-mass-vs.-height",
     "title": "Basics of Data Visualization",
     "section": "Aesthetics - Adding Gender to Mass vs. Height",
-    "text": "Aesthetics - Adding Gender to Mass vs. Height",
+    "text": "Aesthetics - Adding Gender to Mass vs. Height\n\nstarwars2 &lt;- starwars\nstarwars2$gender &lt;- forcats::fct_expand(starwars2$gender, \"Jabba!!\")\nstarwars2$gender[starwars2$name==\"Jabba Desilijic Tiure\"] &lt;- \"Jabba!!\"\n\nggplot(data = starwars2) + \n  aes(x = height, y = mass, color = gender) +\n  geom_point() + \n  scale_color_brewer(palette = \"Dark2\", na.value=\"grey\")",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2298,7 +2298,7 @@
     "href": "Lectures/02_VizBasics/index.html#aesthetics---some-aesthetics-of-other-geoms",
     "title": "Basics of Data Visualization",
     "section": "Aesthetics - Some Aesthetics of Other Geoms",
-    "text": "Aesthetics - Some Aesthetics of Other Geoms\n\ngeom_line() also has “linetype” for solid or dashed lines\ngeom_bar() uses “fill” for the body of the bar instead of “color”",
+    "text": "Aesthetics - Some Aesthetics of Other Geoms\n\ngeom_line() also has “linetype” for solid or dashed lines\ngeom_bar() uses “fill” for the body of the bar instead of “color”\n\n\nggplot(data = starwars2) + \n  aes(x = height, y = mass, fill = gender) +\n  geom_bar(stat=\"identity\", position=position_dodge(), color=NA) + \n  coord_cartesian(xlim=c(50,235), ylim=c(0, 250))\n\nWarning: Removed 28 rows containing missing values or values outside the scale range\n(`geom_bar()`).",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -2855,6 +2855,627 @@
       "Home",
       "Lecture HTML",
       "04 - Data Isolation"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html",
+    "href": "Lectures/06_Adv_Visual/index.html",
+    "title": "Advanced Visualization",
+    "section": "",
+    "text": "Data Reading\nggplot2 Review\nAdditional Geoms\nAdvanced Aesthetics\nLayering for Communication",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#agenda",
+    "href": "Lectures/06_Adv_Visual/index.html#agenda",
+    "title": "Advanced Visualization",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nData Reading\nggplot2 Review\nAdditional Geoms\nAdvanced Aesthetics\nLayering for Communication",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---many-options",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---many-options",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Many Options",
+    "text": "Data Reading - Many Options\n\nBase R can use read.table() and more specific variants like read.csv() and read.delim()\n\n\n\nImportant arguments are the header (take first row as column names) and the delimiter which defines how your columns are separated\nCommon delimiters are a space ( ), a tab (\\t), commas (,) and pipes (|)",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---many-packages",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---many-packages",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Many Packages",
+    "text": "Data Reading - Many Packages\n\nSeveral packages can be used to read other more specialized file types\n\nhaven for SAS, SPSS, and Stata files\nhttr2 for general API connections\ngooglesheets4 to interface with Google Sheets\njsonlite for JSON exchange files\nreadxl, xlsx, and openxlsx2 all engage with Excel workbooks\n\nWe focus on readxl as part of the tidyverse",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---supermarket-transactions",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---supermarket-transactions",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Supermarket Transactions",
+    "text": "Data Reading - Supermarket Transactions\n\nA widely used dataset in data science is called “Supermarket Transactions”\nOver 14,000 observations i.e. transations\nSixteen variables\nCan be found online as a .xlsx file\nUgly as sin but very realistic",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---supermarket-start-point",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---supermarket-start-point",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Supermarket Start Point",
+    "text": "Data Reading - Supermarket Start Point",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---supermarket-goal",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---supermarket-goal",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Supermarket Goal",
+    "text": "Data Reading - Supermarket Goal\n\nglimpse(supermarket, width = 100)\n\nRows: 14,059\nColumns: 16\n$ transaction        &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, …\n$ purchase_date      &lt;dttm&gt; 2011-12-18, 2011-12-20, 2011-12-21, 2011-12-21, 2011-12-22, 2011-12-22…\n$ customer_id        &lt;dbl&gt; 7223, 7841, 8374, 9619, 1900, 6696, 9673, 354, 1293, 7938, 9357, 3097, …\n$ gender             &lt;chr&gt; \"F\", \"M\", \"F\", \"M\", \"F\", \"F\", \"M\", \"F\", \"M\", \"M\", \"F\", \"M\", \"M\", \"F\", \"…\n$ marital_status     &lt;chr&gt; \"S\", \"M\", \"M\", \"M\", \"S\", \"M\", \"S\", \"M\", \"M\", \"S\", \"M\", \"M\", \"S\", \"M\", \"…\n$ homeowner          &lt;chr&gt; \"Y\", \"Y\", \"N\", \"Y\", \"Y\", \"Y\", \"Y\", \"Y\", \"Y\", \"N\", \"N\", \"Y\", \"N\", \"N\", \"…\n$ children           &lt;dbl&gt; 2, 5, 2, 3, 3, 3, 2, 2, 3, 1, 0, 1, 3, 3, 0, 3, 1, 0, 2, 5, 1, 2, 2, 4,…\n$ annual_income      &lt;chr&gt; \"$30K - $50K\", \"$70K - $90K\", \"$50K - $70K\", \"$30K - $50K\", \"$130K - $1…\n$ city               &lt;chr&gt; \"Los Angeles\", \"Los Angeles\", \"Bremerton\", \"Portland\", \"Beverly Hills\",…\n$ state_or_province  &lt;chr&gt; \"CA\", \"CA\", \"WA\", \"OR\", \"CA\", \"CA\", \"OR\", \"WA\", \"WA\", \"CA\", \"CA\", \"CA\",…\n$ country            &lt;chr&gt; \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"USA\", \"…\n$ product_family     &lt;chr&gt; \"Food\", \"Food\", \"Food\", \"Food\", \"Drink\", \"Food\", \"Food\", \"Food\", \"Non-C…\n$ product_department &lt;chr&gt; \"Snack Foods\", \"Produce\", \"Snack Foods\", \"Snacks\", \"Beverages\", \"Deli\",…\n$ product_category   &lt;chr&gt; \"Snack Foods\", \"Vegetables\", \"Snack Foods\", \"Candy\", \"Carbonated Bevera…\n$ units_sold         &lt;dbl&gt; 5, 5, 3, 4, 4, 3, 4, 6, 1, 2, 3, 5, 4, 4, 5, 5, 5, 3, 5, 5, 4, 5, 5, 4,…\n$ revenue            &lt;dbl&gt; 27.38, 14.90, 5.52, 4.44, 14.00, 4.37, 13.78, 7.34, 2.41, 8.96, 11.82, …",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---import-with-readxl",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---import-with-readxl",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Import with readxl",
+    "text": "Data Reading - Import with readxl\n\nreadxl::read_excel() can read specific sheets into R as tibbles\n\n\nsupermarket &lt;- readxl::read_excel(\n  path  = \"data/Supermarket Transactions.xlsx\",\n  sheet = \"Data\"\n)\n\nsupermarket[1:2, 1:3]\n\n# A tibble: 2 × 3\n  Transaction `Purchase Date`     `Customer ID`\n        &lt;dbl&gt; &lt;dttm&gt;                      &lt;dbl&gt;\n1           1 2011-12-18 00:00:00          7223\n2           2 2011-12-20 00:00:00          7841\n\n\n\nBut what do we notice about the first three columns names",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---variable-names",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---variable-names",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Variable Names",
+    "text": "Data Reading - Variable Names\n\nThe names are informative but a little too human friendly\nThe variable names have spaces and are written in Title Case\nNothing wrong with this per se but it makes workflows difficult\n\nNeed backticks like supermarket$`Purchase Date`\n\njanitor is an R package for examining and cleaning data\n\n\n\n\n\n\n\nTip\n\n\nRemember, write data for computers and code for humans",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---always-thank-your-janitor",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---always-thank-your-janitor",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Always Thank Your janitor",
+    "text": "Data Reading - Always Thank Your janitor\n\n\nhttps://allisonhorst.com/r-packages-functions",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---clean-names",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---clean-names",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Clean Names",
+    "text": "Data Reading - Clean Names\n\nMany options for case from clean_names()\n\n\nsnake_case\n\n\n\njanitor::clean_names(supermarket, case = 'snake')[1:2, 1:3]\n\n# A tibble: 2 × 3\n  transaction purchase_date       customer_id\n        &lt;dbl&gt; &lt;dttm&gt;                    &lt;dbl&gt;\n1           1 2011-12-18 00:00:00        7223\n2           2 2011-12-20 00:00:00        7841",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---clean-names-1",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---clean-names-1",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Clean Names",
+    "text": "Data Reading - Clean Names\n\nMany options for case from clean_names()\n\n\nlowerCamel\n\n\n\njanitor::clean_names(supermarket, case = 'lower_camel')[1:2, 1:3]\n\n# A tibble: 2 × 3\n  transaction purchaseDate        customerId\n        &lt;dbl&gt; &lt;dttm&gt;                   &lt;dbl&gt;\n1           1 2011-12-18 00:00:00       7223\n2           2 2011-12-20 00:00:00       7841",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#data-reading---clean-names-2",
+    "href": "Lectures/06_Adv_Visual/index.html#data-reading---clean-names-2",
+    "title": "Advanced Visualization",
+    "section": "Data Reading - Clean Names",
+    "text": "Data Reading - Clean Names\n\nMany options for case from clean_names()\n\n\nSCREAMING_SNAKE\n\n\n\njanitor::clean_names(supermarket, case = 'screaming_snake')[1:2, 1:3]\n\n# A tibble: 2 × 3\n  TRANSACTION PURCHASE_DATE       CUSTOMER_ID\n        &lt;dbl&gt; &lt;dttm&gt;                    &lt;dbl&gt;\n1           1 2011-12-18 00:00:00        7223\n2           2 2011-12-20 00:00:00        7841\n\n\n\nWriting to Excel and other I/O will be later, for now I like snake_case",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#review-of-ggplot2---the-main-components",
+    "href": "Lectures/06_Adv_Visual/index.html#review-of-ggplot2---the-main-components",
+    "title": "Advanced Visualization",
+    "section": "Review of ggplot2 - The Main Components",
+    "text": "Review of ggplot2 - The Main Components\n\nA data argument which indicates what dataset is being visualized\nAn aesthetics function using aes() which indicates how variables from the dataset are mapped to your plot\nFor example, you define what variables map to the x-axis and y-axis\nOne or more geoms which define the geometrical objects that graphically represent the data\n\n\nWe’ve also started to touch on other ggplot aspects that support communication like layers, scales, labels, and themes",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#review-of-ggplot2---working-with-gapminder",
+    "href": "Lectures/06_Adv_Visual/index.html#review-of-ggplot2---working-with-gapminder",
+    "title": "Advanced Visualization",
+    "section": "Review of ggplot2 - Working with gapminder",
+    "text": "Review of ggplot2 - Working with gapminder\n\n\n\nWith gapminder we made a layered scatterplot with a line of best fit, colored by continent, and a logarithmic scale x-axis\n\n\nggplot(gapminder, \n       aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(aes(color = continent)) + \n  geom_smooth(se = FALSE) + \n  scale_x_log10(name = \"GDP per Capita\") + \n  labs(y = \"Life Expectancy (yrs)\") + \n  theme(legend.position = \"bottom\")\n\n\n\n\n`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = \"cs\")'\n\n\n\n\n\n\n\n\n\n\n\n\nNow let’s play with the supermarket data",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---questions-of-interest",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---questions-of-interest",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Questions of Interest",
+    "text": "Geoms - Questions of Interest\n\nLet’s try to visualize the following:\n\nMean and SD revenue by product family\nTotal revenue from supermarkets for each city\nNumber of transactions by children and annual income\n\nWe can get to all of these using dplyr and some new geoms",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---boxplots",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---boxplots",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Boxplots",
+    "text": "Geoms - Boxplots\n\nBoxplots via geom_boxplot() provide mean, IQR, and outliers (1.5x past) the IQR; great for visualizing numeric data within categories\n\n\nggplot(data=supermarket) + \n  geom_boxplot(aes(x=product_family, y=revenue))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---point-range-and-error-bars",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---point-range-and-error-bars",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Point Range and Error Bars",
+    "text": "Geoms - Point Range and Error Bars\n\nPointrange plots give points plus ranges\nFirst, we use summarise() to get some output\n\n\nsupermarket_summary &lt;- supermarket|&gt;\n  group_by(product_family) |&gt;\n  summarise(revenue_mn = mean(revenue),\n            revenue_sd = sd(revenue))\nsupermarket_summary\n\n# A tibble: 3 × 3\n  product_family revenue_mn revenue_sd\n  &lt;chr&gt;               &lt;dbl&gt;      &lt;dbl&gt;\n1 Drink                12.7       8.39\n2 Food                 13.1       8.23\n3 Non-Consumable       12.9       8.07",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---point-range-and-error-bars-1",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---point-range-and-error-bars-1",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Point Range and Error Bars",
+    "text": "Geoms - Point Range and Error Bars\n\nNow provide ymin and ymax aesthetics to geom_pointrange()\n\n\nggplot(data=supermarket_summary) + \n  geom_pointrange(aes(x=product_family, y=revenue_mn, \n                      ymin=revenue_mn - revenue_sd, ymax=revenue_mn + revenue_sd))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---point-range-and-error-bars-2",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---point-range-and-error-bars-2",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Point Range and Error Bars",
+    "text": "Geoms - Point Range and Error Bars\n\nYou can also use geom_errorbar() for more publish-ready figures\n\n\nggplot(data=supermarket_summary, aes(x=product_family)) + \n  geom_point(aes(y=revenue_mn), shape=\"-\", size=18) +\n  geom_errorbar(aes(ymin=revenue_mn - revenue_sd, ymax=revenue_mn + revenue_sd), width=0.2)",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Bar Charts",
+    "text": "Geoms - Bar Charts\n\nLet’s use dplyr again to get total revenue by city\n\n\ncity_rev &lt;- supermarket |&gt;\n  group_by(city) |&gt;\n  summarise(revenue = sum(revenue, na.rm = TRUE)) \n\ncity_rev\n\n# A tibble: 23 × 2\n   city          revenue\n   &lt;chr&gt;           &lt;dbl&gt;\n 1 Acapulco        5161.\n 2 Bellingham       993.\n 3 Beverly Hills  10320.\n 4 Bremerton      10975.\n 5 Camacho         5797.\n 6 Guadalajara      523.\n 7 Hidalgo        11313.\n 8 Los Angeles    12296.\n 9 Merida          8740.\n10 Mexico City     2488.\n# ℹ 13 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-1",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-1",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Bar Charts",
+    "text": "Geoms - Bar Charts\n\ngeom_col() gets us most of the way but needs some hygiene\n\n\nggplot(city_rev, aes(x = city, y = revenue)) +\n  geom_col()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-2",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-2",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Bar Charts",
+    "text": "Geoms - Bar Charts\n\nUse fct_reorder() to get a more intuitive order by revenue size\n\n\nggplot(city_rev) +\n  aes(x = fct_reorder(city, revenue), y = revenue) + #&lt;&lt;\n  geom_col()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-3",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-3",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Bar Charts",
+    "text": "Geoms - Bar Charts\n\nReorient the plot to get horizontal bars with coord_flip()\n\n\nggplot(city_rev) +\n  aes(x = fct_reorder(city, revenue), y = revenue) +\n  geom_col() + \n  coord_flip() #&lt;&lt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-4",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---bar-charts-4",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Bar Charts",
+    "text": "Geoms - Bar Charts\n\nNote, geom_col() gives heights equal to the value in a row, good when using summarise(), while geom_bar() makes the height proportional to the number of instances of data\n\n\nggplot(supermarket) + \n  aes(x=interaction(homeowner, marital_status)) + \n  geom_bar()  #&lt;&lt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#geoms---tile-plots-and-heatmaps",
+    "href": "Lectures/06_Adv_Visual/index.html#geoms---tile-plots-and-heatmaps",
+    "title": "Advanced Visualization",
+    "section": "Geoms - Tile Plots and Heatmaps",
+    "text": "Geoms - Tile Plots and Heatmaps\n\nTile plots / heatmaps show counts when working with two categorical variables via geom_tile() or base R’s heatmap()\n\n\nsupermarket |&gt;\n  count(annual_income, children) |&gt;\n  ggplot(aes(x = annual_income, y = children)) +\n  geom_tile(aes(fill = n))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#aesthetics---more-research-questions",
+    "href": "Lectures/06_Adv_Visual/index.html#aesthetics---more-research-questions",
+    "title": "Advanced Visualization",
+    "section": "Aesthetics - More Research Questions",
+    "text": "Aesthetics - More Research Questions\n\nWho generates more revenue for super markets, men or women?\n\n\ncity_rev_gender &lt;- supermarket |&gt;\n  group_by(city, gender) |&gt;\n  summarise(revenue = sum(revenue, na.rm = TRUE)) |&gt; \n  ungroup() |&gt; #&lt;&lt;\n  mutate(\n    gender = recode(gender, 'F' = 'Female', 'M' = 'Male'),\n    # re-order city in the data rather than the plot\n    # why would this fail if data were grouped?\n    city = fct_reorder(city, .x = revenue) #&lt;&lt;\n  )\n\n`summarise()` has grouped output by 'city'. You can override using the\n`.groups` argument.\n\ncity_rev_gender[1:3,]\n\n# A tibble: 3 × 3\n  city       gender revenue\n  &lt;fct&gt;      &lt;chr&gt;    &lt;dbl&gt;\n1 Acapulco   Female   2566.\n2 Acapulco   Male     2596.\n3 Bellingham Female    453.",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#aesthetics---fill-vs-color-in-bars",
+    "href": "Lectures/06_Adv_Visual/index.html#aesthetics---fill-vs-color-in-bars",
+    "title": "Advanced Visualization",
+    "section": "Aesthetics - Fill vs Color in Bars",
+    "text": "Aesthetics - Fill vs Color in Bars\nThe fill aesthetic applies inside of bars but color applies to their border\n\nggplot(city_rev_gender, aes(city, revenue, fill = gender)) + #&lt;&lt;\n  geom_col(color = 'purple') +\n  coord_flip()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#aesthetics---stacked-vs-dodged",
+    "href": "Lectures/06_Adv_Visual/index.html#aesthetics---stacked-vs-dodged",
+    "title": "Advanced Visualization",
+    "section": "Aesthetics - Stacked vs Dodged",
+    "text": "Aesthetics - Stacked vs Dodged\n\nposition governs how the bars are placed, default is stacked while dodge places bars side-by-side\n\n\nggplot(city_rev_gender, aes(city, revenue, fill = gender)) +\n  geom_col(position = \"dodge\") + #&lt;&lt;\n  coord_flip()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#aesthetics---faceting",
+    "href": "Lectures/06_Adv_Visual/index.html#aesthetics---faceting",
+    "title": "Advanced Visualization",
+    "section": "Aesthetics - Faceting",
+    "text": "Aesthetics - Faceting\n\nfacet_wrap() and facet_grid() give one plot per group\n\n\nggplot(city_rev_gender, aes(city, revenue, fill = gender)) +\n  geom_bar(stat = \"identity\", position = \"dodge\") +\n  coord_flip() +\n  facet_wrap( ~ gender) #&lt;&lt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#aesthetics---too-many-to-list",
+    "href": "Lectures/06_Adv_Visual/index.html#aesthetics---too-many-to-list",
+    "title": "Advanced Visualization",
+    "section": "Aesthetics - Too Many to List",
+    "text": "Aesthetics - Too Many to List\n\nDon’t forget the other aesthetics you can use via group_by() like color, size, shape, and alpha (transparency)\nUse these with groups within aes() or as geom arguments to use fixed values e.g. color=“black”\nImportantly, all aesthetics within an aes() can be controlled with scales like scale_color_manual() or scale_x_continuous()\nCheck the various help pages for the geom functions for info on other arguments like position\n\n\nAgain, make use of the reference manual",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#aesthetics---max-info-with-minimal-ink",
+    "href": "Lectures/06_Adv_Visual/index.html#aesthetics---max-info-with-minimal-ink",
+    "title": "Advanced Visualization",
+    "section": "Aesthetics - Max Info with Minimal Ink",
+    "text": "Aesthetics - Max Info with Minimal Ink\n\nGraphical excellence is that which gives to the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space.\n\n— Edward R. Tufte\n\n\n\nHow can we make it easy to pick out the patterns across cities?\nCan we use less ink to communicate even more?",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---points",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---points",
+    "title": "Advanced Visualization",
+    "section": "Layering - Points",
+    "text": "Layering - Points\n\nInstead of bars, let’s use points\n\n\nggplot(city_rev_gender, aes(revenue, city)) +\n  geom_point(aes(color = gender))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---size",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---size",
+    "title": "Advanced Visualization",
+    "section": "Layering - Size",
+    "text": "Layering - Size\n\nMake the points bigger and then use theme() to increase all text size\n\n\nggplot(city_rev_gender, aes(revenue, city)) +\n  geom_point(aes(color = gender), size = 3) + \n  theme(text = element_text(size = 16)) #&lt;&lt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---aesthetic-inheritance",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---aesthetic-inheritance",
+    "title": "Advanced Visualization",
+    "section": "Layering - Aesthetic Inheritance",
+    "text": "Layering - Aesthetic Inheritance\n\nggplot2 adds layers, one after the other, to a plot\nGeneral aesthetics for the whole graph can be set using aes() either…\n\nWithin the ggplot() function\nAs a stand-alone aes() function.\n\nThe aesthetics of the current geom can be set using an aes() inside the geom function.",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---aesthetic-inheritance-1",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---aesthetic-inheritance-1",
+    "title": "Advanced Visualization",
+    "section": "Layering - Aesthetic Inheritance",
+    "text": "Layering - Aesthetic Inheritance\n\nThe x and y aesthetics from the global aes() are inherited by both geom_point() and geom_line()\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + #&lt;&lt; \n  geom_point(aes(color = gender), size = 3) +\n  theme(text = element_text(size = 16)) +\n  geom_line()  #Inherits x = revenue, y = city #&lt;&lt;\n\n\nThe color aesthetic in geom_point() is not inherited by geom_line()\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_point(aes(color = gender), size = 3) + #&lt;&lt; \n  theme(text = element_text(size = 16)) +\n  geom_line()  #Inherits x = revenue, y = city",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---lines",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---lines",
+    "title": "Advanced Visualization",
+    "section": "Layering - Lines",
+    "text": "Layering - Lines\n\nWhen we group on gender for geom_line() we just ruin the plot\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_point(aes(color = gender), size = 3) +\n  theme(text = element_text(size = 16)) +\n  geom_line(aes(group = gender))  #Disaster!",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---lines-1",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---lines-1",
+    "title": "Advanced Visualization",
+    "section": "Layering - Lines",
+    "text": "Layering - Lines\n\nInstead, group on city for a dot plot; good groupings should draw the eye to the relevant comparisons\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_point(aes(color = gender), size = 3) + \n  theme(text = element_text(size = 16)) +\n  geom_line(aes(group = city))  #Success!",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---order-matters",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---order-matters",
+    "title": "Advanced Visualization",
+    "section": "Layering - Order Matters",
+    "text": "Layering - Order Matters\n\nIf we want points to appear on top of the lines, put the line layer down before the point layer.\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_line(aes(group = city)) + #&lt;&lt;\n  geom_point(aes(color = gender), size = 3) + \n  theme(text = element_text(size = 16))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---using-text-annotation",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---using-text-annotation",
+    "title": "Advanced Visualization",
+    "section": "Layering - Using Text Annotation",
+    "text": "Layering - Using Text Annotation\n\nAnnotation can help readers understand the most relevant parts of your data\n\nggplot2 uses geom_text() to add text layers\nThe main aesthetic for geom_text() is label\nggrepel, an extensions of ggplot2, has a lot of handy annotation helpers for proper positioning\nggforce has similar functionality but many other advanced options as well (reference manual here)",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---using-text-annotation-1",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---using-text-annotation-1",
+    "title": "Advanced Visualization",
+    "section": "Layering - Using Text Annotation",
+    "text": "Layering - Using Text Annotation\n\nWe still have some work ahead of us…in the exercises!\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city, label = revenue) +  #&lt;&lt;\n  geom_line(aes(group = city)) +\n  geom_point(aes(color = gender), size = 3) + \n  geom_text(aes(color = gender)) + #&lt;&lt;\n  theme(text = element_text(size = 16))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---scales",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---scales",
+    "title": "Advanced Visualization",
+    "section": "Layering - Scales",
+    "text": "Layering - Scales\n\nScales control aesthetics details, including x and y axes\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_line(aes(group = city)) + \n  geom_point(aes(color = gender), size = 3) + \n  scale_color_manual(labels = c(\"M\", \"F\"), values = c(\"#00FF00\", \"Purple\"), name=\"Gender\") + #&lt;&lt;\n  scale_y_discrete(name = NULL) + scale_x_continuous(breaks = seq(0, 10000, 2000)) + #&lt;&lt;\n  theme(text = element_text(size = 16))",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#layering---themes",
+    "href": "Lectures/06_Adv_Visual/index.html#layering---themes",
+    "title": "Advanced Visualization",
+    "section": "Layering - Themes",
+    "text": "Layering - Themes\n\nThemes customize non-data elements both globally and by individually\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_line(aes(group = city)) + \n  geom_point(aes(color = gender), size = 3) + \n  scale_color_manual(labels = c(\"M\", \"F\"), values = c(\"#00FF00\", \"Purple\"), name=\"Gender\") +\n  scale_y_discrete(name = NULL) + scale_x_continuous(breaks = seq(0, 10000, 2000)) +\n  theme_bw() + theme(text = element_text(size = 16)) #&lt;&lt;\n\n\n\nFor more themes check out the ggthemes package",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/06_Adv_Visual/index.html#additional-resources",
+    "href": "Lectures/06_Adv_Visual/index.html#additional-resources",
+    "title": "Advanced Visualization",
+    "section": "Additional Resources",
+    "text": "Additional Resources\n\nChapters 9-11 in R4DS\nggplot2: Elegant Graphics for Data Analysis by Hadley Wickham; a textbook resource dedicated solely to ggplot2\nR Graphics Cookbook by Winston Chang; a practical guide with over 150 different recipes for making plots in R\nThe ggplot2 extensions gallery; over 130 different extensions to ggplot2 with extensive utility\nThe R Graph Gallery; hundreds of examples of plots across 50 types with step-by-step guides",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "Lectures/02_VizBasics/index.html",
+    "href": "Lectures/02_VizBasics/index.html",
+    "title": "Basics of Data Visualization",
+    "section": "",
+    "text": "Tips on getting help (reprex)\nData frames 101\nExploratory data analysis\nData visualization using ggplot2\nVisualizing Star Wars\nAesthetics\nUpcoming visualization topics",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "02 - Visualization Basics"
+    ]
+  },
+  {
+    "objectID": "html_files/06_Adv_Visual/class_exercises.html",
+    "href": "html_files/06_Adv_Visual/class_exercises.html",
+    "title": "Data visualization tools",
+    "section": "",
+    "text": "The supermarket data are synthetic but realistic observations of customer interactions in various counties. The exercises in this document are based on a tutorial written on the UC Business Analytics blog\n\n\n\n\nWarning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWarning: package 'janitor' was built under R version 4.4.1\n\n\n\nAttaching package: 'janitor'\n\nThe following objects are masked from 'package:stats':\n\n    chisq.test, fisher.test\n\n\n\n\n\nReview this briefly and use it as a reference to engage with the exercises below.\n\nsupermarket_descr &lt;-\n  c(\n    \"Transaction\"        = \"transaction number\",\n    \"Purchase Date\"      = \"date of purchase\",\n    \"Customer ID\"        = \"customer identification\",\n    \"Gender\"             = \"--\",\n    \"Marital Status\"     = \"--\",\n    \"Homeowner\"          = \"--\",\n    \"Children\"           = \"number of kids at home\",\n    \"Annual Income\"      = \"income of customer\",\n    \"City\"               = \"--\",\n    \"State or Province\"  = \"--\",\n    \"Country\"            = \"Canada, Mexico, or USA\",\n    \"Product Family\"     = \"drink, food, or non-consumable\",\n    \"Product Department\" = \"the item's department\",\n    \"Product Category\"   = \"the item's type\",\n    \"Units Sold\"         = \"number of items sold\",\n    \"Revenue\"            = \"money generated by the transaction\"\n  )\n\n# the enframe function transforms a vector into a tibble,\nenframe(supermarket_descr) |&gt; \n  gt(rowname_col = \"name\") |&gt;\n  tab_stubhead(label = 'Variable name') |&gt; \n  cols_label(value = 'Variable description') |&gt;\n  cols_align('right') |&gt;\n  tab_header(title = 'Description of Super Market data')\n\n\n\n\n\n\n\nDescription of Super Market data\n\n\nVariable name\nVariable description\n\n\n\n\nTransaction\ntransaction number\n\n\nPurchase Date\ndate of purchase\n\n\nCustomer ID\ncustomer identification\n\n\nGender\n--\n\n\nMarital Status\n--\n\n\nHomeowner\n--\n\n\nChildren\nnumber of kids at home\n\n\nAnnual Income\nincome of customer\n\n\nCity\n--\n\n\nState or Province\n--\n\n\nCountry\nCanada, Mexico, or USA\n\n\nProduct Family\ndrink, food, or non-consumable\n\n\nProduct Department\nthe item's department\n\n\nProduct Category\nthe item's type\n\n\nUnits Sold\nnumber of items sold\n\n\nRevenue\nmoney generated by the transaction",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "html_files/06_Adv_Visual/class_exercises.html#import",
+    "href": "html_files/06_Adv_Visual/class_exercises.html#import",
+    "title": "Data visualization tools",
+    "section": "",
+    "text": "Warning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWarning: package 'janitor' was built under R version 4.4.1\n\n\n\nAttaching package: 'janitor'\n\nThe following objects are masked from 'package:stats':\n\n    chisq.test, fisher.test",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "html_files/06_Adv_Visual/class_exercises.html#data-dictionary",
+    "href": "html_files/06_Adv_Visual/class_exercises.html#data-dictionary",
+    "title": "Data visualization tools",
+    "section": "",
+    "text": "Review this briefly and use it as a reference to engage with the exercises below.\n\nsupermarket_descr &lt;-\n  c(\n    \"Transaction\"        = \"transaction number\",\n    \"Purchase Date\"      = \"date of purchase\",\n    \"Customer ID\"        = \"customer identification\",\n    \"Gender\"             = \"--\",\n    \"Marital Status\"     = \"--\",\n    \"Homeowner\"          = \"--\",\n    \"Children\"           = \"number of kids at home\",\n    \"Annual Income\"      = \"income of customer\",\n    \"City\"               = \"--\",\n    \"State or Province\"  = \"--\",\n    \"Country\"            = \"Canada, Mexico, or USA\",\n    \"Product Family\"     = \"drink, food, or non-consumable\",\n    \"Product Department\" = \"the item's department\",\n    \"Product Category\"   = \"the item's type\",\n    \"Units Sold\"         = \"number of items sold\",\n    \"Revenue\"            = \"money generated by the transaction\"\n  )\n\n# the enframe function transforms a vector into a tibble,\nenframe(supermarket_descr) |&gt; \n  gt(rowname_col = \"name\") |&gt;\n  tab_stubhead(label = 'Variable name') |&gt; \n  cols_label(value = 'Variable description') |&gt;\n  cols_align('right') |&gt;\n  tab_header(title = 'Description of Super Market data')\n\n\n\n\n\n\n\nDescription of Super Market data\n\n\nVariable name\nVariable description\n\n\n\n\nTransaction\ntransaction number\n\n\nPurchase Date\ndate of purchase\n\n\nCustomer ID\ncustomer identification\n\n\nGender\n--\n\n\nMarital Status\n--\n\n\nHomeowner\n--\n\n\nChildren\nnumber of kids at home\n\n\nAnnual Income\nincome of customer\n\n\nCity\n--\n\n\nState or Province\n--\n\n\nCountry\nCanada, Mexico, or USA\n\n\nProduct Family\ndrink, food, or non-consumable\n\n\nProduct Department\nthe item's department\n\n\nProduct Category\nthe item's type\n\n\nUnits Sold\nnumber of items sold\n\n\nRevenue\nmoney generated by the transaction",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "06 - Advanced Visualization"
+    ]
+  },
+  {
+    "objectID": "downloads.html#advanced-visualization",
+    "href": "downloads.html#advanced-visualization",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "html_files/06_Adv_Visual/exercise_solutions.html",
+    "href": "html_files/06_Adv_Visual/exercise_solutions.html",
+    "title": "Data visualization tools",
+    "section": "",
+    "text": "The supermarket data are synthetic but realistic observations of customer interactions in various counties. The exercises in this document are based on a tutorial written on the UC Business Analytics blog\n\n\n\n\nWarning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWarning: package 'janitor' was built under R version 4.4.1\n\n\n\nAttaching package: 'janitor'\n\nThe following objects are masked from 'package:stats':\n\n    chisq.test, fisher.test\n\n\n\n\n\nReview this briefly and use it as a reference to engage with the exercises below.\n\n\n\n\n\n\n\n\nDescription of Super Market data\n\n\nVariable name\nVariable description\n\n\n\n\nTransaction\ntransaction number\n\n\nPurchase Date\ndate of purchase\n\n\nCustomer ID\ncustomer identification\n\n\nGender\n--\n\n\nMarital Status\n--\n\n\nHomeowner\n--\n\n\nChildren\nnumber of kids at home\n\n\nAnnual Income\nincome of customer\n\n\nCity\n--\n\n\nState or Province\n--\n\n\nCountry\nCanada, Mexico, or USA\n\n\nProduct Family\ndrink, food, or non-consumable\n\n\nProduct Department\nthe item's department\n\n\nProduct Category\nthe item's type\n\n\nUnits Sold\nnumber of items sold\n\n\nRevenue\nmoney generated by the transaction"
+  },
+  {
+    "objectID": "html_files/06_Adv_Visual/exercise_solutions.html#import",
+    "href": "html_files/06_Adv_Visual/exercise_solutions.html#import",
+    "title": "Data visualization tools",
+    "section": "",
+    "text": "Warning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nWarning: package 'janitor' was built under R version 4.4.1\n\n\n\nAttaching package: 'janitor'\n\nThe following objects are masked from 'package:stats':\n\n    chisq.test, fisher.test"
+  },
+  {
+    "objectID": "html_files/06_Adv_Visual/exercise_solutions.html#data-dictionary",
+    "href": "html_files/06_Adv_Visual/exercise_solutions.html#data-dictionary",
+    "title": "Data visualization tools",
+    "section": "",
+    "text": "Review this briefly and use it as a reference to engage with the exercises below.\n\n\n\n\n\n\n\n\nDescription of Super Market data\n\n\nVariable name\nVariable description\n\n\n\n\nTransaction\ntransaction number\n\n\nPurchase Date\ndate of purchase\n\n\nCustomer ID\ncustomer identification\n\n\nGender\n--\n\n\nMarital Status\n--\n\n\nHomeowner\n--\n\n\nChildren\nnumber of kids at home\n\n\nAnnual Income\nincome of customer\n\n\nCity\n--\n\n\nState or Province\n--\n\n\nCountry\nCanada, Mexico, or USA\n\n\nProduct Family\ndrink, food, or non-consumable\n\n\nProduct Department\nthe item's department\n\n\nProduct Category\nthe item's type\n\n\nUnits Sold\nnumber of items sold\n\n\nRevenue\nmoney generated by the transaction"
+  },
+  {
+    "objectID": "Lectures/03_Programming/index.html",
+    "href": "Lectures/03_Programming/index.html",
+    "title": "Programming Basics",
+    "section": "",
+    "text": "Any questions on basics of visualization from last time?\n\nFor review, see chapter 2 from R4DS\nFor recipes, you can check the first, second, and eighth recipes under Visualize Data on Posit Cloud\n\nAny questions on the reading / primer?\n\nYou’ve gotten some experience running R code with visualization but now we need to dive into the fundamentals",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "03 - Programming Basics"
     ]
   }
 ]

@@ -1,0 +1,844 @@
+---
+title: "Advanced Visualization"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: false
+
+library(readxl)   # for reading in Excel data
+library(tibble)   # for data printing
+library(dplyr)    # for data manipulation
+library(ggplot2)  # for visualization
+library(forcats)  # for factor handling
+library(janitor)  # for cleaning
+library(gapminder)
+
+
+supermarket <- read_excel(
+  # the file location
+  "data/Supermarket Transactions.xlsx",
+  # the sheet name to pull data from
+  # you can also use numeric order of sheets
+  sheet = "Data",
+  # recall that names are not supposed to have
+  # spaces or special characters. The tibble package
+  # can repair names like this in a systematic way.
+  # Tibble will tell you what it changes.
+  .name_repair = 'universal'
+) |> 
+  janitor::clean_names(case = 'snake')
+
+
+```
+
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Data Reading
+
+- `ggplot2` Review
+
+- Additional Geoms
+
+- Advanced Aesthetics
+
+- Layering for Communication
+
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/plot_racoon.jpg){fig-align="center"}
+:::
+:::
+
+::::
+
+
+# Data Reading
+
+---
+
+## Data Reading - Many Options
+
+- Base R can use `read.table()` and more specific variants like `read.csv()` and `read.delim()`
+
+![](img/read_table.png){fig-align="center"}
+
+- Important arguments are the header (take first row as column names) and the <b>delimiter</b> which defines how your columns are separated
+
+- Common delimiters are a space ( ), a tab (\\t), commas (,) and pipes (|)
+
+
+---
+
+## Data Reading - Many Packages
+
+- Several packages can be used to read other more specialized file types
+
+    - [`haven`](https://haven.tidyverse.org/){.external target="_blank"} for SAS, SPSS, and Stata files
+    
+    - [`httr2`](https://httr2.r-lib.org/){.external target="_blank"} for general API connections
+    
+    - [`googlesheets4`](https://googlesheets4.tidyverse.org/){.external target="_blank"} to interface with Google Sheets
+    
+    - [`jsonlite`](https://github.com/jeroen/jsonlite){.external target="_blank"} for JSON exchange files
+    
+    - [`readxl`](https://readxl.tidyverse.org/){.external target="_blank"}, [`xlsx`](https://cran.r-project.org/web/packages/xlsx/vignettes/excel_report.html){.external target="_blank"}, and [`openxlsx2`](https://cran.r-project.org/web/packages/openxlsx2/vignettes/openxlsx2.html){.external target="_blank"} all engage with Excel workbooks
+    
+- We focus on `readxl` as part of the tidyverse
+
+
+---
+
+## Data Reading - Supermarket Transactions
+
+- A widely used dataset in data science is called "Supermarket Transactions"
+
+- Over 14,000 observations i.e. transations
+
+- Sixteen variables
+
+- Can be found online as a .xlsx file
+
+- Ugly as sin but _very_ realistic
+
+---
+
+## Data Reading - Supermarket Start Point
+
+![](img/excel_spreadsheet.png){fig-align="center"}
+
+
+
+---
+
+## Data Reading - Supermarket Goal
+
+```{r}
+#| class-output: "custom-height"
+
+glimpse(supermarket, width = 100)
+
+```
+
+---
+
+## Data Reading - Import with `readxl`
+
+- `readxl::read_excel()` can read specific sheets into R as `tibbles`
+
+```{r}
+
+supermarket <- readxl::read_excel(
+  path  = "data/Supermarket Transactions.xlsx",
+  sheet = "Data"
+)
+
+supermarket[1:2, 1:3]
+
+```
+
+- But what do we notice about the first three columns names
+
+---
+
+## Data Reading - Variable Names {background-image="img/janitor_clean_names.png" background-size="75%" background-position="50% 75%"} 
+
+- The names are informative but a little _too_ human friendly
+
+- The variable names have spaces and are written in _Title Case_
+
+- Nothing wrong with this per se but it makes workflows difficult 
+
+    - Need backticks like `` supermarket$`Purchase Date` ``
+
+- `janitor` is an R package for examining and cleaning data
+
+:::{.callout-tip}
+Remember, write data for computers and code for humans
+:::
+
+
+## Data Reading - Always Thank Your `janitor`
+
+![](img/janitor_clean.png){fig-align="center"}
+
+:::{.footer}
+<https://allisonhorst.com/r-packages-functions>
+:::
+---
+
+## Data Reading - Clean Names
+
+- Many options for `case` from `clean_names()`
+
+:::{style="text-align: center"}
+
+**snake_case**
+
+:::
+
+<br>
+
+```{r}
+
+janitor::clean_names(supermarket, case = 'snake')[1:2, 1:3]
+
+```
+
+---
+
+## Data Reading - Clean Names
+
+- Many options for `case` from `clean_names()`
+
+:::{style="text-align: center"}
+
+**lowerCamel**
+
+:::
+
+<br>
+
+```{r}
+janitor::clean_names(supermarket, case = 'lower_camel')[1:2, 1:3]
+```
+
+---
+
+## Data Reading - Clean Names
+
+- Many options for `case` from `clean_names()`
+
+:::{style="text-align: center"}
+
+**SCREAMING_SNAKE**
+
+:::
+
+<br>
+
+```{r}
+janitor::clean_names(supermarket, case = 'screaming_snake')[1:2, 1:3]
+```
+
+- Writing to Excel and other I/O will be later, for now I like snake_case
+
+```{r}
+#| include: false
+
+supermarket <- janitor::clean_names(supermarket, case = 'snake')
+
+```
+
+
+# Last Time on `ggplot2`
+
+## Review of `ggplot2` - The Main Components
+
+1. A __data__ argument which indicates what dataset is being visualized
+
+2. An __aesthetics__ function using `aes()` which indicates how variables from the dataset are mapped to your plot
+
+    For example, you define what variables map to the x-axis and y-axis
+    
+3. One or more __geoms__ which define the geometrical objects that graphically represent the data
+
+- We've also started to touch on other ggplot aspects that support communication like layers, scales, labels, and themes
+
+---
+
+## Review of `ggplot2` - Working with `gapminder`
+
+::::{.columns}
+
+:::{.column}
+
+- With `gapminder` we made a layered scatterplot with a line of best fit, colored by continent, and a logarithmic scale x-axis
+
+```{r}
+#| eval: false
+
+ggplot(gapminder, 
+       aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point(aes(color = continent)) + 
+  geom_smooth(se = FALSE) + 
+  scale_x_log10(name = "GDP per Capita") + 
+  labs(y = "Life Expectancy (yrs)") + 
+  theme(legend.position = "bottom")
+
+
+```
+
+:::
+
+:::{.column}
+
+```{r}
+#| echo: false
+#| fig-width: 7
+
+ggplot(gapminder, 
+       aes(x = gdpPercap, y = lifeExp)
+       ) + 
+  geom_point(aes(color = continent)) + 
+  geom_smooth(se = FALSE) + 
+  scale_x_log10(name = "GDP per Capita") + 
+  labs(y = "Life Expectancy (yrs)") + 
+  theme(legend.position = "bottom")
+
+
+```
+
+
+:::
+
+::::
+
+- Now let's play with the supermarket data
+
+
+# Additional Geoms
+
+## Geoms - Questions of Interest
+
+- Let's try to visualize the following:
+
+   - Mean and SD revenue by product family
+   
+   - Total revenue from supermarkets for each city
+   
+   - Number of transactions by children and annual income
+   
+- We can get to all of these using `dplyr` and some new geoms
+
+## Geoms - Boxplots
+
+- Boxplots via `geom_boxplot()` provide mean, IQR, and outliers (1.5x past) the IQR; great for visualizing numeric data within categories
+
+```{r}
+#| fig-align: center
+
+ggplot(data=supermarket) + 
+  geom_boxplot(aes(x=product_family, y=revenue))
+
+```
+
+
+## Geoms - Point Range and Error Bars
+
+- Pointrange plots give points plus ranges 
+
+- First, we use `summarise()` to get some output
+
+```{r}
+
+supermarket_summary <- supermarket|>
+  group_by(product_family) |>
+  summarise(revenue_mn = mean(revenue),
+            revenue_sd = sd(revenue))
+supermarket_summary
+
+```
+
+## Geoms - Point Range and Error Bars
+- Now provide ymin and ymax aesthetics to `geom_pointrange()`
+
+```{r}
+#| fig-align: center
+
+ggplot(data=supermarket_summary) + 
+  geom_pointrange(aes(x=product_family, y=revenue_mn, 
+                      ymin=revenue_mn - revenue_sd, ymax=revenue_mn + revenue_sd))
+
+```
+   
+
+## Geoms - Point Range and Error Bars
+
+- You can also use `geom_errorbar()` for more publish-ready figures
+
+```{r}
+#| fig-align: center
+#| 
+ggplot(data=supermarket_summary, aes(x=product_family)) + 
+  geom_point(aes(y=revenue_mn), shape="-", size=18) +
+  geom_errorbar(aes(ymin=revenue_mn - revenue_sd, ymax=revenue_mn + revenue_sd), width=0.2)
+
+```
+  
+## Geoms - Bar Charts
+
+- Let's use `dplyr` again to get total revenue by city
+
+```{r}
+
+city_rev <- supermarket |>
+  group_by(city) |>
+  summarise(revenue = sum(revenue, na.rm = TRUE)) 
+
+city_rev
+
+```
+
+---
+
+## Geoms - Bar Charts
+
+- `geom_col()` gets us most of the way but needs some hygiene
+
+```{r}
+#| fig-align: center
+
+ggplot(city_rev, aes(x = city, y = revenue)) +
+  geom_col()
+
+```
+
+---
+
+
+
+
+## Geoms - Bar Charts
+
+- Use `fct_reorder()` to get a more intuitive order by revenue size
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 2-2
+
+ggplot(city_rev) +
+  aes(x = fct_reorder(city, revenue), y = revenue) + #<<
+  geom_col()
+
+```
+
+---
+
+## Geoms - Bar Charts
+
+- Reorient the plot to get horizontal bars with `coord_flip()`
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 4-4
+
+ggplot(city_rev) +
+  aes(x = fct_reorder(city, revenue), y = revenue) +
+  geom_col() + 
+  coord_flip() #<<
+
+```
+
+---
+
+## Geoms - Bar Charts
+
+- Note, `geom_col()` gives heights equal to the value in a row, good when using `summarise()`, while `geom_bar()` makes the height proportional to the number of instances of data
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 3-3
+ 
+ggplot(supermarket) + 
+  aes(x=interaction(homeowner, marital_status)) + 
+  geom_bar()  #<<
+
+```
+
+---
+
+## Geoms - Tile Plots and Heatmaps
+
+- Tile plots / heatmaps show counts when working with two categorical variables via `geom_tile()` or base R's `heatmap()`
+
+```{r}
+#| fig-align: center
+
+supermarket |>
+  count(annual_income, children) |>
+  ggplot(aes(x = annual_income, y = children)) +
+  geom_tile(aes(fill = n))
+
+```
+
+# Advanced Aesthetics
+
+---
+
+## Aesthetics - More Research Questions
+
+- Who generates more revenue for super markets, men or women?
+
+```{r}
+#| code-line-numbers: 4-4,9-9
+
+city_rev_gender <- supermarket |>
+  group_by(city, gender) |>
+  summarise(revenue = sum(revenue, na.rm = TRUE)) |> 
+  ungroup() |> #<<
+  mutate(
+    gender = recode(gender, 'F' = 'Female', 'M' = 'Male'),
+    # re-order city in the data rather than the plot
+    # why would this fail if data were grouped?
+    city = fct_reorder(city, .x = revenue) #<<
+  )
+
+city_rev_gender[1:3,]
+
+```
+
+---
+
+## Aesthetics - Fill vs Color in Bars
+
+The `fill` aesthetic applies inside of bars but color applies to their border
+
+```{r}
+#| code-line-numbers: 1-1
+#| fig-align: center
+#| 
+ggplot(city_rev_gender, aes(city, revenue, fill = gender)) + #<<
+  geom_col(color = 'purple') +
+  coord_flip()
+```
+
+---
+
+## Aesthetics - Stacked vs Dodged
+
+- `position` governs how the bars are placed, default is _stacked_ while _dodge_ places bars side-by-side
+
+```{r}
+#| code-line-numbers: 2-2
+#| fig-align: center
+
+ggplot(city_rev_gender, aes(city, revenue, fill = gender)) +
+  geom_col(position = "dodge") + #<<
+  coord_flip()
+```
+
+---
+
+## Aesthetics - Faceting
+
+- `facet_wrap()` and `facet_grid()` give one plot per group 
+
+```{r}
+#| code-line-numbers: 4-4
+#| fig-align: center
+
+ggplot(city_rev_gender, aes(city, revenue, fill = gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  coord_flip() +
+  facet_wrap( ~ gender) #<<
+```
+
+---
+
+## Aesthetics - Too Many to List
+
+- Don't forget the other aesthetics you can use via `group_by()` like `color`, `size`, `shape`, and `alpha` (transparency)
+
+- Use these with groups within `aes()` or as geom arguments to use fixed values e.g. color="black"
+
+- Importantly, _all_ aesthetics within an `aes()` can be controlled with scales like `scale_color_manual()` or `scale_x_continuous()`
+
+- Check the various help pages for the geom functions for info on other arguments like position
+
+:::{style="text-align: center"}
+
+Again, make use of the [reference manual](https://ggplot2.tidyverse.org/reference/){.external target="_blank"}
+
+:::
+
+
+## Aesthetics - Max Info with Minimal Ink 
+
+> Graphical excellence is that which gives to the viewer the greatest number of ideas in the shortest time with the least ink in the smallest space.
+>
+> `r tufte::quote_footer('--- Edward R. Tufte')`
+
+- How can we make it easy to pick out the patterns across cities? 
+
+- Can we use less ink to communicate even more?
+
+
+# Layering for Communication
+
+---
+
+## Layering - Points
+
+- Instead of bars, let's use points
+
+```{r}
+#| fig-align: center
+
+ggplot(city_rev_gender, aes(revenue, city)) +
+  geom_point(aes(color = gender))
+
+```
+
+---
+
+## Layering - Size
+
+- Make the points bigger and then use `theme()` to increase all text size
+
+```{r}
+#| fig-align: center
+
+ggplot(city_rev_gender, aes(revenue, city)) +
+  geom_point(aes(color = gender), size = 3) + 
+  theme(text = element_text(size = 16)) #<<
+
+
+```
+
+---
+
+## Layering - Aesthetic Inheritance
+
+- `ggplot2` adds layers, one after the other, to a plot
+
+- General aesthetics for the whole graph can be set using `aes()` either...
+
+    + Within the `ggplot()` function
+    
+    + As a stand-alone `aes()` function.
+
+- The aesthetics of the _current_ `geom` can be set using an `aes()` _inside_ the geom function.
+
+---
+
+## Layering - Aesthetic Inheritance
+
+- The x and y aesthetics from the global `aes()` are inherited by both `geom_point()` and `geom_line()`
+
+```{r}
+#| eval: false
+#| code-line-numbers: 2-2,5-5
+#| fig-align: center
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + #<< 
+  geom_point(aes(color = gender), size = 3) +
+  theme(text = element_text(size = 16)) +
+  geom_line()  #Inherits x = revenue, y = city #<<
+
+```
+
+- The color aesthetic in `geom_point()` is <b>not</b> inherited by `geom_line()`
+
+```{r}
+#| eval: false
+#| code-line-numbers: 3-3,5-5
+#| fig-align: center
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + 
+  geom_point(aes(color = gender), size = 3) + #<< 
+  theme(text = element_text(size = 16)) +
+  geom_line()  #Inherits x = revenue, y = city
+
+```
+
+---
+
+## Layering - Lines
+
+- When we group on gender for geom_line() we just ruin the plot
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 5-5
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + 
+  geom_point(aes(color = gender), size = 3) +
+  theme(text = element_text(size = 16)) +
+  geom_line(aes(group = gender))  #Disaster!
+
+```
+
+---
+
+## Layering - Lines
+
+- Instead, group on city for a <b>dot plot</b>; good groupings should draw the eye to the relevant comparisons
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 5-5
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + 
+  geom_point(aes(color = gender), size = 3) + 
+  theme(text = element_text(size = 16)) +
+  geom_line(aes(group = city))  #Success!
+
+```
+
+---
+
+## Layering - Order Matters
+
+- If we want points to appear on top of the lines, put the line layer down _before_ the point layer.
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 3-3
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + 
+  geom_line(aes(group = city)) + #<<
+  geom_point(aes(color = gender), size = 3) + 
+  theme(text = element_text(size = 16)) 
+
+```
+
+---
+
+## Layering - Using Text Annotation
+
+- Annotation can help readers understand the most relevant parts of your data
+
+    - `ggplot2` uses `geom_text()` to add text layers
+
+    - The main aesthetic for `geom_text()` is `label`
+
+    - `ggrepel`, an extensions of `ggplot2`, has a lot of handy annotation helpers for proper positioning
+    
+    - `ggforce` has similar functionality but many other advanced options as well ([reference manual here](https://ggforce.data-imaginist.com/reference/index.html){.external target="_blank"})
+    
+    
+
+
+---
+
+## Layering - Using Text Annotation
+
+- We still have some work ahead of us...in the exercises!
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 2-2,5-5
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city, label = revenue) +  #<<
+  geom_line(aes(group = city)) +
+  geom_point(aes(color = gender), size = 3) + 
+  geom_text(aes(color = gender)) + #<<
+  theme(text = element_text(size = 16)) 
+
+```
+
+---
+
+
+## Layering - Scales
+
+- Scales control aesthetics details, including x and y axes
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 5-6
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + 
+  geom_line(aes(group = city)) + 
+  geom_point(aes(color = gender), size = 3) + 
+  scale_color_manual(labels = c("M", "F"), values = c("#00FF00", "Purple"), name="Gender") + #<<
+  scale_y_discrete(name = NULL) + scale_x_continuous(breaks = seq(0, 10000, 2000)) + #<<
+  theme(text = element_text(size = 16)) 
+
+```
+
+
+---
+
+## Layering - Themes
+
+- Themes customize non-data elements both globally and by individually
+
+```{r}
+#| fig-align: center
+#| code-line-numbers: 7-7
+
+ggplot(city_rev_gender) +
+  aes(x = revenue, y = city) + 
+  geom_line(aes(group = city)) + 
+  geom_point(aes(color = gender), size = 3) + 
+  scale_color_manual(labels = c("M", "F"), values = c("#00FF00", "Purple"), name="Gender") +
+  scale_y_discrete(name = NULL) + scale_x_continuous(breaks = seq(0, 10000, 2000)) +
+  theme_bw() + theme(text = element_text(size = 16)) #<<
+
+```
+
+:::{.footer}
+
+For more themes check out the [ggthemes package](https://jrnold.github.io/ggthemes){.external target="_blank"}
+
+:::
+
+---
+
+## Additional Resources
+
+ - Chapters 9-11 in [R4DS](https://r4ds.hadley.nz){.external target="_blank"}
+ 
+ - [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/){.external target="_blank"} by Hadley Wickham; a textbook resource dedicated solely to ggplot2
+ 
+ - [R Graphics Cookbook](https://r-graphics.org/){.external target="_blank"} by Winston Chang; a practical guide with over 150 different recipes for making plots in R
+ 
+ - [The ggplot2 extensions gallery](https://exts.ggplot2.tidyverse.org/gallery/){.external target="_blank"}; over 130 different extensions to ggplot2 with extensive utility
+
+- [The R Graph Gallery](https://r-graph-gallery.com/){.external target="_blank"}; hundreds of examples of plots across 50 types with step-by-step guides
+
+
+
+
+
+
+
+
+

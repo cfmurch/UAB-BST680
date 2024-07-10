@@ -41,3 +41,9 @@ Data and Solutions folder - <a href="_static/04_solutions.zip" download>[.zip fi
 Exercises - <a href="_static/05_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/05_class_exercises.R" download>[.R file]</a>
 
 Data and Solutions folder - <a href="_static/05_solutions.zip" download>[.zip file]</a>
+
+## 05 - Advanced Visualization
+
+Exercises - <a href="_static/06_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/06_class_exercises.R" download>[.R file]</a>
+
+Data and Solutions folder - <a href="_static/06_solutions.zip" download>[.zip file]</a>

@@ -30,6 +30,9 @@ website:
           - text: "05 - Data Transformation"
             href: "Lectures/05_Transform/index.qmd"
             target: _blank
+          - text: "06 - Advanced Visualization"
+            href: "Lectures/06_Adv_Visual/index.qmd"
+            target: _blank
       - section: "Lecture PDF"
         contents:
           - text: "01 - Introducing Your Tools"
@@ -47,6 +50,9 @@ website:
           - text: "05 - Data Transformation"
             href: "pdfs/BST680 - 2024 - 05 Transforming Data.pdf"
             target: _blank
+          - text: "06 - Advanced Visualization"
+            href: "pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf"
+            target: _blank
       - section: "Additional Info"
         contents:
           - text: "01a - Intro to Quarto and gt()"
@@ -63,6 +69,9 @@ website:
             href: "html_files/04_Isolate/class_exercises.qmd" 
           - text: "05 - Data Transformation"
             href: "html_files/05_Transform/class_exercises.qmd"
+          - text: "06 - Advanced Visualization"
+            href: "html_files/06_Adv_Visual/class_exercises.qmd"
+          
             
       - section: "Downloads"
         contents: 

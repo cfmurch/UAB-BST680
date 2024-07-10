@@ -25,7 +25,7 @@ format:
 
 
 library(dplyr)
-library(magick)
+#library(magick)
 library(ggplot2)
 
 ```
@@ -521,7 +521,7 @@ ggplot(data = starwars, mapping = aes(x = height, y = mass)) +
 #| message: false
 #| include: false
 
-jabba <- image_read("img/jabba.png")
+#jabba <- image_read("img/jabba.png")
 
 #fig <- image_graph(width = 2400, height = 1200, res = 300)
 #ggplot(data = starwars, mapping = aes(x = height, y = mass)) +

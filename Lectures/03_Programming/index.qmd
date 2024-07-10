@@ -22,7 +22,7 @@ format:
 #| include: false
 
 library(dplyr)
-library(magick)
+
 ```
 
 ## Catch Up
