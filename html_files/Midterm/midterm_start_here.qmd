@@ -1,0 +1,522 @@
+---
+title: "BST680 Midterm"
+author: "YOUR NAME HERE"
+date-modified: "TODAY'S DATE"
+format:
+  html:
+    code-folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 6
+    fig-width: 10
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+knitr:
+  opts_chunk: 
+    fig-width: 12
+    fig-height: 8
+    cache: false
+    include: true
+    echo: true
+---
+
+# Instructions
+
+This midterm is comprised of two portions:
+
+  1. A visualization using a curated variation of the `gapminder` dataset
+  
+  2. A data manipulation and summarisation exercise emphasizing `gt` output
+
+For each question, provide your code in order to create the requested output and comment your code either within the code block or by adding annotations directly to the Quarto document.  I'm less interested in the specific code you used than I am understanding your thought process in order to get to the solution.  Your comments are critical and should be provided as if to direct someone who has never seen your code to be able to reproduce it easily and know why you settled on these options.  
+
+:::{.callout-warning}
+
+To best accomplish these coding tasks, you'll need to work with functions that we may have only briefly discussed in class
+
+Part of this course is to develop your skill set to discover and use functions you may not have been aware of previously
+
+Again, look at the references and cheat sheets, they're your friends
+
+:::
+
+Good luck!
+
+To get you started, a zipped file with all the necessary files and folders can be <a href="_static/midterm.zip" download>[downloaded here]</a>
+
+:::{.callout-tip}
+
+You can check your work as you go through the assignment by viewing the midterm html document available online
+
+Conversely you can open "midterm_start_here.html" locally, click on it in the 'Files' pane of Rstudio and then select the 'View in web browser option' 
+
+Every problem has the answer displayed in this document so you can verify whether you have gotten the expected result
+
+:::
+
+# Part 1 - Visualization with `gapminder`
+
+## Prepping the data
+
+- We will be using a curated version of the `gapminder` dataset
+
+- For more details on the Gapminder organization, see <https://www.gapminder.org/about-gapminder/>{.external target="_blank"}
+
+- You'll find the modified variation of the `gapminder` data below called `gap_data`; you may continue to use this name
+
+```{r}
+#| echo: true
+#| warning: false
+
+# Load libraries
+suppressPackageStartupMessages({
+  #For the main problems
+  library(gapminder)
+  library(tidyverse)
+  library(ggrepel)
+  
+  #For the optional problem
+  library(gganimate)
+  library(gifski)
+})
+
+#Create the gap_data dataset
+gap_data <- gapminder |>
+  
+  #Keep only rows where the year is 2007
+  filter(year == 2007) |> 
+  
+  #Label column is computed for each continent, separately
+  #Group data by continent before creating the label column
+  #This column will be used for later questions
+  group_by(continent) |> 
+  mutate(
+    #Income is highly skewed; create a log scale variant for ease
+    log_income = log(gdpPercap),
+    
+    #The country_label column is used later
+    country_label = case_when(
+      lifeExp %in% c(min(lifeExp), max(lifeExp)) ~ country
+    )
+  )
+
+```
+
+
+## Problem 1
+
+Using `gap_data`, create the following plot, use theme elements such as a different backgrounds or text sizes to personalize your plot; it doesn't need to match my conventions exactly but be creative
+
+Notes: 
+
+- The x-axis and y-axis labels indicate which columns in `gap_data` were used to make the data
+
+- You will want to use `geom_point(shape = 21)` to set the fill of points later in the assignment
+
+```{r}
+#| echo: false
+
+readRDS("solutions/solution1_1.rds")
+```
+
+
+
+## Problem 2
+
+Make some adjustments: 
+
+  1. Use `log_income` instead of `gdpPercap` as the x variable
+
+  2. Make the countries (i.e. the points) have fills that correspond to the continent which the country belongs to
+
+  3. Make the size of points proportional to the population of the country
+
+
+
+```{r}
+#| echo: false
+
+readRDS("solutions/solution1_2.rds")
+```
+
+
+## Problem 3
+
+Make a few more adjustments: 
+
+  1. Set the limits of the x-axis between 6 and 11 (i.e. `xlim = c(6, 11)`)
+
+  2. Set the limits of the y-axis between 30 and 85 (i.e. `ylim = c(30, 85)`)
+
+  3. Add an annotation layer in the center of the plot indicating the year
+
+  4. Clean up the labels for the axes and legends
+
+:::{.callout-tip}
+
+There are multiple ways to to do 3 such as using `annotate` or `geom_text`; I would recommend annotate to start but geom_text could prove easier for later questions
+
+You might want to consider `xlim`, `ylim` and the `mean` function to help position your label in the exact center of the plot
+
+:::
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+readRDS("solutions/solution1_3.rds")
+```
+
+
+
+## Problem 4
+
+Make some additional adjustments to your plot:
+
+  1. Set the range of point sizes as `c(1,20)` hint: you're using size is an aesthetic which means it has a `scale_`
+
+  2. Remove the point size portion from the legend guide
+
+  3. Increase the size of points in the fill portion of the legend
+  
+:::{.callout-tip}
+
+For 2 and 3, you will need to make use of the `guides()` function from ggplot2
+
+For 3 you will be using `override.aes` as an argument specifically
+
+Spend some time with the reference manual and cheat sheets if necessary
+
+:::
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+readRDS("solutions/solution1_4.rds")
+```
+
+
+## Problem 5
+
+Try arranging `gap_data` by population size, in descending order, prior to plotting
+
+This plot may or may not appear different compared to problem 4
+
+In your comments, explain why there is or isn't a difference in the plot
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+readRDS("solutions/solution1_5.rds")
+```
+
+
+## Problem 6
+
+Include the following label annotations on your plot:
+
+  1. Add a `geom_label_repel` layer to the plot that indicates which country in each continent has the highest or lowest life expectancy
+
+  2. Use `show.legend = FALSE` to stop the text from being incorporated into the legend; 
+  
+:::{.callout-tip}
+
+Make sure all the labels are the same size and __NOT__ proportional to the population size
+
+Think about how you want use size and ask "is it an aesthetic or an argument?"
+
+:::
+
+
+```{r}
+#| echo: false
+#| warning: false
+
+readRDS("solutions/solution1_6.rds")
+```
+
+
+## Problem 7
+
+
+:::{.callout-important}
+
+This problem is optional and will require the original `gapminder` dataset
+
+:::
+
+Get creative with animations
+
+  1. Use the `gganimate` package to make a smooth animation to update the background image of the `year` variable in the plot
+
+  2. Put a label over one country of your choosing
+  
+  3. For added challenge, find a way to make the year label in the background smoothly transition without showing decimal places
+
+:::{.callout-tip}
+
+You can find a great `gganimate` tutorial here: <https://github.com/thomasp85/gganimate>{.external, target="_blank"}
+
+:::
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| cache: true
+#| label: "animate_2"
+
+animate(readRDS("solutions/solution1_7.rds"), fps=10)
+```
+
+
+
+# Part 2 - Data Manipulation and Summarization
+
+:::{.callout-important}
+
+Remember, all table output should use the `gt` package
+
+:::
+
+
+## Prepping the Data
+
+```{r}
+#| warning: false
+#| message: false
+
+
+suppressPackageStartupMessages({
+  #For table output
+  library(gt)
+})
+cvd_data <- read_csv("data/synthdata_cvd.csv")
+
+
+
+#This code shows how you can use gt() to make tables in html documents
+#This code can be reused to help you make tables for these problems
+#For details, check out the gt vignette linked below or the Intro file from the first lecture
+#https://gt.rstudio.com/articles/gt.html
+
+cvd_data_dict <- read_rds('data/synthdata_guide.RDS') |> 
+  rename(abbreviation = abbr) |>
+  gt() |>
+  
+  #cols_align will not accept vectorized values to align, so each alignment type must be specified
+  #The columns argument can use tidy selection if you want to use things like starts_with() from dplyr
+  cols_align(align = "left", columns = c("variable", "group", "label")) |>
+  cols_align(align = "center", columns = c("type", "unit", "abbreviation")) |>
+
+  #For titles and captions you can wrap the string in html() or md() to use HTML or markdown to format the text
+  #e.g. you can use <br/> to make a new line with html()
+  tab_header(title = html("Description of variables in the synthetic cardiovascular disease data")) |>
+
+  #You can enable html within the table as well, you can specify columns with tidy selection like cols_align
+  #Like the caption, you can also wrap individual cells in html() or md()
+  fmt_markdown(columns = everything()) |>
+
+  #Other stylistic options can be set within the tab_options() function
+  #Here we make the table the full width and make the font size a bit smaller
+  tab_options(table.width = "100%",
+              table.font.size = pct(85))
+
+#A final comment, many static options are lost when using either ihtml. arguments within tab_options() or using opt_interactive()
+#I recommend just use static tables for now, there are better packages for dynamic tables
+
+```
+
+The `synthdata_cvd.csv` file contains synthetic data on `r nrow(cvd_data)` participants 
+
+In this fake study, cardiovascular disease (CVD; stroke or coronary heart disease) events were identified during follow-up with the following two key variables: 
+
+  1. `time_chd_strk`: The time, in years, from baseline until death, a CVD event, or last contact
+
+  2. `chd_strk`: A value of "Yes" indicates that a CVD event occurred at `time_chd_strk` while a value of "No" indicates that a CVD event did not occur (i.e., death or last contact DID occur) at `time_chd_strk`
+
+The other variables in the data are described below:
+
+```{r}
+cvd_data_dict
+```
+
+
+
+
+
+## Problem 1
+
+:::{.callout-tip}
+
+This will be much easier with some functions we've only touched in in lecture
+
+Spend some time looking at `dplyr`'s material on colwise operations and scoping using `across()`
+
+:::
+
+Starting with the `cvd_data` object, select 
+
+- age (participant age in years)
+
+- sex (participant sex at birth)
+
+- scrcc (serum creatinine)
+
+- sbp (systolic blood pressure)
+
+- dbp (diastolic blood pressure)
+
+- albumin (urinary albumin)
+
+- creatinine (urinary creatinine)
+
+- bpmeds (blood pressure medication use)
+
+- dmmeds (anti-diabetic medication use)
+
+- statinmeds (statin medication use)
+
+- time_chd_strk (see above)
+
+- chd_strk (see above)
+
+Next, remove participants from the data who were lost to follow up during the first 10 years but be careful not to confuse _'lost to follow up'_ with _'had a CVD event'_
+
+Determine the dimensions of your dataset to get the number of rows and columns and compare to the results from the starting HTML file; you have many ways to get to these values
+
+
+```{r}
+#| echo: false
+
+dim(readRDS("solutions/solution2_1a.rds"))
+```
+
+  
+
+Now, create a table summarizing the proportion of missing values in each column of the data using the table provided here as reference to check your work
+
+```{r}
+#| echo: false
+
+readRDS("solutions/solution2_1b.rds")
+```
+
+
+
+Last, remove any row in the data where a participant has a missing value (`NA`) and print the dimensions of the data now that all rows with at least one missing value are filtered out
+
+```{r}
+#| echo: false
+
+dim(readRDS("solutions/solution2_c.rds"))
+```
+  
+
+## Problem 2
+
+Using the data created in problem 1, identify the oldest male and female who are taking both blood pressure lowering medication and anti-diabetes medication
+
+Using these two participants' data, create the table shown in the starting document
+  
+```{r}
+#| echo: false
+
+readRDS("solutions/solution2_2.rds")
+```
+
+
+## Problem 3
+
+Create the following variables: 
+
+- `cvd10`: This variable is 'Yes' if participants experienced a CVD event during the first 10 years of follow-up, and 'No' otherwise.
+
+- `albuminuria`: This variable is 'Yes' if a participant's urinary albumin to creatinine ratio is greater than 30 mg/g, and 'No' otherwise. 
+
+- `egfr`: (estimated glomerular filtration rate) This variable is computed conditionally for males and females based on serum creatinine (i.e., `scrcc`).
+
+    + For females with `scrcc` $\leq$ 0.7, $$\texttt{gfr} = 166 \cdot \left(0.993\right)^{\texttt{age}} \left(\frac{\texttt{scrcc}}{0.7}\right)^{-0.329}.$$ 
+    + For females with `scrcc` $>$ 0.7, $$\texttt{gfr} = 166 \cdot \left(0.993\right)^{\texttt{age}} \left(\frac{\texttt{scrcc}}{0.7}\right)^{-1.209}.$$ 
+    + For males with `scrcc` $\leq$ 0.9, $$\texttt{gfr} = 163 \cdot \left(0.993\right)^{\texttt{age}} \left(\frac{\texttt{scrcc}}{0.9}\right)^{-0.411}.$$ 
+    + For males with `scrcc` $\geq$ 0.9, $$\texttt{gfr} = 163 \cdot \left(0.993\right)^{\texttt{age}} \left(\frac{\texttt{scrcc}}{0.9}\right)^{-1.209}.$$ 
+
+- `low_gfr` This variable is `Yes` if a participant's estimated glomerular filtration rate is $< 60 \text{ml/min/1.73m}^2$, and 'No' otherwise. 
+
+- `elev_bp` This variable is `Yes` if any of the following conditions are true: 
+
+    + systolic blood pressure > 130 mm Hg 
+    + diastolic blood pressure > 80 mm Hg
+    + the participant is currently using blood pressure medications.
+
+Last, convert all character (`chr`) variables into factors (`fct`)
+
+Apply the `glimpse` function to your data to show column types and values for all variables
+
+**This data will be used in all problems that follow and will be referred to as the sample from problem 3**
+
+```{r}
+#| echo: false
+
+glimpse(readRDS("solutions/solution2_3.rds"))
+```
+
+## Problem 4
+
+Group the data from problem 3 by `sex`, `albuminuria`, and `low_gfr` groups and, for each group, compute the incident rate of CVD per 1000 person-years:<br/> $$\texttt{incident CVD rate per 1000 person years} = 1000 \cdot \frac{\texttt{no. of CVD events}}{\texttt{no. of years at risk}}$$
+
+After creating this summary data, use `ggplot` to create a tiled figure (i.e. `geom_tile`) that shows the incident CVD rate for all four categories of `albuminuria` and `low_gfr` among males and females, separately 
+
+Use `geom_label` to place the exact rate of incident CVD as text into each tile of the figure
+
+```{r fig.height=7, fig.width=12}
+#| echo: false
+
+readRDS("solutions/solution2_4.rds")
+```
+
+## Problem 5
+
+Create a new column in the data from problem 3 that indicates the various combinations of medications taken by each participant using the `bpmeds`, `dmmeds`, and `statinmeds` binary variables
+
+Overall, there are 2 x 2 x 2 = 8 possible medication patterns (recall that we removed any rows with missing values)
+
+Using this variable you create, identify the __four__ most common medication groups in the dataset 
+
+Modify the medication group variable so that any other groups apart from the four most common ones are labeled as 'Other'
+
+For example, this may include:
+
+  - A group wherein the participant is taking no medication at all 
+  
+  - A group who is taking medication to lower blood pressure _only_ with no other medications
+  
+  - A category for those taking statins plus medication to lower blood pressure
+  
+  - A category encompassing all other combinations
+  
+Overall, there are 2 x 2 x 2 = 8 possible medication patterns (recall that we removed any rows with missing values)
+
+Present the frequency and proportion of observations for each medical profile and stratify your results by sex groups
+
+:::{.callout-tip}
+
+Spend some time with `forcats` to see how you can make this process easier
+
+:::
+
+```{r}
+#| echo: false
+
+readRDS("solutions/solution2_5.rds")
+```
+
+
+

@@ -78,7 +78,10 @@ website:
           - text: "Exercise Downloads"
             href: "downloads.qmd"
       
-            
+      - section: "Midterm"
+        contents: 
+          - text: "Midterm Details"
+            href: "html_files/Midterm/midterm_start_here.qmd"
 
 format:
   html:
