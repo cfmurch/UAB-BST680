@@ -3371,7 +3371,7 @@
     "href": "html_files/Midterm/midterm_start_here.html#problem-7",
     "title": "BST680 Midterm",
     "section": "Problem 7",
-    "text": "Problem 7\n\n\n\n\n\n\nImportant\n\n\n\nThis problem is optional and will require the original gapminder dataset\n\n\nGet creative with animations\n\nUse the gganimate package to make a smooth animation to update the background image of the year variable in the plot\nPut a label over one country of your choosing\nFor added challenge, find a way to make the year label in the background smoothly transition without showing decimal places\n\n\n\n\n\n\n\nTip\n\n\n\nYou can find a great gganimate tutorial here: https://github.com/thomasp85/gganimate{.external, target=“_blank”}",
+    "text": "Problem 7\n\n\n\n\n\n\nImportant\n\n\n\nThis problem is optional and will require the original gapminder dataset\n\n\nGet creative with animations\n\nUse the gganimate package to make a smooth animation to update the background image of the year variable in the plot\nPut a label over one country of your choosing\nFor added challenge, find a way to make the year label in the background smoothly transition without showing decimal places\n\n\n\n\n\n\n\nTip\n\n\n\nYou can find a great gganimate tutorial here: https://github.com/thomasp85/gganimate",
     "crumbs": [
       "Home",
       "Midterm",

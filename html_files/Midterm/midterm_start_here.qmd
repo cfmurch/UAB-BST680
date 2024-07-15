@@ -262,7 +262,7 @@ Get creative with animations
 
 :::{.callout-tip}
 
-You can find a great `gganimate` tutorial here: <https://github.com/thomasp85/gganimate>{.external, target="_blank"}
+You can find a great `gganimate` tutorial here: <https://github.com/thomasp85/gganimate>{.external target="_blank"}
 
 :::
 
