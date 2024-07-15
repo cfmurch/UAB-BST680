@@ -1,0 +1,275 @@
+---
+title: "Data Visualization Basics"
+subtitle: "Excercises - Lecture 02"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code-fold: false
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    echo: true
+    toc: true
+    toc-float: true
+---
+
+# Overview
+
+The `gapminder` data are related to a [famous TED talk](https://www.youtube.com/watch?v=hVimVzgtD6w) given by Hans Rosling. In his talk, Dr. Rosling shows an animated visualization depicting the relationship between life expectancy and average income levels by country. Our goal in this module is to reproduce Dr. Rosling's visualization.
+
+We will access the `gapminder` data from the [gapminder R package](https://github.com/jennybc/gapminder). This package contains a dataset (technically, a `tibble`) called `gapminder` with 6 variables:
+
+| variable  | meaning                  |
+|:----------|:-------------------------|
+| country   | country                  |
+| continent | continent                |
+| year      | year                     |
+| lifeExp   | life expectancy at birth |
+| pop       | total population         |
+| gdpPercap | per-capita GDP           |
+
+Per-capita GDP (Gross domestic product) is given in units of [international dollars](http://en.wikipedia.org/wiki/Geary%E2%80%93Khamis_dollar), "a hypothetical unit of currency that has the same purchasing power parity that the U.S. dollar had in the United States at a given point in time" -- 2005, in this case.
+
+**Note**: the gapminder R package exists for the purpose of teaching and making code examples. It is an excerpt of data found in specific spreadsheets on Gapminder.org circa 2010. It is not a definitive source of socioeconomic data.
+
+# Packages
+
+Load the `tidyverse` and `gapminder` packages. We are using `tidyverse` to access the `ggplot2` package and using `gapminder` to access the data.
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+#| echo: true
+
+library(gapminder)
+library(tidyverse)
+```
+
+# Inspect your data
+
+In `gapminder`, each country has 12 rows distinguished by year.
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: true
+
+# View gapminder data
+  # can also use View(gapminder)
+
+# to set a dataframe:
+gapminder
+```
+
+# Exercise 1
+
+Create a scatter plot using `gdpPercap` as the x-variable and `lifeExp` as the y-variable: 
+
+Solution for Exercise 1:
+
+We will use the package ggplot2 and the ggplot function.
+We want to use the gdpPercap as the x-variable and lifeExp as the y-variable.
+We then want to add the points to the graph using geom_point.
+```{r}
+#| echo: true
+plot1 <- ggplot(
+  data=gapminder,
+  aes(x=gdpPercap, y=lifeExp)) + 
+  geom_point()
+
+plot1
+
+```
+
+# Exercise 2 
+
+Modify your figure from exercise 1: transform the scale of your x-axis to be in log base 10 units. (See `?scale_x_log10`)
+
+Solution for Exercise 2:
+
+Now we will change the x-sclare to log base 10 and remove the numeric labels from the x-axis. Thus we add  scale_x_log10(labels=NULL). 
+```{r}
+#| echo: true
+#| 
+plot2 <- plot1 + 
+  scale_x_log10(labels=NULL) 
+ 
+plot2
+
+
+```
+
+# Exercise 3
+
+Add x- and y-axis labels to your figure from exercise 2. 
+
+Solution for Exercise 3:
+We now add the x-axis and y-axis labels using the labs() function.
+```{r}
+#| echo: true
+
+plot3 <- plot2 +
+  labs(y="Life expectancy, years", 
+       x="Log income")
+ 
+plot3
+
+```
+
+# Exercise 4
+
+Add a smoothed curve to your plot, showing the overall population trend. (See `?geom_smooth`)
+
+Solution for Exercise 4:
+Now we add a fitted line to our plot given the provided information, method = 'gam' and formula 'y ~ s(x, bs = "cs")'`geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'.
+
+```{r}
+#| echo: true
+
+plot4 <- plot3 +
+  geom_smooth(method='gam', formula = y ~ s(x, bs = "cs")) 
+
+plot4
+# notes on geom_smooth
+# using gam to fit the non-linear trend line
+# s function stands for spline
+# bs basis-spline
+
+```
+
+# Exercise 5
+
+Adjust the points in your graph: 
+
+1. Set their `shape` to be `21`
+1. Set their `color` to be `'black'` 
+1. Set their `fill` to be `'grey'`
+
+Adjust the overall population trend as well: 
+
+1. Set the line's color to be `'red'`
+1. Remove the standard errors (shaded region around the line) from the plot.
+
+Solution for Exercise 5:
+
+- Adding (shape=21,  color="black", fill="grey") to  geom_point().
+
+- We also add color="red", se= FALSE to geom_smooth(). se=FALSE indicates to remove the standard errors on the plot.
+
+```{r}
+#| echo: true
+
+plot5 <- ggplot(
+  data=gapminder,
+    aes(x=gdpPercap, 
+        y=lifeExp)) + 
+  geom_point(shape=21,  
+             color="black", 
+             fill="grey") +
+  scale_x_log10(labels=NULL ) +
+  labs(y="Life expectancy, years", 
+       x="Log income") +
+  geom_smooth(method='gam', 
+              formula = y ~ s(x, bs = "cs"), 
+              color="red", 
+              se= FALSE) 
+
+plot5
+
+```
+
+# Exercise 6
+
+Go to the [ggplot2 theme() reference page](https://ggplot2.tidyverse.org/reference/ggtheme.html) and scroll through the pictures that show some of the built-in ggplot2 themes. Pick a theme that you like and add it to the figure you created in exercise 5. 
+
+Solution for Exercise 6:
+We add the theme theme_classic() to change the plot background appearance. 
+```{r}
+#| echo: true
+
+plot6 <- plot5 +
+  theme_classic()
+
+plot6
+
+```
+
+# Exercise 7
+
+There is something happening in the upper levels of income. The population trend between income and life expectancy changes direction. There is an R package called `plotly` that can help you explore `ggplot` figures interactively. Converting a `ggplot2` figure into a `plotly` figure is straightforward:
+
+You can tell by hovering your mouse over the far right points in the figure that the higher income but lower life expectancy country is Kuwait. Now, re-create this figure, but use `year` as a label instead of `country`, and identify the years that account for these points. 
+
+Once you've seen the year values associated with the points in the upper-income but lower than expected life expectancy, formulate a hypothesis explaining your data. After you've written your hypothesis down, go to [Wikipedia's Kuwait page](https://en.wikipedia.org/wiki/History_of_Kuwait) and read about their modern history. Was your hypothesis correct?
+
+Solution for Exercise 7:
+```{r}
+#| warning: false
+#| echo: true
+#| code-fold: false
+
+library(plotly, warn.conflicts = FALSE)
+
+# first create the primary data set ggFigureEx7
+ggfigure7 <- ggplot(data=gapminder, 
+                    aes(x=gdpPercap, y=lifeExp)) +
+  geom_point(shape=21,  
+             color="black", 
+             fill="grey") +
+  scale_x_log10(labels=NULL) +
+  labs(y="Life expectancy, years", 
+       x="Log income") +
+  geom_smooth(method='gam', 
+              formula = y ~ s(x, bs = "cs"), 
+              color="red", 
+              se= FALSE) +
+  theme_classic()
+
+ggplotly(ggfigure7)
+
+#now create ggfigure7Yr with added label=year
+ggfigureYr <- ggfigure7 +  aes(label = year)
+
+ggplotly(ggfigureYr)
+
+#create ggfigure7C with added label=country
+ggfigureC <- ggfigure7 +  aes(label = country)
+
+ggplotly(ggfigureC)
+
+
+#an altertive method by adding group=country in the geom_point statement
+#allows to have labels for both country and year in plotyly
+ggfigureAlt <- ggplot(data=gapminder,
+                      aes(x=gdpPercap, y=lifeExp)) +
+  geom_point(aes(group = country), 
+             shape=21,  color="black", 
+             fill="grey") +
+  scale_x_log10(labels=NULL) +
+  labs (y="Life expectancy, years", 
+        x="Log income") +
+  geom_smooth(method='gam', 
+              formula = y ~ s(x, bs = "cs"), 
+              color="red", 
+              se= FALSE) +
+  theme_classic() +
+  aes(label = year)
+
+
+ggplotly(ggfigureAlt)
+```
+
+All of the points are in the range of the years 1952 and 1977. 
+There appears to be upper-income but lower than expected life expectancy in Kuwait during these years.
+
+Hypothesis: wealth was concentrated in a smaller group of people as compared to the general population.
+
+From Wikipedia: "90 per cent Of the capital generated from oil for investment abroad was concentrated in the hands of eighteen families." 
+
+So there was an uneven distribution of weath in Kuwait during the span of years 1952 to 1977 that explain what the general life expectancy was lower as compared to the GDP. 
+

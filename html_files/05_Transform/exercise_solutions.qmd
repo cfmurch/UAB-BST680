@@ -1,0 +1,299 @@
+---
+title: "Derive information with dplyr"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code-folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+# Overview
+
+NHANES (The National Health and Nutrition Examination Survey) was designed to assess the health and nutritional status of the US population and is conducted by the National Center for Health Statistics of the Centers for Disease Control and Prevention. Since 1999-2000, NHANES has been conducted in two-year cycles. For each cycle, potential participants are identified through stratified, multistage probability sampling of the non-institutionalized US population. In this set of exercises, we will use the ten cycles conducted from 1999-2000 through 2017-2018.
+
+## Import
+
+```{r}
+#| echo: false
+
+# Load packages 
+library(tidyverse)  # includes dplyr - filter / select
+library(gt)         # for tables
+
+nhanes <- read_rds('data/NHANES_analysis_post_exclusions.rds')
+
+# trying to print all rows will make df_print: paged cause a pandoc error.
+# don't modify the line below! It may break knitr.
+nhanes[1:10, ]
+  
+```
+
+## Data dictionary
+
+Review this briefly and use it as a reference to engage with the exercises below.
+
+```{r}
+#| echo: false
+# A data dictionary is more comprehensive than these two columns,
+# but these two columns are the core components of a data dictionary.
+# I highly recommend you only engage with data when there is a 
+# data dictionary available. If a collaborator cannot share one of
+# these with you when they ask you to analyze your data, then they 
+# should not be your collaborator.
+
+nhanes_descr <- c(
+  "seqn"              = "SP identifier",
+  "exam"              = "NHANES exam year",
+  "psu"               = "primary sampling unit",
+  "strata"            = "survey strata",
+  "wts_mec_2yr"       = "survey weights",
+  "age"               = "SP age, years",
+  "age_group"         = "SP age group, years",
+  "sex"               = "SP sex",
+  "race_ethnicity"    = "SP race and/or ethnicity",
+  "education"         = "SP education",
+  "income_hh"         = "SP household income",
+  "bp_sys_mmhg"       = "SP systolic blood pressure, mm Hg",
+  "bp_dia_mmhg"       = "SP diastolic blood pressure, mm Hg",
+  "bp_controlled"     = "Did SP have controlled BP? (<140/90 mm Hg)",
+  "acr_mgg"           = "SP albumin-to-creatinine ratio, mg/g",
+  "albuminuria"       = "Did SP have albuminuria? (ACR > 30 mg/g)",
+  "chol_hdl_mgdl"     = "SP HDL-cholesterol, mg/dl",
+  "chol_total_mgdl"   = "SP total cholesterol, mg/dl",
+  "health_insurance"  = "SP health insurance status",
+  "bp_high_aware"     = "SP ever told by Dr: 'you have high blood pressure'?",
+  "bp_meds"           = "SP currently using antihypertensive medication?",
+  "hc_usual_facility" = "SP has a usual healthcare facility?",
+  "hc_visit_1yr"      = "SP visited their healthcare facility last year?"
+)
+
+# abbreviations need to be placed in the footnote of the table
+abbrevs <- c("SP = survey participant", 
+  "BP = blood pressure", 
+  "HDL = high density lipoprotein") %>% 
+  paste(collapse = '; ')
+
+# the enframe function transforms a vector into a tibble,
+enframe(nhanes_descr) %>% 
+  gt(rowname_col = "name") %>%
+  tab_stubhead(label = 'Variable name') %>% 
+  cols_label(value = 'Variable description') %>% 
+  cols_align('right') %>% 
+  tab_source_note(source_note = abbrevs) %>% 
+  tab_header(title = 'Description of NHANES data')
+
+```
+
+# Exercise 1
+
+Group the `nhanes` data by exam and sex, then apply the `summarize()` function to compute the mean systolic blood pressure and standard error for the mean systolic blood pressure at each exam year, for men and women, separately.
+
+Notes:
+
+-   the standard error of a vector $x$ with $n$ observations is $$\frac{\text{standard deviation of x}}{\sqrt{n}}$$
+
+-   the mean systolic blood pressure should be named `sbp_mn`
+
+-   the standard error of systolic blood pressure should be named `sbp_se`
+
+```{r}
+
+ex1 <- select(nhanes, exam, sex, bp_sys_mmhg) |>
+  group_by(exam, sex) |>
+  summarise(sbp_mn = mean(bp_sys_mmhg),
+            sbp_se = sd(bp_sys_mmhg)/sqrt(n()))
+
+# Hints: 
+# 
+# there is a function in dplyr called n()
+# that counts the number of rows in each group.
+# for example, try running:
+# 
+# nhanes %>% 
+#   group_by(exam) %>% 
+#   summarise(n = n())
+# 
+# how could you use this to compute standard error?
+
+```
+
+# Exercise 2
+
+Using the summary data you created in problem 1, create a figure to explore trends in mean systolic blood pressure.
+
+-   What do you think drove the trends you see?
+
+-   Be careful! The results we are looking at are not adjusted using the NHANES weights. Therefore, results are not nationally representative.
+
+Notes:
+
+-   `geom_line` expects a grouping aeshetic, specified with `aes(group = <grouping variable>)`.
+
+-   If you'd like a challenge, add standard error bars. (optional)
+
+```{r}
+
+plot2 <- 
+  ggplot(ex1,
+         aes(x = exam,
+             y = sbp_mn,
+             color = sex)) +
+  geom_point(size = 2) +
+  geom_line(aes(group = sex)) +
+  labs(y="Mean systolic blood pressure, mm HG", 
+       x="NHANES exam cycle",
+       color = "Sex") +
+  geom_linerange(aes(ymin = sbp_mn-sbp_se,
+                    ymax = sbp_mn+sbp_se)) +
+  scale_colour_brewer(palette = "Dark2") +
+  guides(colour = guide_legend(reverse = TRUE))
+         
+plot2
+
+```
+
+# Exercise 3
+
+Using the `nhanes` data, compute race-by-sex specific estimates of the prevalence of hypertension in each exam year.
+
+Note:
+
+-   hypertension is defined as having systolic blood pressure \> 140 mm Hg, diastolic blood pressure \> 90 mm Hg, or currently using antihypertensive medications.
+
+-   You will want to group by three variables.
+  group_by(exam, sex, race_ethnicity) |>
+```{r}
+
+ex3 <- select(nhanes, exam, sex, race_ethnicity, bp_sys_mmhg, bp_dia_mmhg, bp_meds) |>
+  group_by(exam, sex, race_ethnicity) |>
+  summarise(htn = sum(bp_sys_mmhg > 140 | bp_dia_mmhg > 90 | bp_meds == 'Yes')/n())
+
+ex3
+
+
+```
+
+# Exercise 4
+
+Learn something new: Later on in the course, we will learn about reshaping data. One of the most useful functions for reshaping is called `pivot_wider`. 
+
+Use the wider data in combination with the `gt` package to reproduce the table below.
+
+Notes:
+
+-   `gt` handles grouped datasets by creating a table subsection for each group (i.e., same as setting `groupname_col`).
+
+-   `fmt_percent` and `sub_missing` are used to control formatting.
+
+-   `tab_spanner()` creates table headers spanning columns.
+
+-   `summary_rows` is used to create the Overall summary for each sex group.
+
+```{r}
+
+ex4 <- pivot_wider(ex3, names_from = exam, values_from = htn)
+ex4
+
+```
+
+```{r}
+tbl4 <- gt(ex4, 
+           rowname_col = "race_ethnicity",
+           groupname_col = "sex") |>
+  summary_rows(
+    fns = list(label = "Overall", id = "total") ~ mean(.,na.rm = TRUE),
+    fmt = ~ fmt_percent(., decimals = 1))|>
+  fmt_percent(columns = everything(),
+              decimals = 1) |>
+  tab_style(
+    style = cell_text(align = "right"),
+    locations = cells_stub_summary()) |>
+  tab_style(
+    style = cell_text(align = "left"),
+    location = cells_stub()) |>
+  sub_missing(columns = everything(),
+              rows = everything(),
+              missing_text = "---") |>
+  tab_spanner(label = "NHANES exam",
+              columns = everything())
+
+tbl4
+
+```
+
+# Exercise 5
+
+Using the dataset you created in exercise 3, compare the prevalence of hypertension between 2013 and 2017 for race-sex groups. Compute the increase (relative and absolute) in prevalence for each group.
+
+Notes:
+
+-   Absolute difference: $$\text{prevalence from 2017} - \text{prevalence from 2013}$$
+
+-   Relative difference: $$\frac{\text{prevalence from 2017}}{\text{prevalence from 2013}} - 1$$
+
+```{r}
+
+# Your code goes here
+
+# Hint: my solution looks like this:
+# ... indicates code you can fill in.
+ex5 <- ex3 |>
+  filter(exam %in% c('2013', '2017')) |>
+  group_by(sex, race_ethnicity) |>
+  summarize(
+    diff_abs = diff(htn),
+    diff_rel = ((last(htn)/first(htn)) - 1)) |>
+  arrange(desc(diff_abs))
+ex5
+
+
+```
+
+# Exercise 6
+
+Tabulate the data you created in exercise 5, using some of the stylistic features that `gt` offers.
+
+Notes:
+
+-   the function used to color cells is `data_color()`.
+
+-   Learn more about it [here](https://gt.rstudio.com/reference/data_color.html)
+
+-   I always skip to the examples when I am looking at function help pages
+
+```{r}
+
+tbl6 <- gt(ex5, 
+           rowname_col = "race_ethnicity",
+           groupname_col = "sex") |>
+  cols_label(diff_abs = "Absolute",
+             diff_rel = "Relative") |>
+  fmt_percent(
+    columns = everything(),
+    decimals = 2) |>
+  tab_style(
+    style = cell_text(
+      align = "left"),
+    location = cells_stub()) |>
+  tab_spanner(
+    label = "Difference in hypertension prevalence",
+    columns = everything()) |>
+    tab_footnote(
+    footnote = "Difference is computed using data from 2017-2018 NHANES cycle relative to the 2013-2014 NHANES cycle.",
+    locations = cells_column_spanners()) |>
+  data_color(columns = diff_abs,
+             palette = "Oranges")
+
+tbl6
+
+
+```
+

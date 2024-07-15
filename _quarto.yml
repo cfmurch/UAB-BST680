@@ -9,6 +9,7 @@ website:
       - href: index.qmd
         text: Home
   sidebar:
+    collapse-level: 1
     style: "docked"
     logo: "uab_logo.png"
     search: true
@@ -71,6 +72,21 @@ website:
             href: "html_files/05_Transform/class_exercises.qmd"
           - text: "06 - Advanced Visualization"
             href: "html_files/06_Adv_Visual/class_exercises.qmd"
+      - section: "Assignment Solutions"
+        contents: 
+          - text: "01 - Working with Tables"
+            href: "html_files/01_Intro/exercise_solutions.qmd" 
+          - text: "02 - Visualization Basics"
+            href: "html_files/02_Visual/exercise_solutions.qmd" 
+          - text: "03 - Programming Basics"
+            href: "html_files/03_Program/exercise_solutions.qmd" 
+          - text: "04 - Isolation with dplyr"
+            href: "html_files/04_Isolate/exercise_solutions.qmd" 
+          - text: "05 - Data Transformation"
+            href: "html_files/05_Transform/exercise_solutions.qmd"
+          - text: "06 - Advanced Visualization"
+            href: "html_files/06_Adv_Visual/exercise_solutions.qmd"
+        
           
             
       - section: "Downloads"
