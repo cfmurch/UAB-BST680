@@ -3269,5 +3269,185 @@
       "Assignment Solutions",
       "04 - Isolation with dplyr"
     ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html",
+    "href": "html_files/Midterm/midterm_start_here.html",
+    "title": "BST680 Midterm",
+    "section": "",
+    "text": "This midterm is comprised of two portions:\n\nA visualization using a curated variation of the gapminder dataset\nA data manipulation and summarisation exercise emphasizing gt output\n\nFor each question, provide your code in order to create the requested output and comment your code either within the code block or by adding annotations directly to the Quarto document. I’m less interested in the specific code you used than I am understanding your thought process in order to get to the solution. Your comments are critical and should be provided as if to direct someone who has never seen your code to be able to reproduce it easily and know why you settled on these options.\n\n\n\n\n\n\nWarning\n\n\n\nTo best accomplish these coding tasks, you’ll need to work with functions that we may have only briefly discussed in class\nPart of this course is to develop your skill set to discover and use functions you may not have been aware of previously\nAgain, look at the references and cheat sheets, they’re your friends\n\n\nGood luck!\nTo get you started, a zipped file with all the necessary files and folders can be [downloaded here]\n\n\n\n\n\n\nTip\n\n\n\nYou can check your work as you go through the assignment by viewing the midterm html document available online\nConversely you can open “midterm_start_here.html” locally, click on it in the ‘Files’ pane of Rstudio and then select the ‘View in web browser option’\nEvery problem has the answer displayed in this document so you can verify whether you have gotten the expected result",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#prepping-the-data",
+    "href": "html_files/Midterm/midterm_start_here.html#prepping-the-data",
+    "title": "BST680 Midterm",
+    "section": "Prepping the data",
+    "text": "Prepping the data\n\nWe will be using a curated version of the gapminder dataset\nFor more details on the Gapminder organization, see https://www.gapminder.org/about-gapminder/\nYou’ll find the modified variation of the gapminder data below called gap_data; you may continue to use this name\n\n\n# Load libraries\nsuppressPackageStartupMessages({\n  #For the main problems\n  library(gapminder)\n  library(tidyverse)\n  library(ggrepel)\n  \n  #For the optional problem\n  library(gganimate)\n  library(gifski)\n})\n\n#Create the gap_data dataset\ngap_data &lt;- gapminder |&gt;\n  \n  #Keep only rows where the year is 2007\n  filter(year == 2007) |&gt; \n  \n  #Label column is computed for each continent, separately\n  #Group data by continent before creating the label column\n  #This column will be used for later questions\n  group_by(continent) |&gt; \n  mutate(\n    #Income is highly skewed; create a log scale variant for ease\n    log_income = log(gdpPercap),\n    \n    #The country_label column is used later\n    country_label = case_when(\n      lifeExp %in% c(min(lifeExp), max(lifeExp)) ~ country\n    )\n  )",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-1",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-1",
+    "title": "BST680 Midterm",
+    "section": "Problem 1",
+    "text": "Problem 1\nUsing gap_data, create the following plot, use theme elements such as a different backgrounds or text sizes to personalize your plot; it doesn’t need to match my conventions exactly but be creative\nNotes:\n\nThe x-axis and y-axis labels indicate which columns in gap_data were used to make the data\nYou will want to use geom_point(shape = 21) to set the fill of points later in the assignment",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-2",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-2",
+    "title": "BST680 Midterm",
+    "section": "Problem 2",
+    "text": "Problem 2\nMake some adjustments:\n\nUse log_income instead of gdpPercap as the x variable\nMake the countries (i.e. the points) have fills that correspond to the continent which the country belongs to\nMake the size of points proportional to the population of the country",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-3",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-3",
+    "title": "BST680 Midterm",
+    "section": "Problem 3",
+    "text": "Problem 3\nMake a few more adjustments:\n\nSet the limits of the x-axis between 6 and 11 (i.e. xlim = c(6, 11))\nSet the limits of the y-axis between 30 and 85 (i.e. ylim = c(30, 85))\nAdd an annotation layer in the center of the plot indicating the year\nClean up the labels for the axes and legends\n\n\n\n\n\n\n\nTip\n\n\n\nThere are multiple ways to to do 3 such as using annotate or geom_text; I would recommend annotate to start but geom_text could prove easier for later questions\nYou might want to consider xlim, ylim and the mean function to help position your label in the exact center of the plot",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-4",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-4",
+    "title": "BST680 Midterm",
+    "section": "Problem 4",
+    "text": "Problem 4\nMake some additional adjustments to your plot:\n\nSet the range of point sizes as c(1,20) hint: you’re using size is an aesthetic which means it has a scale_\nRemove the point size portion from the legend guide\nIncrease the size of points in the fill portion of the legend\n\n\n\n\n\n\n\nTip\n\n\n\nFor 2 and 3, you will need to make use of the guides() function from ggplot2\nFor 3 you will be using override.aes as an argument specifically\nSpend some time with the reference manual and cheat sheets if necessary",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-5",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-5",
+    "title": "BST680 Midterm",
+    "section": "Problem 5",
+    "text": "Problem 5\nTry arranging gap_data by population size, in descending order, prior to plotting\nThis plot may or may not appear different compared to problem 4\nIn your comments, explain why there is or isn’t a difference in the plot",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-6",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-6",
+    "title": "BST680 Midterm",
+    "section": "Problem 6",
+    "text": "Problem 6\nInclude the following label annotations on your plot:\n\nAdd a geom_label_repel layer to the plot that indicates which country in each continent has the highest or lowest life expectancy\nUse show.legend = FALSE to stop the text from being incorporated into the legend;\n\n\n\n\n\n\n\nTip\n\n\n\nMake sure all the labels are the same size and NOT proportional to the population size\nThink about how you want use size and ask “is it an aesthetic or an argument?”",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-7",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-7",
+    "title": "BST680 Midterm",
+    "section": "Problem 7",
+    "text": "Problem 7\n\n\n\n\n\n\nImportant\n\n\n\nThis problem is optional and will require the original gapminder dataset\n\n\nGet creative with animations\n\nUse the gganimate package to make a smooth animation to update the background image of the year variable in the plot\nPut a label over one country of your choosing\nFor added challenge, find a way to make the year label in the background smoothly transition without showing decimal places\n\n\n\n\n\n\n\nTip\n\n\n\nYou can find a great gganimate tutorial here: https://github.com/thomasp85/gganimate{.external, target=“_blank”}",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#prepping-the-data-1",
+    "href": "html_files/Midterm/midterm_start_here.html#prepping-the-data-1",
+    "title": "BST680 Midterm",
+    "section": "Prepping the Data",
+    "text": "Prepping the Data\n\nsuppressPackageStartupMessages({\n  #For table output\n  library(gt)\n})\ncvd_data &lt;- read_csv(\"data/synthdata_cvd.csv\")\n\n\n\n#This code shows how you can use gt() to make tables in html documents\n#This code can be reused to help you make tables for these problems\n#For details, check out the gt vignette linked below or the Intro file from the first lecture\n#https://gt.rstudio.com/articles/gt.html\n\ncvd_data_dict &lt;- read_rds('data/synthdata_guide.RDS') |&gt; \n  rename(abbreviation = abbr) |&gt;\n  gt() |&gt;\n  \n  #cols_align will not accept vectorized values to align, so each alignment type must be specified\n  #The columns argument can use tidy selection if you want to use things like starts_with() from dplyr\n  cols_align(align = \"left\", columns = c(\"variable\", \"group\", \"label\")) |&gt;\n  cols_align(align = \"center\", columns = c(\"type\", \"unit\", \"abbreviation\")) |&gt;\n\n  #For titles and captions you can wrap the string in html() or md() to use HTML or markdown to format the text\n  #e.g. you can use &lt;br/&gt; to make a new line with html()\n  tab_header(title = html(\"Description of variables in the synthetic cardiovascular disease data\")) |&gt;\n\n  #You can enable html within the table as well, you can specify columns with tidy selection like cols_align\n  #Like the caption, you can also wrap individual cells in html() or md()\n  fmt_markdown(columns = everything()) |&gt;\n\n  #Other stylistic options can be set within the tab_options() function\n  #Here we make the table the full width and make the font size a bit smaller\n  tab_options(table.width = \"100%\",\n              table.font.size = pct(85))\n\n#A final comment, many static options are lost when using either ihtml. arguments within tab_options() or using opt_interactive()\n#I recommend just use static tables for now, there are better packages for dynamic tables\n\nThe synthdata_cvd.csv file contains synthetic data on 10000 participants\nIn this fake study, cardiovascular disease (CVD; stroke or coronary heart disease) events were identified during follow-up with the following two key variables:\n\ntime_chd_strk: The time, in years, from baseline until death, a CVD event, or last contact\nchd_strk: A value of “Yes” indicates that a CVD event occurred at time_chd_strk while a value of “No” indicates that a CVD event did not occur (i.e., death or last contact DID occur) at time_chd_strk\n\nThe other variables in the data are described below:\n\ncvd_data_dict\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDescription of variables in the synthetic cardiovascular disease data\n\n\nvariable\ngroup\nlabel\ntype\nunit\nabbreviation\n\n\n\n\nage\nNone\nAge\nnumeric\nyears\nNone\n\n\nsex\nNone\nSex at birth\nfactor\nNone\nNone\n\n\nsbp\nBlood pressure\nSystolic\nnumeric\nmm Hg\nNone\n\n\ndbp\nBlood pressure\nDiastolic\nnumeric\nmm Hg\nNone\n\n\nelev_bp\nBlood pressure\nElevated\nfactor\nNone\nNone\n\n\nalbumin\nKidney function\nUrinary albumin\nnumeric\nmg/24hr\nNone\n\n\ncreatinine\nKidney function\nUrinary creatinine\nnumeric\ng/24hr\nNone\n\n\nalbuminuria\nKidney function\nAlbuminuria\nfactor\nNone\nNone\n\n\nscrcc\nKidney function\nSerum creatinine\nnumeric\nmg/dL\nNone\n\n\ngfr\nKidney function\nestimated GFR\nnumeric\nml/min/1.73 m2\nGFR = glomerular filtration rate\n\n\nlow_gfr\nKidney function\nLow kidney function\nfactor\nNone\nNone\n\n\nbpmeds\nMedication use\nAnti-Hypertensive\nfactor\nNone\nNone\n\n\ndmmeds\nMedication use\nAnti-Diabetic\nfactor\nNone\nNone\n\n\nstatinmeds\nMedication use\nStatin\nfactor\nNone\nNone",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-1-1",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-1-1",
+    "title": "BST680 Midterm",
+    "section": "Problem 1",
+    "text": "Problem 1\n\n\n\n\n\n\nTip\n\n\n\nThis will be much easier with some functions we’ve only touched in in lecture\nSpend some time looking at dplyr’s material on colwise operations and scoping using across()\n\n\nStarting with the cvd_data object, select\n\nage (participant age in years)\nsex (participant sex at birth)\nscrcc (serum creatinine)\nsbp (systolic blood pressure)\ndbp (diastolic blood pressure)\nalbumin (urinary albumin)\ncreatinine (urinary creatinine)\nbpmeds (blood pressure medication use)\ndmmeds (anti-diabetic medication use)\nstatinmeds (statin medication use)\ntime_chd_strk (see above)\nchd_strk (see above)\n\nNext, remove participants from the data who were lost to follow up during the first 10 years but be careful not to confuse ‘lost to follow up’ with ‘had a CVD event’\nDetermine the dimensions of your dataset to get the number of rows and columns and compare to the results from the starting HTML file; you have many ways to get to these values\n\n\n[1] 8169   12\n\n\nNow, create a table summarizing the proportion of missing values in each column of the data using the table provided here as reference to check your work\n\n\n\n\n\n\n\n\n\n\n\n\nPercentage of missing values\nfor simulated data variables\n\n\nVariable\nPercent Missing\n\n\n\n\nage\n0.00\n\n\nsex\n0.00\n\n\nalc\n0.47\n\n\ncurrentsmoker\n0.91\n\n\nweight\n0.27\n\n\nheight\n0.27\n\n\nwaist\n0.32\n\n\nneck\n0.24\n\n\nbpmeds\n0.79\n\n\ndmmeds\n0.83\n\n\nstatinmeds\n0.91\n\n\nhrtmeds\n5.71\n\n\nbetablkmeds\n7.26\n\n\ncalblkmeds\n6.82\n\n\ndiureticmeds\n5.77\n\n\nantiarythmeds\n0.85\n\n\nsbp\n0.41\n\n\ndbp\n0.41\n\n\nalbumin\n38.80\n\n\ncreatinine\n38.75\n\n\ndiabetes\n1.17\n\n\nabi\n13.13\n\n\nhba1c\n4.05\n\n\nfpg\n9.37\n\n\nldl\n10.69\n\n\nhdl\n10.09\n\n\ntrigs\n10.07\n\n\ntotchol\n10.07\n\n\nleptin\n2.65\n\n\nhscrp\n2.09\n\n\nendothelin\n2.10\n\n\naldosterone\n2.23\n\n\nscrcc\n1.71\n\n\ntime_chd_strk\n3.45\n\n\nchd_strk\n3.45\n\n\n\n\n\n\n\nLast, remove any row in the data where a participant has a missing value (NA) and print the dimensions of the data now that all rows with at least one missing value are filtered out\n\n\n[1] 4821   12",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-2-1",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-2-1",
+    "title": "BST680 Midterm",
+    "section": "Problem 2",
+    "text": "Problem 2\nUsing the data created in problem 1, identify the oldest male and female who are taking both blood pressure lowering medication and anti-diabetes medication\nUsing these two participants’ data, create the table shown in the starting document\n\n\n\n\n\n\n\n\n\n\n\n\nAge of the oldest participants taking both blood pressure lowering medication\nand anti-diabetic medication in male and female groups\n\n\nSex\nAge\n\n\n\n\nMale\n90\n\n\nFemale\n84",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-3-1",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-3-1",
+    "title": "BST680 Midterm",
+    "section": "Problem 3",
+    "text": "Problem 3\nCreate the following variables:\n\ncvd10: This variable is ‘Yes’ if participants experienced a CVD event during the first 10 years of follow-up, and ‘No’ otherwise.\nalbuminuria: This variable is ‘Yes’ if a participant’s urinary albumin to creatinine ratio is greater than 30 mg/g, and ‘No’ otherwise.\negfr: (estimated glomerular filtration rate) This variable is computed conditionally for males and females based on serum creatinine (i.e., scrcc).\n\nFor females with scrcc \\(\\leq\\) 0.7, \\[\\texttt{gfr} = 166 \\cdot \\left(0.993\\right)^{\\texttt{age}} \\left(\\frac{\\texttt{scrcc}}{0.7}\\right)^{-0.329}.\\]\nFor females with scrcc \\(&gt;\\) 0.7, \\[\\texttt{gfr} = 166 \\cdot \\left(0.993\\right)^{\\texttt{age}} \\left(\\frac{\\texttt{scrcc}}{0.7}\\right)^{-1.209}.\\]\nFor males with scrcc \\(\\leq\\) 0.9, \\[\\texttt{gfr} = 163 \\cdot \\left(0.993\\right)^{\\texttt{age}} \\left(\\frac{\\texttt{scrcc}}{0.9}\\right)^{-0.411}.\\]\nFor males with scrcc \\(\\geq\\) 0.9, \\[\\texttt{gfr} = 163 \\cdot \\left(0.993\\right)^{\\texttt{age}} \\left(\\frac{\\texttt{scrcc}}{0.9}\\right)^{-1.209}.\\]\n\nlow_gfr This variable is Yes if a participant’s estimated glomerular filtration rate is \\(&lt; 60 \\text{ml/min/1.73m}^2\\), and ‘No’ otherwise.\nelev_bp This variable is Yes if any of the following conditions are true:\n\nsystolic blood pressure &gt; 130 mm Hg\ndiastolic blood pressure &gt; 80 mm Hg\nthe participant is currently using blood pressure medications.\n\n\nLast, convert all character (chr) variables into factors (fct)\nApply the glimpse function to your data to show column types and values for all variables\nThis data will be used in all problems that follow and will be referred to as the sample from problem 3\n\n\nRows: 4,821\nColumns: 17\n$ age           &lt;dbl&gt; 50, 43, 69, 33, 40, 67, 61, 54, 59, 65, 36, 77, 80, 56, …\n$ sex           &lt;fct&gt; Female, Female, Female, Female, Male, Female, Female, Fe…\n$ scrcc         &lt;dbl&gt; 0.6637465, 0.8505938, 0.7571701, 0.8505938, 1.2242885, 1…\n$ sbp           &lt;dbl&gt; 132.9989, 110.0764, 124.7468, 123.8299, 112.8271, 144.00…\n$ dbp           &lt;dbl&gt; 78.3681, 62.5962, 66.7467, 67.5768, 80.8584, 67.5768, 78…\n$ albumin       &lt;dbl&gt; 1.81, 1.06, 1.31, 3.70, 0.58, 8.10, 2.15, 6.10, 0.68, 6.…\n$ creatinine    &lt;dbl&gt; 164.0, 156.0, 78.0, 84.0, 153.0, 88.0, 117.0, 223.0, 61.…\n$ bpmeds        &lt;fct&gt; No, No, No, No, No, No, Yes, Yes, Yes, Yes, No, Yes, Yes…\n$ dmmeds        &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, No, No, …\n$ statinmeds    &lt;fct&gt; No, No, No, No, No, No, No, No, No, Yes, No, No, Yes, No…\n$ time_chd_strk &lt;dbl&gt; 11.542779, 12.114990, 11.748118, 11.594798, 11.154004, 2…\n$ chd_strk      &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, Yes, No, No…\n$ cvd10         &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, Yes, No, No…\n$ albuminuria   &lt;fct&gt; No, No, No, No, No, No, No, No, No, No, No, No, No, No, …\n$ egfr          &lt;dbl&gt; 118.89649, 96.96503, 92.97899, 104.02139, 84.83699, 58.0…\n$ low_gfr       &lt;fct&gt; No, No, No, No, No, Yes, No, No, No, No, No, No, Yes, No…\n$ elev_bp       &lt;fct&gt; Yes, No, No, No, Yes, Yes, Yes, Yes, Yes, Yes, No, Yes, …",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-4-1",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-4-1",
+    "title": "BST680 Midterm",
+    "section": "Problem 4",
+    "text": "Problem 4\nGroup the data from problem 3 by sex, albuminuria, and low_gfr groups and, for each group, compute the incident rate of CVD per 1000 person-years: \\[\\texttt{incident CVD rate per 1000 person years} = 1000 \\cdot \\frac{\\texttt{no. of CVD events}}{\\texttt{no. of years at risk}}\\]\nAfter creating this summary data, use ggplot to create a tiled figure (i.e. geom_tile) that shows the incident CVD rate for all four categories of albuminuria and low_gfr among males and females, separately\nUse geom_label to place the exact rate of incident CVD as text into each tile of the figure",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "html_files/Midterm/midterm_start_here.html#problem-5-1",
+    "href": "html_files/Midterm/midterm_start_here.html#problem-5-1",
+    "title": "BST680 Midterm",
+    "section": "Problem 5",
+    "text": "Problem 5\nCreate a new column in the data from problem 3 that indicates the various combinations of medications taken by each participant using the bpmeds, dmmeds, and statinmeds binary variables\nOverall, there are 2 x 2 x 2 = 8 possible medication patterns (recall that we removed any rows with missing values)\nUsing this variable you create, identify the four most common medication groups in the dataset\nModify the medication group variable so that any other groups apart from the four most common ones are labeled as ‘Other’\nFor example, this may include:\n\nA group wherein the participant is taking no medication at all\nA group who is taking medication to lower blood pressure only with no other medications\nA category for those taking statins plus medication to lower blood pressure\nA category encompassing all other combinations\n\nOverall, there are 2 x 2 x 2 = 8 possible medication patterns (recall that we removed any rows with missing values)\nPresent the frequency and proportion of observations for each medical profile and stratify your results by sex groups\n\n\n\n\n\n\nTip\n\n\n\nSpend some time with forcats to see how you can make this process easier\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTop four medication profiles\nin the data from problem 3\n\n\nMedication Profile\nFemale\nMale\n\n\n\n\nNo Medications\n1355 (44%)\n911 (53%)\n\n\nBP Meds Only\n1006 (32%)\n420 (25%)\n\n\nBP and DM Meds\n254 (8%)\n127 (7%)\n\n\nBP Meds and Statins\n210 (7%)\n115 (7%)\n\n\nOther\n284 (9%)\n139 (8%)\n\n\n\nTable values are frequency (%)",
+    "crumbs": [
+      "Home",
+      "Midterm",
+      "Midterm Details"
+    ]
   }
 ]

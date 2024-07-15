@@ -44,7 +44,7 @@ Again, look at the references and cheat sheets, they're your friends
 
 Good luck!
 
-To get you started, a zipped file with all the necessary files and folders can be <a href="_static/midterm.zip" download>[downloaded here]</a>
+To get you started, a zipped file with all the necessary files and folders can be <a href="../../_static/midterm.zip" download>[downloaded here]</a>
 
 :::{.callout-tip}
 
