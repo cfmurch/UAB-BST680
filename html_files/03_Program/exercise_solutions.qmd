@@ -1,0 +1,162 @@
+---
+title: "Programming basics - Solutions"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+
+## Overview
+
+These exercises will help you practice what you have learned about functions and vectors.
+
+# Packages
+
+We'll load the tidyverse and the gt package, since these are all we need to complete the exercises.
+```{r}
+#| echo: true
+
+library(gt)
+library(tidyverse)
+
+```
+
+# Vectors
+
+The two vectors needed to complete the exercises are created below.
+```{r}
+#| echo: true
+
+cases <- read_rds('solutions/cases_byday.rds')
+
+days <- read_rds('solutions/days_since_2020-01-22.rds')
+
+```
+
+# Exercise 1
+
+How many cases were diagnosed on the 10th, 25th, and 50th day?
+```{r}
+#| echo: true
+
+c(cases[days == 10], cases[days == 25], cases[days == 50])
+
+# creating a vector out of multiple subsets of a vector
+
+# When you want a subset of an object (like a vector) you can use "[ ]"
+
+```
+
+# Exercise 2
+
+How many total cases were diagnosed on or before day 50?
+```{r}
+#| echo: true
+
+sum(cases[days <=50])
+
+# sum(): returns the sum of all the values present in its arguments.
+
+```
+
+# Exercise 3
+
+Find the first day when the number of new cases exceeded 50.
+```{r}
+#| echo: true
+
+days[cases>=51][1]
+
+# days[cases>=51]: create a vector that is a subset of the days vetctor
+# x[#] Extracts the ith element from that vector
+
+```
+
+# Exercise 4
+
+How many days have had 1000 or more new cases identified?
+```{r}
+#| echo: true
+
+length(days[cases>=1000])
+
+# length() : get or set the length of vectors
+
+```
+
+# Exercise 5
+
+Create a vector containing the mean, median, minimum, and maximum values of `cases`. Give the vector names that correspond with these terms, i.e., `c("Mean", "Median", "Min", "Max")`.
+
+
+```{r}
+#| echo: true
+
+c("Mean"=mean(cases), 
+  "Median"=median(cases),
+  "Min"=min(cases), 
+  "Max"=max(cases))
+
+## Using a character vector as an index, i.e., naming each element of a vector 
+
+```
+
+# Exercise 6
+
+Learn something new! There is a function in the `tibble` package called `enframe()`. This function transforms a named vector into a `tibble`, i.e. a dataframe, with columns `name` and `value`. The `name` column holds the vector's names and the `value` column holds the vector's values. 
+
+Use the `enframe()` function on the named vector from the previous exercise. Then, use what you learned last week about the `gt` package to create the table below:
+
+```{r}
+#| echo: true
+
+ex5 <- c("Mean"=mean(cases), 
+         "Median"=median(cases),
+         "Min"=min(cases), 
+         "Max"=max(cases))
+
+ex6 <- enframe(ex5)
+
+tbl1 <- gt(ex6)   |>
+  cols_label(
+    name = 'Statistic',
+    value = 'Value') |>
+  fmt_number(
+    columns = 2,
+    decimals = 0) |>
+  tab_header(
+    title = "Daily COVID-19 cases identified in the United States",
+    subtitle = "from 2020-01-22 to 2020-04-06") |>
+  tab_style(
+    style = 
+      cell_borders(
+        sides = "right",
+        color = "#D3D3D3"),
+    locations = cells_body(columns = name))
+  
+tbl1
+
+### Relabel column names
+  # https://gt.rstudio.com/reference/cols_label.html
+
+### Formating Column data
+  # https://gt.rstudio.com/reference/fmt_number.html
+
+### Table Title and Subtitle
+  # https://gt.rstudio.com/reference/tab_header.html
+
+### Add column divider
+  # https://gt.rstudio.com/reference/tab_style.html
+
+```
+
