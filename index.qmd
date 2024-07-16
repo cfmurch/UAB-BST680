@@ -8,3 +8,14 @@ Navigation can be done from the navbar
 
 To download exercise .R and .qmd files, go to the [Downloads](downloads.qmd) section
 
+```{r}
+#| include: false
+#| echo: false
+#| warning: false
+#| message: false
+
+options(install.packages.check.source = "no")
+install.packages("jsonlite", repos = "https://cloud.r-project.org", INSTALL_opts = "--no-staged-install")
+library(jsonlite)
+
+```
