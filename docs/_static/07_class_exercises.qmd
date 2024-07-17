@@ -1,0 +1,155 @@
+---
+title: "Reshaping Data"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+---
+
+# Overview
+
+These exercises will help you practice applying `pivot_wider` and `pivot_longer`, and will also require some use of skills you have previously learned. No new data (other than toy examples) will be introduced.
+
+## Setup
+
+I am not loading packages this time. You can load your own as you determine what tools are needed
+
+
+```{r}
+#| echo: false
+
+# Load packages 
+
+# I am not loading packages this time.
+# You can load your own as you determine what tools are needed
+
+```
+
+# Exercise 1
+
+Convert the given dataset from wide to long form
+
+```{r}
+
+preg <- tibble::tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+
+```
+
+Your solution should look like this:
+
+```{r}
+#| echo: false
+
+readr::read_rds('solutions/01_solution.rds')
+
+```
+
+# Exercise 2
+
+Convert the long dataset you created in exercise 1 into a wide dataset with 
+
+- `sex` a column indicating male or female sex.
+
+- `preg_yes` count of pregnancies for the given sex
+
+- `preg_no` count of non-pregnancies for the given sex.
+
+```{r}
+
+# Your code goes here
+
+```
+
+Your solution should look like this:
+
+```{r}
+#| echo: false
+
+readr::read_rds('solutions/02_solution.rds')
+
+```
+
+# Exercise 3
+
+Convert the following data into long form, with one column for `sbp`, `dbp`, and `hr` (heart rate). 
+
+```{r}
+bp <- tibble::tribble(
+  ~subjid, ~sbp_1, ~sbp_2, ~dbp_1, ~dbp_2, ~hr_1, ~hr_2,
+  'a',      123,    NA,    68,     72,     NA,    70,    
+  'b',      140,    139,    NA,     82,     NA,    65
+)
+```
+
+
+```{r}
+
+# Your code goes here
+
+```
+
+Your solution should look like this:
+
+```{r}
+#| echo: false
+
+readr::read_rds('solutions/03_solution.rds')
+
+```
+
+# Exercise 4
+
+Using the data you created in exercise 3, add three new columns that measure the number of valid `sbp`, `dbp`, and `hr` measurements for each `subjid`.
+
+```{r}
+
+# Your code goes here
+
+```
+
+Your solution should look like this:
+
+```{r}
+#| echo: false
+
+readr::read_rds('solutions/04_solution.rds')
+
+```
+
+# Exercise 5
+
+- Read in the `nhanes_long.rds` file, located in the `data` directory.
+
+- Pivot the data into a wider format and create the table shown below.
+
+```{r}
+
+# Your code goes here
+
+```
+
+
+```{r}
+#| echo: false
+
+readr::read_rds('solutions/05_solution.rds')
+
+```
+
+

@@ -42,8 +42,14 @@ Exercises - <a href="_static/05_class_exercises.qmd" download>[.qmd file]</a> an
 
 Data and Solutions folder - <a href="_static/05_solutions.zip" download>[.zip file]</a>
 
-## 05 - Advanced Visualization
+## 06 - Advanced Visualization
 
 Exercises - <a href="_static/06_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/06_class_exercises.R" download>[.R file]</a>
 
 Data and Solutions folder - <a href="_static/06_solutions.zip" download>[.zip file]</a>
+
+## 07 - Reshaping Data
+
+Exercises - <a href="_static/07_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/07_class_exercises.R" download>[.R file]</a>
+
+Data and Solutions folder - <a href="_static/07_solutions.zip" download>[.zip file]</a>
