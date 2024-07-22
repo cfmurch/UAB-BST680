@@ -1,0 +1,62 @@
+---
+title: "Table Exercise"
+author: "YOUR NAME"
+date: "Today's date"
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+## Problem 1
+
+- Get some practice working with `gt`
+
+- Use what you learned in the intro to markdown file to create the table below:
+
+**Hints**: 
+
+- Note, we're using rows 1, 2, 3, 51, 52, 53, 101, 102, and 103 of the `iris` dataset
+
+- The `iris` dataset is already loaded in your R environment, no need to import it
+
+
+```{r}
+
+library(gt)
+readr::read_rds('iris_exercise.rds')
+
+```
+
+### Challenge yourself
+
+There are a couple of things not discussed in the vignette that are applied here, not necessary but if you're feeling ambitious...
+
+1.   Proper case on the species names\
+    __Hint__ - Not a gt function, do this early
+2.   Center aligning the columns\
+    __Hint__ - Use the `gt::col_align()` function
+3.   Using Georgia as the table font\
+    __Hint__ - There are many `opt_` functions in `gt`, maybe there's one for table fonts?
+4.   Removing bootstrap striping
+    
+:::{.callout-caution} 
+#4 will take some digging in Quarto, good luck!
+:::
+
+```{r}
+
+#INSERT YOUR CODE HERE - DON'T FORGET TO COMMENT
+
+
+
+```
+
+

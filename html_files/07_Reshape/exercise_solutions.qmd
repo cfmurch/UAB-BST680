@@ -1,0 +1,160 @@
+---
+title: "Reshaping Data"
+author: "Rachel Stuckwish"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+# Overview
+
+These exercises will help you practice applying `pivot_wider` and `pivot_longer`, and will also require some use of skills you have previously learned. No new data (other than toy examples) will be introduced.
+
+## Setup
+
+```{r}
+#| echo: false
+
+# Load packages 
+library(tidyverse)  # includes dplyr - filter / select
+library(gt)
+
+```
+
+# Exercise 1
+
+Convert the given dataset from wide to long form
+
+```{r}
+preg <- tibble::tribble(
+  ~pregnant, ~male, ~female,
+  "yes",     NA,    10,
+  "no",      20,    12
+)
+
+```
+
+```{r}
+
+ex1 <- preg |>
+  pivot_longer(cols = c(male,female),
+               names_to = "sex",
+               values_to = "count")
+ex1
+
+```
+
+# Exercise 2
+
+Convert the long dataset you created in exercise 1 into a wide dataset with 
+
+- `sex` a column indicating male or female sex.
+
+- `preg_yes` count of pregnancies for the given sex
+
+- `preg_no` count of non-pregnancies for the given sex.
+
+```{r}
+
+ex2 <- ex1 |>
+  pivot_wider(names_from = pregnant,
+              values_from = count,
+              names_prefix = "preg_")
+ex2
+
+```
+
+# Exercise 3
+
+Convert the following data into long form, with one column for `sbp`, `dbp`, and `hr` (heart rate). 
+
+```{r}
+bp <- tibble::tribble(
+  ~subjid, ~sbp_1, ~sbp_2, ~dbp_1, ~dbp_2, ~hr_1, ~hr_2,
+  'a',      123,    NA,    68,     72,     NA,    70,    
+  'b',      140,    139,    NA,     82,     NA,    65
+)
+```
+
+
+```{r}
+
+ex3 <- bp |>
+  pivot_longer(cols = !subjid,   # or could use "cols = sbp_1:hr_2",
+               names_to = c(".value", "msr"),
+               names_sep = '_')
+
+ex3
+
+```
+
+# Exercise 4
+
+Using the data you created in exercise 3, add three new columns that measure the number of valid `sbp`, `dbp`, and `hr` measurements for each `subjid`.
+
+```{r}
+
+
+  
+ex4 <- ex3 |>
+  group_by(subjid) |>
+  mutate(nmsr_sbp = sum(!is.na(sbp)),
+         nmsr_dbp = sum(!is.na(dbp)),
+         nmsr_hr = sum(!is.na(hr))) |>
+  ungroup()
+
+ex4
+
+
+
+```
+
+# Exercise 5
+
+- Read in the `nhanes_long.rds` file, located in the `data` directory.
+
+- Pivot the data into a wider format and create the table shown below.
+
+```{r}
+
+data <- readRDS("data/nhanes_long.rds")
+
+ex5 <- data |>
+  pivot_wider(names_from = c(stat, sex),
+              names_sep = "_",
+              values_from = value)|>
+    mutate(variable = fct_recode(variable,
+                        'Age, years' = 'age', 
+                        'HDL cholesterol, mg/dL' = 'chol_hdl_mgdl',
+                        'Total cholesterol, mg/dL' = 'chol_total_mgdl'))
+ex5
+```
+
+```{r}
+tbl5 <- ex5 |>
+  gt(rowname_col = "exam",
+     groupname_col = "variable") |>
+  tab_spanner(label = "Female",
+              columns = ends_with("_Female")) |>
+  tab_spanner(label = "Male",
+              columns = ends_with("_Male")) |>
+  cols_label(starts_with("Mean") ~ "Mean",
+             starts_with("SD") ~ "SD") |>
+  fmt_number(columns = c(3:6),
+             decimals = 1)
+  
+tbl5
+
+
+```
+
+

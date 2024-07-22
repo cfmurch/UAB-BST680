@@ -22,8 +22,8 @@
     "objectID": "Lectures/06_Adv_Visual/index.html#agenda",
     "href": "Lectures/06_Adv_Visual/index.html#agenda",
     "title": "Advanced Visualization",
-    "section": "",
-    "text": "Data Reading\nggplot2 Review\nAdditional Geoms\nAdvanced Aesthetics\nLayering for Communication",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nData Reading\nggplot2 Review\nAdditional Geoms\nAdvanced Aesthetics\nLayering for Communication",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -35,7 +35,7 @@
     "href": "Lectures/06_Adv_Visual/index.html#data-reading---many-options",
     "title": "Advanced Visualization",
     "section": "Data Reading - Many Options",
-    "text": "Data Reading - Many Options\n\nBase R can use read.table() and more specific variants like read.csv() and read.delim()\n\n\n\n\n\n\n\nImportant arguments are the header (take first row as column names) and the delimiter which defines how your columns are separated\nCommon delimiters are a space ( ), a tab (\\t), commas (,) and pipes (|)",
+    "text": "Data Reading - Many Options\n\nBase R can use read.table() and more specific variants like read.csv() and read.delim()\n\n\n\nImportant arguments are the header (take first row as column names) and the delimiter which defines how your columns are separated\nCommon delimiters are a space ( ), a tab (\\t), commas (,) and pipes (|)",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -107,7 +107,7 @@
     "href": "Lectures/06_Adv_Visual/index.html#data-reading---variable-names",
     "title": "Advanced Visualization",
     "section": "Data Reading - Variable Names",
-    "text": "Data Reading - Variable Names\n\nThe names are informative but a little too human friendly\nThe variable names have spaces and are written in Title Case\nNothing wrong with this per se but it makes workflows difficult\n\nNeed backticks like supermarket$`Purchase Date`\n\njanitor is an R package for examining and cleaning data\n\n\n\n\n\n\n\nTip\n\n\n\nRemember, write data for computers and code for humans",
+    "text": "Data Reading - Variable Names\n\nThe names are informative but a little too human friendly\nThe variable names have spaces and are written in Title Case\nNothing wrong with this per se but it makes workflows difficult\n\nNeed backticks like supermarket$`Purchase Date`\n\njanitor is an R package for examining and cleaning data\n\n\n\n\n\n\n\nTip\n\n\nRemember, write data for computers and code for humans",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -119,7 +119,7 @@
     "href": "Lectures/06_Adv_Visual/index.html#data-reading---always-thank-your-janitor",
     "title": "Advanced Visualization",
     "section": "Data Reading - Always Thank Your janitor",
-    "text": "Data Reading - Always Thank Your janitor\n\n\n\n\n\n\nhttps://allisonhorst.com/r-packages-functions",
+    "text": "Data Reading - Always Thank Your janitor\n\n\nhttps://allisonhorst.com/r-packages-functions",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -179,7 +179,7 @@
     "href": "Lectures/06_Adv_Visual/index.html#review-of-ggplot2---working-with-gapminder",
     "title": "Advanced Visualization",
     "section": "Review of ggplot2 - Working with gapminder",
-    "text": "Review of ggplot2 - Working with gapminder\n\n\n\nWith gapminder we made a layered scatterplot with a line of best fit, colored by continent, and a logarithmic scale x-axis\n\n\nggplot(gapminder, \n       aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(aes(color = continent)) + \n  geom_smooth(se = FALSE) + \n  scale_x_log10(name = \"GDP per Capita\") + \n  labs(y = \"Life Expectancy (yrs)\") + \n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNow let’s play with the supermarket data",
+    "text": "Review of ggplot2 - Working with gapminder\n\n\n\nWith gapminder we made a layered scatterplot with a line of best fit, colored by continent, and a logarithmic scale x-axis\n\n\nggplot(gapminder, \n       aes(x = gdpPercap, y = lifeExp)) + \n  geom_point(aes(color = continent)) + \n  geom_smooth(se = FALSE) + \n  scale_x_log10(name = \"GDP per Capita\") + \n  labs(y = \"Life Expectancy (yrs)\") + \n  theme(legend.position = \"bottom\")\n\n\n\n\n`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = \"cs\")'\n\n\n\n\n\n\n\n\n\n\n\n\nNow let’s play with the supermarket data",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -323,7 +323,7 @@
     "href": "Lectures/06_Adv_Visual/index.html#aesthetics---more-research-questions",
     "title": "Advanced Visualization",
     "section": "Aesthetics - More Research Questions",
-    "text": "Aesthetics - More Research Questions\n\nWho generates more revenue for super markets, men or women?\n\n\ncity_rev_gender &lt;- supermarket |&gt;\n  group_by(city, gender) |&gt;\n  summarise(revenue = sum(revenue, na.rm = TRUE)) |&gt; \n  ungroup() |&gt; #&lt;&lt;\n  mutate(\n    gender = recode(gender, 'F' = 'Female', 'M' = 'Male'),\n    # re-order city in the data rather than the plot\n    # why would this fail if data were grouped?\n    city = fct_reorder(city, .x = revenue) #&lt;&lt;\n  )\n\ncity_rev_gender[1:3,]\n\n# A tibble: 3 × 3\n  city       gender revenue\n  &lt;fct&gt;      &lt;chr&gt;    &lt;dbl&gt;\n1 Acapulco   Female   2566.\n2 Acapulco   Male     2596.\n3 Bellingham Female    453.",
+    "text": "Aesthetics - More Research Questions\n\nWho generates more revenue for super markets, men or women?\n\n\ncity_rev_gender &lt;- supermarket |&gt;\n  group_by(city, gender) |&gt;\n  summarise(revenue = sum(revenue, na.rm = TRUE)) |&gt; \n  ungroup() |&gt; #&lt;&lt;\n  mutate(\n    gender = recode(gender, 'F' = 'Female', 'M' = 'Male'),\n    # re-order city in the data rather than the plot\n    # why would this fail if data were grouped?\n    city = fct_reorder(city, .x = revenue) #&lt;&lt;\n  )\n\n`summarise()` has grouped output by 'city'. You can override using the\n`.groups` argument.\n\ncity_rev_gender[1:3,]\n\n# A tibble: 3 × 3\n  city       gender revenue\n  &lt;fct&gt;      &lt;chr&gt;    &lt;dbl&gt;\n1 Acapulco   Female   2566.\n2 Acapulco   Male     2596.\n3 Bellingham Female    453.",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -515,7 +515,7 @@
     "href": "Lectures/06_Adv_Visual/index.html#layering---themes",
     "title": "Advanced Visualization",
     "section": "Layering - Themes",
-    "text": "Layering - Themes\n\nThemes customize non-data elements both globally and by individually\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_line(aes(group = city)) + \n  geom_point(aes(color = gender), size = 3) + \n  scale_color_manual(labels = c(\"M\", \"F\"), values = c(\"#00FF00\", \"Purple\"), name=\"Gender\") +\n  scale_y_discrete(name = NULL) + scale_x_continuous(breaks = seq(0, 10000, 2000)) +\n  theme_bw() + theme(text = element_text(size = 16)) #&lt;&lt;\n\n\n\n\n\n\n\n\n\nFor more themes check out the ggthemes package",
+    "text": "Layering - Themes\n\nThemes customize non-data elements both globally and by individually\n\n\nggplot(city_rev_gender) +\n  aes(x = revenue, y = city) + \n  geom_line(aes(group = city)) + \n  geom_point(aes(color = gender), size = 3) + \n  scale_color_manual(labels = c(\"M\", \"F\"), values = c(\"#00FF00\", \"Purple\"), name=\"Gender\") +\n  scale_y_discrete(name = NULL) + scale_x_continuous(breaks = seq(0, 10000, 2000)) +\n  theme_bw() + theme(text = element_text(size = 16)) #&lt;&lt;\n\n\n\nFor more themes check out the ggthemes package",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -3448,6 +3448,692 @@
       "Home",
       "Midterm",
       "Midterm Details"
+    ]
+  },
+  {
+    "objectID": "downloads.html",
+    "href": "downloads.html",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#introducing-your-tools",
+    "href": "downloads.html#introducing-your-tools",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file]\nSolutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#visualization-basics",
+    "href": "downloads.html#visualization-basics",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file]\nSolutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#programming-basics",
+    "href": "downloads.html#programming-basics",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#data-isolation",
+    "href": "downloads.html#data-isolation",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#data-transformation",
+    "href": "downloads.html#data-transformation",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#advanced-visualization",
+    "href": "downloads.html#advanced-visualization",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#reshaping-data",
+    "href": "downloads.html#reshaping-data",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html",
+    "href": "Lectures/07_Reshape/index.html",
+    "title": "Tidying and Reshaping Data",
+    "section": "",
+    "text": "Reinforcing tidy data\nLong vs wide data\npivot_ functions for reshaping\nMissingness\nWorking with string columns",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#agenda",
+    "href": "Lectures/07_Reshape/index.html#agenda",
+    "title": "Tidying and Reshaping Data",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nReinforcing tidy data\nLong vs wide data\npivot_ functions for reshaping\nMissingness\nWorking with string columns",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#tidy-data---recall-our-definitions",
+    "href": "Lectures/07_Reshape/index.html#tidy-data---recall-our-definitions",
+    "title": "Tidying and Reshaping Data",
+    "section": "Tidy Data - Recall Our Definitions",
+    "text": "Tidy Data - Recall Our Definitions\n\nA variable is some sort of quality, quantity or property of the data\nVariables are comprised of values which are specific instances or measures of a variable\nAn observation is a set of measurements under similar conditions, it can be thought of as a unique set of values specific to those conditions\nTabular data takes a set of values each associated with a variable and an observation and gives a rectangular structure\nOur goal is to make data tidy wherein each value is its own cell, each variable is its own column, each observation is its own row",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#tidy-data---our-example",
+    "href": "Lectures/07_Reshape/index.html#tidy-data---our-example",
+    "title": "Tidying and Reshaping Data",
+    "section": "Tidy Data - Our Example",
+    "text": "Tidy Data - Our Example\n\nWe spend much time coercing our material into tibbles (or data frames) as they enforce tidy-ness\n\n\n\nWe also know many ways to access our data including…\n\n\n`$` `[[ ]]` `[ ]` `select()` `pick()`",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#tidy-data---why-it-matters",
+    "href": "Lectures/07_Reshape/index.html#tidy-data---why-it-matters",
+    "title": "Tidying and Reshaping Data",
+    "section": "Tidy Data - Why It Matters",
+    "text": "Tidy Data - Why It Matters\n\n\n\n\n\n\n\nhttps://allisonhorst.com/other-r-fun",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#tidy-data---why-it-matters-1",
+    "href": "Lectures/07_Reshape/index.html#tidy-data---why-it-matters-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Tidy Data - Why It Matters",
+    "text": "Tidy Data - Why It Matters\n\nFlexibility is good but consistency is better, especially for programming\n\n\n\nhttps://allisonhorst.com/other-r-fun",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#tidy-data---why-it-matters-2",
+    "href": "Lectures/07_Reshape/index.html#tidy-data---why-it-matters-2",
+    "title": "Tidying and Reshaping Data",
+    "section": "Tidy Data - Why It Matters",
+    "text": "Tidy Data - Why It Matters\n\nThe columns-as-variables lets the vectorized nature of data frames and tibbles in R shine\n\n\n\nIt also enables the tidy selection and data masking of the tidyverse (for better or worse)\n\n\nhttps://allisonhorst.com/other-r-fun",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#tidy-data---meanwhile-in-the-real-world",
+    "href": "Lectures/07_Reshape/index.html#tidy-data---meanwhile-in-the-real-world",
+    "title": "Tidying and Reshaping Data",
+    "section": "Tidy Data - Meanwhile in the Real World…",
+    "text": "Tidy Data - Meanwhile in the Real World…\n\nData is messy, even messier than what we’ve been working with\n\n\n\nIt’s not enough to isolate and transform, we may need to pivot\n\n\nhttps://developer.ibm.com/tutorials/ba-cleanse-process-visualize-data-set-1/",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - Wide Data",
+    "text": "Wide vs Long - Wide Data\n\nWide data can be thought of as multiple univariate data sets\n\n\n\nhttps://knowledge.dataiku.com/",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data-1",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - Wide Data",
+    "text": "Wide vs Long - Wide Data\n\nWhich gets very complicated with multivariate data…\n\n\n\nhttps://knowledge.dataiku.com/",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data-2",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data-2",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - Wide Data",
+    "text": "Wide vs Long - Wide Data\n\n…or time series data like the billboard dataset\n\n\n\n# A tibble: 317 × 79\n  artist      track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8\n  &lt;chr&gt;       &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1 2 Pac       Baby… 2000-02-26      87    82    72    77    87    94    99    NA\n2 2Ge+her     The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA\n3 3 Doors Do… Kryp… 2000-04-08      81    70    68    67    66    57    54    53\n4 3 Doors Do… Loser 2000-10-21      76    76    72    69    67    65    55    59\n5 504 Boyz    Wobb… 2000-04-15      57    34    25    17    17    31    36    49\n# ℹ 312 more rows\n# ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,\n#   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,\n#   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,\n#   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,\n#   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,\n#   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, …",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data-3",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---wide-data-3",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - Wide Data",
+    "text": "Wide vs Long - Wide Data\n\nWide data sets are defined by having actual datain their column names\n\n\n\n\nIn billboard each observation is a song with the first three variables describing the song\nBut the other 76 (!) columns describe the rank with thecolumn names describing theweek it entered",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---long-data",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---long-data",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - Long Data",
+    "text": "Wide vs Long - Long Data\n\nLong data instead has no values in column names\n\n\n\nhttps://knowledge.dataiku.com/",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---long-data-1",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---long-data-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - Long Data",
+    "text": "Wide vs Long - Long Data\n\nIt also does a much better job handling missing data\n\n\n\nhttps://knowledge.dataiku.com/",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#wide-vs-long---so-why-wide",
+    "href": "Lectures/07_Reshape/index.html#wide-vs-long---so-why-wide",
+    "title": "Tidying and Reshaping Data",
+    "section": "Wide vs Long - So Why Wide?",
+    "text": "Wide vs Long - So Why Wide?\n\nR in general prefers long data to wide\n\nBetter for vectorization and formula formattingi.e. yvar ~ xvar_1 + xvar_2 + ...\nMandatory for time series data in longitudinal or survival designs\n\nWide data is still common\n\nWell supported in other stats programs for things like 2-way or repeated measures ANOVA\nIs often more intuitive for data collection . . .\n\nThus it’s up to you to make things tidyr",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---the-tidyr-package",
+    "href": "Lectures/07_Reshape/index.html#pivot---the-tidyr-package",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - The tidyr Package",
+    "text": "Pivot - The tidyr Package\n\ntidyr is how the tidyverse makes data tidy with 5 categories:\n\nPivoting to convert data between wide and long\nRectangling for dealing with nested lists\nNesting to embed data frames within data frames\nSeparating and uniting character data columns\nDealing with NA as missingness\n\nOur focus is on 1 and 5 and a bit of 4",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---what-it-looks-like",
+    "href": "Lectures/07_Reshape/index.html#pivot---what-it-looks-like",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - What it Looks Like",
+    "text": "Pivot - What it Looks Like",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---a-history",
+    "href": "Lectures/07_Reshape/index.html#pivot---a-history",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - A History",
+    "text": "Pivot - A History\n\nOriginally, tidyr had functions called spread() and gather() but…\n\nThe names were unintuitive\nThe arguments were hard to remember\nFunction support for transforming was limited in scope\n\nIn a later update, pivot_wider() and pivot_longer() were added to supersede spread() and gather()\nWhile spread() and gather() still function within tidyr and can be used, our focus is on the pivot_ family",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---some-long-covid-data",
+    "href": "Lectures/07_Reshape/index.html#pivot---some-long-covid-data",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Some Long Covid data",
+    "text": "Pivot - Some Long Covid data\n\nToday we have some case and and death data on COVID-19 by state and day from the NY times called cv19\n\n\nprint(cv19, n=7)\n\n# A tibble: 61,942 × 4\n  date       state      cases deaths\n  &lt;date&gt;     &lt;chr&gt;      &lt;dbl&gt;  &lt;dbl&gt;\n1 2020-01-21 Washington     1      0\n2 2020-01-22 Washington     1      0\n3 2020-01-23 Washington     1      0\n4 2020-01-24 Illinois       1      0\n5 2020-01-24 Washington     1      0\n6 2020-01-25 California     1      0\n7 2020-01-25 Illinois       1      0\n# ℹ 61,935 more rows\n\n\n\nPretty long but could be longer",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---using-pivot_longer",
+    "href": "Lectures/07_Reshape/index.html#pivot---using-pivot_longer",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Using pivot_longer()",
+    "text": "Pivot - Using pivot_longer()\n\nLet’s get a longer form where:\n\nCases and death values are in the value column\nCases and death indicators in the name column.\n\n\n\ncv19_long &lt;- cv19 |&gt;\n  pivot_longer(cols = c(cases, deaths)) #&lt;&lt;\n\ncv19_long[1:5, ]\n\n# A tibble: 5 × 4\n  date       state      name   value\n  &lt;date&gt;     &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt;\n1 2020-01-21 Washington cases      1\n2 2020-01-21 Washington deaths     0\n3 2020-01-22 Washington cases      1\n4 2020-01-22 Washington deaths     0\n5 2020-01-23 Washington cases      1",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---using-pivot_longer-1",
+    "href": "Lectures/07_Reshape/index.html#pivot---using-pivot_longer-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Using pivot_longer()",
+    "text": "Pivot - Using pivot_longer()\n\nThe cols argument indicates the variables that will be cast to value while the column names populate name; cols also understands tidy selection e.g. starts_with()\nYou can rename the value variable with values_to and rename name with names_to\nCheck the reference for other useful arguments like drop_na\n\n\nbillboard |&gt; \n  pivot_longer(\n    cols = starts_with(\"wk\"), \n    names_to = \"week\", \n    values_to = \"rank\")",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---r-loves-long-data",
+    "href": "Lectures/07_Reshape/index.html#pivot---r-loves-long-data",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - R Loves Long Data",
+    "text": "Pivot - R Loves Long Data\n\nLong vectorized data is ideal for packages like ggplot2\n\n\nggplot(cv19_long, aes(x=date, y = value)) +\n  geom_line(aes(group = state)) +\n  labs(title = \"Covid Cases and Deaths\") +\n  facet_wrap(~ name, scales = 'free')",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---using-pivot_wider",
+    "href": "Lectures/07_Reshape/index.html#pivot---using-pivot_wider",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Using pivot_wider()",
+    "text": "Pivot - Using pivot_wider()\n\npivot_wider() does the inverse, adding columns and reducing rows\nNHANES is a good example since each row is an exam year\n\n\n\n# A tibble: 30 × 4\n# Groups:   exam, sex [6]\n   exam  sex    race_ethnicity     bp_sys_mmhg\n   &lt;fct&gt; &lt;fct&gt;  &lt;fct&gt;                    &lt;dbl&gt;\n 1 2013  Female Non-Hispanic White        121.\n 2 2013  Female Non-Hispanic Black        125.\n 3 2013  Female Non-Hispanic Asian        118.\n 4 2013  Female Hispanic                  119.\n 5 2013  Female Other race                119.\n 6 2013  Male   Non-Hispanic White        123.\n 7 2013  Male   Non-Hispanic Black        129.\n 8 2013  Male   Non-Hispanic Asian        123.\n 9 2013  Male   Hispanic                  124.\n10 2013  Male   Other race                123.\n# ℹ 20 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---using-pivot_wider-1",
+    "href": "Lectures/07_Reshape/index.html#pivot---using-pivot_wider-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Using pivot_wider()",
+    "text": "Pivot - Using pivot_wider()\n\npivot_wider() can give sys_bp_mmhg columns for each exam year\n\n\nnhanes_wide &lt;- nhanes_long |&gt;\n  pivot_wider(values_from = bp_sys_mmhg, #&lt;&lt;\n    names_from = exam, names_prefix = \"exam_\") #&lt;&lt;\nnhanes_wide\n\n# A tibble: 10 × 5\n# Groups:   sex [2]\n   sex    race_ethnicity     exam_2013 exam_2015 exam_2017\n   &lt;fct&gt;  &lt;fct&gt;                  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n 1 Female Non-Hispanic White      121.      124.      125.\n 2 Female Non-Hispanic Black      125.      126.      131.\n 3 Female Non-Hispanic Asian      118.      119.      123.\n 4 Female Hispanic                119.      123.      123.\n 5 Female Other race              119.      122.      123.\n 6 Male   Non-Hispanic White      123.      126.      127.\n 7 Male   Non-Hispanic Black      129.      131.      132.\n 8 Male   Non-Hispanic Asian      123.      123.      124.\n 9 Male   Hispanic                124.      127.      126.\n10 Male   Other race              123.      125.      126.",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---r-loves-wide-data-too",
+    "href": "Lectures/07_Reshape/index.html#pivot---r-loves-wide-data-too",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - R Loves Wide Data Too",
+    "text": "Pivot - R Loves Wide Data Too\n\n\n#gt works well with wide data\n\n#In fact, we want it even wider!\n\ngt(nhanes_wide) |&gt;\n  fmt_number(columns = starts_with(\"exam\"), \n             decimals = 1) |&gt;\n  cols_align(columns = \"race_ethnicity\", \n             align = \"left\")\n\n\n\n\n\n\n\n\nrace_ethnicity\nexam_2013\nexam_2015\nexam_2017\n\n\n\n\nFemale\n\n\nNon-Hispanic White\n121.2\n123.6\n124.6\n\n\nNon-Hispanic Black\n125.2\n126.4\n131.3\n\n\nNon-Hispanic Asian\n118.0\n119.2\n123.5\n\n\nHispanic\n119.4\n123.2\n122.9\n\n\nOther race\n118.8\n121.7\n122.6\n\n\nMale\n\n\nNon-Hispanic White\n123.4\n125.9\n127.0\n\n\nNon-Hispanic Black\n128.5\n130.5\n131.6\n\n\nNon-Hispanic Asian\n122.7\n122.7\n124.4\n\n\nHispanic\n124.2\n126.7\n126.0\n\n\nOther race\n123.0\n125.0\n125.7",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---arguments-in-pivot_wider",
+    "href": "Lectures/07_Reshape/index.html#pivot---arguments-in-pivot_wider",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Arguments in pivot_wider()",
+    "text": "Pivot - Arguments in pivot_wider()\n\nArguments follow similar conventions as in pivot_longer()\n\nnames_from defines the columns which provide the name of the output column; use names_prefix to annotate the new columns\nvalues_from indicates the column which gives the cell values\nid_cols defaults to all other columns but is what defines a unique observation in the wide data set\n\nnames_from can also accept vectors for even wider data",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---even-pivot_widerer",
+    "href": "Lectures/07_Reshape/index.html#pivot---even-pivot_widerer",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Even pivot_wider()er",
+    "text": "Pivot - Even pivot_wider()er\n\nCreate the new wide columns from both sex and exam year\n\n\nnhanes_wider &lt;- nhanes_long |&gt;\n  pivot_wider(names_from = c(sex, exam), names_sort = TRUE,\n              values_from = bp_sys_mmhg)\n\nnhanes_wider\n\n# A tibble: 5 × 7\n  race_ethnicity     Female_2013 Female_2015 Female_2017 Male_2013 Male_2015\n  &lt;fct&gt;                    &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 Non-Hispanic White        121.        124.        125.      123.      126.\n2 Non-Hispanic Black        125.        126.        131.      129.      131.\n3 Non-Hispanic Asian        118.        119.        123.      123.      123.\n4 Hispanic                  119.        123.        123.      124.      127.\n5 Other race                119.        122.        123.      123.      125.\n# ℹ 1 more variable: Male_2017 &lt;dbl&gt;\n\n\n\nI’d discourage passing vectors to values_from",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---better-gt-tables-with-wide-data",
+    "href": "Lectures/07_Reshape/index.html#pivot---better-gt-tables-with-wide-data",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - Better gt Tables with Wide Data",
+    "text": "Pivot - Better gt Tables with Wide Data\n\nWe can use our gt skills to make a great table\n\n\ngt(nhanes_wider, rowname_col = \"race_ethnicity\") |&gt;\n  cols_align(columns = \"race_ethnicity\", \"left\") |&gt;\n  fmt_number(columns = !starts_with('race'), decimals = 1) |&gt;\n  tab_spanner_delim(columns = !starts_with('race'), delim = '_') |&gt;\n  tab_stubhead(\"Race\") \n\n\n\n\n\n\n\nRace\nFemale\nMale\n\n\n2013\n2015\n2017\n2013\n2015\n2017\n\n\n\n\nNon-Hispanic White\n121.2\n123.6\n124.6\n123.4\n125.9\n127.0\n\n\nNon-Hispanic Black\n125.2\n126.4\n131.3\n128.5\n130.5\n131.6\n\n\nNon-Hispanic Asian\n118.0\n119.2\n123.5\n122.7\n122.7\n124.4\n\n\nHispanic\n119.4\n123.2\n122.9\n124.2\n126.7\n126.0\n\n\nOther race\n118.8\n121.7\n122.6\n123.0\n125.0\n125.7",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#pivot---and-back-with-pivot_longer",
+    "href": "Lectures/07_Reshape/index.html#pivot---and-back-with-pivot_longer",
+    "title": "Tidying and Reshaping Data",
+    "section": "Pivot - And Back with pivot_longer()",
+    "text": "Pivot - And Back with pivot_longer()\n\nOur wide columns are named [sex value]_[exam value] so use names_sep = \"_\" and combine with tidy selection\n\n\npivot_longer(nhanes_wider, cols = -race_ethnicity, values_to = \"bp_sys_mmhg_once_more\",\n    names_to = c('sex', 'exam'), names_sep = '_')\n\n# A tibble: 30 × 4\n   race_ethnicity     sex    exam  bp_sys_mmhg_once_more\n   &lt;fct&gt;              &lt;chr&gt;  &lt;chr&gt;                 &lt;dbl&gt;\n 1 Non-Hispanic White Female 2013                   121.\n 2 Non-Hispanic White Female 2015                   124.\n 3 Non-Hispanic White Female 2017                   125.\n 4 Non-Hispanic White Male   2013                   123.\n 5 Non-Hispanic White Male   2015                   126.\n 6 Non-Hispanic White Male   2017                   127.\n 7 Non-Hispanic Black Female 2013                   125.\n 8 Non-Hispanic Black Female 2015                   126.\n 9 Non-Hispanic Black Female 2017                   131.\n10 Non-Hispanic Black Male   2013                   129.\n# ℹ 20 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---more-than-mutate",
+    "href": "Lectures/07_Reshape/index.html#missingness---more-than-mutate",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - More than mutate()",
+    "text": "Missingness - More than mutate()\n\n\n\n\n\n\n\n\n\nPreviously, we saw how mutate() can be used on whole columns to assign missingness vector-wise via na_if()\ntidyr offers many additional options for coercing to and from NA values either implicitly or explicitly\nIt can also provide some imputation capacity",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---back-to-the-billboard",
+    "href": "Lectures/07_Reshape/index.html#missingness---back-to-the-billboard",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Back to the Billboard",
+    "text": "Missingness - Back to the Billboard\n\nbillboard has many missing values; no complete data is found anywhere (caps at 65 weeks)\n\n\nbb_long &lt;- billboard |&gt; \n  pivot_longer(\n    cols = starts_with(\"wk\"), \n    names_to = \"week\", \n    values_to = \"rank\")\n\n\nThe drop_na argument in pivot_longer() could drop any rows with NA in our new value column…",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---back-to-the-billboard-1",
+    "href": "Lectures/07_Reshape/index.html#missingness---back-to-the-billboard-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Back to the Billboard",
+    "text": "Missingness - Back to the Billboard\n\nOtherwise rank now has a huge number of missing values (&gt;75%)\n\n\n\n# A tibble: 24,092 × 5\n   artist track                   date.entered week   rank\n   &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;\n 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1      87\n 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk2      82\n 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk3      72\n 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk4      77\n 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk5      87\n 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk6      94\n 7 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk7      99\n 8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk8      NA\n 9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk9      NA\n10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10     NA\n# ℹ 24,082 more rows\n\n\n\nmean(is.na(bb_long$rank))\n\n[1] 0.7797194",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---dealing-with-explicit-nas",
+    "href": "Lectures/07_Reshape/index.html#missingness---dealing-with-explicit-nas",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Dealing with Explicit NAs",
+    "text": "Missingness - Dealing with Explicit NAs\n\nWe can replace NA with replace_na(), the inverse of na_if()\n\n\nreplace_na(bb_long, replace = list(rank = -888))\n\n# A tibble: 24,092 × 5\n   artist track                   date.entered week   rank\n   &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;\n 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1      87\n 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk2      82\n 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk3      72\n 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk4      77\n 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk5      87\n 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk6      94\n 7 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk7      99\n 8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk8    -888\n 9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk9    -888\n10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10   -888\n# ℹ 24,082 more rows\n\n\n\nreplace needs to be a list if data is a data frame",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---dealing-with-explicit-nas-1",
+    "href": "Lectures/07_Reshape/index.html#missingness---dealing-with-explicit-nas-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Dealing with Explicit NAs",
+    "text": "Missingness - Dealing with Explicit NAs\n\nDrop rows with NA post pivot_longer() with drop_na()\n\n\ndrop_na(bb_long, c(rank))\n\n# A tibble: 5,307 × 5\n   artist  track                   date.entered week   rank\n   &lt;chr&gt;   &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;\n 1 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk1      87\n 2 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk2      82\n 3 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk3      72\n 4 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk4      77\n 5 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk5      87\n 6 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk6      94\n 7 2 Pac   Baby Don't Cry (Keep... 2000-02-26   wk7      99\n 8 2Ge+her The Hardest Part Of ... 2000-09-02   wk1      91\n 9 2Ge+her The Hardest Part Of ... 2000-09-02   wk2      87\n10 2Ge+her The Hardest Part Of ... 2000-09-02   wk3      92\n# ℹ 5,297 more rows\n\n\n\nThese will both prove useful later with joins",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---working-with-implicit-na",
+    "href": "Lectures/07_Reshape/index.html#missingness---working-with-implicit-na",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Working with Implicit NA",
+    "text": "Missingness - Working with Implicit NA\n\n\n\nUsing drop_na() leads to implicit NAs where the absence of an occurrence implies an NA would otherwise exist\nThe complete() function makes these implicit NAs explicit by completing a data frame with missing combinations of data",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---working-with-implicit-na-1",
+    "href": "Lectures/07_Reshape/index.html#missingness---working-with-implicit-na-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Working with Implicit NA",
+    "text": "Missingness - Working with Implicit NA\n\nThis returns us back (almost) to the original bb_long\n\n\ndrop_na(bb_long, c(rank)) |&gt; complete(nesting(artist, track, date.entered), week) |&gt; arrange(artist, track, week)\n\n# A tibble: 20,605 × 5\n   artist track                   date.entered week   rank\n   &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;\n 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1      87\n 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10     NA\n 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk11     NA\n 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk12     NA\n 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk13     NA\n 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk14     NA\n 7 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk15     NA\n 8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk16     NA\n 9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk17     NA\n10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk18     NA\n# ℹ 20,595 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---imputation-with-fill",
+    "href": "Lectures/07_Reshape/index.html#missingness---imputation-with-fill",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Imputation with fill()",
+    "text": "Missingness - Imputation with fill()\n\nfill() can be used to impute and overwrite NA missing values based on the previous or next entry\n\nUsing the previous entry is Last Observation Carried Forward\nUsing the next value is Next Observation Carried Backward\n\nVery useful when dealing with “jagged” data e.g. common with REDCap\n\n\n\n\n\n\n\nWarning\n\n\nUse imputation with caution and consideration!",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#missingness---imputation-with-fill-1",
+    "href": "Lectures/07_Reshape/index.html#missingness---imputation-with-fill-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Missingness - Imputation with fill()",
+    "text": "Missingness - Imputation with fill()\n\nUsing .direction = \"down\" to do LOCF\n\n\n\n\nsales &lt;- tibble::tribble(\n  \n  ~quarter, ~year, ~sales,\n  \"Q1\",    2000,    66013,\n  \"Q2\",      NA,    69182,\n  \"Q3\",      NA,    53175,\n  \"Q4\",      NA,    21001,\n  \"Q1\",    2001,    46036,\n  \"Q2\",      NA,    58842,\n  \"Q3\",      NA,    44568,\n  \"Q4\",      NA,    50197,\n  \"Q1\",    2002,    39113,\n  \"Q2\",      NA,    41668,\n  \"Q3\",      NA,    30144,\n  \"Q4\",      NA,    52897\n)\n\n\n\nsales |&gt; fill(year, .direction = \"down\")\n\n# A tibble: 12 × 3\n   quarter  year sales\n   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt;\n 1 Q1       2000 66013\n 2 Q2       2000 69182\n 3 Q3       2000 53175\n 4 Q4       2000 21001\n 5 Q1       2001 46036\n 6 Q2       2001 58842\n 7 Q3       2001 44568\n 8 Q4       2001 50197\n 9 Q1       2002 39113\n10 Q2       2002 41668\n11 Q3       2002 30144\n12 Q4       2002 52897",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---a-brief-intro",
+    "href": "Lectures/07_Reshape/index.html#strings---a-brief-intro",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - A Brief Intro",
+    "text": "Strings - A Brief Intro\n\nMany packages work with string data, most notably stringrfrom the tidyverse\ntidyr specifically handles vector-wise applications of character data in a data frame\n\nunite() combines multiple character columns into a single\nThe separate_ family splits a single column into multiple columns or rows i.e. too much data is in a single column\n\nDon’t forget about coercion!",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---combine-with-unite",
+    "href": "Lectures/07_Reshape/index.html#strings---combine-with-unite",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - Combine with unite()",
+    "text": "Strings - Combine with unite()\n\nA convenience function to paste columns together with a sep\n\n\nbb_long |&gt;\n  unite(\"wk_rank\", c(week, rank), sep = \"_\",  #&lt;&lt;\n        remove = FALSE, na.rm = TRUE)\n\n# A tibble: 24,092 × 6\n   artist track                   date.entered wk_rank week   rank\n   &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;\n 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1_87  wk1      87\n 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk2_82  wk2      82\n 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk3_72  wk3      72\n 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk4_77  wk4      77\n 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk5_87  wk5      87\n 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk6_94  wk6      94\n 7 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk7_99  wk7      99\n 8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk8     wk8      NA\n 9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk9     wk9      NA\n10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10    wk10     NA\n# ℹ 24,082 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---combine-with-unite-1",
+    "href": "Lectures/07_Reshape/index.html#strings---combine-with-unite-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - Combine with unite()",
+    "text": "Strings - Combine with unite()\n\nremove drops columns after pasting while na.rm will keep NA\n\n\nbb_long |&gt;\n  unite(\"wk_rank\", c(week, rank), sep = \"_\",\n        remove = TRUE, na.rm = FALSE)   #&lt;&lt; Check the defaults!\n\n# A tibble: 24,092 × 4\n   artist track                   date.entered wk_rank\n   &lt;chr&gt;  &lt;chr&gt;                   &lt;date&gt;       &lt;chr&gt;  \n 1 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk1_87 \n 2 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk2_82 \n 3 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk3_72 \n 4 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk4_77 \n 5 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk5_87 \n 6 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk6_94 \n 7 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk7_99 \n 8 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk8_NA \n 9 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk9_NA \n10 2 Pac  Baby Don't Cry (Keep... 2000-02-26   wk10_NA\n# ℹ 24,082 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---separate_-as-the-complement",
+    "href": "Lectures/07_Reshape/index.html#strings---separate_-as-the-complement",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - separate_ as the Complement",
+    "text": "Strings - separate_ as the Complement\n\nThe separate_ family has many more options\n\nseparate_wider_ splits one column into multiple columns\nseparate_longer_ splits a character column into multiple rows\n\nHow you split also matters\n\nseparate_*_delim() uses delimiters like unite()\nseparate_*_position() splits on fixed positions\n\nseparate_wider_regex() uses regular expressions (next time)\nLike pivot_, these have superseded separate() and extract()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---separate_longer_-is-less-common",
+    "href": "Lectures/07_Reshape/index.html#strings---separate_longer_-is-less-common",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - separate_longer_ is Less Common",
+    "text": "Strings - separate_longer_ is Less Common\n\n\n\nMost useful when collaborators have multiple uneven observations in a single column\n\n\ndat &lt;- tibble(id = 1:4, dat_col = c(\"x\", \"x y\", \"x y z\", NA))\n\ndat\n\n# A tibble: 4 × 2\n     id dat_col\n  &lt;int&gt; &lt;chr&gt;  \n1     1 x      \n2     2 x y    \n3     3 x y z  \n4     4 &lt;NA&gt;   \n\n\n\n\nUnlike unite()‘s default of’_’, delim must always be specified\n\n\ndat |&gt; \n  separate_longer_delim(cols = dat_col,\n                        delim = \" \")  #&lt;&lt;\n\n# A tibble: 7 × 2\n     id dat_col\n  &lt;int&gt; &lt;chr&gt;  \n1     1 x      \n2     2 x      \n3     2 y      \n4     3 x      \n5     3 y      \n6     3 z      \n7     4 &lt;NA&gt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---separate_wider_",
+    "href": "Lectures/07_Reshape/index.html#strings---separate_wider_",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - separate_wider_",
+    "text": "Strings - separate_wider_\n\nGreat when multiple variables exist in a single column\n\n\nbb_long |&gt;\n  separate_wider_delim(cols = date.entered, delim = \"-\",\n                       names = c(\"year\", \"month\", \"day\"))\n\n# A tibble: 24,092 × 7\n   artist track                   year  month day   week   rank\n   &lt;chr&gt;  &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n 1 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk1      87\n 2 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk2      82\n 3 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk3      72\n 4 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk4      77\n 5 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk5      87\n 6 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk6      94\n 7 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk7      99\n 8 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk8      NA\n 9 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk9      NA\n10 2 Pac  Baby Don't Cry (Keep... 2000  02    26    wk10     NA\n# ℹ 24,082 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#strings---separate_wider_-1",
+    "href": "Lectures/07_Reshape/index.html#strings---separate_wider_-1",
+    "title": "Tidying and Reshaping Data",
+    "section": "Strings - separate_wider_",
+    "text": "Strings - separate_wider_\n\nBut be mindful of coercion if you need to unite() later\n\n\nbb_long |&gt;\n  separate_wider_delim(cols = date.entered, delim = \"-\",\n                       names = c(\"year\", \"month\", \"day\"), cols_remove = FALSE) |&gt;\n  unite(\"new_date\", c(year, month, day), sep = \"-\", remove = FALSE) |&gt; select(-c(artist, track))\n\n# A tibble: 24,092 × 7\n   new_date   year  month day   date.entered week   rank\n   &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;date&gt;       &lt;chr&gt; &lt;dbl&gt;\n 1 2000-02-26 2000  02    26    2000-02-26   wk1      87\n 2 2000-02-26 2000  02    26    2000-02-26   wk2      82\n 3 2000-02-26 2000  02    26    2000-02-26   wk3      72\n 4 2000-02-26 2000  02    26    2000-02-26   wk4      77\n 5 2000-02-26 2000  02    26    2000-02-26   wk5      87\n 6 2000-02-26 2000  02    26    2000-02-26   wk6      94\n 7 2000-02-26 2000  02    26    2000-02-26   wk7      99\n 8 2000-02-26 2000  02    26    2000-02-26   wk8      NA\n 9 2000-02-26 2000  02    26    2000-02-26   wk9      NA\n10 2000-02-26 2000  02    26    2000-02-26   wk10     NA\n# ℹ 24,082 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/07_Reshape/index.html#learning-more",
+    "href": "Lectures/07_Reshape/index.html#learning-more",
+    "title": "Tidying and Reshaping Data",
+    "section": "Learning more",
+    "text": "Learning more\n\nAs always, cheatsheets are available on the tidyverse website(https://rstudio.cloud/learn/cheat-sheets){.external target=“_blank”}\nPackage websites:\n\ntidyr: https://tidyr.tidyverse.org/index.html\n\nThis vignette is dedicated to the pivot_wider() and pivot_longer() functions.\nNext time, more on working with characters and extending separate_",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "html_files/07_Reshape/exercise_solutions.html",
+    "href": "html_files/07_Reshape/exercise_solutions.html",
+    "title": "Reshaping Data",
+    "section": "",
+    "text": "These exercises will help you practice applying pivot_wider and pivot_longer, and will also require some use of skills you have previously learned. No new data (other than toy examples) will be introduced.\n\n\n\n\nWarning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "html_files/07_Reshape/exercise_solutions.html#setup",
+    "href": "html_files/07_Reshape/exercise_solutions.html#setup",
+    "title": "Reshaping Data",
+    "section": "",
+    "text": "Warning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+  },
+  {
+    "objectID": "html_files/07_Reshape/class_exercises.html",
+    "href": "html_files/07_Reshape/class_exercises.html",
+    "title": "Reshaping Data",
+    "section": "",
+    "text": "These exercises will help you practice applying pivot_wider and pivot_longer, and will also require some use of skills you have previously learned. No new data (other than toy examples) will be introduced.\n\n\nI am not loading packages this time. You can load your own as you determine what tools are needed",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "html_files/07_Reshape/class_exercises.html#setup",
+    "href": "html_files/07_Reshape/class_exercises.html#setup",
+    "title": "Reshaping Data",
+    "section": "",
+    "text": "I am not loading packages this time. You can load your own as you determine what tools are needed",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "07 - Reshaping Data"
     ]
   }
 ]

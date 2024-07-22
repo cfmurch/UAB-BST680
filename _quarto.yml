@@ -34,6 +34,9 @@ website:
           - text: "06 - Advanced Visualization"
             href: "Lectures/06_Adv_Visual/index.qmd"
             target: _blank
+          - text: "07 - Reshaping Data"
+            href: "Lectures/07_Reshape/index.qmd"
+            target: _blank
       - section: "Lecture PDF"
         contents:
           - text: "01 - Introducing Your Tools"
@@ -54,6 +57,9 @@ website:
           - text: "06 - Advanced Visualization"
             href: "pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf"
             target: _blank
+          - text: "07 - Reshaping Data"
+            href: "pdfs/BST680 - 2024 - 07 Reshaping Data.pdf"
+            target: _blank
       - section: "Additional Info"
         contents:
           - text: "01a - Intro to Quarto and gt()"
@@ -72,6 +78,8 @@ website:
             href: "html_files/05_Transform/class_exercises.qmd"
           - text: "06 - Advanced Visualization"
             href: "html_files/06_Adv_Visual/class_exercises.qmd"
+          - text: "07 - Reshaping Data"
+            href: "html_files/07_Reshape/class_exercises.qmd"
       - section: "Assignment Solutions"
         contents: 
           - text: "01 - Working with Tables"

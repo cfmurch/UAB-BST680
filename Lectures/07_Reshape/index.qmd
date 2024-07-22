@@ -1,0 +1,842 @@
+---
+title: "Tidying and Reshaping Data"
+subtitle: "Pivot, Missingness, and Strings"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: false
+
+library(readr)    # for reading in data
+library(tibble)   # for data printing
+library(tidyr)    # for tidying
+library(dplyr)    # for data manipulation
+library(ggplot2)  # for visualization
+library(gt)       # for tables
+library(forcats)  # for fct_recode
+
+cv19_text <- "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"
+
+# Download data and drop fips since we aren't merging with census
+cv19 <- read_csv(cv19_text) |> 
+  select(-fips)
+
+nhanes <- read_rds('data/NHANES_analysis_post_exclusions.rds') |> 
+  filter(exam %in% c(2013, 2015, 2017)) |> 
+  select(-seqn, -psu, -strata, -wts_mec_2yr) |> 
+  group_by(exam, sex, race_ethnicity) |> 
+  summarise(across(is.numeric,mean, na.rm = TRUE)) |> 
+  mutate(race_ethnicity = fct_recode(race_ethnicity, 
+    'Other race' = "Other Race - Including Multi-Racial"))
+
+```
+
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Reinforcing tidy data
+
+- Long vs wide data
+
+- `pivot_` functions for reshaping
+
+- Missingness
+
+- Working with string columns
+
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/clean_shirt.jpeg){fig-align="center" width="90%" height="90%"}
+:::
+:::
+
+::::
+
+
+# Tidy Data
+
+---
+
+## Tidy Data - Recall Our Definitions
+
+-   A __variable__ is some sort of quality, quantity or property of the data
+
+-   Variables are comprised of __values__ which are specific instances or measures of a variable
+
+-   An __observation__ is a set of measurements under similar conditions, it can be thought of as a unique set of values specific to those conditions
+
+-   __Tabular data__ takes a set of values each associated with a variable and an observation and gives a rectangular structure
+
+-   Our goal is to make data __tidy__ wherein each value is its own cell, each variable is its own column, each observation is its own row
+
+---
+
+## Tidy Data - Our Example
+
+- We spend much time coercing our material into tibbles (or data frames) as they enforce tidy-ness
+
+![](img/tidy-1.png){fig-align="center"}
+
+- We also know many ways to access our data including...
+
+. . .
+
+    `$` `[[ ]]` `[ ]` `select()` `pick()`
+
+---
+
+## Tidy Data - Why It Matters
+<!-- :::{style="font-size: 85%"} -->
+
+<!-- > Happy families are all alike; every unhappy family is unhappy in its own way. -->
+<!-- > -->
+<!-- > `r tufte::quote_footer('--- Leo Tolstoy')` -->
+
+<!-- ::: -->
+
+![](img/tidy_tolsty.jpg){fig-align="center" width="75%"}
+
+:::{.footer}
+<https://allisonhorst.com/other-r-fun>
+:::
+
+---
+
+## Tidy Data - Why It Matters
+
+- Flexibility is good but consistency is better, especially for programming
+
+![](img/tidy_consistent.jpg){fig-align="center"}
+
+:::{.footer}
+<https://allisonhorst.com/other-r-fun>
+:::
+
+---
+
+## Tidy Data - Why It Matters
+
+- The columns-as-variables lets the vectorized nature of data frames and tibbles in R shine
+
+![](img/tidy_workflow.jpg){fig-align="center"}
+
+- It also enables the tidy selection and data masking of the tidyverse (for better or worse)
+
+:::{.footer}
+
+<https://allisonhorst.com/other-r-fun>
+
+:::
+
+---
+
+## Tidy Data - Meanwhile in the Real World...
+
+- Data is messy, even messier than what we've been working with
+
+![](img/messy_data.png){fig-align="center"}
+
+- It's not enough to isolate and transform, we may need to __pivot__
+
+:::{.footer}
+
+<https://developer.ibm.com/tutorials/ba-cleanse-process-visualize-data-set-1/>
+
+:::
+
+
+# Wide vs Long Data
+
+---
+
+## Wide vs Long - Wide Data
+
+- Wide data can be thought of as multiple univariate data sets
+
+![](img/data_wide_1.png){fig-align="center"}
+
+:::{.footer}
+
+<https://knowledge.dataiku.com/>
+
+:::
+
+---
+
+## Wide vs Long - Wide Data
+
+- Which gets very complicated with multivariate data...
+
+![](img/data_wide_2.png){fig-align="center"}
+
+:::{.footer}
+
+<https://knowledge.dataiku.com/>
+
+:::
+
+---
+
+## Wide vs Long - Wide Data
+
+- ...or time series data like the `billboard` dataset
+
+```{r}
+#| include: true
+#| echo: false
+
+print(tidyr::billboard, n=5)
+
+```
+
+---
+
+## Wide vs Long - Wide Data
+
+:::{style="text-align: center; font-weight: bold; font-size: 125%"}
+
+Wide data sets are defined by having actual _data_<br>in their column names
+
+:::
+
+::::{.columns}
+
+:::{.column}
+
+- In `billboard` each observation is a song with the first three variables describing the song
+
+- But the other 76 (!) columns describe the rank with the<br>_column names_ describing the<br>week it entered
+
+:::
+
+:::{.column}
+
+![](img/missing_everywhere.jpg){fig-align="center"}
+
+:::
+
+::::
+
+
+---
+
+## Wide vs Long - Long Data
+
+- Long data instead has no values in column names
+
+![](img/data_long_1.png){fig-align="center"}
+
+
+:::{.footer}
+<https://knowledge.dataiku.com/>
+:::
+
+---
+
+## Wide vs Long - Long Data
+
+- It also does a much better job handling missing data
+
+![](img/data_long_2.png){fig-align="center"}
+
+:::{.footer}
+<https://knowledge.dataiku.com/>
+:::
+
+---
+
+## Wide vs Long - So Why Wide?
+
+- R _in general_ prefers long data to wide
+
+    - Better for vectorization and formula formatting<br>i.e. `yvar ~ xvar_1 + xvar_2 + ...`
+    
+    - Mandatory for time series data in longitudinal or survival designs
+    
+- Wide data is still common
+
+   - Well supported in other stats programs for things like 2-way or repeated measures ANOVA
+   
+   - Is often more intuitive for data collection
+. . .
+- Thus it's up to you to make things `tidyr`
+
+
+# Reshaping with Pivot
+
+## Pivot - The `tidyr` Package {background-image="img/tidyr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `tidyr` is how the tidyverse makes data tidy with 5 categories:
+
+    1. <b>Pivoting</b> to convert data between wide and long
+    
+    2. <b>Rectangling</b> for dealing with nested lists
+    
+    3. <b>Nesting</b> to embed data frames within data frames
+    
+    4. <b>Separating</b> and <b>uniting</b> character data columns
+    
+    5. Dealing with `NA` as <b>missingness</b>
+    
+- Our focus is on 1 and 5 and a bit of 4
+    
+## Pivot - What it Looks Like {background-image="img/tidyr.svg" background-size="8%" background-position="95% 5%"} 
+
+```{r}
+#| echo: false
+#| fig-align: "center"
+
+knitr::include_graphics('img/tidyr-longer-wider.gif')
+```
+
+
+
+## Pivot - A History {background-image="img/tidyr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Originally, `tidyr` had functions called `spread()` and `gather()` but...
+
+    - The names were unintuitive
+
+    - The arguments were hard to remember
+
+    - Function support for transforming was limited in scope
+
+- In a later update, `pivot_wider()` and `pivot_longer()` were added to supersede `spread()` and `gather()`
+
+- While `spread()` and `gather()` still function within `tidyr` and can be used, our focus is on the `pivot_` family
+
+---
+
+
+
+
+## Pivot - Some _Long_ Covid data
+
+- Today we have some case and and death data on COVID-19 by state and day from the NY times called `cv19`
+
+```{r}
+#| echo: true
+
+print(cv19, n=7)
+```
+
+- Pretty long but could be longer
+
+---
+
+## Pivot - Using `pivot_longer()`
+
+- Let's get a longer form where:
+
+    - Cases and death _values_ are in the `value` column
+
+    - Cases and death _indicators_ in the `name` column.
+
+```{r}
+#| echo: true
+#| code-line-numbers: 2-2
+
+cv19_long <- cv19 |>
+  pivot_longer(cols = c(cases, deaths)) #<<
+
+cv19_long[1:5, ]
+
+```
+
+---
+
+## Pivot - Using `pivot_longer()`
+
+- The `cols` argument indicates the variables that will be cast to `value` while the column names populate `name`; `cols` also understands tidy selection e.g. `starts_with()`
+
+- You can rename the `value` variable with `values_to` and rename `name` with `names_to`
+
+- Check the reference for other useful arguments like `drop_na`
+
+```{r}
+#| output: false
+
+billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank")
+```
+
+
+## Pivot - R Loves Long Data
+
+- Long vectorized data is ideal for packages like `ggplot2`
+
+```{r}
+#| fig-align: "center"
+
+ggplot(cv19_long, aes(x=date, y = value)) +
+  geom_line(aes(group = state)) +
+  labs(title = "Covid Cases and Deaths") +
+  facet_wrap(~ name, scales = 'free')
+```
+
+---
+
+## Pivot - Using `pivot_wider()`
+
+- `pivot_wider()` does the inverse, adding columns and reducing rows
+
+- NHANES is a good example since each row is an `exam` year
+
+```{r}
+#| echo: false
+
+nhanes_long <- select(nhanes, exam, sex, race_ethnicity, bp_sys_mmhg)
+```
+
+```{r}
+#| echo: false
+
+nhanes_long
+```
+
+---
+
+## Pivot - Using `pivot_wider()`
+
+- `pivot_wider()` can give `sys_bp_mmhg` columns for each `exam` year
+
+```{r}
+#| code-line-numbers: 2-3
+
+nhanes_wide <- nhanes_long |>
+  pivot_wider(values_from = bp_sys_mmhg, #<<
+    names_from = exam, names_prefix = "exam_") #<<
+nhanes_wide
+```
+
+---
+
+## Pivot - R Loves Wide Data Too
+
+
+```{r}
+#| output-location: column
+
+#gt works well with wide data
+
+#In fact, we want it even wider!
+
+gt(nhanes_wide) |>
+  fmt_number(columns = starts_with("exam"), 
+             decimals = 1) |>
+  cols_align(columns = "race_ethnicity", 
+             align = "left")
+
+
+```
+
+
+---
+
+## Pivot - Arguments in `pivot_wider()`
+
+- Arguments follow similar conventions as in `pivot_longer()`
+
+   - `names_from` defines the columns which provide the name of the output column; use `names_prefix` to annotate the new columns
+   
+   - `values_from` indicates the column which gives the cell values
+   
+   - `id_cols` defaults to all other columns but is what defines a unique observation in the wide data set
+   
+- `names_from` can also accept vectors for even wider data
+
+---
+
+## Pivot - Even `pivot_wider()`er
+
+- Create the new wide columns from both `sex` and `exam` year
+
+```{r}
+#| code-line-numbers: 2-2
+
+nhanes_wider <- nhanes_long |>
+  pivot_wider(names_from = c(sex, exam), names_sort = TRUE,
+              values_from = bp_sys_mmhg)
+
+nhanes_wider
+
+```
+
+- I'd discourage passing vectors to `values_from`
+
+---
+
+## Pivot - Better `gt` Tables with Wide Data
+
+- We can use our `gt` skills to make a great table
+
+```{r}
+gt(nhanes_wider, rowname_col = "race_ethnicity") |>
+  cols_align(columns = "race_ethnicity", "left") |>
+  fmt_number(columns = !starts_with('race'), decimals = 1) |>
+  tab_spanner_delim(columns = !starts_with('race'), delim = '_') |>
+  tab_stubhead("Race") 
+
+```
+
+---
+
+## Pivot - And Back with `pivot_longer()`
+
+- Our wide columns are named `[sex value]_[exam value]` so use `names_sep = "_"` and combine with tidy selection
+
+```{r}
+pivot_longer(nhanes_wider, cols = -race_ethnicity, values_to = "bp_sys_mmhg_once_more",
+    names_to = c('sex', 'exam'), names_sep = '_')
+```
+
+
+# Missingness with `tidyr`
+
+---
+
+## Missingness - More than `mutate()` {background-image="img/tidyr.svg" background-size="8%" background-position="95% 5%"} 
+
+:::{.columns}
+
+:::{.column}
+
+![](img/two_types.jpg){fig-align="center"}
+
+:::
+
+:::{.column}
+
+- Previously, we saw how `mutate()` can be used on whole columns to assign missingness vector-wise via `na_if()`
+
+- `tidyr` offers many additional options for coercing to and from `NA` values either implicitly or explicitly
+
+- It can also provide some imputation capacity
+
+:::
+
+
+::::
+
+## Missingness - Back to the Billboard
+
+- `billboard` has _many_ missing values; no complete data is found anywhere (caps at 65 weeks)
+
+```{r}
+bb_long <- billboard |> 
+  pivot_longer(
+    cols = starts_with("wk"), 
+    names_to = "week", 
+    values_to = "rank")
+```
+
+- The `drop_na` argument in `pivot_longer()` could drop any rows with `NA` in our new `value` column...
+
+---
+
+## Missingness - Back to the Billboard
+
+- Otherwise `rank` now has a huge number of missing values (>75%)
+
+```{r}
+#| echo: false
+
+bb_long
+
+```
+
+
+
+```{r}
+
+mean(is.na(bb_long$rank))
+```
+
+
+---
+
+## Missingness - Dealing with Explicit `NA`s
+
+- We can replace `NA` with `replace_na()`, the inverse of `na_if()`
+
+```{r}
+replace_na(bb_long, replace = list(rank = -888))
+```
+
+- `replace` needs to be a list if data is a data frame
+
+## Missingness - Dealing with Explicit `NA`s
+
+- Drop rows with `NA` post `pivot_longer()` with `drop_na()`
+
+```{r}
+drop_na(bb_long, c(rank))
+```
+
+- These will both prove useful later with joins
+
+## Missingness - Working with Implicit `NA`
+
+:::{.columns}
+
+:::{.column}
+
+- Using `drop_na()` leads to <b>implicit</b> `NA`s where the absence of an occurrence _implies_ an `NA` would otherwise exist
+
+- The `complete()` function makes these implicit `NA`s <b>explicit</b> by _completing_ a data frame with missing combinations of data
+
+:::
+
+:::{.column}
+
+![](img/implicit.jpg){fig-align="center"}
+
+:::
+
+:::
+
+---
+
+## Missingness - Working with Implicit `NA`
+
+- This returns us back (almost) to the original `bb_long`
+
+```{r}
+drop_na(bb_long, c(rank)) |> complete(nesting(artist, track, date.entered), week) |> arrange(artist, track, week)
+```
+
+## Missingness - Imputation with `fill()`
+
+- `fill()` can be used to impute and overwrite `NA` missing values based on the previous or next entry
+
+    - Using the previous entry is Last Observation Carried Forward
+    
+    - Using the next value is Next Observation Carried Backward
+
+- Very useful when dealing with "jagged" data e.g. common with REDCap
+
+:::{.callout-warning}
+
+Use imputation with caution and consideration!
+
+:::
+---
+
+## Missingness - Imputation with `fill()`
+
+- Using `.direction = "down"` to do LOCF
+
+:::{.columns}
+
+:::{.column}
+
+```{r}
+#| output: false
+
+sales <- tibble::tribble(
+  
+  ~quarter, ~year, ~sales,
+  "Q1",    2000,    66013,
+  "Q2",      NA,    69182,
+  "Q3",      NA,    53175,
+  "Q4",      NA,    21001,
+  "Q1",    2001,    46036,
+  "Q2",      NA,    58842,
+  "Q3",      NA,    44568,
+  "Q4",      NA,    50197,
+  "Q1",    2002,    39113,
+  "Q2",      NA,    41668,
+  "Q3",      NA,    30144,
+  "Q4",      NA,    52897
+)
+
+```
+
+:::
+
+:::{.column}
+
+```{r}
+
+sales |> fill(year, .direction = "down")
+
+```
+
+:::
+
+:::
+
+
+# String Vectors
+
+---
+
+## Strings - A Brief Intro {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Many packages work with string data, most notably `stringr`<br>from the tidyverse
+
+- `tidyr` specifically handles vector-wise applications of character data _in a data frame_
+
+    - `unite()` combines multiple character columns into a single
+    
+    - The `separate_` family splits a single column into multiple columns or rows i.e. too much data is in a single column
+
+- Don't forget about coercion!
+
+
+## Strings - Combine with `unite()`
+
+- A convenience function to `paste` columns together with a `sep`
+
+```{r}
+#| code-line-numers: 2-2
+bb_long |>
+  unite("wk_rank", c(week, rank), sep = "_",  #<<
+        remove = FALSE, na.rm = TRUE)
+```
+
+---
+
+## Strings - Combine with `unite()`
+
+- `remove` drops columns after pasting while `na.rm` will keep `NA`
+
+```{r}
+#| code-line-numers: 3-3
+bb_long |>
+  unite("wk_rank", c(week, rank), sep = "_",
+        remove = TRUE, na.rm = FALSE)   #<< Check the defaults!
+```
+
+---
+
+## Strings - `separate_` as the Complement
+
+- The `separate_` family has many more options
+
+    - `separate_wider_` splits one column into multiple __columns__
+    
+    - `separate_longer_` splits a character column into multiple __rows__
+
+- How you split also matters
+
+    - `separate_*_delim()` uses delimiters like `unite()`
+    
+    - `separate_*_position()` splits on fixed positions
+    
+- `separate_wider_regex()` uses regular expressions (next time)
+
+- Like `pivot_`, these have superseded `separate()` and `extract()`
+
+---
+
+## Strings - `separate_longer_` is Less Common
+
+:::{.columns}
+
+:::{.column}
+
+- Most useful when collaborators have multiple __uneven__ observations in a single column
+
+```{r}
+
+dat <- tibble(id = 1:4, dat_col = c("x", "x y", "x y z", NA))
+
+dat
+```
+
+:::
+
+:::{.column}
+
+- Unlike `unite()`'s default of '_', delim must always be specified
+
+```{r}
+#| code-line-numbers: 3-3
+dat |> 
+  separate_longer_delim(cols = dat_col,
+                        delim = " ")  #<<
+```
+
+:::
+
+:::
+
+
+## Strings - `separate_wider_`
+
+- Great when multiple variables exist in a single column
+
+```{r}
+bb_long |>
+  separate_wider_delim(cols = date.entered, delim = "-",
+                       names = c("year", "month", "day"))
+```
+
+## Strings - `separate_wider_`
+
+- But be mindful of coercion if you need to `unite()` later
+
+```{r}
+bb_long |>
+  separate_wider_delim(cols = date.entered, delim = "-",
+                       names = c("year", "month", "day"), cols_remove = FALSE) |>
+  unite("new_date", c(year, month, day), sep = "-", remove = FALSE) |> select(-c(artist, track))
+  
+```
+
+
+
+## Learning more
+
+
+- As always, cheatsheets are available on the tidyverse website(https://rstudio.cloud/learn/cheat-sheets){.external target="_blank"}
+
+- Package websites:
+
+    + `tidyr`: <https://tidyr.tidyverse.org/index.html>
+    
+- This [vignette](https://tidyr.tidyverse.org/articles/pivot.html) is dedicated to the `pivot_wider()` and `pivot_longer()` functions.
+
+- Next time, more on working with characters and extending `separate_`
+
