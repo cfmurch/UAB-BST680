@@ -3455,7 +3455,7 @@
     "href": "downloads.html",
     "title": "BST680 Downloads",
     "section": "",
-    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
     "crumbs": [
       "Home",
       "Downloads",
@@ -4103,14 +4103,24 @@
     "href": "html_files/07_Reshape/exercise_solutions.html",
     "title": "Reshaping Data",
     "section": "",
-    "text": "These exercises will help you practice applying pivot_wider and pivot_longer, and will also require some use of skills you have previously learned. No new data (other than toy examples) will be introduced.\n\n\n\n\nWarning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+    "text": "These exercises will help you practice applying pivot_wider and pivot_longer, and will also require some use of skills you have previously learned. No new data (other than toy examples) will be introduced.\n\n\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
+    "crumbs": [
+      "Home",
+      "Assignment Solutions",
+      "07 - Reshaping Data"
+    ]
   },
   {
     "objectID": "html_files/07_Reshape/exercise_solutions.html#setup",
     "href": "html_files/07_Reshape/exercise_solutions.html#setup",
     "title": "Reshaping Data",
     "section": "",
-    "text": "Warning: package 'tidyverse' was built under R version 4.4.1\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors"
+    "text": "── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors",
+    "crumbs": [
+      "Home",
+      "Assignment Solutions",
+      "07 - Reshaping Data"
+    ]
   },
   {
     "objectID": "html_files/07_Reshape/class_exercises.html",
@@ -4134,6 +4144,886 @@
       "Home",
       "Assignments",
       "07 - Reshaping Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html",
+    "href": "Lectures/08_Strings/index.html",
+    "title": "Characters and Dates",
+    "section": "",
+    "text": "Separate review\nCharacter data outside of data frame\nRegular expressions\nOverview on dates",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#agenda",
+    "href": "Lectures/08_Strings/index.html#agenda",
+    "title": "Characters and Dates",
+    "section": "",
+    "text": "Separate review\nCharacter data outside of data frame\nRegular expressions\nOverview on dates",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---last-time",
+    "href": "Lectures/08_Strings/index.html#separate---last-time",
+    "title": "Characters and Dates",
+    "section": "Separate - Last Time",
+    "text": "Separate - Last Time\n\nWe discussed how to separate columns as an inverse to unite()\nseparate_ gave us many options\n\nseparate_wider_delim() uses delimiters like unite()\nseparate_wider_position() splits on fixed positions\n\nWe also mentioned separate_wider_regex()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---separate_wider_delim",
+    "href": "Lectures/08_Strings/index.html#separate---separate_wider_delim",
+    "title": "Characters and Dates",
+    "section": "Separate - separate_wider_delim()",
+    "text": "Separate - separate_wider_delim()\n\nConsider some (messy) ambulator BP data\n\n\nabpm_demo\n\n# A tibble: 2,500 × 2\n      id asr            \n   &lt;int&gt; &lt;glue&gt;         \n 1     1 20_Male_White  \n 2     2 30_Female_White\n 3     3 30_Male_Black  \n 4     4 28_Male_White  \n 5     5 28_Male_White  \n 6     6 19_Male_Black  \n 7     7 29_Female_Black\n 8     8 24_Male_Black  \n 9     9 22_Female_White\n10    10 23_Male_Black  \n# ℹ 2,490 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---separate_wider_delim-1",
+    "href": "Lectures/08_Strings/index.html#separate---separate_wider_delim-1",
+    "title": "Characters and Dates",
+    "section": "Separate - separate_wider_delim()",
+    "text": "Separate - separate_wider_delim()\n\nAs seen, great when multiple variables exist in a single column\n\n\nabpm_demo |&gt;\n  separate_wider_delim(col = asr, delim = \"_\",\n                       names = c(\"age\", \"sex\", \"race\"))\n\n# A tibble: 2,500 × 4\n      id age   sex    race \n   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;\n 1     1 20    Male   White\n 2     2 30    Female White\n 3     3 30    Male   Black\n 4     4 28    Male   White\n 5     5 28    Male   White\n 6     6 19    Male   Black\n 7     7 29    Female Black\n 8     8 24    Male   Black\n 9     9 22    Female White\n10    10 23    Male   Black\n# ℹ 2,490 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---separate_wider_delim-2",
+    "href": "Lectures/08_Strings/index.html#separate---separate_wider_delim-2",
+    "title": "Characters and Dates",
+    "section": "Separate - separate_wider_delim()",
+    "text": "Separate - separate_wider_delim()\n\nBut what if our splitting column is a mess?\n\n\nabpm_demo\n\n# A tibble: 2,500 × 2\n      id asr                     \n   &lt;int&gt; &lt;glue&gt;                  \n 1     1 20_Male.JunkText.White  \n 2     2 30_Female.JunkText.White\n 3     3 30_Male.JunkText.Black  \n 4     4 28_Male.JunkText.White  \n 5     5 28_Male.JunkText.White  \n 6     6 19_Male.JunkText.Black  \n 7     7 29_Female.JunkText.Black\n 8     8 24_Male.JunkText.Black  \n 9     9 22_Female.JunkText.White\n10    10 23_Male.JunkText.Black  \n# ℹ 2,490 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---separate_wider_delim-3",
+    "href": "Lectures/08_Strings/index.html#separate---separate_wider_delim-3",
+    "title": "Characters and Dates",
+    "section": "Separate - separate_wider_delim()",
+    "text": "Separate - separate_wider_delim()\n\nIt takes some effort but we can do it in two (or more steps)\n\n\nabpm_demo |&gt; \n  separate_wider_delim(asr, names = c(\"age\", \"to_split_again\"), delim = \"_\")   #&lt;&lt;\n\n# A tibble: 2,500 × 3\n      id age   to_split_again       \n   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                \n 1     1 20    Male.JunkText.White  \n 2     2 30    Female.JunkText.White\n 3     3 30    Male.JunkText.Black  \n 4     4 28    Male.JunkText.White  \n 5     5 28    Male.JunkText.White  \n 6     6 19    Male.JunkText.Black  \n 7     7 29    Female.JunkText.Black\n 8     8 24    Male.JunkText.Black  \n 9     9 22    Female.JunkText.White\n10    10 23    Male.JunkText.Black  \n# ℹ 2,490 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---separate_wider_delim-4",
+    "href": "Lectures/08_Strings/index.html#separate---separate_wider_delim-4",
+    "title": "Characters and Dates",
+    "section": "Separate - separate_wider_delim()",
+    "text": "Separate - separate_wider_delim()\n\nIt takes some effort but we can do it in two (or more steps)\n\n\nabpm_demo |&gt; \n  separate_wider_delim(asr, names = c(\"age\", \"to_split_again\"), delim = \"_\") |&gt;\n  separate_wider_delim(to_split_again, names = c(\"sex\", \"race\"), delim = \".JunkText.\") #&lt;&lt;\n\n# A tibble: 2,500 × 4\n      id age   sex    race \n   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;\n 1     1 20    Male   White\n 2     2 30    Female White\n 3     3 30    Male   Black\n 4     4 28    Male   White\n 5     5 28    Male   White\n 6     6 19    Male   Black\n 7     7 29    Female Black\n 8     8 24    Male   Black\n 9     9 22    Female White\n10    10 23    Male   Black\n# ℹ 2,490 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---behind-the-curtain-on-delim",
+    "href": "Lectures/08_Strings/index.html#separate---behind-the-curtain-on-delim",
+    "title": "Characters and Dates",
+    "section": "Separate - Behind the Curtain on delim",
+    "text": "Separate - Behind the Curtain on delim\n\nSo what is R doing with the delim argument?\n\n\n\n\n\n\n\nWe see it takes a single fixed string as a separator, thus two steps for asr",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#separate---how-separate-used-to-work",
+    "href": "Lectures/08_Strings/index.html#separate---how-separate-used-to-work",
+    "title": "Characters and Dates",
+    "section": "Separate - How separate() Used to Work",
+    "text": "Separate - How separate() Used to Work\n\nInstead of fixed string, it was a fixed pattern\n\n\n\n\n\n\n\nThis is what’s going to take us to regular expressions later",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---the-stringr-packages",
+    "href": "Lectures/08_Strings/index.html#strings---the-stringr-packages",
+    "title": "Characters and Dates",
+    "section": "Strings - The stringr packages",
+    "text": "Strings - The stringr packages\n\nSince tidyr can only manipulate strings in data frames, we use stringr instead\nstringr has four main functions:\n\nCharacter mainpulation individually or in vectors\nWhitespace manipulation tools\nEncoding and localization\nPattern matching\n\nLike fct_ in forcats, nearly all stringr functions start with str_",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---just-characters",
+    "href": "Lectures/08_Strings/index.html#strings---just-characters",
+    "title": "Characters and Dates",
+    "section": "Strings - Just characters",
+    "text": "Strings - Just characters\n\nA string is just a set of characters and there are many ways to print them depending on what you hope to do\n\n\nstring &lt;- \"A string for you\"\nwriteLines(string)\n\nA string for you\n\nprint(string)\n\n[1] \"A string for you\"\n\n\n\nNote the difference between writeLines() (or cat()) and print()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---quoting-quotes",
+    "href": "Lectures/08_Strings/index.html#strings---quoting-quotes",
+    "title": "Characters and Dates",
+    "section": "Strings - Quoting quotes",
+    "text": "Strings - Quoting quotes\n\nYou can use double \" or single ' quotes\nBest practice usually says double unless quotes are part of the string\n\n\nwriteLines('This works')\n\nThis works\n\nwriteLines(\"This works too!\")\n\nThis works too!\n\nwriteLines('And we can quote \"quote\" with quotes')\n\nAnd we can quote \"quote\" with quotes\n\n\n\nBut what if both quote types are desired?",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---escaping-with",
+    "href": "Lectures/08_Strings/index.html#strings---escaping-with",
+    "title": "Characters and Dates",
+    "section": "Strings - Escaping with \\",
+    "text": "Strings - Escaping with \\\n\nTo include a literal \" or ' you can use \\ symbol to escape it\n\n\nstring &lt;- \"A \\\"string\\\" for you\"\nwriteLines(string)\n\nA \"string\" for you\n\n\n\nEscaping works with all encoded text, even \\ by using \"\\\\\"\n\n\nstring &lt;- \"Escaping with \\\\backslash\\\\ works\"\nwriteLines(string)\n\nEscaping with \\backslash\\ works",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---printed-string-vs-rendered-string",
+    "href": "Lectures/08_Strings/index.html#strings---printed-string-vs-rendered-string",
+    "title": "Characters and Dates",
+    "section": "Strings - Printed String vs Rendered String",
+    "text": "Strings - Printed String vs Rendered String\n\nThis can get complex though since print() representations to the console give the raw string code\n\n\ndouble_quote &lt;- \"\\\"\" # or '\"'\nsingle_quote &lt;- '\\'' # or \"'\"\nbackslash &lt;- \"\\\\\"\n\ngreat_escape &lt;- c(single_quote, double_quote, backslash); great_escape\n\n[1] \"'\"  \"\\\"\" \"\\\\\"\n\n\n\nstringr has a great functions to see the representation str_view()\n\n\nstr_view(great_escape)\n\n[1] │ '\n[2] │ \"\n[3] │ \\",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---special-characters",
+    "href": "Lectures/08_Strings/index.html#strings---special-characters",
+    "title": "Characters and Dates",
+    "section": "Strings - Special Characters",
+    "text": "Strings - Special Characters\n\nOur escaped quotes and slashes are special characters including: new lines \\n, tabs \\t and unicode escapes (\\u or \\U) for non-standard text\n\n\nspec_char &lt;- c(\"one\\ntwo\", \"one\\ttwo\", \"\\u00b5\", \"\\U0001f604\")\nspec_char\n\n[1] \"one\\ntwo\" \"one\\ttwo\" \"µ\"        \"😄\"      \n\nstr_view(spec_char)\n\n[1] │ one\n    │ two\n[2] │ one{\\t}two\n[3] │ µ\n[4] │ 😄\n\n\n\nNote the \\t is viewed in curly braces since it’s a class of whitespace; this makes it much easier to see using str_view()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---making-strings",
+    "href": "Lectures/08_Strings/index.html#strings---making-strings",
+    "title": "Characters and Dates",
+    "section": "Strings - Making Strings",
+    "text": "Strings - Making Strings\n\nstringr has many functions to make strings that are improvement on base R functions like paste() and paste0()\nstr_c() does vectorized combinations of strings to return a vector\n\n\nstr_c(\"Make\", \"a\", \"single\", \"string\", sep = \" \")  #`sep` gives the pasting character\n\n[1] \"Make a single string\"\n\nstr_c(\"str_c works \", c(\"within\", \"across\"), \" vectors\")\n\n[1] \"str_c works within vectors\" \"str_c works across vectors\"\n\n\n\nWe can see str_c() follows tidyverse conventions which means it could also work with mutate() although beware of NA\nSee section 14.3.1 and 14.3.2 in R4DS for use in a tibble",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---making-strings-1",
+    "href": "Lectures/08_Strings/index.html#strings---making-strings-1",
+    "title": "Characters and Dates",
+    "section": "Strings - Making Strings",
+    "text": "Strings - Making Strings\n\nFor summarise(), str_flatten() will reduce vectors to one string\n\n\ndf &lt;- tribble(\n  ~ name, ~ fruit,\n  \"Carmen\", \"banana\",\n  \"Carmen\", \"apple\",\n  \"Marvin\", \"nectarine\",\n  \"Terence\", \"cantaloupe\",\n  \"Terence\", \"papaya\",\n  \"Terence\", \"mandarin\"\n)\ndf |&gt;\n  group_by(name) |&gt; \n  summarize(fruits = str_flatten(fruit, collapse = \", \", last = \" and \"))\n\n# A tibble: 3 × 2\n  name    fruits                         \n  &lt;chr&gt;   &lt;chr&gt;                          \n1 Carmen  banana and apple               \n2 Marvin  nectarine                      \n3 Terence cantaloupe, papaya and mandarin",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---yes-we-have-no-bananas",
+    "href": "Lectures/08_Strings/index.html#strings---yes-we-have-no-bananas",
+    "title": "Characters and Dates",
+    "section": "Strings - Yes! We Have No Bananas",
+    "text": "Strings - Yes! We Have No Bananas\n\nWe’ll use the fruit dataset to play with stringr some more\n\n\n\n\nstringr::fruit\n\n [1] \"apple\"             \"apricot\"           \"avocado\"          \n [4] \"banana\"            \"bell pepper\"       \"bilberry\"         \n [7] \"blackberry\"        \"blackcurrant\"      \"blood orange\"     \n[10] \"blueberry\"         \"boysenberry\"       \"breadfruit\"       \n[13] \"canary melon\"      \"cantaloupe\"        \"cherimoya\"        \n[16] \"cherry\"            \"chili pepper\"      \"clementine\"       \n[19] \"cloudberry\"        \"coconut\"           \"cranberry\"        \n[22] \"cucumber\"          \"currant\"           \"damson\"           \n[25] \"date\"              \"dragonfruit\"       \"durian\"           \n[28] \"eggplant\"          \"elderberry\"        \"feijoa\"           \n[31] \"fig\"               \"goji berry\"        \"gooseberry\"       \n[34] \"grape\"             \"grapefruit\"        \"guava\"            \n[37] \"honeydew\"          \"huckleberry\"       \"jackfruit\"        \n[40] \"jambul\"            \"jujube\"            \"kiwi fruit\"       \n[43] \"kumquat\"           \"lemon\"             \"lime\"             \n[46] \"loquat\"            \"lychee\"            \"mandarine\"        \n[49] \"mango\"             \"mulberry\"          \"nectarine\"        \n[52] \"nut\"               \"olive\"             \"orange\"           \n[55] \"pamelo\"            \"papaya\"            \"passionfruit\"     \n[58] \"peach\"             \"pear\"              \"persimmon\"        \n[61] \"physalis\"          \"pineapple\"         \"plum\"             \n[64] \"pomegranate\"       \"pomelo\"            \"purple mangosteen\"\n[67] \"quince\"            \"raisin\"            \"rambutan\"         \n[70] \"raspberry\"         \"redcurrant\"        \"rock melon\"       \n[73] \"salal berry\"       \"satsuma\"           \"star fruit\"       \n[76] \"strawberry\"        \"tamarillo\"         \"tangerine\"        \n[79] \"ugli fruit\"        \"watermelon\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---splitting-strings",
+    "href": "Lectures/08_Strings/index.html#strings---splitting-strings",
+    "title": "Characters and Dates",
+    "section": "Strings - Splitting Strings",
+    "text": "Strings - Splitting Strings\n\ntidyr function like separate_*_delim() are informed by stringr, so we can split…\n\n\nfruit[c(5,9)]\n\n[1] \"bell pepper\"  \"blood orange\"\n\n\n\nOn delimiters with str_split()\n\n\nstr_split(fruit[c(5,9)], pattern = \" \")\n\n[[1]]\n[1] \"bell\"   \"pepper\"\n\n[[2]]\n[1] \"blood\"  \"orange\"\n\n\n\nNote, we get a list since the length may not be fixed",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---splitting-strings-1",
+    "href": "Lectures/08_Strings/index.html#strings---splitting-strings-1",
+    "title": "Characters and Dates",
+    "section": "Strings - Splitting Strings",
+    "text": "Strings - Splitting Strings\n\ntidyr function like separate_*_delim() are informed by stringr, so we can split…\n\n\nfruit[c(5,9)]\n\n[1] \"bell pepper\"  \"blood orange\"\n\n\n\nInto character matrices as well with str_split_fixed\n\n\nstr_split_fixed(fruit[c(5,9)], pattern = \" \", n = 2)\n\n     [,1]    [,2]    \n[1,] \"bell\"  \"pepper\"\n[2,] \"blood\" \"orange\"\n\n\n\nThis could then be converted into a data frame as desired",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---words-within-vectors",
+    "href": "Lectures/08_Strings/index.html#strings---words-within-vectors",
+    "title": "Characters and Dates",
+    "section": "Strings - Words Within Vectors",
+    "text": "Strings - Words Within Vectors\n\nInstead of splitting our strings, we can use delimiters to extract strings meeting our pattern with str_detect()\n\n\nstr_detect(fruit, pattern = \" \")\n\n [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE\n[13]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE\n[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE\n[37] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE\n[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE\n[61] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE\n[73]  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE\n\n\n\nThis gives a boolean just like filter() for easy subsetting\n\n\nmy_fruit &lt;- fruit[str_detect(fruit, pattern = \" \")]",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---working-within-a-string",
+    "href": "Lectures/08_Strings/index.html#strings---working-within-a-string",
+    "title": "Characters and Dates",
+    "section": "Strings - Working Within a String",
+    "text": "Strings - Working Within a String\n\nWe can use str_length() to get the number of characters\n\n\nstr_length(my_fruit)\n\n [1] 11 12 12 12 10 10 17 10 11 10 10\n\n\n\nThis can inform str_sub() to extract parts of a string\n\n\nstr_sub(my_fruit, start = 1, end = 10)\n\n [1] \"bell peppe\" \"blood oran\" \"canary mel\" \"chili pepp\" \"goji berry\"\n [6] \"kiwi fruit\" \"purple man\" \"rock melon\" \"salal berr\" \"star fruit\"\n[11] \"ugli fruit\"\n\n\n\nIt can also accept vectorized inputs for sliding windows\n\n\nstr_sub(my_fruit, start = c(1:11), end = str_length(my_fruit))\n\n [1] \"bell pepper\" \"lood orange\" \"nary melon\"  \"li pepper\"   \" berry\"     \n [6] \"fruit\"       \" mangosteen\" \"lon\"         \"rry\"         \"t\"          \n[11] \"\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#strings---questions-remain",
+    "href": "Lectures/08_Strings/index.html#strings---questions-remain",
+    "title": "Characters and Dates",
+    "section": "Strings - Questions Remain",
+    "text": "Strings - Questions Remain\n\nBut what if we want to extract or process by a pattern?\nUnlike tidyr why are the arguments pattern instead of delim?\nAnd what was up with this?\n\n\n\n\n\n\n\nFor all this, we need regular expressions",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---the-basics",
+    "href": "Lectures/08_Strings/index.html#regexes---the-basics",
+    "title": "Characters and Dates",
+    "section": "Regexes - The Basics",
+    "text": "Regexes - The Basics\n\n\n\nRegexes are a standard way to specify patterns in strings\nCombines literal alphanumeric characters with metacharacters\nAllows for character sets, quantification, and alternation\nCan define anchors and boundaries\nLook like absolute gibberish\n\n\n\n\n\n\n\n\n\n\n@ThePracticalDev",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---exact-matching",
+    "href": "Lectures/08_Strings/index.html#regexes---exact-matching",
+    "title": "Characters and Dates",
+    "section": "Regexes - Exact Matching",
+    "text": "Regexes - Exact Matching\n\nSo far with delim and pattern we’ve used exact matching\n\n\nfruit[str_detect(fruit, pattern = \"berry\")]\n\n [1] \"bilberry\"    \"blackberry\"  \"blueberry\"   \"boysenberry\" \"cloudberry\" \n [6] \"cranberry\"   \"elderberry\"  \"goji berry\"  \"gooseberry\"  \"huckleberry\"\n[11] \"mulberry\"    \"raspberry\"   \"salal berry\" \"strawberry\" \n\n\n\nLike with {\\t}, str_view() indicates the matching pattern with &lt;&gt;\n\n\nstr_view(fruit, pattern = \"berry\")[1:5]\n\n [6] │ bil&lt;berry&gt;\n [7] │ black&lt;berry&gt;\n[10] │ blue&lt;berry&gt;\n[11] │ boysen&lt;berry&gt;\n[19] │ cloud&lt;berry&gt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---alternation",
+    "href": "Lectures/08_Strings/index.html#regexes---alternation",
+    "title": "Characters and Dates",
+    "section": "Regexes - Alternation",
+    "text": "Regexes - Alternation\n\nThe vertical bar | specifies a match to one or more alternative patterns\nSo if we want melons, nuts, or oranges\n\n\nstr_view(fruit, pattern = \"melon|nut|orange\")\n\n [9] │ blood &lt;orange&gt;\n[13] │ canary &lt;melon&gt;\n[20] │ coco&lt;nut&gt;\n[52] │ &lt;nut&gt;\n[54] │ &lt;orange&gt;\n[72] │ rock &lt;melon&gt;\n[80] │ water&lt;melon&gt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---starting-with-metacharacters",
+    "href": "Lectures/08_Strings/index.html#regexes---starting-with-metacharacters",
+    "title": "Characters and Dates",
+    "section": "Regexes - Starting with Metacharacters",
+    "text": "Regexes - Starting with Metacharacters\n\nThe most powerful metacharacter is . which matches ANY SINGLE character except a new line\n\n\nstr_view(fruit, pattern = \"a...e\")\n\n [1] │ &lt;apple&gt;\n [7] │ bl&lt;ackbe&gt;rry\n[48] │ mand&lt;arine&gt;\n[51] │ nect&lt;arine&gt;\n[62] │ pine&lt;apple&gt;\n[64] │ pomegr&lt;anate&gt;\n[70] │ r&lt;aspbe&gt;rry\n[73] │ sal&lt;al be&gt;rry\n\n\n\nThis matches any “a” and “e” that are separated by three other characters, including whitespace characters",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---character-classes",
+    "href": "Lectures/08_Strings/index.html#regexes---character-classes",
+    "title": "Characters and Dates",
+    "section": "Regexes - Character Classes",
+    "text": "Regexes - Character Classes\n\nIf . is too broad, we can define character classes using []\nLet’s find all adjacent vowels\n\n\ntwo_vowels &lt;- str_view(fruit, pattern = \"[aeiou][aeiou]\")\nlength(two_vowels)\n\n[1] 25\n\nhead(two_vowels)\n\n [9] │ bl&lt;oo&gt;d orange\n[10] │ bl&lt;ue&gt;berry\n[12] │ br&lt;ea&gt;dfr&lt;ui&gt;t\n[14] │ cantal&lt;ou&gt;pe\n[19] │ cl&lt;ou&gt;dberry\n[26] │ dragonfr&lt;ui&gt;t\n\n\n\nWe can also match ranges e.g. [a-e] is the same as [abcde]",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---character-classes-1",
+    "href": "Lectures/08_Strings/index.html#regexes---character-classes-1",
+    "title": "Characters and Dates",
+    "section": "Regexes - Character Classes",
+    "text": "Regexes - Character Classes\n\nWe can negate a character class with ^ right after the left bracket ( [^ )\nLet’s find all s that are preceded by a consonants i.e. NOT a vowel\n\n\nstr_view(fruit, pattern = \"[^aeiou]s\")\n\n[11] │ bo&lt;ys&gt;enberry\n[24] │ da&lt;ms&gt;on\n[57] │ pa&lt;ss&gt;ionfruit\n[60] │ pe&lt;rs&gt;immon\n[61] │ ph&lt;ys&gt;alis\n[74] │ sa&lt;ts&gt;uma\n\n\n\n\n\n\n\n\nImportant\n\n\n\nRemember, character classes still only count as single characters",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---dedicated-character-classes",
+    "href": "Lectures/08_Strings/index.html#regexes---dedicated-character-classes",
+    "title": "Characters and Dates",
+    "section": "Regexes - Dedicated Character Classes",
+    "text": "Regexes - Dedicated Character Classes\n\nSome character classes are common enough to have dedicated metacharacters including:\n\n\\w for any Unicode character i.e. [A-Za-z0-9_]\nNote the implication on capitalization\n\\d for any numeric\n\\s for any whitespace including space, tab, and newline characters\n\\t and \\n will find tabs/newlines respectively\n\nYou can get negation for these by using capitals\n\nIf \\d==[0-9] then \\D==[^0-9]",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---quantifiers",
+    "href": "Lectures/08_Strings/index.html#regexes---quantifiers",
+    "title": "Characters and Dates",
+    "section": "Regexes - Quantifiers",
+    "text": "Regexes - Quantifiers\n\nQuantifiers control how many times a pattern can match\nThis can be done explicitly using {} e.g. let’s find fruits with “ss”\n\n\nstr_view(fruit, pattern = \"s{2}\")\n\n[57] │ pa&lt;ss&gt;ionfruit\n\n\n\nFor finer quantification control:\n\n{n} for exactly n\n{n,} for at least n\n{,m} for at most m\n{n,m} for between n and m inclusively",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---dedicated-quantifiers",
+    "href": "Lectures/08_Strings/index.html#regexes---dedicated-quantifiers",
+    "title": "Characters and Dates",
+    "section": "Regexes - Dedicated Quantifiers",
+    "text": "Regexes - Dedicated Quantifiers\n\nSome useful quantifiers have their own dedicated characters:\n\n* for 0 or more\n+ for 1 or more\n? for 0 or 1 only\n\nSo for every fruit with a ‘c’ and ‘r’ separated by 0 or more characters\n\n\nhead(str_view(fruit, pattern = \"c.*r\"))\n\n [7] │ bla&lt;ckberr&gt;y\n [8] │ bla&lt;ckcurr&gt;ant\n[13] │ &lt;canar&gt;y melon\n[15] │ &lt;cher&gt;imoya\n[16] │ &lt;cherr&gt;y\n[17] │ &lt;chili pepper&gt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---word-boundaries",
+    "href": "Lectures/08_Strings/index.html#regexes---word-boundaries",
+    "title": "Characters and Dates",
+    "section": "Regexes - Word Boundaries",
+    "text": "Regexes - Word Boundaries\n\nTo specify a pattern occurrence at the beginning or end of a string use ^ and $ respectively\nWe can find any ‘le’ as you’d expect:\n\n\nstr_view(fruit, \"le\")\n\n [1] │ app&lt;le&gt;\n[18] │ c&lt;le&gt;mentine\n[38] │ huck&lt;le&gt;berry\n[44] │ &lt;le&gt;mon\n[62] │ pineapp&lt;le&gt;\n[66] │ purp&lt;le&gt; mangosteen\n\n\n\nBut we use ^ to only get ‘le’ at the beginning of the string\n\n\nstr_view(fruit, \"^le\")\n\n[44] │ &lt;le&gt;mon",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---escaping",
+    "href": "Lectures/08_Strings/index.html#regexes---escaping",
+    "title": "Characters and Dates",
+    "section": "Regexes - Escaping",
+    "text": "Regexes - Escaping\n\nIn order to explicitly look for characters that serve as a metacharacter, you can use \\ to escape just like with quotes\n\n\nstring_curr &lt;- \"Let's match the price for $4.99 using the $ and the numbers\"\n\nmatch &lt;- str_view(string_curr, pattern = \"\\$[0-9]\\.[0-9]{2}\")\n\n. . .\n\nmatch\n\n\n\nError in eval(expr, envir, enclos): '\\$' is an unrecognized escape in character string (&lt;input&gt;:1:18)\n\n\n. . .",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---escaping-the-right-way",
+    "href": "Lectures/08_Strings/index.html#regexes---escaping-the-right-way",
+    "title": "Characters and Dates",
+    "section": "Regexes - Escaping the Right Way",
+    "text": "Regexes - Escaping the Right Way\n\nWe use the backslash \\ to escape special characters…but \\ is itself a special character used by R (and other languages) for escaping\nSo we need to escape the backslash and use \\\\$ instead\n\nThe first \\ tells R to treat the second backslash as a literal character\nThis means \\$ can then be seen by the regex engine to look for the literal $\n\n\n\nstr_view(string_curr, pattern = \"\\\\$[0-9]\\\\.[0-9]{2}\")\n\n[1] │ Let's match the price for &lt;$4.99&gt; using the $ and numbers",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---grouping",
+    "href": "Lectures/08_Strings/index.html#regexes---grouping",
+    "title": "Characters and Dates",
+    "section": "Regexes - Grouping",
+    "text": "Regexes - Grouping\n\nParentheses can capture sub-components of a string during a match\nThey can also be used to overwrite precedence with alternation\nThey do not match anything per se but can be use to identify their encapsulated pattern for later use called back referencing\nThese are referenced using \\1 for the first set of capturing parentheses, \\2 for the second, etc",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---grouping-1",
+    "href": "Lectures/08_Strings/index.html#regexes---grouping-1",
+    "title": "Characters and Dates",
+    "section": "Regexes - Grouping",
+    "text": "Regexes - Grouping\n\nFor example, we can find all fruit that has the same repeated consecutive pairs of letters\n\n\nstr_view(fruit, \"(..)\\\\1\")  #Don't forget to escape the backslash!\n\n [4] │ b&lt;anan&gt;a\n[20] │ &lt;coco&gt;nut\n[22] │ &lt;cucu&gt;mber\n[41] │ &lt;juju&gt;be\n[56] │ &lt;papa&gt;ya\n[73] │ s&lt;alal&gt; berry\n\n\n\nParentheses have several uses in regular expression",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions",
+    "href": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions",
+    "title": "Characters and Dates",
+    "section": "Regexes - The Common stringr Functions",
+    "text": "Regexes - The Common stringr Functions\n\nAny stringr function that has a pattern argument can use a regular expression\nRecall my_fruit which has all the fruits that have a space character\n\n\nmy_fruit\n\n [1] \"bell pepper\"       \"blood orange\"      \"canary melon\"     \n [4] \"chili pepper\"      \"goji berry\"        \"kiwi fruit\"       \n [7] \"purple mangosteen\" \"rock melon\"        \"salal berry\"      \n[10] \"star fruit\"        \"ugli fruit\"       \n\n\n\nLet’s try out the following pattern (\\w)\\1 to find consecutive pairs of the same letter again",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-1",
+    "href": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-1",
+    "title": "Characters and Dates",
+    "section": "Regexes - The Common stringr Functions",
+    "text": "Regexes - The Common stringr Functions\n\nstr_detect() returns a boolean vector indicating whether the string matched the pattern\n\n\nstr_detect(my_fruit, \"(\\\\w)\\\\1\")\n\n [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE\n\n\n\n\nmy_fruit[str_detect(my_fruit, \"(\\\\w)\\\\1\")]\n\n[1] \"bell pepper\"       \"blood orange\"      \"chili pepper\"     \n[4] \"goji berry\"        \"purple mangosteen\" \"salal berry\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-2",
+    "href": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-2",
+    "title": "Characters and Dates",
+    "section": "Regexes - The Common stringr Functions",
+    "text": "Regexes - The Common stringr Functions\n\nstr_count() counts the number of pattern matches within the string\n\n\nstr_count(my_fruit, \"(\\\\w)\\\\1\")\n\n [1] 2 1 0 1 1 0 1 0 1 0 0\n\n\n\n\nstr_view(my_fruit, \"(\\\\w)\\\\1\")\n\n[1] │ be&lt;ll&gt; pe&lt;pp&gt;er\n[2] │ bl&lt;oo&gt;d orange\n[4] │ chili pe&lt;pp&gt;er\n[5] │ goji be&lt;rr&gt;y\n[7] │ purple mangost&lt;ee&gt;n\n[9] │ salal be&lt;rr&gt;y",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-3",
+    "href": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-3",
+    "title": "Characters and Dates",
+    "section": "Regexes - The Common stringr Functions",
+    "text": "Regexes - The Common stringr Functions\n\nstr_locate() gives the first position of a pattern\n\n\nstr_locate(my_fruit, \"(\\\\w)\\\\1\")\n\n      start end\n [1,]     3   4\n [2,]     3   4\n [3,]    NA  NA\n [4,]     9  10\n [5,]     8   9\n [6,]    NA  NA\n [7,]    15  16\n [8,]    NA  NA\n [9,]     9  10\n[10,]    NA  NA\n[11,]    NA  NA",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-4",
+    "href": "Lectures/08_Strings/index.html#regexes---the-common-stringr-functions-4",
+    "title": "Characters and Dates",
+    "section": "Regexes - The Common stringr Functions",
+    "text": "Regexes - The Common stringr Functions\n\nstr_locate_all() locates all matches\n\n\nstr_locate_all(my_fruit, \"(\\\\w)\\\\1\")\n\n[[1]]\n     start end\n[1,]     3   4\n[2,]     8   9\n\n[[2]]\n     start end\n[1,]     3   4\n\n[[3]]\n     start end\n\n[[4]]\n     start end\n[1,]     9  10\n\n[[5]]\n     start end\n[1,]     8   9\n\n[[6]]\n     start end\n\n[[7]]\n     start end\n[1,]    15  16\n\n[[8]]\n     start end\n\n[[9]]\n     start end\n[1,]     9  10\n\n[[10]]\n     start end\n\n[[11]]\n     start end",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---extraction-functions",
+    "href": "Lectures/08_Strings/index.html#regexes---extraction-functions",
+    "title": "Characters and Dates",
+    "section": "Regexes - Extraction Functions",
+    "text": "Regexes - Extraction Functions\n\nSubstring extraction is possible with str_extract() and str_extract_all()\nImagine a collaborator gave you a file with some phone number data\n\n\nmessy_phone &lt;- c(\n  \"219-733-8965\", \n  \"Erroneous text\",\n  \"329 293 8753\", \n  \"Work: 579-499-7527; Home: 543.355.3679\"\n)\n\n\nSet a pattern to pull a 10 digit number with -, ., or a space as delimiters\n\n\nphone_ptrn &lt;- \"([2-9]\\\\d{2})[\\\\-\\\\. ](\\\\d{3})[\\\\-\\\\. ](\\\\d{4})\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---extraction-functions-1",
+    "href": "Lectures/08_Strings/index.html#regexes---extraction-functions-1",
+    "title": "Characters and Dates",
+    "section": "Regexes - Extraction Functions",
+    "text": "Regexes - Extraction Functions\n\nstr_extract() gives the first valid pattern match\n\n\nstr_extract(messy_phone, phone_ptrn)\n\n[1] \"219-733-8965\" NA             \"329 293 8753\" \"579-499-7527\"\n\n\n\nstr_extract_all() pulls all matches\n\n\nstr_extract_all(messy_phone, phone_ptrn)\n\n[[1]]\n[1] \"219-733-8965\"\n\n[[2]]\ncharacter(0)\n\n[[3]]\n[1] \"329 293 8753\"\n\n[[4]]\n[1] \"579-499-7527\" \"543.355.3679\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---extraction-functions-2",
+    "href": "Lectures/08_Strings/index.html#regexes---extraction-functions-2",
+    "title": "Characters and Dates",
+    "section": "Regexes - Extraction Functions",
+    "text": "Regexes - Extraction Functions\n\nPay attention to when you get a vector, matrix, or list returned\nWe can clean things up to a vector using unlist()\n\n\nmessy_phone_vector &lt;- messy_phone |&gt;\n  str_extract_all(phone_ptrn) |&gt;\n  unlist()\n  \nmessy_phone_vector\n\n[1] \"219-733-8965\" \"329 293 8753\" \"579-499-7527\" \"543.355.3679\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---replacement-functions",
+    "href": "Lectures/08_Strings/index.html#regexes---replacement-functions",
+    "title": "Characters and Dates",
+    "section": "Regexes - Replacement Functions",
+    "text": "Regexes - Replacement Functions\n\nA great application of regular expression is replacing matched patterns with another string; in stringr we use str_replace() with a new replacement argument to support the pattern argument\n\n\n\n\nLet’s make our messy phone vector cleaner so all outnumbers are separated by -\n\n\n\nstr_replace(messy_phone_vector,\n            pattern = \" |\\\\.\",\n            replacement = \"-\")\n\n[1] \"219-733-8965\" \"329-293 8753\" \"579-499-7527\" \"543-355.3679\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---replacement-functions-1",
+    "href": "Lectures/08_Strings/index.html#regexes---replacement-functions-1",
+    "title": "Characters and Dates",
+    "section": "Regexes - Replacement Functions",
+    "text": "Regexes - Replacement Functions\n\nAs expected, use str_replace_all to replace all occurrences of the pattern in the string elements of the vector\n\n\nclean_phone_vector &lt;- messy_phone_vector |&gt;\n  str_replace_all(pattern = \" |\\\\.\",\n                  replacement = \"-\")\n\nstr_view(clean_phone_vector)\n\n[1] │ 219-733-8965\n[2] │ 329-293-8753\n[3] │ 579-499-7527\n[4] │ 543-355-3679",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---back-to-tidyr",
+    "href": "Lectures/08_Strings/index.html#regexes---back-to-tidyr",
+    "title": "Characters and Dates",
+    "section": "Regexes - Back to tidyr",
+    "text": "Regexes - Back to tidyr\n\nFinally, we can return to separate_wider_regex()\nThe patterns argument is a named vector of pattern matches for the output variables and separating delimiters\n\n\nseparate_wider_regex(abpm_demo, cols = asr, \n                     patterns = c(age = \"\\\\d+\", \"_\", \n                                  sex = \"[A-Za-z]+\", \"\\\\.JunkText\\\\.\", \n                                  race = \".*\")) |&gt; slice(1:5)\n\n# A tibble: 5 × 4\n     id age   sex    race \n  &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;\n1     1 20    Male   White\n2     2 30    Female White\n3     3 30    Male   Black\n4     4 28    Male   White\n5     5 28    Male   White",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---yes-theres-more",
+    "href": "Lectures/08_Strings/index.html#regexes---yes-theres-more",
+    "title": "Characters and Dates",
+    "section": "Regexes - Yes, There’s More",
+    "text": "Regexes - Yes, There’s More\n\nThere are several more aspects we didn’t touch on including\n\nUsing back references in replacement\nLook ahead and look behind assertions\nLazy vs greedy evaluation\nComparison to base R versions like grep() and gsub()\n\nFor some more details check out https://www.regular-expressions.info/ or the stringr vignette on regular expressions",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#regexes---powerful-but-confusing",
+    "href": "Lectures/08_Strings/index.html#regexes---powerful-but-confusing",
+    "title": "Characters and Dates",
+    "section": "Regexes - Powerful but Confusing",
+    "text": "Regexes - Powerful but Confusing\n\nFor example, this returns every fruit that has a consecutive letter pair except for the rr in “berry” and only in the middle of a word\n\n\nstr_view(fruit, pattern = \"((?&lt;!\\\\b)(?&lt;!be)((\\\\w)\\\\3)(?!y))(?=\\\\B)\")\n\n [1] │ a&lt;pp&gt;le\n [5] │ bell pe&lt;pp&gt;er\n [8] │ blackcu&lt;rr&gt;ant\n [9] │ bl&lt;oo&gt;d orange\n[17] │ chili pe&lt;pp&gt;er\n[23] │ cu&lt;rr&gt;ant\n[28] │ e&lt;gg&gt;plant\n[33] │ g&lt;oo&gt;seberry\n[57] │ pa&lt;ss&gt;ionfruit\n[60] │ persi&lt;mm&gt;on\n[62] │ pinea&lt;pp&gt;le\n[66] │ purple mangost&lt;ee&gt;n\n[71] │ redcu&lt;rr&gt;ant\n[77] │ tamari&lt;ll&gt;o",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---frustrating-for-everyone",
+    "href": "Lectures/08_Strings/index.html#dates---frustrating-for-everyone",
+    "title": "Characters and Dates",
+    "section": "Dates - Frustrating for Everyone",
+    "text": "Dates - Frustrating for Everyone\n\n\n\nDates are complicated by several factors:\n\nNo set origin\nUneven days in a year\nTime zones\nDaylight savings\n\nThe lubridate package can help immensely",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---starting-today-and-now",
+    "href": "Lectures/08_Strings/index.html#dates---starting-today-and-now",
+    "title": "Characters and Dates",
+    "section": "Dates - Starting Today and Now",
+    "text": "Dates - Starting Today and Now\n\nStart by getting today’s date with base R or lubridate\n\n\nSys.Date()\n\n[1] \"2024-07-21\"\n\nlubridate::today()\n\n[1] \"2024-07-21\"\n\n\n\nBoth of these are functionally identical as date class\n\n\nstr(today())\n\n Date[1:1], format: \"2024-07-21\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---starting-today-and-now-1",
+    "href": "Lectures/08_Strings/index.html#dates---starting-today-and-now-1",
+    "title": "Characters and Dates",
+    "section": "Dates - Starting Today and Now",
+    "text": "Dates - Starting Today and Now\n\nUse Sys.time() or now() to get the current date-time\n\n\nSys.time()\n\n[1] \"2024-07-21 20:25:54 CDT\"\n\nlubridate::now()\n\n[1] \"2024-07-21 20:25:54 CDT\"\n\n\n\nThese are a special class referred to as a POSIX or POSIXct\n\n\nstr(now())\n\n POSIXct[1:1], format: \"2024-07-21 20:25:54\"\n\n\n\nNote the inclusion of our time zone",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---parsing-dates",
+    "href": "Lectures/08_Strings/index.html#dates---parsing-dates",
+    "title": "Characters and Dates",
+    "section": "Dates - Parsing Dates",
+    "text": "Dates - Parsing Dates\n\nR representations of dates follow ISO8601 i.e. YYYY-MM-DD\nDate-time is “YYYY-MM-DD HH:MM:SS\nString representations of dates are varied, lubridate can tell R what to expect with a family of parsing functions for year, month, and day along with hour, minute, and seconds\nSupplying a date or date-time string to a ymd or ymd_hms function coerces a date in the expected ISO8601",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---parsing-dates-1",
+    "href": "Lectures/08_Strings/index.html#dates---parsing-dates-1",
+    "title": "Characters and Dates",
+    "section": "Dates - Parsing Dates",
+    "text": "Dates - Parsing Dates\n\nMany orders and delimiters can be accepted (see the list)\n\n\nymd(\"2004/2/11\")\n\n[1] \"2004-02-11\"\n\ndmy(\"11-2-04\")\n\n[1] \"2004-02-11\"\n\nmdy(\"021104\")\n\n[1] \"2004-02-11\"\n\nymd_hm(\"04_2_11 18:02\")\n\n[1] \"2004-02-11 18:02:00 UTC\"\n\n\n\nSupply a time zone to force a date into a date-time\n\n\nmdy(\"2/11/2004\", tz = \"UTC\")\n\n[1] \"2004-02-11 UTC\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---parsing-dates-in-a-data-frame",
+    "href": "Lectures/08_Strings/index.html#dates---parsing-dates-in-a-data-frame",
+    "title": "Characters and Dates",
+    "section": "Dates - Parsing Dates in a Data Frame",
+    "text": "Dates - Parsing Dates in a Data Frame\n\nOther helpers create date data within data frames like make_datetime()\n\n\nfirst_flights &lt;- flights |&gt;\n  select(year, month, day, hour, minute) |&gt;\n  slice(1:5)\n\nfirst_flights |&gt; mutate(depart_time = make_datetime(year, month, day, hour, minute))  #&lt;&lt;\n\n# A tibble: 5 × 6\n   year month   day  hour minute depart_time        \n  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dttm&gt;             \n1  2013     1     1     5     15 2013-01-01 05:15:00\n2  2013     1     1     5     29 2013-01-01 05:29:00\n3  2013     1     1     5     40 2013-01-01 05:40:00\n4  2013     1     1     5     45 2013-01-01 05:45:00\n5  2013     1     1     6      0 2013-01-01 06:00:00",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---the-power-of-dates",
+    "href": "Lectures/08_Strings/index.html#dates---the-power-of-dates",
+    "title": "Characters and Dates",
+    "section": "Dates - The Power of Dates",
+    "text": "Dates - The Power of Dates\n\nProperly formatted dates and times have extensive utility\n\n\nggplot(flights, aes(x = depart_time)) + \n  geom_freqpoly(binwidth = 86400) + \n  labs(title = \"Number of Flights per Day - 2013\") + \n  theme_bw()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---the-power-of-dates-1",
+    "href": "Lectures/08_Strings/index.html#dates---the-power-of-dates-1",
+    "title": "Characters and Dates",
+    "section": "Dates - The Power of Dates",
+    "text": "Dates - The Power of Dates\n\nProperly formatted dates and times have extensive utility\n\n\nfilter(flights, depart_time &lt; ymd(20130602) & depart_time &gt; ymd(20130601)) |&gt;\nggplot(aes(x = depart_time)) + \n  geom_freqpoly(binwidth = 600) + \n  labs(title = \"Number of Flights Every 10 Minutes - 06/01/2013\") + \n  theme_bw()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---date-components",
+    "href": "Lectures/08_Strings/index.html#dates---date-components",
+    "title": "Characters and Dates",
+    "section": "Dates - Date Components",
+    "text": "Dates - Date Components\n\nComponents of a date-time can be extracted and modified\n\n\ndeparture_time &lt;- ymd_hms(\"2024-10-31 18:30:00\")\ndeparture_time\n\n[1] \"2024-10-31 18:30:00 UTC\"\n\nyear(departure_time)\n\n[1] 2024\n\nday(departure_time)\n\n[1] 31\n\nhour(departure_time)\n\n[1] 18\n\nhour(departure_time) &lt;- 20\ndeparture_time\n\n[1] \"2024-10-31 20:30:00 UTC\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---date-math",
+    "href": "Lectures/08_Strings/index.html#dates---date-math",
+    "title": "Characters and Dates",
+    "section": "Dates - Date Math",
+    "text": "Dates - Date Math\n\nComponents can also be used for date math\n\n\ndob &lt;- ymd(\"1945-12-31\")\nyear(today()) - year(dob)\n\n[1] 79\n\n\n\nBut we can do better since the birthday isn’t until later in the year\n\n\nage_interval &lt;- today() - dob\nage_interval\n\nTime difference of 28692 days\n\nfloor(as.numeric(age_interval) / 365.25)\n\n[1] 78\n\n\n\nBut this is still brutish",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---working-with-intervals",
+    "href": "Lectures/08_Strings/index.html#dates---working-with-intervals",
+    "title": "Characters and Dates",
+    "section": "Dates - Working with Intervals",
+    "text": "Dates - Working with Intervals\n\nlubridate has an interval class that is much more pliable for math\n\n\nage_interval &lt;- interval(dob, today()); age_interval\n\n[1] 1945-12-31 UTC--2024-07-21 UTC\n\n\n\nIntervals are specific but can be combined with more general time spans of periods and durations with durations being more precise\n\n\nyears(1) #A period of 1 year\n\n[1] \"1y 0m 0d 0H 0M 0S\"\n\ndyears(1) #A duration of 1 year\n\n[1] \"31557600s (~1 years)\"\n\n\n\nage_interval / years(1)\n\n[1] 78.55464\n\n\n\nDurations can also work with difftime objects from base R",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---time-zones",
+    "href": "Lectures/08_Strings/index.html#dates---time-zones",
+    "title": "Characters and Dates",
+    "section": "Dates - Time Zones",
+    "text": "Dates - Time Zones\n\nAny POSIXct class needs a time zone associated with its HMS component; UTC (GMT) is the default\n\n\ndate_curr &lt;- ymd_hm(\"2020-02-20 12:00\"); date_curr\n\n[1] \"2020-02-20 12:00:00 UTC\"\n\n\n\nTime zones can be changed but you need to know what they are\n\n\nSys.timezone()  #Get the time zone for your current locale\n\n[1] \"America/Chicago\"\n\ntz(date_curr) &lt;- Sys.timezone(); date_curr\n\n[1] \"2020-02-20 12:00:00 CST\"\n\n\n\nymd_hm(\"2020-07-20 12:00\", tz = \"America/Chicago\")  #Be careful of Daylight Savings\n\n[1] \"2020-07-20 12:00:00 CDT\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---why-so-much-effort",
+    "href": "Lectures/08_Strings/index.html#dates---why-so-much-effort",
+    "title": "Characters and Dates",
+    "section": "Dates - Why So Much Effort",
+    "text": "Dates - Why So Much Effort\n\nDates and times have geographical and geopolitical considerations\n\n\n#Because the local time and hour in Birmingham\nnow(); hour(now())\n\n[1] \"2024-07-21 20:25:57 CDT\"\n\n\n[1] 20\n\n\n\n#Is different than the local time and hour for Coordinated Time\nnow(tzone = \"UTC\"); hour(now(tzone = \"UTC\"))\n\n[1] \"2024-07-22 01:25:57 UTC\"\n\n\n[1] 1\n\n\n\n#Even though they're the same time\nnow() - now(tzone = \"UTC\")\n\nTime difference of -3.528595e-05 secs",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#dates---why-so-much-effort-1",
+    "href": "Lectures/08_Strings/index.html#dates---why-so-much-effort-1",
+    "title": "Characters and Dates",
+    "section": "Dates - Why So Much Effort",
+    "text": "Dates - Why So Much Effort\n\nKnowing the calendar is critical\n\n\nymd(\"2024-02-29\") #2024 was a leap year\n\n[1] \"2024-02-29\"\n\nymd(\"1997-02-29\") #But 1997 was not\n\nWarning: 1 failed to parse.\n\n\n[1] NA\n\n\n\nAs is having a unified Unix Epoch\n\n\norigin\n\n[1] \"1970-01-01 UTC\"\n\n\n\nDates and times are inherently confusing but with some time and effort can be leveraged in powerfully meaningful ways",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "Lectures/08_Strings/index.html#learning-more",
+    "href": "Lectures/08_Strings/index.html#learning-more",
+    "title": "Characters and Dates",
+    "section": "Learning More",
+    "text": "Learning More\n\nAgain, for more on regular expressions, check out https://www.regular-expressions.info/ or the stringr vignette on regular expressions\nThe lubridate vignette can be valuable as is the cheat sheets\nNext time, I/O and handling multiple tables",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "html_files/08_Strings/exercises_solutions.html",
+    "href": "html_files/08_Strings/exercises_solutions.html",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "These exercises will help you practice applying separate_*, unite, regular expressions, and a bit with dates. You will use a messy dataset with information about cardiovascular disease (CVD).\n\n\nThese were the packages used for the exercises.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(gt)\nlibrary(gtsummary)\n\n#StandWithUkraine\n\n\n\n\n\n\ncvd_messy_descr &lt;-\n  c(\"ID\" = 'Participant identification',\n    \"question_age\" = \"Question: how old are you / when where you born? Participants 51 or older answered the second question.\",\n    \"question_substance\" = 'Question: do you smoke or drink?',\n    \"question_bp\" = 'Question: what is your blood pressure? Are you taking medications to lower your blood pressure?',\n    \"labs\" = 'A collection of laboratory values concatenated into a single string. Notably, the order of lab values is random',\n    \"cvd_fup\" = 'Report of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview')\n\n# the enframe function transforms a vector into a tibble,\ntibble::enframe(cvd_messy_descr) |&gt; \n  gt::gt(rowname_col = \"name\") |&gt;\n  gt::tab_stubhead(label = 'Variable name') |&gt; \n  gt::cols_label(value = 'Variable description') |&gt; \n  gt::cols_align('left') |&gt; \n  gt::tab_header(title = 'Description of messy cardiovascular disease data')\n\n\n\n\n\n\n\nDescription of messy cardiovascular disease data\n\n\nVariable name\nVariable description\n\n\n\n\nID\nParticipant identification\n\n\nquestion_age\nQuestion: how old are you / when where you born? Participants 51 or older answered the second question.\n\n\nquestion_substance\nQuestion: do you smoke or drink?\n\n\nquestion_bp\nQuestion: what is your blood pressure? Are you taking medications to lower your blood pressure?\n\n\nlabs\nA collection of laboratory values concatenated into a single string. Notably, the order of lab values is random\n\n\ncvd_fup\nReport of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview\n\n\n\n\n\n\n\n\n\n\nLoad in the dataset which is called cvd_messy.\n\ncvd_messy &lt;- readr::read_rds('data/cvd_messy.rds')\n\ncvd_messy"
+  },
+  {
+    "objectID": "html_files/08_Strings/exercises_solutions.html#setup",
+    "href": "html_files/08_Strings/exercises_solutions.html#setup",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "These were the packages used for the exercises.\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(gt)\nlibrary(gtsummary)\n\n#StandWithUkraine"
+  },
+  {
+    "objectID": "html_files/08_Strings/exercises_solutions.html#data-dictionary",
+    "href": "html_files/08_Strings/exercises_solutions.html#data-dictionary",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "cvd_messy_descr &lt;-\n  c(\"ID\" = 'Participant identification',\n    \"question_age\" = \"Question: how old are you / when where you born? Participants 51 or older answered the second question.\",\n    \"question_substance\" = 'Question: do you smoke or drink?',\n    \"question_bp\" = 'Question: what is your blood pressure? Are you taking medications to lower your blood pressure?',\n    \"labs\" = 'A collection of laboratory values concatenated into a single string. Notably, the order of lab values is random',\n    \"cvd_fup\" = 'Report of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview')\n\n# the enframe function transforms a vector into a tibble,\ntibble::enframe(cvd_messy_descr) |&gt; \n  gt::gt(rowname_col = \"name\") |&gt;\n  gt::tab_stubhead(label = 'Variable name') |&gt; \n  gt::cols_label(value = 'Variable description') |&gt; \n  gt::cols_align('left') |&gt; \n  gt::tab_header(title = 'Description of messy cardiovascular disease data')\n\n\n\n\n\n\n\nDescription of messy cardiovascular disease data\n\n\nVariable name\nVariable description\n\n\n\n\nID\nParticipant identification\n\n\nquestion_age\nQuestion: how old are you / when where you born? Participants 51 or older answered the second question.\n\n\nquestion_substance\nQuestion: do you smoke or drink?\n\n\nquestion_bp\nQuestion: what is your blood pressure? Are you taking medications to lower your blood pressure?\n\n\nlabs\nA collection of laboratory values concatenated into a single string. Notably, the order of lab values is random\n\n\ncvd_fup\nReport of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview"
+  },
+  {
+    "objectID": "html_files/08_Strings/exercises_solutions.html#import",
+    "href": "html_files/08_Strings/exercises_solutions.html#import",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "Load in the dataset which is called cvd_messy.\n\ncvd_messy &lt;- readr::read_rds('data/cvd_messy.rds')\n\ncvd_messy"
+  },
+  {
+    "objectID": "downloads.html#characters-and-dates",
+    "href": "downloads.html#characters-and-dates",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "html_files/08_Strings/class_exercises.html",
+    "href": "html_files/08_Strings/class_exercises.html",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "These exercises will help you practice applying separate_*, unite, regular expressions, and a bit with dates. You will use a messy dataset with information about cardiovascular disease (CVD).\n\n\nAgain, I am not loading packages. You can load your own as you determine what tools are needed.\n\n\n\n\ncvd_messy_descr &lt;-\n  c(\"ID\" = 'Participant identification',\n    \"question_age\" = \"Question: how old are you / when where you born? Participants 51 or older answered the second question.\",\n    \"question_substance\" = 'Question: do you smoke or drink?',\n    \"question_bp\" = 'Question: what is your blood pressure? Are you taking medications to lower your blood pressure?',\n    \"labs\" = 'A collection of laboratory values concatenated into a single string. Notably, the order of lab values is random',\n    \"cvd_fup\" = 'Report of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview')\n\n# the enframe function transforms a vector into a tibble,\ntibble::enframe(cvd_messy_descr) |&gt; \n  gt::gt(rowname_col = \"name\") |&gt;\n  gt::tab_stubhead(label = 'Variable name') |&gt; \n  gt::cols_label(value = 'Variable description') |&gt; \n  gt::cols_align('left') |&gt; \n  gt::tab_header(title = 'Description of messy cardiovascular disease data')\n\n\n\n\n\n\n\nDescription of messy cardiovascular disease data\n\n\nVariable name\nVariable description\n\n\n\n\nID\nParticipant identification\n\n\nquestion_age\nQuestion: how old are you / when where you born? Participants 51 or older answered the second question.\n\n\nquestion_substance\nQuestion: do you smoke or drink?\n\n\nquestion_bp\nQuestion: what is your blood pressure? Are you taking medications to lower your blood pressure?\n\n\nlabs\nA collection of laboratory values concatenated into a single string. Notably, the order of lab values is random\n\n\ncvd_fup\nReport of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview\n\n\n\n\n\n\n\n\n\n\nLoad in the dataset which is called cvd_messy.\n\ncvd_messy &lt;- readr::read_rds('data/cvd_messy.rds')\ncvd_messy",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "html_files/08_Strings/class_exercises.html#setup",
+    "href": "html_files/08_Strings/class_exercises.html#setup",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "Again, I am not loading packages. You can load your own as you determine what tools are needed.",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "html_files/08_Strings/class_exercises.html#data-dictionary",
+    "href": "html_files/08_Strings/class_exercises.html#data-dictionary",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "cvd_messy_descr &lt;-\n  c(\"ID\" = 'Participant identification',\n    \"question_age\" = \"Question: how old are you / when where you born? Participants 51 or older answered the second question.\",\n    \"question_substance\" = 'Question: do you smoke or drink?',\n    \"question_bp\" = 'Question: what is your blood pressure? Are you taking medications to lower your blood pressure?',\n    \"labs\" = 'A collection of laboratory values concatenated into a single string. Notably, the order of lab values is random',\n    \"cvd_fup\" = 'Report of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview')\n\n# the enframe function transforms a vector into a tibble,\ntibble::enframe(cvd_messy_descr) |&gt; \n  gt::gt(rowname_col = \"name\") |&gt;\n  gt::tab_stubhead(label = 'Variable name') |&gt; \n  gt::cols_label(value = 'Variable description') |&gt; \n  gt::cols_align('left') |&gt; \n  gt::tab_header(title = 'Description of messy cardiovascular disease data')\n\n\n\n\n\n\n\nDescription of messy cardiovascular disease data\n\n\nVariable name\nVariable description\n\n\n\n\nID\nParticipant identification\n\n\nquestion_age\nQuestion: how old are you / when where you born? Participants 51 or older answered the second question.\n\n\nquestion_substance\nQuestion: do you smoke or drink?\n\n\nquestion_bp\nQuestion: what is your blood pressure? Are you taking medications to lower your blood pressure?\n\n\nlabs\nA collection of laboratory values concatenated into a single string. Notably, the order of lab values is random\n\n\ncvd_fup\nReport of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "08 - Characters and Dates"
+    ]
+  },
+  {
+    "objectID": "html_files/08_Strings/class_exercises.html#import",
+    "href": "html_files/08_Strings/class_exercises.html#import",
+    "title": "Separate, unite, and strings",
+    "section": "",
+    "text": "Load in the dataset which is called cvd_messy.\n\ncvd_messy &lt;- readr::read_rds('data/cvd_messy.rds')\ncvd_messy",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "08 - Characters and Dates"
     ]
   }
 ]

@@ -1,0 +1,1160 @@
+---
+title: "Characters and Dates"
+subtitle: "But Mostly Characters"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: false
+
+library(readr)    # for reading in data
+library(tibble)   # for data printing
+library(tidyr)    # for tidying
+library(dplyr)    # for data manipulation
+library(ggplot2)  # for visualization
+library(gt)       # for tables
+library(forcats)  # for fct_recode
+library(stringr)
+library(lubridate)
+library(nycflights13)
+
+
+# Ambulator bmp data
+abpm_wide <- read_csv('data/abpm_wide_synthetic.csv') |> 
+  mutate(id = row_number())
+
+
+abpm_demo <- abpm_wide |> 
+  select(id, age, sex, race) |>
+  transmute(id, asr = glue::glue("{age}_{sex}_{race}"))
+
+
+
+```
+
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Separate review
+
+- Character data outside of data frame
+
+- Regular expressions
+
+- Overview on dates
+
+
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/regex_palm.jpg){fig-align="center" width="90%" height="90%"}
+:::
+:::
+
+::::
+
+
+# Back to `separate()`
+
+---
+
+## Separate - Last Time
+
+- We discussed how to separate columns as an inverse to `unite()`
+
+- `separate_` gave us many options
+
+    - `separate_wider_delim()` uses delimiters like `unite()`
+    
+    - `separate_wider_position()` splits on fixed positions
+    
+- We also mentioned `separate_wider_regex()` 
+
+---
+
+## Separate - `separate_wider_delim()`
+
+- Consider some (messy) ambulator BP data
+
+
+```{r}
+
+abpm_demo
+
+```
+
+
+## Separate - `separate_wider_delim()`
+
+- As seen, great when multiple variables exist in a single column
+
+
+```{r}
+
+abpm_demo |>
+  separate_wider_delim(col = asr, delim = "_",
+                       names = c("age", "sex", "race"))
+
+```
+
+
+---
+
+## Separate - `separate_wider_delim()`
+
+- But what if our splitting column is a mess?
+
+```{r}
+#| include: false
+
+abpm_demo <- abpm_wide |> 
+  dplyr::select(id, age, sex, race) |> 
+  transmute(id, asr = glue::glue("{age}_{sex}.JunkText.{race}"))
+
+```
+
+```{r}
+abpm_demo
+```
+
+
+## Separate - `separate_wider_delim()`
+
+- It takes some effort but we can do it in two (or more steps)
+
+```{r}
+#| code-line-numbers: 2-2
+abpm_demo |> 
+  separate_wider_delim(asr, names = c("age", "to_split_again"), delim = "_")   #<<
+  
+
+
+```
+
+
+## Separate - `separate_wider_delim()`
+
+- It takes some effort but we can do it in two (or more steps)
+
+```{r}
+#| code-line-numbers: 3-3
+abpm_demo |> 
+  separate_wider_delim(asr, names = c("age", "to_split_again"), delim = "_") |>
+  separate_wider_delim(to_split_again, names = c("sex", "race"), delim = ".JunkText.") #<<
+
+
+```
+
+
+## Separate - Behind the Curtain on `delim`
+
+- So what is R doing with the `delim` argument?
+
+![](img/delim_help.png){fig-align="center"}
+
+- We see it takes a single fixed string as a separator, thus two steps for `asr`
+
+
+## Separate - How `separate()` Used to Work
+
+- Instead of fixed string, it was a fixed _pattern_
+
+![](img/separate_help.png){fig-align="center"}
+
+- This is what's going to take us to regular expressions later
+
+
+# Strings Outside of Data Frames
+
+## Strings - The `stringr` packages  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Since `tidyr` can only manipulate strings in data frames, we use `stringr` instead
+
+- `stringr` has four main functions:
+
+    1. Character mainpulation individually or in vectors
+    
+    2. Whitespace manipulation tools
+    
+    3. Encoding and localization
+    
+    4. Pattern matching
+    
+- Like `fct_` in `forcats`, nearly all `stringr` functions start with `str_`
+
+
+## Strings - Just characters
+
+- A string is just a set of characters and there are many ways to print them depending on what you hope to do
+
+```{r}
+
+string <- "A string for you"
+writeLines(string)
+print(string)
+
+```
+
+- Note the difference between `writeLines()` (or `cat()`) and `print()`
+
+---
+
+## Strings - Quoting quotes
+
+- You can use double `"` or single `'` quotes
+
+- Best practice usually says double unless quotes are part of the string
+
+```{r}
+writeLines('This works')
+
+writeLines("This works too!")
+
+writeLines('And we can quote "quote" with quotes')
+
+```
+
+- But what if both quote types are desired?
+
+## Strings - Escaping with `\`
+
+- To include a literal `"` or `'` you can use `\` symbol to escape it
+
+```{r}
+
+string <- "A \"string\" for you"
+writeLines(string)
+
+```
+
+- Escaping works with all encoded text, even `\` by using `"\\"`
+
+```{r}
+
+string <- "Escaping with \\backslash\\ works"
+writeLines(string)
+```
+
+
+## Strings - Printed String vs Rendered String {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- This can get complex though since `print()` representations to the console give the raw string code
+
+```{r}
+double_quote <- "\"" # or '"'
+single_quote <- '\'' # or "'"
+backslash <- "\\"
+
+great_escape <- c(single_quote, double_quote, backslash); great_escape
+
+```
+
+- `stringr` has a great functions to see the representation `str_view()`
+
+```{r}
+str_view(great_escape)
+```
+
+
+## Strings - Special Characters
+
+- Our escaped quotes and slashes are __special characters__ including: new lines `\n`, tabs `\t` and unicode escapes (`\u` or `\U`) for non-standard text
+
+```{r}
+
+spec_char <- c("one\ntwo", "one\ttwo", "\u00b5", "\U0001f604")
+spec_char
+
+str_view(spec_char)
+
+
+```
+
+- Note the `\t` is viewed in curly braces since it's a class of __whitespace__; this makes it much easier to see using `str_view()`
+
+
+## Strings - Making Strings {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `stringr` has many functions to make strings that are improvement on base R functions like `paste()` and `paste0()`
+
+- `str_c()` does vectorized combinations of strings to return a vector
+
+```{r}
+str_c("Make", "a", "single", "string", sep = " ")  #`sep` gives the pasting character
+
+str_c("str_c works ", c("within", "across"), " vectors")
+```
+
+- We can see `str_c()` follows tidyverse conventions which means it could also work with `mutate()` although beware of `NA`
+
+- See section [14.3.1 and 14.3.2 in R4DS](https://r4ds.hadley.nz/strings#str_c){.external target="_blank"} for use in a tibble
+
+## Strings - Making Strings {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- For `summarise()`, `str_flatten()` will reduce vectors to one string
+
+```{r}
+df <- tribble(
+  ~ name, ~ fruit,
+  "Carmen", "banana",
+  "Carmen", "apple",
+  "Marvin", "nectarine",
+  "Terence", "cantaloupe",
+  "Terence", "papaya",
+  "Terence", "mandarin"
+)
+df |>
+  group_by(name) |> 
+  summarize(fruits = str_flatten(fruit, collapse = ", ", last = " and "))
+
+```
+
+## Strings - Yes! We Have<span style="text-decoration: line-through; text-decoration-thickness: 10%"> No </span>Bananas
+
+- We'll use the `fruit` dataset to play with `stringr` some more
+
+:::{.columns}
+
+:::{.column width="60%"}
+
+```{r}
+stringr::fruit
+```
+
+:::
+
+:::{.column width="40%"}
+
+![](img/bananas.jpeg){fig-align="center"}
+
+:::
+
+:::
+
+## Strings - Splitting Strings {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `tidyr` function like `separate_*_delim()` are informed by `stringr`, so we can split...
+
+```{r}
+fruit[c(5,9)]
+```
+
+- On delimiters with `str_split()`
+
+```{r}
+str_split(fruit[c(5,9)], pattern = " ")
+```
+
+- Note, we get a list since the length may not be fixed
+
+## Strings - Splitting Strings {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `tidyr` function like `separate_*_delim()` are informed by `stringr`, so we can split...
+
+```{r}
+fruit[c(5,9)]
+```
+
+2. Into character _matrices_ as well with `str_split_fixed`
+
+```{r}
+str_split_fixed(fruit[c(5,9)], pattern = " ", n = 2)
+```
+
+- This could then be converted into a data frame as desired
+
+
+## Strings - Words Within Vectors {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Instead of splitting our strings, we can use delimiters to extract strings meeting our pattern with `str_detect()` 
+
+```{r}
+
+str_detect(fruit, pattern = " ")
+
+```
+
+- This gives a boolean just like `filter()` for easy subsetting
+
+```{r}
+
+my_fruit <- fruit[str_detect(fruit, pattern = " ")]
+```
+
+
+## Strings - Working Within a String {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- We can use `str_length()` to get the number of characters
+
+```{r}
+
+str_length(my_fruit)
+
+```
+
+- This can inform `str_sub()` to extract parts of a string
+
+```{r}
+str_sub(my_fruit, start = 1, end = 10)
+```
+
+- It can also accept vectorized inputs for sliding windows
+
+```{r}
+str_sub(my_fruit, start = c(1:11), end = str_length(my_fruit))
+```
+
+
+---
+
+## Strings - Questions Remain
+
+- But what if we want to extract or process by a pattern?
+
+- Unlike `tidyr` why are the arguments `pattern` instead of `delim`?
+
+- And what was up with this?
+
+![](img/delim_2.png){fig-align="center"}
+
+- For all this, we need __regular expressions__
+
+
+# Regular Expressions aka Regexes
+
+## Regexes - The Basics
+
+:::{.columns}
+
+:::{.column}
+
+- __Regexes__ are a standard way to specify patterns in strings
+
+- Combines literal alphanumeric characters with metacharacters
+
+- Allows for character sets, quantification, and alternation
+
+- Can define anchors and boundaries
+
+- Look like absolute gibberish
+
+:::
+
+:::{.column}
+
+![](img/regex_trial.png){fig-align="center"}
+
+:::
+
+:::
+
+
+:::{.footer}
+
+[@ThePracticalDev](https://twitter.com/ThePracticalDev/status/774309983467016193){.external target="_blank"}
+
+:::
+
+
+## Regexes - Exact Matching
+
+- So far with `delim` and `pattern` we've used exact matching
+
+```{r}
+fruit[str_detect(fruit, pattern = "berry")]
+```
+
+
+- Like with `{\t}`, `str_view()` indicates the matching pattern with `<>`
+
+```{r}
+str_view(fruit, pattern = "berry")[1:5]
+```
+
+## Regexes - Alternation
+
+- The vertical bar `|` specifies a match to one or more alternative patterns 
+
+- So if we want melons, nuts, or oranges
+
+
+```{r}
+str_view(fruit, pattern = "melon|nut|orange")
+```
+
+
+## Regexes - Starting with Metacharacters
+
+- The most powerful metacharacter is `.` which matches <b><i>ANY SINGLE</b></i> character except a new line
+
+```{r}
+str_view(fruit, pattern = "a...e")
+```
+
+- This matches any "a" and "e" that are separated by three other characters, including whitespace characters
+
+## Regexes - Character Classes
+
+- If `.` is too broad, we can define _character classes_ using `[]` 
+
+- Let's find all adjacent vowels
+
+```{r}
+two_vowels <- str_view(fruit, pattern = "[aeiou][aeiou]")
+length(two_vowels)
+head(two_vowels)
+```
+
+- We can also match ranges e.g. `[a-e]` is the same as `[abcde]`
+
+## Regexes - Character Classes
+
+- We can __negate__ a character class with `^` right after the left bracket ( `[^`  )
+
+- Let's find all `s` that are preceded by a consonants i.e. NOT a vowel
+
+```{r}
+str_view(fruit, pattern = "[^aeiou]s")
+```
+
+:::{.callout-important}
+
+Remember, character classes still only count as _single_ characters
+
+:::
+
+
+
+## Regexes - Dedicated Character Classes
+
+- Some character classes are common enough to have dedicated metacharacters including:
+
+    - `\w` for any Unicode character i.e. `[A-Za-z0-9_]`
+    
+        Note the implication on capitalization
+    
+    - `\d` for any numeric
+    
+    - `\s` for any whitespace including space, tab, and newline characters
+    
+        `\t` and `\n` will find tabs/newlines respectively
+    
+- You can get negation for these by using capitals
+
+    - If `\d==[0-9]` then `\D==[^0-9]`
+    
+    
+## Regexes - Quantifiers
+
+- Quantifiers control how many times a pattern can match
+
+- This can be done explicitly using `{}` e.g. let's find fruits with "ss" 
+
+```{r}
+str_view(fruit, pattern = "s{2}")
+```
+    
+- For finer quantification control:
+
+    - `{n}` for exactly n
+    
+    - `{n,}` for at _least_ n
+    
+    - `{,m}` for at _most_ m
+    
+    - `{n,m}` for between n and m inclusively
+    
+    
+## Regexes - Dedicated Quantifiers
+
+- Some useful quantifiers have their own dedicated characters:
+
+    - `*` for __0 or more__
+    
+    - `+` for __1 or more__
+    
+    - `?` for __0 or 1 only__
+    
+- So for every fruit with a 'c' and 'r' separated by 0 or more characters
+
+```{r}
+head(str_view(fruit, pattern = "c.*r"))
+```
+
+## Regexes - Word Boundaries
+
+- To specify a pattern occurrence at the beginning or end of a string use `^` and `$` respectively 
+
+- We can find any 'le' as you'd expect:
+
+```{r}
+str_view(fruit, "le")
+```
+
+- But we use `^` to only get 'le' at the beginning of the string
+
+```{r}
+str_view(fruit, "^le")
+```
+
+
+
+## Regexes - Escaping
+
+- In order to explicitly look for characters that serve as a metacharacter, you can use `\` to escape just like with quotes
+
+```{r}
+#| eval: false
+
+string_curr <- "Let's match the price for $4.99 using the $ and the numbers"
+
+match <- str_view(string_curr, pattern = "\$[0-9]\.[0-9]{2}")
+
+```
+
+. . .
+
+```{r}
+#| eval: false
+match
+```
+
+```{r}
+#| error: true
+#| echo: false
+ 
+stop("'\\$' is an unrecognized escape in character string (<input>:1:18)")
+```
+
+. . .
+
+![](img/wat.jpg){fig-align="center" width="35%"}
+
+---
+
+## Regexes - Escaping the Right Way
+
+- We use the backslash `\` to escape special characters...but `\` is _itself_ a special character used by R (and other languages) for escaping
+
+- So we need to escape the backslash and use `\\$` instead
+
+    1. The first `\` tells R to treat the second backslash as a literal character
+    
+    2. This means `\$` can then be seen by the regex engine to look for the literal `$`
+
+```{r}
+#| include: false
+string_curr <- "Let's match the price for $4.99 using the $ and numbers"
+```
+
+```{r}
+str_view(string_curr, pattern = "\\$[0-9]\\.[0-9]{2}")
+```
+
+
+## Regexes - Grouping
+
+- Parentheses can _capture_ sub-components of a string during a match
+
+    They can also be used to overwrite precedence with alternation
+
+- They do not match anything per se but can be use to identify their encapsulated pattern for later use called __back referencing__
+
+- These are referenced using `\1` for the first set of capturing parentheses, `\2` for the second, etc
+
+---
+
+## Regexes - Grouping
+
+- For example, we can find all fruit that has the same repeated consecutive pairs of letters
+
+```{r}
+str_view(fruit, "(..)\\1")  #Don't forget to escape the backslash!
+```
+
+- Parentheses have several uses in regular expression
+
+## Regexes - The Common `stringr` Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Any `stringr` function that has a `pattern` argument can use a regular expression
+
+- Recall `my_fruit` which has all the fruits that have a space character
+
+```{r}
+my_fruit
+```
+
+- Let's try out the following pattern `(\w)\1` to find consecutive pairs of the same letter again
+
+## Regexes - The Common `stringr` Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `str_detect()` returns a boolean vector indicating whether the string matched the pattern
+ 
+```{r}
+str_detect(my_fruit, "(\\w)\\1")
+```
+<br>
+```{r}
+my_fruit[str_detect(my_fruit, "(\\w)\\1")]
+```
+ 
+
+## Regexes - The Common `stringr` Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `str_count()` counts the number of pattern matches within the string
+ 
+```{r}
+str_count(my_fruit, "(\\w)\\1")
+```
+<br>
+```{r}
+str_view(my_fruit, "(\\w)\\1")
+```
+
+## Regexes - The Common `stringr` Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `str_locate()` gives the __first__ position of a pattern
+ 
+```{r}
+str_locate(my_fruit, "(\\w)\\1")
+```
+
+## Regexes - The Common `stringr` Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `str_locate_all()` locates __all__ matches
+
+```{r}
+str_locate_all(my_fruit, "(\\w)\\1")
+```
+
+## Regexes - Extraction Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Substring extraction is possible with `str_extract()` and `str_extract_all()`
+
+- Imagine a collaborator gave you a file with some phone number data
+
+```{r}
+messy_phone <- c(
+  "219-733-8965", 
+  "Erroneous text",
+  "329 293 8753", 
+  "Work: 579-499-7527; Home: 543.355.3679"
+)
+
+```
+
+- Set a pattern to pull a 10 digit number with `-`, `.`, or a space as delimiters
+
+```{r}
+phone_ptrn <- "([2-9]\\d{2})[\\-\\. ](\\d{3})[\\-\\. ](\\d{4})"
+```
+
+## Regexes - Extraction Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `str_extract()` gives the first valid pattern match
+
+```{r}
+str_extract(messy_phone, phone_ptrn)
+```
+
+- `str_extract_all()` pulls all matches
+
+```{r}
+str_extract_all(messy_phone, phone_ptrn)
+```
+
+## Regexes - Extraction Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Pay attention to when you get a vector, matrix, or list returned
+
+- We can clean things up to a vector using `unlist()`
+
+```{r}
+messy_phone_vector <- messy_phone |>
+  str_extract_all(phone_ptrn) |>
+  unlist()
+  
+messy_phone_vector
+```
+
+## Regexes - Replacement Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- A great application of regular expression is replacing matched patterns with another string; in `stringr` we use `str_replace()` with a new `replacement` argument to support the `pattern` argument
+
+:::{.columns}
+
+:::{.column}
+
+- Let's make our messy phone vector cleaner so all out<br>numbers are separated by `-`
+
+:::{.fragment}
+
+```{r}
+str_replace(messy_phone_vector,
+            pattern = " |\\.",
+            replacement = "-")
+```
+
+:::
+
+:::
+
+:::{.column}
+
+:::{.fragment}
+
+![](img/wat.jpg){fig-align="center"}
+
+:::
+
+:::
+
+:::
+
+## Regexes - Replacement Functions  {background-image="img/stringr.svg" background-size="8%" background-position="95% 5%"} 
+
+- As expected, use `str_replace_all` to replace _all_ occurrences of the pattern in the string elements of the vector
+
+```{r}
+clean_phone_vector <- messy_phone_vector |>
+  str_replace_all(pattern = " |\\.",
+                  replacement = "-")
+
+str_view(clean_phone_vector)
+```
+
+
+## Regexes - Back to `tidyr`  {background-image="img/tidyr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Finally, we can return to `separate_wider_regex()`
+
+- The `patterns` argument is a named vector of pattern matches for the output variables and separating delimiters
+
+```{r}
+separate_wider_regex(abpm_demo, cols = asr, 
+                     patterns = c(age = "\\d+", "_", 
+                                  sex = "[A-Za-z]+", "\\.JunkText\\.", 
+                                  race = ".*")) |> slice(1:5)
+```
+
+
+## Regexes - Yes, There's More
+
+- There are several more aspects we didn't touch on including
+
+    - Using back references in replacement
+ 
+    - Look ahead and look behind assertions
+ 
+    - Lazy vs greedy evaluation
+
+    - Comparison to base R versions like `grep()` and `gsub()`
+    
+- For some more details check out [https://www.regular-expressions.info/](https://www.regular-expressions.info/){.external target="_blank"} or the `stringr` vignette on [regular expressions](https://stringr.tidyverse.org/articles/regular-expressions.html){.external target="_blank"}
+
+
+## Regexes - Powerful but Confusing
+
+- For example, this returns every fruit that has a consecutive letter pair except for the `rr` in "berry" and only in the middle of a word
+
+```{r}
+str_view(fruit, pattern = "((?<!\\b)(?<!be)((\\w)\\3)(?!y))(?=\\B)")
+```
+
+
+# Working with Dates
+
+## Dates - Frustrating for Everyone
+
+:::{.columns}
+
+:::{.column}
+
+- Dates are complicated by several factors:
+
+    - No set origin
+    
+    - Uneven days in a year
+    
+    - Time zones
+    
+    - Daylight savings
+    
+- The `lubridate` package can help immensely
+
+:::
+
+:::{.column}
+
+![](img/excel_date.jpeg){fig-align="center"}
+
+:::
+
+:::
+
+## Dates - Starting Today and Now  {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Start by getting today's date with base R or lubridate
+
+```{r}
+Sys.Date()
+lubridate::today()
+```
+
+- Both of these are functionally identical as `date` class
+
+```{r}
+str(today())
+```
+
+##  Dates - Starting Today and Now {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Use `Sys.time()` or `now()` to get the current `date-time`
+```{r}
+Sys.time()
+lubridate::now()
+```
+
+- These are a special class referred to as a `POSIX` or `POSIXct`
+
+```{r}
+str(now())
+```
+
+- Note the inclusion of our time zone 
+
+## Dates - Parsing Dates {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- R representations of dates follow ISO8601 i.e. YYYY-MM-DD
+
+    Date-time is "YYYY-MM-DD HH:MM:SS
+
+- String representations of dates are varied, `lubridate` can tell R what to expect with a family of parsing functions for <b>y</b>ear, <b>m</b>onth, and <b>d</b>ay along with <b>h</b>our, <b>m</b>inute, and <b>s</b>econds
+
+- Supplying a date or date-time string to a `ymd` or `ymd_hms` function coerces a date in the expected ISO8601
+
+##  Dates - Parsing Dates {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Many orders and delimiters can be accepted ([see the list](https://lubridate.tidyverse.org/reference/index.html#date-time-parsing){.external target="_blank"})
+
+```{r}
+ymd("2004/2/11")
+
+dmy("11-2-04")
+
+mdy("021104")
+
+ymd_hm("04_2_11 18:02")
+
+```
+
+- Supply a time zone to force a date into a date-time
+
+```{r}
+mdy("2/11/2004", tz = "UTC")
+```
+
+## Dates - Parsing Dates in a Data Frame {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Other helpers create date data within data frames like `make_datetime()`
+
+```{r}
+#| code-line-numbers: 5-5
+first_flights <- flights |>
+  select(year, month, day, hour, minute) |>
+  slice(1:5)
+
+first_flights |> mutate(depart_time = make_datetime(year, month, day, hour, minute))  #<<
+```
+
+## Dates - The Power of Dates {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Properly formatted dates and times have extensive utility
+
+```{r}
+#| include: false
+
+flights <- mutate(flights, depart_time = make_datetime(year, month, day, hour, minute))
+```
+
+```{r}
+#| fig-align: "center"
+
+ggplot(flights, aes(x = depart_time)) + 
+  geom_freqpoly(binwidth = 86400) + 
+  labs(title = "Number of Flights per Day - 2013") + 
+  theme_bw()
+```
+
+
+## Dates - The Power of Dates {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Properly formatted dates and times have extensive utility
+
+```{r}
+#| fig-align: "center"
+
+filter(flights, depart_time < ymd(20130602) & depart_time > ymd(20130601)) |>
+ggplot(aes(x = depart_time)) + 
+  geom_freqpoly(binwidth = 600) + 
+  labs(title = "Number of Flights Every 10 Minutes - 06/01/2013") + 
+  theme_bw()
+```
+
+## Dates - Date Components {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Components of a date-time can be extracted and modified
+
+```{r}
+ 
+departure_time <- ymd_hms("2024-10-31 18:30:00")
+departure_time
+
+year(departure_time)
+day(departure_time)
+hour(departure_time)
+
+hour(departure_time) <- 20
+departure_time
+
+
+```
+
+## Dates - Date Math {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Components can also be used for date math
+
+```{r}
+dob <- ymd("1945-12-31")
+year(today()) - year(dob)
+```
+
+- But we can do better since the birthday isn't until later in the year
+
+```{r}
+age_interval <- today() - dob
+age_interval
+floor(as.numeric(age_interval) / 365.25)
+```
+
+- But this is still brutish
+
+## Dates - Working with Intervals {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- `lubridate` has an interval class that is much more pliable for math
+
+```{r}
+age_interval <- interval(dob, today()); age_interval
+```
+
+- Intervals are specific but can be combined with more general time spans of <b>periods</b> and <b>durations</b> with durations being more precise
+
+```{r}
+years(1) #A period of 1 year
+dyears(1) #A duration of 1 year
+```
+
+```{r}
+age_interval / years(1)
+```
+
+- Durations can also work with `difftime` objects from base R
+
+## Dates - Time Zones {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Any `POSIXct` class needs a time zone associated with its HMS component; UTC (GMT) is the default
+
+```{r}
+date_curr <- ymd_hm("2020-02-20 12:00"); date_curr
+```
+
+- Time zones can be changed but you need to know [what they are](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones){.external target="_blank"}
+
+```{r}
+Sys.timezone()  #Get the time zone for your current locale
+tz(date_curr) <- Sys.timezone(); date_curr
+```
+
+```{r}
+ymd_hm("2020-07-20 12:00", tz = "America/Chicago")  #Be careful of Daylight Savings
+```
+
+## Dates - Why So Much Effort {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Dates and times have geographical and geopolitical considerations
+
+```{r}
+#Because the local time and hour in Birmingham
+now(); hour(now())
+```
+
+```{r}
+#Is different than the local time and hour for Coordinated Time
+now(tzone = "UTC"); hour(now(tzone = "UTC"))
+```
+
+```{r}
+#Even though they're the same time
+now() - now(tzone = "UTC")
+```
+
+## Dates - Why So Much Effort {background-image="img/lubridate.svg" background-size="8%" background-position="95% 5%"} 
+
+- Knowing the calendar is critical
+
+```{r}
+#| warning: true
+ymd("2024-02-29") #2024 was a leap year
+ymd("1997-02-29") #But 1997 was not
+```
+
+- As is having a unified Unix Epoch
+```{r}
+origin
+```
+
+- Dates and times are inherently confusing but with some time and effort can be leveraged in powerfully meaningful ways
+
+## Learning More
+
+- Again, for more on regular expressions, check out [https://www.regular-expressions.info/](https://www.regular-expressions.info/){.external target="_blank"} or the `stringr` vignette on [regular expressions](https://stringr.tidyverse.org/articles/regular-expressions.html){.external target="_blank"}
+
+- The `lubridate` [vignette](https://lubridate.tidyverse.org/articles/lubridate.html){.external target="_blank"} can be valuable as is the [cheat sheets](https://rstudio.github.io/cheatsheets/lubridate.pdf){.external target="_blank"}
+
+- Next time, I/O and handling multiple tables

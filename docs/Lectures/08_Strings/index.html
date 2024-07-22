@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.47">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Chad Murchison">
+<meta name="dcterms.date" content="2024-07-21">
+
+<title>Characters and Dates – BST680 2024</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">BST680 2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/01_Tools/index.html">Lecture HTML</a></li><li class="breadcrumb-item"><a href="../../Lectures/08_Strings/index.html">08 - Characters and Dates</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../uab_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Lecture HTML</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/01_Tools/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">01 - Introducing Your Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/02_VizBasics/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/03_Programming/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/04_Isolation/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">04 - Data Isolation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/05_Transform/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/06_Adv_Visual/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/07_Reshape/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/08_Strings/index.html" class="sidebar-item-text sidebar-link active" target="_blank">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lecture PDF</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">01 - Introducing Your Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 03 Programming Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 04 dplyr Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">04 - Data Isolation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 05 Transforming Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 07 Reshaping Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 08 Characters and Dates.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Additional Info</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/01_Intro/intro_to_Quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01a - Intro to Quarto and gt()</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Assignments</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/01_Intro/exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 - Working with Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/02_Visual/exercises_start_here.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/03_Program/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/04_Isolate/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04 - Isolation with dplyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/05_Transform/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/06_Adv_Visual/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/07_Reshape/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/08_Strings/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Assignment Solutions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/01_Intro/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 - Working with Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/02_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/03_Program/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/04_Isolate/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04 - Isolation with dplyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/05_Transform/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/06_Adv_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/07_Reshape/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Downloads</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../downloads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Downloads</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Midterm</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/Midterm/midterm_start_here.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Midterm Details</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#agenda" id="toc-agenda" class="nav-link active" data-scroll-target="#agenda">Agenda</a></li>
+  <li><a href="#back-to-separate" id="toc-back-to-separate" class="nav-link" data-scroll-target="#back-to-separate">Back to <code>separate()</code></a>
+  <ul class="collapse">
+  <li><a href="#separate---last-time" id="toc-separate---last-time" class="nav-link" data-scroll-target="#separate---last-time">Separate - Last Time</a></li>
+  <li><a href="#separate---separate_wider_delim" id="toc-separate---separate_wider_delim" class="nav-link" data-scroll-target="#separate---separate_wider_delim">Separate - <code>separate_wider_delim()</code></a></li>
+  <li><a href="#separate---separate_wider_delim-1" id="toc-separate---separate_wider_delim-1" class="nav-link" data-scroll-target="#separate---separate_wider_delim-1">Separate - <code>separate_wider_delim()</code></a></li>
+  <li><a href="#separate---separate_wider_delim-2" id="toc-separate---separate_wider_delim-2" class="nav-link" data-scroll-target="#separate---separate_wider_delim-2">Separate - <code>separate_wider_delim()</code></a></li>
+  <li><a href="#separate---separate_wider_delim-3" id="toc-separate---separate_wider_delim-3" class="nav-link" data-scroll-target="#separate---separate_wider_delim-3">Separate - <code>separate_wider_delim()</code></a></li>
+  <li><a href="#separate---separate_wider_delim-4" id="toc-separate---separate_wider_delim-4" class="nav-link" data-scroll-target="#separate---separate_wider_delim-4">Separate - <code>separate_wider_delim()</code></a></li>
+  <li><a href="#separate---behind-the-curtain-on-delim" id="toc-separate---behind-the-curtain-on-delim" class="nav-link" data-scroll-target="#separate---behind-the-curtain-on-delim">Separate - Behind the Curtain on <code>delim</code></a></li>
+  <li><a href="#separate---how-separate-used-to-work" id="toc-separate---how-separate-used-to-work" class="nav-link" data-scroll-target="#separate---how-separate-used-to-work">Separate - How <code>separate()</code> Used to Work</a></li>
+  </ul></li>
+  <li><a href="#strings-outside-of-data-frames" id="toc-strings-outside-of-data-frames" class="nav-link" data-scroll-target="#strings-outside-of-data-frames">Strings Outside of Data Frames</a>
+  <ul class="collapse">
+  <li><a href="#strings---the-stringr-packages" id="toc-strings---the-stringr-packages" class="nav-link" data-scroll-target="#strings---the-stringr-packages">Strings - The <code>stringr</code> packages</a></li>
+  <li><a href="#strings---just-characters" id="toc-strings---just-characters" class="nav-link" data-scroll-target="#strings---just-characters">Strings - Just characters</a></li>
+  <li><a href="#strings---quoting-quotes" id="toc-strings---quoting-quotes" class="nav-link" data-scroll-target="#strings---quoting-quotes">Strings - Quoting quotes</a></li>
+  <li><a href="#strings---escaping-with" id="toc-strings---escaping-with" class="nav-link" data-scroll-target="#strings---escaping-with">Strings - Escaping with <code>\</code></a></li>
+  <li><a href="#strings---printed-string-vs-rendered-string" id="toc-strings---printed-string-vs-rendered-string" class="nav-link" data-scroll-target="#strings---printed-string-vs-rendered-string">Strings - Printed String vs Rendered String</a></li>
+  <li><a href="#strings---special-characters" id="toc-strings---special-characters" class="nav-link" data-scroll-target="#strings---special-characters">Strings - Special Characters</a></li>
+  <li><a href="#strings---making-strings" id="toc-strings---making-strings" class="nav-link" data-scroll-target="#strings---making-strings">Strings - Making Strings</a></li>
+  <li><a href="#strings---making-strings-1" id="toc-strings---making-strings-1" class="nav-link" data-scroll-target="#strings---making-strings-1">Strings - Making Strings</a></li>
+  <li><a href="#strings---yes-we-have-no-bananas" id="toc-strings---yes-we-have-no-bananas" class="nav-link" data-scroll-target="#strings---yes-we-have-no-bananas">Strings - Yes! We Have<span style="text-decoration: line-through; text-decoration-thickness: 10%"> No </span>Bananas</a></li>
+  <li><a href="#strings---splitting-strings" id="toc-strings---splitting-strings" class="nav-link" data-scroll-target="#strings---splitting-strings">Strings - Splitting Strings</a></li>
+  <li><a href="#strings---splitting-strings-1" id="toc-strings---splitting-strings-1" class="nav-link" data-scroll-target="#strings---splitting-strings-1">Strings - Splitting Strings</a></li>
+  <li><a href="#strings---words-within-vectors" id="toc-strings---words-within-vectors" class="nav-link" data-scroll-target="#strings---words-within-vectors">Strings - Words Within Vectors</a></li>
+  <li><a href="#strings---working-within-a-string" id="toc-strings---working-within-a-string" class="nav-link" data-scroll-target="#strings---working-within-a-string">Strings - Working Within a String</a></li>
+  <li><a href="#strings---questions-remain" id="toc-strings---questions-remain" class="nav-link" data-scroll-target="#strings---questions-remain">Strings - Questions Remain</a></li>
+  </ul></li>
+  <li><a href="#regular-expressions-aka-regexes" id="toc-regular-expressions-aka-regexes" class="nav-link" data-scroll-target="#regular-expressions-aka-regexes">Regular Expressions aka Regexes</a>
+  <ul class="collapse">
+  <li><a href="#regexes---the-basics" id="toc-regexes---the-basics" class="nav-link" data-scroll-target="#regexes---the-basics">Regexes - The Basics</a></li>
+  <li><a href="#regexes---exact-matching" id="toc-regexes---exact-matching" class="nav-link" data-scroll-target="#regexes---exact-matching">Regexes - Exact Matching</a></li>
+  <li><a href="#regexes---alternation" id="toc-regexes---alternation" class="nav-link" data-scroll-target="#regexes---alternation">Regexes - Alternation</a></li>
+  <li><a href="#regexes---starting-with-metacharacters" id="toc-regexes---starting-with-metacharacters" class="nav-link" data-scroll-target="#regexes---starting-with-metacharacters">Regexes - Starting with Metacharacters</a></li>
+  <li><a href="#regexes---character-classes" id="toc-regexes---character-classes" class="nav-link" data-scroll-target="#regexes---character-classes">Regexes - Character Classes</a></li>
+  <li><a href="#regexes---character-classes-1" id="toc-regexes---character-classes-1" class="nav-link" data-scroll-target="#regexes---character-classes-1">Regexes - Character Classes</a></li>
+  <li><a href="#regexes---dedicated-character-classes" id="toc-regexes---dedicated-character-classes" class="nav-link" data-scroll-target="#regexes---dedicated-character-classes">Regexes - Dedicated Character Classes</a></li>
+  <li><a href="#regexes---quantifiers" id="toc-regexes---quantifiers" class="nav-link" data-scroll-target="#regexes---quantifiers">Regexes - Quantifiers</a></li>
+  <li><a href="#regexes---dedicated-quantifiers" id="toc-regexes---dedicated-quantifiers" class="nav-link" data-scroll-target="#regexes---dedicated-quantifiers">Regexes - Dedicated Quantifiers</a></li>
+  <li><a href="#regexes---word-boundaries" id="toc-regexes---word-boundaries" class="nav-link" data-scroll-target="#regexes---word-boundaries">Regexes - Word Boundaries</a></li>
+  <li><a href="#regexes---escaping" id="toc-regexes---escaping" class="nav-link" data-scroll-target="#regexes---escaping">Regexes - Escaping</a></li>
+  <li><a href="#regexes---escaping-the-right-way" id="toc-regexes---escaping-the-right-way" class="nav-link" data-scroll-target="#regexes---escaping-the-right-way">Regexes - Escaping the Right Way</a></li>
+  <li><a href="#regexes---grouping" id="toc-regexes---grouping" class="nav-link" data-scroll-target="#regexes---grouping">Regexes - Grouping</a></li>
+  <li><a href="#regexes---grouping-1" id="toc-regexes---grouping-1" class="nav-link" data-scroll-target="#regexes---grouping-1">Regexes - Grouping</a></li>
+  <li><a href="#regexes---the-common-stringr-functions" id="toc-regexes---the-common-stringr-functions" class="nav-link" data-scroll-target="#regexes---the-common-stringr-functions">Regexes - The Common <code>stringr</code> Functions</a></li>
+  <li><a href="#regexes---the-common-stringr-functions-1" id="toc-regexes---the-common-stringr-functions-1" class="nav-link" data-scroll-target="#regexes---the-common-stringr-functions-1">Regexes - The Common <code>stringr</code> Functions</a></li>
+  <li><a href="#regexes---the-common-stringr-functions-2" id="toc-regexes---the-common-stringr-functions-2" class="nav-link" data-scroll-target="#regexes---the-common-stringr-functions-2">Regexes - The Common <code>stringr</code> Functions</a></li>
+  <li><a href="#regexes---the-common-stringr-functions-3" id="toc-regexes---the-common-stringr-functions-3" class="nav-link" data-scroll-target="#regexes---the-common-stringr-functions-3">Regexes - The Common <code>stringr</code> Functions</a></li>
+  <li><a href="#regexes---the-common-stringr-functions-4" id="toc-regexes---the-common-stringr-functions-4" class="nav-link" data-scroll-target="#regexes---the-common-stringr-functions-4">Regexes - The Common <code>stringr</code> Functions</a></li>
+  <li><a href="#regexes---extraction-functions" id="toc-regexes---extraction-functions" class="nav-link" data-scroll-target="#regexes---extraction-functions">Regexes - Extraction Functions</a></li>
+  <li><a href="#regexes---extraction-functions-1" id="toc-regexes---extraction-functions-1" class="nav-link" data-scroll-target="#regexes---extraction-functions-1">Regexes - Extraction Functions</a></li>
+  <li><a href="#regexes---extraction-functions-2" id="toc-regexes---extraction-functions-2" class="nav-link" data-scroll-target="#regexes---extraction-functions-2">Regexes - Extraction Functions</a></li>
+  <li><a href="#regexes---replacement-functions" id="toc-regexes---replacement-functions" class="nav-link" data-scroll-target="#regexes---replacement-functions">Regexes - Replacement Functions</a></li>
+  <li><a href="#regexes---replacement-functions-1" id="toc-regexes---replacement-functions-1" class="nav-link" data-scroll-target="#regexes---replacement-functions-1">Regexes - Replacement Functions</a></li>
+  <li><a href="#regexes---back-to-tidyr" id="toc-regexes---back-to-tidyr" class="nav-link" data-scroll-target="#regexes---back-to-tidyr">Regexes - Back to <code>tidyr</code></a></li>
+  <li><a href="#regexes---yes-theres-more" id="toc-regexes---yes-theres-more" class="nav-link" data-scroll-target="#regexes---yes-theres-more">Regexes - Yes, There’s More</a></li>
+  <li><a href="#regexes---powerful-but-confusing" id="toc-regexes---powerful-but-confusing" class="nav-link" data-scroll-target="#regexes---powerful-but-confusing">Regexes - Powerful but Confusing</a></li>
+  </ul></li>
+  <li><a href="#working-with-dates" id="toc-working-with-dates" class="nav-link" data-scroll-target="#working-with-dates">Working with Dates</a>
+  <ul class="collapse">
+  <li><a href="#dates---frustrating-for-everyone" id="toc-dates---frustrating-for-everyone" class="nav-link" data-scroll-target="#dates---frustrating-for-everyone">Dates - Frustrating for Everyone</a></li>
+  <li><a href="#dates---starting-today-and-now" id="toc-dates---starting-today-and-now" class="nav-link" data-scroll-target="#dates---starting-today-and-now">Dates - Starting Today and Now</a></li>
+  <li><a href="#dates---starting-today-and-now-1" id="toc-dates---starting-today-and-now-1" class="nav-link" data-scroll-target="#dates---starting-today-and-now-1">Dates - Starting Today and Now</a></li>
+  <li><a href="#dates---parsing-dates" id="toc-dates---parsing-dates" class="nav-link" data-scroll-target="#dates---parsing-dates">Dates - Parsing Dates</a></li>
+  <li><a href="#dates---parsing-dates-1" id="toc-dates---parsing-dates-1" class="nav-link" data-scroll-target="#dates---parsing-dates-1">Dates - Parsing Dates</a></li>
+  <li><a href="#dates---parsing-dates-in-a-data-frame" id="toc-dates---parsing-dates-in-a-data-frame" class="nav-link" data-scroll-target="#dates---parsing-dates-in-a-data-frame">Dates - Parsing Dates in a Data Frame</a></li>
+  <li><a href="#dates---the-power-of-dates" id="toc-dates---the-power-of-dates" class="nav-link" data-scroll-target="#dates---the-power-of-dates">Dates - The Power of Dates</a></li>
+  <li><a href="#dates---the-power-of-dates-1" id="toc-dates---the-power-of-dates-1" class="nav-link" data-scroll-target="#dates---the-power-of-dates-1">Dates - The Power of Dates</a></li>
+  <li><a href="#dates---date-components" id="toc-dates---date-components" class="nav-link" data-scroll-target="#dates---date-components">Dates - Date Components</a></li>
+  <li><a href="#dates---date-math" id="toc-dates---date-math" class="nav-link" data-scroll-target="#dates---date-math">Dates - Date Math</a></li>
+  <li><a href="#dates---working-with-intervals" id="toc-dates---working-with-intervals" class="nav-link" data-scroll-target="#dates---working-with-intervals">Dates - Working with Intervals</a></li>
+  <li><a href="#dates---time-zones" id="toc-dates---time-zones" class="nav-link" data-scroll-target="#dates---time-zones">Dates - Time Zones</a></li>
+  <li><a href="#dates---why-so-much-effort" id="toc-dates---why-so-much-effort" class="nav-link" data-scroll-target="#dates---why-so-much-effort">Dates - Why So Much Effort</a></li>
+  <li><a href="#dates---why-so-much-effort-1" id="toc-dates---why-so-much-effort-1" class="nav-link" data-scroll-target="#dates---why-so-much-effort-1">Dates - Why So Much Effort</a></li>
+  <li><a href="#learning-more" id="toc-learning-more" class="nav-link" data-scroll-target="#learning-more">Learning More</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../Lectures/01_Tools/index.html">Lecture HTML</a></li><li class="breadcrumb-item"><a href="../../Lectures/08_Strings/index.html">08 - Characters and Dates</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Characters and Dates</h1>
+<p class="subtitle lead">But Mostly Characters</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chad Murchison </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 21, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="agenda" class="level2">
+<h2 class="anchored" data-anchor-id="agenda">Agenda</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><p>Separate review</p></li>
+<li><p>Character data outside of data frame</p></li>
+<li><p>Regular expressions</p></li>
+<li><p>Overview on dates</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div style="margin-top: -2%">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/regex_palm.jpg" class="quarto-figure quarto-figure-center figure-img" style="width:90.0%;height:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="back-to-separate" class="level1">
+<h1>Back to <code>separate()</code></h1>
+<hr>
+<section id="separate---last-time" class="level2">
+<h2 class="anchored" data-anchor-id="separate---last-time">Separate - Last Time</h2>
+<ul>
+<li><p>We discussed how to separate columns as an inverse to <code>unite()</code></p></li>
+<li><p><code>separate_</code> gave us many options</p>
+<ul>
+<li><p><code>separate_wider_delim()</code> uses delimiters like <code>unite()</code></p></li>
+<li><p><code>separate_wider_position()</code> splits on fixed positions</p></li>
+</ul></li>
+<li><p>We also mentioned <code>separate_wider_regex()</code></p></li>
+</ul>
+<hr>
+</section>
+<section id="separate---separate_wider_delim" class="level2">
+<h2 class="anchored" data-anchor-id="separate---separate_wider_delim">Separate - <code>separate_wider_delim()</code></h2>
+<ul>
+<li>Consider some (messy) ambulator BP data</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>abpm_demo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,500 × 2
+      id asr            
+   &lt;int&gt; &lt;glue&gt;         
+ 1     1 20_Male_White  
+ 2     2 30_Female_White
+ 3     3 30_Male_Black  
+ 4     4 28_Male_White  
+ 5     5 28_Male_White  
+ 6     6 19_Male_Black  
+ 7     7 29_Female_Black
+ 8     8 24_Male_Black  
+ 9     9 22_Female_White
+10    10 23_Male_Black  
+# ℹ 2,490 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="separate---separate_wider_delim-1" class="level2">
+<h2 class="anchored" data-anchor-id="separate---separate_wider_delim-1">Separate - <code>separate_wider_delim()</code></h2>
+<ul>
+<li>As seen, great when multiple variables exist in a single column</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>abpm_demo <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">col =</span> asr, <span class="at">delim =</span> <span class="st">"_"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"sex"</span>, <span class="st">"race"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,500 × 4
+      id age   sex    race 
+   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1     1 20    Male   White
+ 2     2 30    Female White
+ 3     3 30    Male   Black
+ 4     4 28    Male   White
+ 5     5 28    Male   White
+ 6     6 19    Male   Black
+ 7     7 29    Female Black
+ 8     8 24    Male   Black
+ 9     9 22    Female White
+10    10 23    Male   Black
+# ℹ 2,490 more rows</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="separate---separate_wider_delim-2" class="level2">
+<h2 class="anchored" data-anchor-id="separate---separate_wider_delim-2">Separate - <code>separate_wider_delim()</code></h2>
+<ul>
+<li>But what if our splitting column is a mess?</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>abpm_demo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,500 × 2
+      id asr                     
+   &lt;int&gt; &lt;glue&gt;                  
+ 1     1 20_Male.JunkText.White  
+ 2     2 30_Female.JunkText.White
+ 3     3 30_Male.JunkText.Black  
+ 4     4 28_Male.JunkText.White  
+ 5     5 28_Male.JunkText.White  
+ 6     6 19_Male.JunkText.Black  
+ 7     7 29_Female.JunkText.Black
+ 8     8 24_Male.JunkText.Black  
+ 9     9 22_Female.JunkText.White
+10    10 23_Male.JunkText.Black  
+# ℹ 2,490 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="separate---separate_wider_delim-3" class="level2">
+<h2 class="anchored" data-anchor-id="separate---separate_wider_delim-3">Separate - <code>separate_wider_delim()</code></h2>
+<ul>
+<li>It takes some effort but we can do it in two (or more steps)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>abpm_demo <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">separate_wider_delim</span>(asr, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"to_split_again"</span>), <span class="at">delim =</span> <span class="st">"_"</span>)   <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,500 × 3
+      id age   to_split_again       
+   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;                
+ 1     1 20    Male.JunkText.White  
+ 2     2 30    Female.JunkText.White
+ 3     3 30    Male.JunkText.Black  
+ 4     4 28    Male.JunkText.White  
+ 5     5 28    Male.JunkText.White  
+ 6     6 19    Male.JunkText.Black  
+ 7     7 29    Female.JunkText.Black
+ 8     8 24    Male.JunkText.Black  
+ 9     9 22    Female.JunkText.White
+10    10 23    Male.JunkText.Black  
+# ℹ 2,490 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="separate---separate_wider_delim-4" class="level2">
+<h2 class="anchored" data-anchor-id="separate---separate_wider_delim-4">Separate - <code>separate_wider_delim()</code></h2>
+<ul>
+<li>It takes some effort but we can do it in two (or more steps)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>abpm_demo <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">separate_wider_delim</span>(asr, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"to_split_again"</span>), <span class="at">delim =</span> <span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">separate_wider_delim</span>(to_split_again, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"race"</span>), <span class="at">delim =</span> <span class="st">".JunkText."</span>) <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,500 × 4
+      id age   sex    race 
+   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+ 1     1 20    Male   White
+ 2     2 30    Female White
+ 3     3 30    Male   Black
+ 4     4 28    Male   White
+ 5     5 28    Male   White
+ 6     6 19    Male   Black
+ 7     7 29    Female Black
+ 8     8 24    Male   Black
+ 9     9 22    Female White
+10    10 23    Male   Black
+# ℹ 2,490 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="separate---behind-the-curtain-on-delim" class="level2">
+<h2 class="anchored" data-anchor-id="separate---behind-the-curtain-on-delim">Separate - Behind the Curtain on <code>delim</code></h2>
+<ul>
+<li>So what is R doing with the <code>delim</code> argument?</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/delim_help.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>We see it takes a single fixed string as a separator, thus two steps for <code>asr</code></li>
+</ul>
+</section>
+<section id="separate---how-separate-used-to-work" class="level2">
+<h2 class="anchored" data-anchor-id="separate---how-separate-used-to-work">Separate - How <code>separate()</code> Used to Work</h2>
+<ul>
+<li>Instead of fixed string, it was a fixed <em>pattern</em></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/separate_help.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>This is what’s going to take us to regular expressions later</li>
+</ul>
+</section>
+</section>
+<section id="strings-outside-of-data-frames" class="level1">
+<h1>Strings Outside of Data Frames</h1>
+<section id="strings---the-stringr-packages" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---the-stringr-packages">Strings - The <code>stringr</code> packages</h2>
+<ul>
+<li><p>Since <code>tidyr</code> can only manipulate strings in data frames, we use <code>stringr</code> instead</p></li>
+<li><p><code>stringr</code> has four main functions:</p>
+<ol type="1">
+<li><p>Character mainpulation individually or in vectors</p></li>
+<li><p>Whitespace manipulation tools</p></li>
+<li><p>Encoding and localization</p></li>
+<li><p>Pattern matching</p></li>
+</ol></li>
+<li><p>Like <code>fct_</code> in <code>forcats</code>, nearly all <code>stringr</code> functions start with <code>str_</code></p></li>
+</ul>
+</section>
+<section id="strings---just-characters" class="level2">
+<h2 class="anchored" data-anchor-id="strings---just-characters">Strings - Just characters</h2>
+<ul>
+<li>A string is just a set of characters and there are many ways to print them depending on what you hope to do</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">"A string for you"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(string)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A string for you</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(string)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "A string for you"</code></pre>
+</div>
+</div>
+<ul>
+<li>Note the difference between <code>writeLines()</code> (or <code>cat()</code>) and <code>print()</code></li>
+</ul>
+<hr>
+</section>
+<section id="strings---quoting-quotes" class="level2">
+<h2 class="anchored" data-anchor-id="strings---quoting-quotes">Strings - Quoting quotes</h2>
+<ul>
+<li><p>You can use double <code>"</code> or single <code>'</code> quotes</p></li>
+<li><p>Best practice usually says double unless quotes are part of the string</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(<span class="st">'This works'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This works</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(<span class="st">"This works too!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This works too!</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(<span class="st">'And we can quote "quote" with quotes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>And we can quote "quote" with quotes</code></pre>
+</div>
+</div>
+<ul>
+<li>But what if both quote types are desired?</li>
+</ul>
+</section>
+<section id="strings---escaping-with" class="level2">
+<h2 class="anchored" data-anchor-id="strings---escaping-with">Strings - Escaping with <code>\</code></h2>
+<ul>
+<li>To include a literal <code>"</code> or <code>'</code> you can use <code>\</code> symbol to escape it</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">"A </span><span class="sc">\"</span><span class="st">string</span><span class="sc">\"</span><span class="st"> for you"</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(string)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A "string" for you</code></pre>
+</div>
+</div>
+<ul>
+<li>Escaping works with all encoded text, even <code>\</code> by using <code>"\\"</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>string <span class="ot">&lt;-</span> <span class="st">"Escaping with </span><span class="sc">\\</span><span class="st">backslash</span><span class="sc">\\</span><span class="st"> works"</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">writeLines</span>(string)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Escaping with \backslash\ works</code></pre>
+</div>
+</div>
+</section>
+<section id="strings---printed-string-vs-rendered-string" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---printed-string-vs-rendered-string">Strings - Printed String vs Rendered String</h2>
+<ul>
+<li>This can get complex though since <code>print()</code> representations to the console give the raw string code</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>double_quote <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span> <span class="co"># or '"'</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>single_quote <span class="ot">&lt;-</span> <span class="st">'</span><span class="sc">\'</span><span class="st">'</span> <span class="co"># or "'"</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>backslash <span class="ot">&lt;-</span> <span class="st">"</span><span class="sc">\\</span><span class="st">"</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>great_escape <span class="ot">&lt;-</span> <span class="fu">c</span>(single_quote, double_quote, backslash); great_escape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "'"  "\"" "\\"</code></pre>
+</div>
+</div>
+<ul>
+<li><code>stringr</code> has a great functions to see the representation <code>str_view()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(great_escape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ '
+[2] │ "
+[3] │ \</code></pre>
+</div>
+</div>
+</section>
+<section id="strings---special-characters" class="level2">
+<h2 class="anchored" data-anchor-id="strings---special-characters">Strings - Special Characters</h2>
+<ul>
+<li>Our escaped quotes and slashes are <strong>special characters</strong> including: new lines <code>\n</code>, tabs <code>\t</code> and unicode escapes (<code>\u</code> or <code>\U</code>) for non-standard text</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>spec_char <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"one</span><span class="sc">\n</span><span class="st">two"</span>, <span class="st">"one</span><span class="sc">\t</span><span class="st">two"</span>, <span class="st">"\u00b5"</span>, <span class="st">"\U0001f604"</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>spec_char</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "one\ntwo" "one\ttwo" "µ"        "😄"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(spec_char)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ one
+    │ two
+[2] │ one{\t}two
+[3] │ µ
+[4] │ 😄</code></pre>
+</div>
+</div>
+<ul>
+<li>Note the <code>\t</code> is viewed in curly braces since it’s a class of <strong>whitespace</strong>; this makes it much easier to see using <code>str_view()</code></li>
+</ul>
+</section>
+<section id="strings---making-strings" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---making-strings">Strings - Making Strings</h2>
+<ul>
+<li><p><code>stringr</code> has many functions to make strings that are improvement on base R functions like <code>paste()</code> and <code>paste0()</code></p></li>
+<li><p><code>str_c()</code> does vectorized combinations of strings to return a vector</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_c</span>(<span class="st">"Make"</span>, <span class="st">"a"</span>, <span class="st">"single"</span>, <span class="st">"string"</span>, <span class="at">sep =</span> <span class="st">" "</span>)  <span class="co">#`sep` gives the pasting character</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Make a single string"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_c</span>(<span class="st">"str_c works "</span>, <span class="fu">c</span>(<span class="st">"within"</span>, <span class="st">"across"</span>), <span class="st">" vectors"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "str_c works within vectors" "str_c works across vectors"</code></pre>
+</div>
+</div>
+<ul>
+<li><p>We can see <code>str_c()</code> follows tidyverse conventions which means it could also work with <code>mutate()</code> although beware of <code>NA</code></p></li>
+<li><p>See section <a href="https://r4ds.hadley.nz/strings#str_c" class="external" target="_blank">14.3.1 and 14.3.2 in R4DS</a> for use in a tibble</p></li>
+</ul>
+</section>
+<section id="strings---making-strings-1" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---making-strings-1">Strings - Making Strings</h2>
+<ul>
+<li>For <code>summarise()</code>, <code>str_flatten()</code> will reduce vectors to one string</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> name, <span class="sc">~</span> fruit,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Carmen"</span>, <span class="st">"banana"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Carmen"</span>, <span class="st">"apple"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Marvin"</span>, <span class="st">"nectarine"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Terence"</span>, <span class="st">"cantaloupe"</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Terence"</span>, <span class="st">"papaya"</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Terence"</span>, <span class="st">"mandarin"</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(name) <span class="sc">|&gt;</span> </span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">fruits =</span> <span class="fu">str_flatten</span>(fruit, <span class="at">collapse =</span> <span class="st">", "</span>, <span class="at">last =</span> <span class="st">" and "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  name    fruits                         
+  &lt;chr&gt;   &lt;chr&gt;                          
+1 Carmen  banana and apple               
+2 Marvin  nectarine                      
+3 Terence cantaloupe, papaya and mandarin</code></pre>
+</div>
+</div>
+</section>
+<section id="strings---yes-we-have-no-bananas" class="level2">
+<h2 class="anchored" data-anchor-id="strings---yes-we-have-no-bananas">Strings - Yes! We Have<span style="text-decoration: line-through; text-decoration-thickness: 10%"> No </span>Bananas</h2>
+<ul>
+<li>We’ll use the <code>fruit</code> dataset to play with <code>stringr</code> some more</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span>fruit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "apple"             "apricot"           "avocado"          
+ [4] "banana"            "bell pepper"       "bilberry"         
+ [7] "blackberry"        "blackcurrant"      "blood orange"     
+[10] "blueberry"         "boysenberry"       "breadfruit"       
+[13] "canary melon"      "cantaloupe"        "cherimoya"        
+[16] "cherry"            "chili pepper"      "clementine"       
+[19] "cloudberry"        "coconut"           "cranberry"        
+[22] "cucumber"          "currant"           "damson"           
+[25] "date"              "dragonfruit"       "durian"           
+[28] "eggplant"          "elderberry"        "feijoa"           
+[31] "fig"               "goji berry"        "gooseberry"       
+[34] "grape"             "grapefruit"        "guava"            
+[37] "honeydew"          "huckleberry"       "jackfruit"        
+[40] "jambul"            "jujube"            "kiwi fruit"       
+[43] "kumquat"           "lemon"             "lime"             
+[46] "loquat"            "lychee"            "mandarine"        
+[49] "mango"             "mulberry"          "nectarine"        
+[52] "nut"               "olive"             "orange"           
+[55] "pamelo"            "papaya"            "passionfruit"     
+[58] "peach"             "pear"              "persimmon"        
+[61] "physalis"          "pineapple"         "plum"             
+[64] "pomegranate"       "pomelo"            "purple mangosteen"
+[67] "quince"            "raisin"            "rambutan"         
+[70] "raspberry"         "redcurrant"        "rock melon"       
+[73] "salal berry"       "satsuma"           "star fruit"       
+[76] "strawberry"        "tamarillo"         "tangerine"        
+[79] "ugli fruit"        "watermelon"       </code></pre>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/bananas.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="strings---splitting-strings" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---splitting-strings">Strings - Splitting Strings</h2>
+<ul>
+<li><code>tidyr</code> function like <code>separate_*_delim()</code> are informed by <code>stringr</code>, so we can split…</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>fruit[<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bell pepper"  "blood orange"</code></pre>
+</div>
+</div>
+<ul>
+<li>On delimiters with <code>str_split()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(fruit[<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>)], <span class="at">pattern =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "bell"   "pepper"
+
+[[2]]
+[1] "blood"  "orange"</code></pre>
+</div>
+</div>
+<ul>
+<li>Note, we get a list since the length may not be fixed</li>
+</ul>
+</section>
+<section id="strings---splitting-strings-1" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---splitting-strings-1">Strings - Splitting Strings</h2>
+<ul>
+<li><code>tidyr</code> function like <code>separate_*_delim()</code> are informed by <code>stringr</code>, so we can split…</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>fruit[<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bell pepper"  "blood orange"</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Into character <em>matrices</em> as well with <code>str_split_fixed</code></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_fixed</span>(fruit[<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>)], <span class="at">pattern =</span> <span class="st">" "</span>, <span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1]    [,2]    
+[1,] "bell"  "pepper"
+[2,] "blood" "orange"</code></pre>
+</div>
+</div>
+<ul>
+<li>This could then be converted into a data frame as desired</li>
+</ul>
+</section>
+<section id="strings---words-within-vectors" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---words-within-vectors">Strings - Words Within Vectors</h2>
+<ul>
+<li>Instead of splitting our strings, we can use delimiters to extract strings meeting our pattern with <code>str_detect()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(fruit, <span class="at">pattern =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+[13]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[61] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE
+[73]  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE</code></pre>
+</div>
+</div>
+<ul>
+<li>This gives a boolean just like <code>filter()</code> for easy subsetting</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>my_fruit <span class="ot">&lt;-</span> fruit[<span class="fu">str_detect</span>(fruit, <span class="at">pattern =</span> <span class="st">" "</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="strings---working-within-a-string" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="strings---working-within-a-string">Strings - Working Within a String</h2>
+<ul>
+<li>We can use <code>str_length()</code> to get the number of characters</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(my_fruit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 11 12 12 12 10 10 17 10 11 10 10</code></pre>
+</div>
+</div>
+<ul>
+<li>This can inform <code>str_sub()</code> to extract parts of a string</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(my_fruit, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "bell peppe" "blood oran" "canary mel" "chili pepp" "goji berry"
+ [6] "kiwi fruit" "purple man" "rock melon" "salal berr" "star fruit"
+[11] "ugli fruit"</code></pre>
+</div>
+</div>
+<ul>
+<li>It can also accept vectorized inputs for sliding windows</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(my_fruit, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>), <span class="at">end =</span> <span class="fu">str_length</span>(my_fruit))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "bell pepper" "lood orange" "nary melon"  "li pepper"   " berry"     
+ [6] "fruit"       " mangosteen" "lon"         "rry"         "t"          
+[11] ""           </code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="strings---questions-remain" class="level2">
+<h2 class="anchored" data-anchor-id="strings---questions-remain">Strings - Questions Remain</h2>
+<ul>
+<li><p>But what if we want to extract or process by a pattern?</p></li>
+<li><p>Unlike <code>tidyr</code> why are the arguments <code>pattern</code> instead of <code>delim</code>?</p></li>
+<li><p>And what was up with this?</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/delim_2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+<ul>
+<li>For all this, we need <strong>regular expressions</strong></li>
+</ul>
+</section>
+</section>
+<section id="regular-expressions-aka-regexes" class="level1">
+<h1>Regular Expressions aka Regexes</h1>
+<section id="regexes---the-basics" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---the-basics">Regexes - The Basics</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p><strong>Regexes</strong> are a standard way to specify patterns in strings</p></li>
+<li><p>Combines literal alphanumeric characters with metacharacters</p></li>
+<li><p>Allows for character sets, quantification, and alternation</p></li>
+<li><p>Can define anchors and boundaries</p></li>
+<li><p>Look like absolute gibberish</p></li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/regex_trial.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="footer">
+<p><a href="https://twitter.com/ThePracticalDev/status/774309983467016193" class="external" target="_blank"><span class="citation" data-cites="ThePracticalDev">@ThePracticalDev</span></a></p>
+</div>
+</section>
+<section id="regexes---exact-matching" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---exact-matching">Regexes - Exact Matching</h2>
+<ul>
+<li>So far with <code>delim</code> and <code>pattern</code> we’ve used exact matching</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>fruit[<span class="fu">str_detect</span>(fruit, <span class="at">pattern =</span> <span class="st">"berry"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "bilberry"    "blackberry"  "blueberry"   "boysenberry" "cloudberry" 
+ [6] "cranberry"   "elderberry"  "goji berry"  "gooseberry"  "huckleberry"
+[11] "mulberry"    "raspberry"   "salal berry" "strawberry" </code></pre>
+</div>
+</div>
+<ul>
+<li>Like with <code>{\t}</code>, <code>str_view()</code> indicates the matching pattern with <code>&lt;&gt;</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"berry"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [6] │ bil&lt;berry&gt;
+ [7] │ black&lt;berry&gt;
+[10] │ blue&lt;berry&gt;
+[11] │ boysen&lt;berry&gt;
+[19] │ cloud&lt;berry&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---alternation" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---alternation">Regexes - Alternation</h2>
+<ul>
+<li><p>The vertical bar <code>|</code> specifies a match to one or more alternative patterns</p></li>
+<li><p>So if we want melons, nuts, or oranges</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"melon|nut|orange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [9] │ blood &lt;orange&gt;
+[13] │ canary &lt;melon&gt;
+[20] │ coco&lt;nut&gt;
+[52] │ &lt;nut&gt;
+[54] │ &lt;orange&gt;
+[72] │ rock &lt;melon&gt;
+[80] │ water&lt;melon&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---starting-with-metacharacters" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---starting-with-metacharacters">Regexes - Starting with Metacharacters</h2>
+<ul>
+<li>The most powerful metacharacter is <code>.</code> which matches <b><i>ANY SINGLE</i></b> character except a new line</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"a...e"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] │ &lt;apple&gt;
+ [7] │ bl&lt;ackbe&gt;rry
+[48] │ mand&lt;arine&gt;
+[51] │ nect&lt;arine&gt;
+[62] │ pine&lt;apple&gt;
+[64] │ pomegr&lt;anate&gt;
+[70] │ r&lt;aspbe&gt;rry
+[73] │ sal&lt;al be&gt;rry</code></pre>
+</div>
+</div>
+<ul>
+<li>This matches any “a” and “e” that are separated by three other characters, including whitespace characters</li>
+</ul>
+</section>
+<section id="regexes---character-classes" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---character-classes">Regexes - Character Classes</h2>
+<ul>
+<li><p>If <code>.</code> is too broad, we can define <em>character classes</em> using <code>[]</code></p></li>
+<li><p>Let’s find all adjacent vowels</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>two_vowels <span class="ot">&lt;-</span> <span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"[aeiou][aeiou]"</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(two_vowels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(two_vowels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [9] │ bl&lt;oo&gt;d orange
+[10] │ bl&lt;ue&gt;berry
+[12] │ br&lt;ea&gt;dfr&lt;ui&gt;t
+[14] │ cantal&lt;ou&gt;pe
+[19] │ cl&lt;ou&gt;dberry
+[26] │ dragonfr&lt;ui&gt;t</code></pre>
+</div>
+</div>
+<ul>
+<li>We can also match ranges e.g.&nbsp;<code>[a-e]</code> is the same as <code>[abcde]</code></li>
+</ul>
+</section>
+<section id="regexes---character-classes-1" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---character-classes-1">Regexes - Character Classes</h2>
+<ul>
+<li><p>We can <strong>negate</strong> a character class with <code>^</code> right after the left bracket ( <code>[^</code> )</p></li>
+<li><p>Let’s find all <code>s</code> that are preceded by a consonants i.e.&nbsp;NOT a vowel</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"[^aeiou]s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[11] │ bo&lt;ys&gt;enberry
+[24] │ da&lt;ms&gt;on
+[57] │ pa&lt;ss&gt;ionfruit
+[60] │ pe&lt;rs&gt;immon
+[61] │ ph&lt;ys&gt;alis
+[74] │ sa&lt;ts&gt;uma</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember, character classes still only count as <em>single</em> characters</p>
+</div>
+</div>
+</section>
+<section id="regexes---dedicated-character-classes" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---dedicated-character-classes">Regexes - Dedicated Character Classes</h2>
+<ul>
+<li><p>Some character classes are common enough to have dedicated metacharacters including:</p>
+<ul>
+<li><p><code>\w</code> for any Unicode character i.e.&nbsp;<code>[A-Za-z0-9_]</code></p>
+<p>Note the implication on capitalization</p></li>
+<li><p><code>\d</code> for any numeric</p></li>
+<li><p><code>\s</code> for any whitespace including space, tab, and newline characters</p>
+<p><code>\t</code> and <code>\n</code> will find tabs/newlines respectively</p></li>
+</ul></li>
+<li><p>You can get negation for these by using capitals</p>
+<ul>
+<li>If <code>\d==[0-9]</code> then <code>\D==[^0-9]</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="regexes---quantifiers" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---quantifiers">Regexes - Quantifiers</h2>
+<ul>
+<li><p>Quantifiers control how many times a pattern can match</p></li>
+<li><p>This can be done explicitly using <code>{}</code> e.g.&nbsp;let’s find fruits with “ss”</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"s{2}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[57] │ pa&lt;ss&gt;ionfruit</code></pre>
+</div>
+</div>
+<ul>
+<li><p>For finer quantification control:</p>
+<ul>
+<li><p><code>{n}</code> for exactly n</p></li>
+<li><p><code>{n,}</code> for at <em>least</em> n</p></li>
+<li><p><code>{,m}</code> for at <em>most</em> m</p></li>
+<li><p><code>{n,m}</code> for between n and m inclusively</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="regexes---dedicated-quantifiers" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---dedicated-quantifiers">Regexes - Dedicated Quantifiers</h2>
+<ul>
+<li><p>Some useful quantifiers have their own dedicated characters:</p>
+<ul>
+<li><p><code>*</code> for <strong>0 or more</strong></p></li>
+<li><p><code>+</code> for <strong>1 or more</strong></p></li>
+<li><p><code>?</code> for <strong>0 or 1 only</strong></p></li>
+</ul></li>
+<li><p>So for every fruit with a ‘c’ and ‘r’ separated by 0 or more characters</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"c.*r"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [7] │ bla&lt;ckberr&gt;y
+ [8] │ bla&lt;ckcurr&gt;ant
+[13] │ &lt;canar&gt;y melon
+[15] │ &lt;cher&gt;imoya
+[16] │ &lt;cherr&gt;y
+[17] │ &lt;chili pepper&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---word-boundaries" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---word-boundaries">Regexes - Word Boundaries</h2>
+<ul>
+<li><p>To specify a pattern occurrence at the beginning or end of a string use <code>^</code> and <code>$</code> respectively</p></li>
+<li><p>We can find any ‘le’ as you’d expect:</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="st">"le"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] │ app&lt;le&gt;
+[18] │ c&lt;le&gt;mentine
+[38] │ huck&lt;le&gt;berry
+[44] │ &lt;le&gt;mon
+[62] │ pineapp&lt;le&gt;
+[66] │ purp&lt;le&gt; mangosteen</code></pre>
+</div>
+</div>
+<ul>
+<li>But we use <code>^</code> to only get ‘le’ at the beginning of the string</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="st">"^le"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[44] │ &lt;le&gt;mon</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---escaping" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---escaping">Regexes - Escaping</h2>
+<ul>
+<li>In order to explicitly look for characters that serve as a metacharacter, you can use <code>\</code> to escape just like with quotes</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>string_curr <span class="ot">&lt;-</span> <span class="st">"Let's match the price for $4.99 using the $ and the numbers"</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>match <span class="ot">&lt;-</span> <span class="fu">str_view</span>(string_curr, <span class="at">pattern =</span> <span class="st">"\$[0-9]\.[0-9]{2}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>. . .</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>match</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): '\$' is an unrecognized escape in character string (&lt;input&gt;:1:18)</code></pre>
+</div>
+</div>
+<p>. . .</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/wat.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:35.0%"></p>
+</figure>
+</div>
+<hr>
+</section>
+<section id="regexes---escaping-the-right-way" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---escaping-the-right-way">Regexes - Escaping the Right Way</h2>
+<ul>
+<li><p>We use the backslash <code>\</code> to escape special characters…but <code>\</code> is <em>itself</em> a special character used by R (and other languages) for escaping</p></li>
+<li><p>So we need to escape the backslash and use <code>\\$</code> instead</p>
+<ol type="1">
+<li><p>The first <code>\</code> tells R to treat the second backslash as a literal character</p></li>
+<li><p>This means <code>\$</code> can then be seen by the regex engine to look for the literal <code>$</code></p></li>
+</ol></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(string_curr, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">$[0-9]</span><span class="sc">\\</span><span class="st">.[0-9]{2}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ Let's match the price for &lt;$4.99&gt; using the $ and numbers</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---grouping" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---grouping">Regexes - Grouping</h2>
+<ul>
+<li><p>Parentheses can <em>capture</em> sub-components of a string during a match</p>
+<p>They can also be used to overwrite precedence with alternation</p></li>
+<li><p>They do not match anything per se but can be use to identify their encapsulated pattern for later use called <strong>back referencing</strong></p></li>
+<li><p>These are referenced using <code>\1</code> for the first set of capturing parentheses, <code>\2</code> for the second, etc</p></li>
+</ul>
+<hr>
+</section>
+<section id="regexes---grouping-1" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---grouping-1">Regexes - Grouping</h2>
+<ul>
+<li>For example, we can find all fruit that has the same repeated consecutive pairs of letters</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="st">"(..)</span><span class="sc">\\</span><span class="st">1"</span>)  <span class="co">#Don't forget to escape the backslash!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [4] │ b&lt;anan&gt;a
+[20] │ &lt;coco&gt;nut
+[22] │ &lt;cucu&gt;mber
+[41] │ &lt;juju&gt;be
+[56] │ &lt;papa&gt;ya
+[73] │ s&lt;alal&gt; berry</code></pre>
+</div>
+</div>
+<ul>
+<li>Parentheses have several uses in regular expression</li>
+</ul>
+</section>
+<section id="regexes---the-common-stringr-functions" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---the-common-stringr-functions">Regexes - The Common <code>stringr</code> Functions</h2>
+<ul>
+<li><p>Any <code>stringr</code> function that has a <code>pattern</code> argument can use a regular expression</p></li>
+<li><p>Recall <code>my_fruit</code> which has all the fruits that have a space character</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>my_fruit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "bell pepper"       "blood orange"      "canary melon"     
+ [4] "chili pepper"      "goji berry"        "kiwi fruit"       
+ [7] "purple mangosteen" "rock melon"        "salal berry"      
+[10] "star fruit"        "ugli fruit"       </code></pre>
+</div>
+</div>
+<ul>
+<li>Let’s try out the following pattern <code>(\w)\1</code> to find consecutive pairs of the same letter again</li>
+</ul>
+</section>
+<section id="regexes---the-common-stringr-functions-1" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---the-common-stringr-functions-1">Regexes - The Common <code>stringr</code> Functions</h2>
+<ul>
+<li><code>str_detect()</code> returns a boolean vector indicating whether the string matched the pattern</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_fruit, <span class="st">"(</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE FALSE</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>my_fruit[<span class="fu">str_detect</span>(my_fruit, <span class="st">"(</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">1"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "bell pepper"       "blood orange"      "chili pepper"     
+[4] "goji berry"        "purple mangosteen" "salal berry"      </code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---the-common-stringr-functions-2" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---the-common-stringr-functions-2">Regexes - The Common <code>stringr</code> Functions</h2>
+<ul>
+<li><code>str_count()</code> counts the number of pattern matches within the string</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(my_fruit, <span class="st">"(</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2 1 0 1 1 0 1 0 1 0 0</code></pre>
+</div>
+</div>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(my_fruit, <span class="st">"(</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ be&lt;ll&gt; pe&lt;pp&gt;er
+[2] │ bl&lt;oo&gt;d orange
+[4] │ chili pe&lt;pp&gt;er
+[5] │ goji be&lt;rr&gt;y
+[7] │ purple mangost&lt;ee&gt;n
+[9] │ salal be&lt;rr&gt;y</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---the-common-stringr-functions-3" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---the-common-stringr-functions-3">Regexes - The Common <code>stringr</code> Functions</h2>
+<ul>
+<li><code>str_locate()</code> gives the <strong>first</strong> position of a pattern</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(my_fruit, <span class="st">"(</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      start end
+ [1,]     3   4
+ [2,]     3   4
+ [3,]    NA  NA
+ [4,]     9  10
+ [5,]     8   9
+ [6,]    NA  NA
+ [7,]    15  16
+ [8,]    NA  NA
+ [9,]     9  10
+[10,]    NA  NA
+[11,]    NA  NA</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---the-common-stringr-functions-4" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---the-common-stringr-functions-4">Regexes - The Common <code>stringr</code> Functions</h2>
+<ul>
+<li><code>str_locate_all()</code> locates <strong>all</strong> matches</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate_all</span>(my_fruit, <span class="st">"(</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+     start end
+[1,]     3   4
+[2,]     8   9
+
+[[2]]
+     start end
+[1,]     3   4
+
+[[3]]
+     start end
+
+[[4]]
+     start end
+[1,]     9  10
+
+[[5]]
+     start end
+[1,]     8   9
+
+[[6]]
+     start end
+
+[[7]]
+     start end
+[1,]    15  16
+
+[[8]]
+     start end
+
+[[9]]
+     start end
+[1,]     9  10
+
+[[10]]
+     start end
+
+[[11]]
+     start end</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---extraction-functions" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---extraction-functions">Regexes - Extraction Functions</h2>
+<ul>
+<li><p>Substring extraction is possible with <code>str_extract()</code> and <code>str_extract_all()</code></p></li>
+<li><p>Imagine a collaborator gave you a file with some phone number data</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>messy_phone <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"219-733-8965"</span>, </span>
+<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Erroneous text"</span>,</span>
+<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"329 293 8753"</span>, </span>
+<span id="cb101-5"><a href="#cb101-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Work: 579-499-7527; Home: 543.355.3679"</span></span>
+<span id="cb101-6"><a href="#cb101-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Set a pattern to pull a 10 digit number with <code>-</code>, <code>.</code>, or a space as delimiters</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>phone_ptrn <span class="ot">&lt;-</span> <span class="st">"([2-9]</span><span class="sc">\\</span><span class="st">d{2})[</span><span class="sc">\\</span><span class="st">-</span><span class="sc">\\</span><span class="st">. ](</span><span class="sc">\\</span><span class="st">d{3})[</span><span class="sc">\\</span><span class="st">-</span><span class="sc">\\</span><span class="st">. ](</span><span class="sc">\\</span><span class="st">d{4})"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="regexes---extraction-functions-1" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---extraction-functions-1">Regexes - Extraction Functions</h2>
+<ul>
+<li><code>str_extract()</code> gives the first valid pattern match</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract</span>(messy_phone, phone_ptrn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "219-733-8965" NA             "329 293 8753" "579-499-7527"</code></pre>
+</div>
+</div>
+<ul>
+<li><code>str_extract_all()</code> pulls all matches</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_extract_all</span>(messy_phone, phone_ptrn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "219-733-8965"
+
+[[2]]
+character(0)
+
+[[3]]
+[1] "329 293 8753"
+
+[[4]]
+[1] "579-499-7527" "543.355.3679"</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---extraction-functions-2" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---extraction-functions-2">Regexes - Extraction Functions</h2>
+<ul>
+<li><p>Pay attention to when you get a vector, matrix, or list returned</p></li>
+<li><p>We can clean things up to a vector using <code>unlist()</code></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>messy_phone_vector <span class="ot">&lt;-</span> messy_phone <span class="sc">|&gt;</span></span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_extract_all</span>(phone_ptrn) <span class="sc">|&gt;</span></span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>messy_phone_vector</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "219-733-8965" "329 293 8753" "579-499-7527" "543.355.3679"</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---replacement-functions" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---replacement-functions">Regexes - Replacement Functions</h2>
+<ul>
+<li>A great application of regular expression is replacing matched patterns with another string; in <code>stringr</code> we use <code>str_replace()</code> with a new <code>replacement</code> argument to support the <code>pattern</code> argument</li>
+</ul>
+<div class="columns">
+<div class="column">
+<ul>
+<li>Let’s make our messy phone vector cleaner so all out<br>numbers are separated by <code>-</code></li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb109"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(messy_phone_vector,</span>
+<span id="cb109-2"><a href="#cb109-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">pattern =</span> <span class="st">" |</span><span class="sc">\\</span><span class="st">."</span>,</span>
+<span id="cb109-3"><a href="#cb109-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">replacement =</span> <span class="st">"-"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "219-733-8965" "329-293 8753" "579-499-7527" "543-355.3679"</code></pre>
+</div>
+</div>
+</div>
+</div><div class="column">
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/wat.jpg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="regexes---replacement-functions-1" class="level2" data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/stringr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---replacement-functions-1">Regexes - Replacement Functions</h2>
+<ul>
+<li>As expected, use <code>str_replace_all</code> to replace <em>all</em> occurrences of the pattern in the string elements of the vector</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>clean_phone_vector <span class="ot">&lt;-</span> messy_phone_vector <span class="sc">|&gt;</span></span>
+<span id="cb111-2"><a href="#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">" |</span><span class="sc">\\</span><span class="st">."</span>,</span>
+<span id="cb111-3"><a href="#cb111-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">replacement =</span> <span class="st">"-"</span>)</span>
+<span id="cb111-4"><a href="#cb111-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-5"><a href="#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(clean_phone_vector)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ 219-733-8965
+[2] │ 329-293-8753
+[3] │ 579-499-7527
+[4] │ 543-355-3679</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---back-to-tidyr" class="level2" data-background-image="img/tidyr.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/tidyr.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="regexes---back-to-tidyr">Regexes - Back to <code>tidyr</code></h2>
+<ul>
+<li><p>Finally, we can return to <code>separate_wider_regex()</code></p></li>
+<li><p>The <code>patterns</code> argument is a named vector of pattern matches for the output variables and separating delimiters</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">separate_wider_regex</span>(abpm_demo, <span class="at">cols =</span> asr, </span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">patterns =</span> <span class="fu">c</span>(<span class="at">age =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d+"</span>, <span class="st">"_"</span>, </span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">sex =</span> <span class="st">"[A-Za-z]+"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">.JunkText</span><span class="sc">\\</span><span class="st">."</span>, </span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">race =</span> <span class="st">".*"</span>)) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+     id age   sex    race 
+  &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
+1     1 20    Male   White
+2     2 30    Female White
+3     3 30    Male   Black
+4     4 28    Male   White
+5     5 28    Male   White</code></pre>
+</div>
+</div>
+</section>
+<section id="regexes---yes-theres-more" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---yes-theres-more">Regexes - Yes, There’s More</h2>
+<ul>
+<li><p>There are several more aspects we didn’t touch on including</p>
+<ul>
+<li><p>Using back references in replacement</p></li>
+<li><p>Look ahead and look behind assertions</p></li>
+<li><p>Lazy vs greedy evaluation</p></li>
+<li><p>Comparison to base R versions like <code>grep()</code> and <code>gsub()</code></p></li>
+</ul></li>
+<li><p>For some more details check out <a href="https://www.regular-expressions.info/" class="external" target="_blank">https://www.regular-expressions.info/</a> or the <code>stringr</code> vignette on <a href="https://stringr.tidyverse.org/articles/regular-expressions.html" class="external" target="_blank">regular expressions</a></p></li>
+</ul>
+</section>
+<section id="regexes---powerful-but-confusing" class="level2">
+<h2 class="anchored" data-anchor-id="regexes---powerful-but-confusing">Regexes - Powerful but Confusing</h2>
+<ul>
+<li>For example, this returns every fruit that has a consecutive letter pair except for the <code>rr</code> in “berry” and only in the middle of a word</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(fruit, <span class="at">pattern =</span> <span class="st">"((?&lt;!</span><span class="sc">\\</span><span class="st">b)(?&lt;!be)((</span><span class="sc">\\</span><span class="st">w)</span><span class="sc">\\</span><span class="st">3)(?!y))(?=</span><span class="sc">\\</span><span class="st">B)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] │ a&lt;pp&gt;le
+ [5] │ bell pe&lt;pp&gt;er
+ [8] │ blackcu&lt;rr&gt;ant
+ [9] │ bl&lt;oo&gt;d orange
+[17] │ chili pe&lt;pp&gt;er
+[23] │ cu&lt;rr&gt;ant
+[28] │ e&lt;gg&gt;plant
+[33] │ g&lt;oo&gt;seberry
+[57] │ pa&lt;ss&gt;ionfruit
+[60] │ persi&lt;mm&gt;on
+[62] │ pinea&lt;pp&gt;le
+[66] │ purple mangost&lt;ee&gt;n
+[71] │ redcu&lt;rr&gt;ant
+[77] │ tamari&lt;ll&gt;o</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="working-with-dates" class="level1">
+<h1>Working with Dates</h1>
+<section id="dates---frustrating-for-everyone" class="level2">
+<h2 class="anchored" data-anchor-id="dates---frustrating-for-everyone">Dates - Frustrating for Everyone</h2>
+<div class="columns">
+<div class="column">
+<ul>
+<li><p>Dates are complicated by several factors:</p>
+<ul>
+<li><p>No set origin</p></li>
+<li><p>Uneven days in a year</p></li>
+<li><p>Time zones</p></li>
+<li><p>Daylight savings</p></li>
+</ul></li>
+<li><p>The <code>lubridate</code> package can help immensely</p></li>
+</ul>
+</div><div class="column">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/excel_date.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dates---starting-today-and-now" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---starting-today-and-now">Dates - Starting Today and Now</h2>
+<ul>
+<li>Start by getting today’s date with base R or lubridate</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb117"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.Date</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-07-21"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb119"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">today</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-07-21"</code></pre>
+</div>
+</div>
+<ul>
+<li>Both of these are functionally identical as <code>date</code> class</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb121"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">today</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Date[1:1], format: "2024-07-21"</code></pre>
+</div>
+</div>
+</section>
+<section id="dates---starting-today-and-now-1" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---starting-today-and-now-1">Dates - Starting Today and Now</h2>
+<ul>
+<li>Use <code>Sys.time()</code> or <code>now()</code> to get the current <code>date-time</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb123"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-07-21 20:25:54 CDT"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb125"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>lubridate<span class="sc">::</span><span class="fu">now</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-07-21 20:25:54 CDT"</code></pre>
+</div>
+</div>
+<ul>
+<li>These are a special class referred to as a <code>POSIX</code> or <code>POSIXct</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb127"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">now</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> POSIXct[1:1], format: "2024-07-21 20:25:54"</code></pre>
+</div>
+</div>
+<ul>
+<li>Note the inclusion of our time zone</li>
+</ul>
+</section>
+<section id="dates---parsing-dates" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---parsing-dates">Dates - Parsing Dates</h2>
+<ul>
+<li><p>R representations of dates follow ISO8601 i.e.&nbsp;YYYY-MM-DD</p>
+<p>Date-time is “YYYY-MM-DD HH:MM:SS</p></li>
+<li><p>String representations of dates are varied, <code>lubridate</code> can tell R what to expect with a family of parsing functions for <b>y</b>ear, <b>m</b>onth, and <b>d</b>ay along with <b>h</b>our, <b>m</b>inute, and <b>s</b>econds</p></li>
+<li><p>Supplying a date or date-time string to a <code>ymd</code> or <code>ymd_hms</code> function coerces a date in the expected ISO8601</p></li>
+</ul>
+</section>
+<section id="dates---parsing-dates-1" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---parsing-dates-1">Dates - Parsing Dates</h2>
+<ul>
+<li>Many orders and delimiters can be accepted (<a href="https://lubridate.tidyverse.org/reference/index.html#date-time-parsing" class="external" target="_blank">see the list</a>)</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb129"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2004/2/11"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2004-02-11"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb131"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="st">"11-2-04"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2004-02-11"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"021104"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2004-02-11"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb135"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hm</span>(<span class="st">"04_2_11 18:02"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2004-02-11 18:02:00 UTC"</code></pre>
+</div>
+</div>
+<ul>
+<li>Supply a time zone to force a date into a date-time</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"2/11/2004"</span>, <span class="at">tz =</span> <span class="st">"UTC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2004-02-11 UTC"</code></pre>
+</div>
+</div>
+</section>
+<section id="dates---parsing-dates-in-a-data-frame" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---parsing-dates-in-a-data-frame">Dates - Parsing Dates in a Data Frame</h2>
+<ul>
+<li>Other helpers create date data within data frames like <code>make_datetime()</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1"></a>first_flights <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span></span>
+<span id="cb139-2"><a href="#cb139-2"></a>  <span class="fu">select</span>(year, month, day, hour, minute) <span class="sc">|&gt;</span></span>
+<span id="cb139-3"><a href="#cb139-3"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)</span>
+<span id="cb139-4"><a href="#cb139-4"></a></span>
+<span id="cb139-5"><a href="#cb139-5"></a>first_flights <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">depart_time =</span> <span class="fu">make_datetime</span>(year, month, day, hour, minute))  <span class="co">#&lt;&lt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 6
+   year month   day  hour minute depart_time        
+  &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dttm&gt;             
+1  2013     1     1     5     15 2013-01-01 05:15:00
+2  2013     1     1     5     29 2013-01-01 05:29:00
+3  2013     1     1     5     40 2013-01-01 05:40:00
+4  2013     1     1     5     45 2013-01-01 05:45:00
+5  2013     1     1     6      0 2013-01-01 06:00:00</code></pre>
+</div>
+</div>
+</section>
+<section id="dates---the-power-of-dates" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---the-power-of-dates">Dates - The Power of Dates</h2>
+<ul>
+<li>Properly formatted dates and times have extensive utility</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flights, <span class="fu">aes</span>(<span class="at">x =</span> depart_time)) <span class="sc">+</span> </span>
+<span id="cb141-2"><a href="#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">86400</span>) <span class="sc">+</span> </span>
+<span id="cb141-3"><a href="#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Flights per Day - 2013"</span>) <span class="sc">+</span> </span>
+<span id="cb141-4"><a href="#cb141-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-67-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dates---the-power-of-dates-1" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---the-power-of-dates-1">Dates - The Power of Dates</h2>
+<ul>
+<li>Properly formatted dates and times have extensive utility</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(flights, depart_time <span class="sc">&lt;</span> <span class="fu">ymd</span>(<span class="dv">20130602</span>) <span class="sc">&amp;</span> depart_time <span class="sc">&gt;</span> <span class="fu">ymd</span>(<span class="dv">20130601</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> depart_time)) <span class="sc">+</span> </span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_freqpoly</span>(<span class="at">binwidth =</span> <span class="dv">600</span>) <span class="sc">+</span> </span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Flights Every 10 Minutes - 06/01/2013"</span>) <span class="sc">+</span> </span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-68-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dates---date-components" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---date-components">Dates - Date Components</h2>
+<ul>
+<li>Components of a date-time can be extracted and modified</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>departure_time <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(<span class="st">"2024-10-31 18:30:00"</span>)</span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a>departure_time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-10-31 18:30:00 UTC"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(departure_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2024</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(departure_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 31</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb149"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hour</span>(departure_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb151"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hour</span>(departure_time) <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb151-2"><a href="#cb151-2" aria-hidden="true" tabindex="-1"></a>departure_time</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-10-31 20:30:00 UTC"</code></pre>
+</div>
+</div>
+</section>
+<section id="dates---date-math" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---date-math">Dates - Date Math</h2>
+<ul>
+<li>Components can also be used for date math</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>dob <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"1945-12-31"</span>)</span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(<span class="fu">today</span>()) <span class="sc">-</span> <span class="fu">year</span>(dob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 79</code></pre>
+</div>
+</div>
+<ul>
+<li>But we can do better since the birthday isn’t until later in the year</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>age_interval <span class="ot">&lt;-</span> <span class="fu">today</span>() <span class="sc">-</span> dob</span>
+<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a>age_interval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of 28692 days</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">floor</span>(<span class="fu">as.numeric</span>(age_interval) <span class="sc">/</span> <span class="fl">365.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 78</code></pre>
+</div>
+</div>
+<ul>
+<li>But this is still brutish</li>
+</ul>
+</section>
+<section id="dates---working-with-intervals" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---working-with-intervals">Dates - Working with Intervals</h2>
+<ul>
+<li><code>lubridate</code> has an interval class that is much more pliable for math</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>age_interval <span class="ot">&lt;-</span> <span class="fu">interval</span>(dob, <span class="fu">today</span>()); age_interval</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1945-12-31 UTC--2024-07-21 UTC</code></pre>
+</div>
+</div>
+<ul>
+<li>Intervals are specific but can be combined with more general time spans of <b>periods</b> and <b>durations</b> with durations being more precise</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">years</span>(<span class="dv">1</span>) <span class="co">#A period of 1 year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1y 0m 0d 0H 0M 0S"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb163"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dyears</span>(<span class="dv">1</span>) <span class="co">#A duration of 1 year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "31557600s (~1 years)"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>age_interval <span class="sc">/</span> <span class="fu">years</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 78.55464</code></pre>
+</div>
+</div>
+<ul>
+<li>Durations can also work with <code>difftime</code> objects from base R</li>
+</ul>
+</section>
+<section id="dates---time-zones" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---time-zones">Dates - Time Zones</h2>
+<ul>
+<li>Any <code>POSIXct</code> class needs a time zone associated with its HMS component; UTC (GMT) is the default</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb167"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>date_curr <span class="ot">&lt;-</span> <span class="fu">ymd_hm</span>(<span class="st">"2020-02-20 12:00"</span>); date_curr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-02-20 12:00:00 UTC"</code></pre>
+</div>
+</div>
+<ul>
+<li>Time zones can be changed but you need to know <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" class="external" target="_blank">what they are</a></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb169"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.timezone</span>()  <span class="co">#Get the time zone for your current locale</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "America/Chicago"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb171"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tz</span>(date_curr) <span class="ot">&lt;-</span> <span class="fu">Sys.timezone</span>(); date_curr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-02-20 12:00:00 CST"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb173"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hm</span>(<span class="st">"2020-07-20 12:00"</span>, <span class="at">tz =</span> <span class="st">"America/Chicago"</span>)  <span class="co">#Be careful of Daylight Savings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-07-20 12:00:00 CDT"</code></pre>
+</div>
+</div>
+</section>
+<section id="dates---why-so-much-effort" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---why-so-much-effort">Dates - Why So Much Effort</h2>
+<ul>
+<li>Dates and times have geographical and geopolitical considerations</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb175"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Because the local time and hour in Birmingham</span></span>
+<span id="cb175-2"><a href="#cb175-2" aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>(); <span class="fu">hour</span>(<span class="fu">now</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-07-21 20:25:57 CDT"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb178"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Is different than the local time and hour for Coordinated Time</span></span>
+<span id="cb178-2"><a href="#cb178-2" aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"UTC"</span>); <span class="fu">hour</span>(<span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"UTC"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-07-22 01:25:57 UTC"</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb181"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Even though they're the same time</span></span>
+<span id="cb181-2"><a href="#cb181-2" aria-hidden="true" tabindex="-1"></a><span class="fu">now</span>() <span class="sc">-</span> <span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"UTC"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Time difference of -3.528595e-05 secs</code></pre>
+</div>
+</div>
+</section>
+<section id="dates---why-so-much-effort-1" class="level2" data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%">
+<h2 data-background-image="img/lubridate.svg" data-background-size="8%" data-background-position="95% 5%" class="anchored" data-anchor-id="dates---why-so-much-effort-1">Dates - Why So Much Effort</h2>
+<ul>
+<li>Knowing the calendar is critical</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"2024-02-29"</span>) <span class="co">#2024 was a leap year</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2024-02-29"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb185"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd</span>(<span class="st">"1997-02-29"</span>) <span class="co">#But 1997 was not</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: 1 failed to parse.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<ul>
+<li>As is having a unified Unix Epoch</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb188"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a>origin</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "1970-01-01 UTC"</code></pre>
+</div>
+</div>
+<ul>
+<li>Dates and times are inherently confusing but with some time and effort can be leveraged in powerfully meaningful ways</li>
+</ul>
+</section>
+<section id="learning-more" class="level2">
+<h2 class="anchored" data-anchor-id="learning-more">Learning More</h2>
+<ul>
+<li><p>Again, for more on regular expressions, check out <a href="https://www.regular-expressions.info/" class="external" target="_blank">https://www.regular-expressions.info/</a> or the <code>stringr</code> vignette on <a href="https://stringr.tidyverse.org/articles/regular-expressions.html" class="external" target="_blank">regular expressions</a></p></li>
+<li><p>The <code>lubridate</code> <a href="https://lubridate.tidyverse.org/articles/lubridate.html" class="external" target="_blank">vignette</a> can be valuable as is the <a href="https://rstudio.github.io/cheatsheets/lubridate.pdf" class="external" target="_blank">cheat sheets</a></p></li>
+<li><p>Next time, I/O and handling multiple tables</p></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

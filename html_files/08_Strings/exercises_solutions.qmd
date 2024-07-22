@@ -1,0 +1,238 @@
+---
+title: "Separate, unite, and strings"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+---
+
+# Overview
+
+These exercises will help you practice applying `separate_*`, `unite`, regular expressions, and a bit with dates. You will use a messy dataset with information about cardiovascular disease (CVD).
+
+## Setup
+
+These were the packages used for the exercises.
+
+```{r}
+library(tidyverse)
+library(gt)
+library(gtsummary)
+```
+
+## Data dictionary
+
+```{r}
+
+cvd_messy_descr <-
+  c("ID" = 'Participant identification',
+    "question_age" = "Question: how old are you / when where you born? Participants 51 or older answered the second question.",
+    "question_substance" = 'Question: do you smoke or drink?',
+    "question_bp" = 'Question: what is your blood pressure? Are you taking medications to lower your blood pressure?',
+    "labs" = 'A collection of laboratory values concatenated into a single string. Notably, the order of lab values is random',
+    "cvd_fup" = 'Report of whether this participant exerienced a cardiovascular disease event (i.e., stroke or coronary heart disease) after their interview')
+
+# the enframe function transforms a vector into a tibble,
+tibble::enframe(cvd_messy_descr) |> 
+  gt::gt(rowname_col = "name") |>
+  gt::tab_stubhead(label = 'Variable name') |> 
+  gt::cols_label(value = 'Variable description') |> 
+  gt::cols_align('left') |> 
+  gt::tab_header(title = 'Description of messy cardiovascular disease data')
+
+```
+
+## Import
+
+Load in the dataset which is called `cvd_messy`.
+
+```{r}
+
+cvd_messy <- readr::read_rds('data/cvd_messy.rds')
+
+cvd_messy
+
+```
+
+# Problem 1
+
+Tidy the data up to create the following columns: 
+
+- `ID`: (numeric) participant identification
+- `cvd_status`: (numeric) 0 if no CVD, 1 if CVD 
+- `cvd_time`: (numeric) years from interview to CVD or loss to follow-up
+- `sbp`: (numeric) systolic blood pressure, mm Hg
+- `dbp`: (numeric) diastolic blood pressure, mm Hg
+- `bp_meds`: (factor) Yes/No for use of blood pressure lowering medication
+- `age_number`: (numeric) age in years
+- `drink`: (factor) Yes/No for drinking  
+- `smoke`: (factor) Yes/No for smoking
+- `albumin`: (numeric) albumin levels
+- `hba1c`: (numeric) HbA1C levels
+- `creatinine`: (numeric) creatinine levels
+
+Each column can be cleaned in a number of different ways. 
+
+- You can try to do this in one step although you'll need to use regex look arounds. 
+
+- Nearly all variables can be managed with `str_detect`, `str_extract`, and `str_remove`. 
+
+- You could also consider converting some variables into factors with new labels and then using separate. 
+
+- For the lab values, it will be simplest to start with `separate_longer_delim()`.  The alternative is advanced regex work using look arounds and knowing how lazy/greedy evaluation works.
+
+Once you are finished, remove the original messy columns and convert any character valued columns to factors. Your cleaned data should look like this: 
+
+```{r}
+
+cvd_clean <- cvd_messy |>
+  mutate(cvd_status = if_else(str_detect(cvd_fup, "xperienced CVD"), 1, 0),
+         cvd_time = as.numeric(str_extract(cvd_fup, "\\d+\\.?\\d+")),
+         
+         #Can use separate_wider_delim() as a intermediary instead of using look ahead and behind
+         sbp = str_extract(question_bp, "\\d+(?=/)"),
+         dbp = str_extract(question_bp, "(?<=/)\\d+"),
+         
+         bp_meds = if_else(str_detect(question_bp, "not using"), "No", "Yes"),
+         
+         #Can extract the number first before trying to process it
+         age_number = if_else(as.numeric(str_extract(question_age, "\\d+"))<1000,
+                              as.numeric(str_extract(question_age, "\\d+")),
+                              year(today()) - as.numeric(str_extract(question_age, "\\d+"))),
+         
+         #Have to use alternation for drink but not for smoke, easiest to use a negative
+         drink = if_else(str_detect(question_substance, "(or|don't) drink"), "No", "Yes"),
+         smoke = if_else(str_detect(question_substance, "don't smoke"), "No", "Yes")) |>
+  
+  #The simplest way to handle the labs
+  separate_longer_delim(labs, "; ") |>
+  separate_wider_delim(labs, ": ", names = c("lab_name", "lab_value")) |>
+  pivot_wider(values_from = lab_value, names_from = lab_name) |>
+  
+  select(ID, cvd_status, cvd_time, sbp, dbp, bp_meds, age_number, drink, smoke, albumin, hba1c, creatinine) |>
+  
+  mutate(across(matches("[sd]bp"), as.integer)) |>
+  mutate(across(matches("alb|hba|creat"), as.numeric)) |>
+  mutate(across(c(bp_meds, drink, smoke), factor))
+
+saveRDS(cvd_clean, 'solutions/01_solution.rds')
+
+readr::read_rds('solutions/01_solution.rds')
+
+```
+
+# Problem 2
+
+Create new columns:
+
+- `diabetes` (factor) Yes if HbA1C is greater than 6.5, No if less than or equal to 6.5
+
+- `albuminuria` (factor) 'Yes' if albumin / creatinine (i.e. the ratio) is greater than or equal to 30 and 'No' if albumin / creatinine is less than 30
+
+- `bp_midrange` (factor) Yes if at least one of the two conditions below are true: 
+
+    + SBP is greater than or equal to 130 and less than 140 
+    + DBP is greater than or equal to 80 and less than 90 
+
+- `rec_bpmeds_acc_aha` (factor) 'Yes' if any of the conditions below are `TRUE`, and 'No' if all of them are `FALSE`.
+
+    + SBP is greater than or equal to 140 OR DBP is greater than or equal to 90
+    + `bp_midrange` == 'Yes' and `albuminuria` == 'Yes'
+    + `bp_midrange` == 'Yes' and `diabetes` == 'Yes'
+    + `bp_midrange` == 'Yes' and `age_number` > 65
+
+
+- `rec_bpmeds_jnc7` (factor) Yes if SBP > 140 OR DBP > 90, 'No' if SBP is less than or equal to 140 and DBP is less than or equal to 90.
+
+- Replace any missing values with "Unknown" in the new columns (hint: you may have more success doing this before factor conversion when using `replace_na()`)
+
+Note: `rec_bpmeds_acc_aha` is a simplified version of the 2017 American College of Cardiology and American Heart Association's BP guidelines.
+
+```{r}
+
+cvd_clean <- cvd_clean |>
+  mutate(diabetes = if_else(hba1c > 6.5, "Yes", "No"),
+         albuminuria = if_else(albumin / creatinine >= 30, "Yes", "No"),
+         bp_midrange = if_else((sbp >= 130 & sbp < 140) |
+                                      (dbp >= 80 & dbp < 90), "Yes", "No"),
+         rec_bpmeds_acc_aha = if_else((sbp >= 140 | dbp >= 90) | 
+                                             (bp_midrange == "Yes" & (albuminuria == "Yes" | diabetes == "Yes" | age_number > 65)),
+                                             "Yes", "No"), 
+         rec_bpmeds_jnc7 = if_else(sbp > 140 | dbp > 90, "Yes", "No")) |>
+  
+  #We use across() with functions to make this process more condensed
+  mutate(across(c(13:17), \(xx) replace_na(xx, "Unknown"))) |>
+  mutate(across(c(13:17), \(xx) fct(xx, levels = c("No", "Yes", "Unknown"))))
+
+saveRDS(cvd_clean, 'solutions/02_solution.rds')
+
+readr::read_rds('solutions/02_solution.rds')
+
+```
+
+# Problem 3
+
+Use `count` and `mutate`, `str_glue`, and `pivot_wider` to make the following table summarizing counts and percent of diabetes, stratified by recommendations to initiate or intensify BP lowering based on the AHA criteria. Remember to `group` and `ungroup` the data appropriately. 
+
+```{r}
+
+cvd_diab <- cvd_clean |>
+  group_by(diabetes, rec_bpmeds_acc_aha) |>
+  count(diabetes) |>
+  ungroup() |>
+  group_by(rec_bpmeds_acc_aha) |>
+  mutate(prop = round(n / sum(n) * 100),
+            value = glue::glue("{n} ({prop}%)")) |>
+  pivot_wider(id_cols = diabetes, names_from = rec_bpmeds_acc_aha, values_from = value)
+
+saveRDS(cvd_diab, 'solutions/03_solution.rds')
+
+readr::read_rds('solutions/03_solution.rds')
+
+```
+
+# Problem 4
+
+You might imagine doing Problem 3 for all variables and then dealing with combining results into a participant characteristics table. Sounds pretty tedious, right? The `gtsummary` package is here for you. Explore the package website and focus on the `tbl_summary()` [vignette](http://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html). When you are ready, try using `tbl_summary()` on the data you created. 
+
+Before creating your table, make sure that all of the character variables in your data are converted to factor variables, and that all of your factor variables are given an explicit `NA` coding such that missing values are given a value of 'Unknown'. If you've done everything right, this should have been handled in steps 1 and 2.
+
+```{r}
+
+cvd_summary <- cvd_clean |>
+  select(rec_bpmeds_acc_aha, rec_bpmeds_jnc7, age_number, sbp, dbp, bp_midrange, bp_meds, drink, smoke, albumin, hba1c, creatinine, diabetes, albuminuria) |>
+  tbl_summary(by = rec_bpmeds_acc_aha, 
+              label = c(rec_bpmeds_jnc7 ~ "Initiation / intensification by JNC7",
+                        age_number ~ "Age, years",
+                        sbp ~ "Systolic blood pressure, mm Hg",
+                        dbp ~ "Diastolic blood pressure, mm Hg",
+                        bp_midrange ~ "Systolic/diastolic BP 130-140/80-90 mm Hg",
+                        bp_meds ~ "Currently using BP lowering medication",
+                        drink ~ "Alcohol",
+                        smoke ~ "Smoking",
+                        albumin ~ "Albumin",
+                        hba1c ~ "Hemoglobin A1c",
+                        creatinine ~ "Creatinine",
+                        diabetes ~ "Diabetes (HbA1c > 6.5)",
+                        albuminuria ~ "Albuminuria (albumin / creatinine > 30)")) |>
+  modify_spanning_header(c("stat_1", "stat_2", "stat_3") ~ "**AHA Recommended initiation / intensification**")
+
+saveRDS(cvd_summary, 'solutions/04_solution.rds')
+
+readr::read_rds('solutions/04_solution.rds')
+
+```
+
+
