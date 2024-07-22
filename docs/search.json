@@ -4162,8 +4162,8 @@
     "objectID": "Lectures/08_Strings/index.html#agenda",
     "href": "Lectures/08_Strings/index.html#agenda",
     "title": "Characters and Dates",
-    "section": "",
-    "text": "Separate review\nCharacter data outside of data frame\nRegular expressions\nOverview on dates",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nSeparate review\nCharacter data outside of data frame\nRegular expressions\nOverview on dates",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -4247,7 +4247,7 @@
     "href": "Lectures/08_Strings/index.html#separate---behind-the-curtain-on-delim",
     "title": "Characters and Dates",
     "section": "Separate - Behind the Curtain on delim",
-    "text": "Separate - Behind the Curtain on delim\n\nSo what is R doing with the delim argument?\n\n\n\n\n\n\n\nWe see it takes a single fixed string as a separator, thus two steps for asr",
+    "text": "Separate - Behind the Curtain on delim\n\nSo what is R doing with the delim argument?\n\n\n\nWe see it takes a single fixed string as a separator, thus two steps for asr",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -4259,7 +4259,7 @@
     "href": "Lectures/08_Strings/index.html#separate---how-separate-used-to-work",
     "title": "Characters and Dates",
     "section": "Separate - How separate() Used to Work",
-    "text": "Separate - How separate() Used to Work\n\nInstead of fixed string, it was a fixed pattern\n\n\n\n\n\n\n\nThis is what’s going to take us to regular expressions later",
+    "text": "Separate - How separate() Used to Work\n\nInstead of fixed string, it was a fixed pattern\n\n\n\nThis is what’s going to take us to regular expressions later",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -4427,7 +4427,7 @@
     "href": "Lectures/08_Strings/index.html#strings---questions-remain",
     "title": "Characters and Dates",
     "section": "Strings - Questions Remain",
-    "text": "Strings - Questions Remain\n\nBut what if we want to extract or process by a pattern?\nUnlike tidyr why are the arguments pattern instead of delim?\nAnd what was up with this?\n\n\n\n\n\n\n\nFor all this, we need regular expressions",
+    "text": "Strings - Questions Remain\n\nBut what if we want to extract or process by a pattern?\nUnlike tidyr why are the arguments pattern instead of delim?\nAnd what was up with this?\n\n\n\nFor all this, we need regular expressions",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -4439,7 +4439,7 @@
     "href": "Lectures/08_Strings/index.html#regexes---the-basics",
     "title": "Characters and Dates",
     "section": "Regexes - The Basics",
-    "text": "Regexes - The Basics\n\n\n\nRegexes are a standard way to specify patterns in strings\nCombines literal alphanumeric characters with metacharacters\nAllows for character sets, quantification, and alternation\nCan define anchors and boundaries\nLook like absolute gibberish\n\n\n\n\n\n\n\n\n\n\n@ThePracticalDev",
+    "text": "Regexes - The Basics\n\n\n\nRegexes are a standard way to specify patterns in strings\nCombines literal alphanumeric characters with metacharacters\nAllows for character sets, quantification, and alternation\nCan define anchors and boundaries\nLook like absolute gibberish\n\n\n\n\n\n\n\n\n\n@ThePracticalDev",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -4499,7 +4499,7 @@
     "href": "Lectures/08_Strings/index.html#regexes---character-classes-1",
     "title": "Characters and Dates",
     "section": "Regexes - Character Classes",
-    "text": "Regexes - Character Classes\n\nWe can negate a character class with ^ right after the left bracket ( [^ )\nLet’s find all s that are preceded by a consonants i.e. NOT a vowel\n\n\nstr_view(fruit, pattern = \"[^aeiou]s\")\n\n[11] │ bo&lt;ys&gt;enberry\n[24] │ da&lt;ms&gt;on\n[57] │ pa&lt;ss&gt;ionfruit\n[60] │ pe&lt;rs&gt;immon\n[61] │ ph&lt;ys&gt;alis\n[74] │ sa&lt;ts&gt;uma\n\n\n\n\n\n\n\n\nImportant\n\n\n\nRemember, character classes still only count as single characters",
+    "text": "Regexes - Character Classes\n\nWe can negate a character class with ^ right after the left bracket ( [^ )\nLet’s find all s that are preceded by a consonants i.e. NOT a vowel\n\n\nstr_view(fruit, pattern = \"[^aeiou]s\")\n\n[11] │ bo&lt;ys&gt;enberry\n[24] │ da&lt;ms&gt;on\n[57] │ pa&lt;ss&gt;ionfruit\n[60] │ pe&lt;rs&gt;immon\n[61] │ ph&lt;ys&gt;alis\n[74] │ sa&lt;ts&gt;uma\n\n\n\n\n\n\n\n\nImportant\n\n\nRemember, character classes still only count as single characters",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -4559,7 +4559,7 @@
     "href": "Lectures/08_Strings/index.html#regexes---escaping",
     "title": "Characters and Dates",
     "section": "Regexes - Escaping",
-    "text": "Regexes - Escaping\n\nIn order to explicitly look for characters that serve as a metacharacter, you can use \\ to escape just like with quotes\n\n\nstring_curr &lt;- \"Let's match the price for $4.99 using the $ and the numbers\"\n\nmatch &lt;- str_view(string_curr, pattern = \"\\$[0-9]\\.[0-9]{2}\")\n\n. . .\n\nmatch\n\n\n\nError in eval(expr, envir, enclos): '\\$' is an unrecognized escape in character string (&lt;input&gt;:1:18)\n\n\n. . .",
+    "text": "Regexes - Escaping\n\nIn order to explicitly look for characters that serve as a metacharacter, you can use \\ to escape just like with quotes\n\n\nstring_curr &lt;- \"Let's match the price for $4.99 using the $ and the numbers\"\n\nmatch &lt;- str_view(string_curr, pattern = \"\\$[0-9]\\.[0-9]{2}\")\n\n\n\nmatch\n\n\n\nError in eval(expr, envir, enclos): '\\$' is an unrecognized escape in character string (&lt;input&gt;:1:18)",
     "crumbs": [
       "Home",
       "Lecture HTML",
