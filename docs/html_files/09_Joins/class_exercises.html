@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.47">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Rachel Stuckwisch">
+
+<title>Joining data – BST680 2024</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">BST680 2024</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../html_files/01_Intro/exercises.html">Assignments</a></li><li class="breadcrumb-item"><a href="../../html_files/09_Joins/class_exercises.html">09 - Joins and I/O</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../uab_logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lecture HTML</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/01_Tools/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">01 - Introducing Your Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/02_VizBasics/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/03_Programming/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/04_Isolation/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">04 - Data Isolation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/05_Transform/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/06_Adv_Visual/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/07_Reshape/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/08_Strings/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../Lectures/09_Joins/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">09 - Joins and I/O</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Lecture PDF</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">01 - Introducing Your Tools</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 03 Programming Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 04 dplyr Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">04 - Data Isolation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 05 Transforming Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 07 Reshaping Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 08 Characters and Dates.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../pdfs/BST680 - 2024 - 09 Joins and IO.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+ <span class="menu-text">09 - Joins and I/O</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Additional Info</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/01_Intro/intro_to_Quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01a - Intro to Quarto and gt()</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Assignments</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/01_Intro/exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 - Working with Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/02_Visual/exercises_start_here.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/03_Program/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/04_Isolate/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04 - Isolation with dplyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/05_Transform/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/06_Adv_Visual/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/07_Reshape/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/08_Strings/class_exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/09_Joins/class_exercises.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">09 - Joins and I/O</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Assignment Solutions</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/01_Intro/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">01 - Working with Tables</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/02_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">02 - Visualization Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/03_Program/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03 - Programming Basics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/04_Isolate/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">04 - Isolation with dplyr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/05_Transform/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">05 - Data Transformation</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/06_Adv_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06 - Advanced Visualization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/07_Reshape/exercise_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">07 - Reshaping Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/08_Strings/exercise_solutions.qmd" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">08 - Characters and Dates</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">Downloads</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../downloads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exercise Downloads</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Midterm</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/Midterm/midterm_start_here.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Midterm Details</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../html_files/Midterm/midterm_solutions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Midterm Solutions</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#data-dictionary" id="toc-data-dictionary" class="nav-link" data-scroll-target="#data-dictionary">Data dictionary</a></li>
+  <li><a href="#import" id="toc-import" class="nav-link" data-scroll-target="#import">Import</a></li>
+  </ul></li>
+  <li><a href="#problem-1" id="toc-problem-1" class="nav-link" data-scroll-target="#problem-1">Problem 1</a></li>
+  <li><a href="#problem-2" id="toc-problem-2" class="nav-link" data-scroll-target="#problem-2">Problem 2</a></li>
+  <li><a href="#problem-3" id="toc-problem-3" class="nav-link" data-scroll-target="#problem-3">Problem 3</a></li>
+  <li><a href="#problem-4" id="toc-problem-4" class="nav-link" data-scroll-target="#problem-4">Problem 4</a></li>
+  <li><a href="#problem-5" id="toc-problem-5" class="nav-link" data-scroll-target="#problem-5">Problem 5</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../html_files/01_Intro/exercises.html">Assignments</a></li><li class="breadcrumb-item"><a href="../../html_files/09_Joins/class_exercises.html">09 - Joins and I/O</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Joining data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Rachel Stuckwisch </p>
+          </div>
+  </div>
+    
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">July 24, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>These exercises will help you practice applying functions in the <code>join</code> family and the <code>stringr</code> and <code>glue</code> packages. You will use two datasets that describe a TV show called ‘The Office’.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>Packages used for this exercise set are loaded below.</p>
+</section>
+<section id="data-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="data-dictionary">Data dictionary</h2>
+<p>The analysis will involve two datasets:</p>
+<ul>
+<li><p><code>office_ratings.csv</code>: the IMDB rating for each episode.</p></li>
+<li><p><code>office_director_and_writers.csv</code> the writers and director of each episode.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ratings_descr <span class="ot">&lt;-</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"season"</span>      <span class="ot">=</span> <span class="st">"Season that the episode aired"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"episode"</span>     <span class="ot">=</span> <span class="st">"Episode number, relative to Season start"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"title"</span>       <span class="ot">=</span> <span class="st">"Title of the episode"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"imdb_rating"</span> <span class="ot">=</span> <span class="st">"Mean IMDB rating"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"total_votes"</span> <span class="ot">=</span> <span class="st">"Total number of IMDB members who rated the episode"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"air_date"</span>    <span class="ot">=</span> <span class="st">"Date that the episode aired"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>drctr_wrtr_descr <span class="ot">&lt;-</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"season"</span>   <span class="ot">=</span> <span class="st">"Season that the episode aired"</span>, </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"title"</span>    <span class="ot">=</span> <span class="st">"Title of the episode"</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"director"</span> <span class="ot">=</span> <span class="st">"Name of the episode's director"</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"writer"</span>   <span class="ot">=</span> <span class="st">"Name of contributing writer"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>data_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ratings"</span>, <span class="st">"director and writers"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>tbls <span class="ot">&lt;-</span> <span class="fu">list</span>(ratings_descr, drctr_wrtr_descr) <span class="sc">|&gt;</span> </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map2</span>(<span class="at">.y =</span> data_names,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span> <span class="fu">enframe</span>(.x) <span class="sc">|&gt;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"name"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tab_stubhead</span>(<span class="at">label =</span> <span class="st">'Variable name'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cols_label</span>(<span class="at">value =</span> <span class="st">'Variable description'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">cols_align</span>(<span class="st">'left'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">tab_header</span>(<span class="at">title =</span> <span class="fu">glue</span>(<span class="st">'Description of {.y} data'</span>))</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>tbls[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="pqjybcjeli" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pqjybcjeli table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pqjybcjeli thead, #pqjybcjeli tbody, #pqjybcjeli tfoot, #pqjybcjeli tr, #pqjybcjeli td, #pqjybcjeli th {
+  border-style: none;
+}
+
+#pqjybcjeli p {
+  margin: 0;
+  padding: 0;
+}
+
+#pqjybcjeli .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pqjybcjeli .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pqjybcjeli .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pqjybcjeli .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pqjybcjeli .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pqjybcjeli .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pqjybcjeli .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pqjybcjeli .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pqjybcjeli .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pqjybcjeli .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pqjybcjeli .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pqjybcjeli .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pqjybcjeli .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pqjybcjeli .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pqjybcjeli .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqjybcjeli .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pqjybcjeli .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pqjybcjeli .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pqjybcjeli .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqjybcjeli .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pqjybcjeli .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqjybcjeli .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pqjybcjeli .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqjybcjeli .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pqjybcjeli .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pqjybcjeli .gt_left {
+  text-align: left;
+}
+
+#pqjybcjeli .gt_center {
+  text-align: center;
+}
+
+#pqjybcjeli .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pqjybcjeli .gt_font_normal {
+  font-weight: normal;
+}
+
+#pqjybcjeli .gt_font_bold {
+  font-weight: bold;
+}
+
+#pqjybcjeli .gt_font_italic {
+  font-style: italic;
+}
+
+#pqjybcjeli .gt_super {
+  font-size: 65%;
+}
+
+#pqjybcjeli .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pqjybcjeli .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pqjybcjeli .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pqjybcjeli .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pqjybcjeli .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pqjybcjeli .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pqjybcjeli .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Description of ratings data</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="Variable name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable name</th>
+<th id="Variable description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable description</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">season</td>
+<td class="gt_row gt_left" headers="stub_1_1 value">Season that the episode aired</td>
+</tr>
+<tr class="even">
+<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">episode</td>
+<td class="gt_row gt_left" headers="stub_1_2 value">Episode number, relative to Season start</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">title</td>
+<td class="gt_row gt_left" headers="stub_1_3 value">Title of the episode</td>
+</tr>
+<tr class="even">
+<td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">imdb_rating</td>
+<td class="gt_row gt_left" headers="stub_1_4 value">Mean IMDB rating</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_5" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">total_votes</td>
+<td class="gt_row gt_left" headers="stub_1_5 value">Total number of IMDB members who rated the episode</td>
+</tr>
+<tr class="even">
+<td id="stub_1_6" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">air_date</td>
+<td class="gt_row gt_left" headers="stub_1_6 value">Date that the episode aired</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tbls[[<span class="dv">2</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="cmlnlaefqo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cmlnlaefqo table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cmlnlaefqo thead, #cmlnlaefqo tbody, #cmlnlaefqo tfoot, #cmlnlaefqo tr, #cmlnlaefqo td, #cmlnlaefqo th {
+  border-style: none;
+}
+
+#cmlnlaefqo p {
+  margin: 0;
+  padding: 0;
+}
+
+#cmlnlaefqo .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cmlnlaefqo .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cmlnlaefqo .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cmlnlaefqo .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cmlnlaefqo .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cmlnlaefqo .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cmlnlaefqo .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cmlnlaefqo .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cmlnlaefqo .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cmlnlaefqo .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cmlnlaefqo .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cmlnlaefqo .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cmlnlaefqo .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cmlnlaefqo .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cmlnlaefqo .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cmlnlaefqo .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cmlnlaefqo .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cmlnlaefqo .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cmlnlaefqo .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cmlnlaefqo .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cmlnlaefqo .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cmlnlaefqo .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cmlnlaefqo .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cmlnlaefqo .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cmlnlaefqo .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cmlnlaefqo .gt_left {
+  text-align: left;
+}
+
+#cmlnlaefqo .gt_center {
+  text-align: center;
+}
+
+#cmlnlaefqo .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cmlnlaefqo .gt_font_normal {
+  font-weight: normal;
+}
+
+#cmlnlaefqo .gt_font_bold {
+  font-weight: bold;
+}
+
+#cmlnlaefqo .gt_font_italic {
+  font-style: italic;
+}
+
+#cmlnlaefqo .gt_super {
+  font-size: 65%;
+}
+
+#cmlnlaefqo .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cmlnlaefqo .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cmlnlaefqo .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cmlnlaefqo .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cmlnlaefqo .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cmlnlaefqo .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cmlnlaefqo .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Description of director and writers data</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="Variable name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable name</th>
+<th id="Variable description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable description</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td id="stub_1_1" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">season</td>
+<td class="gt_row gt_left" headers="stub_1_1 value">Season that the episode aired</td>
+</tr>
+<tr class="even">
+<td id="stub_1_2" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">title</td>
+<td class="gt_row gt_left" headers="stub_1_2 value">Title of the episode</td>
+</tr>
+<tr class="odd">
+<td id="stub_1_3" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">director</td>
+<td class="gt_row gt_left" headers="stub_1_3 value">Name of the episode's director</td>
+</tr>
+<tr class="even">
+<td id="stub_1_4" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">writer</td>
+<td class="gt_row gt_left" headers="stub_1_4 value">Name of contributing writer</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="import" class="level2">
+<h2 class="anchored" data-anchor-id="import">Import</h2>
+<p>You can import the two datasets using the <code>read_csv()</code> function. Note that your project directory is the root of the file path.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in both the 'office_ratings.csv' file and </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the 'office_director_and_writers.csv' file.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="problem-1" class="level1">
+<h1>Problem 1</h1>
+<p>Conduct exploratory data analysis of the <code>office_ratings</code> data and produce the figure shown below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">'solutions/01_solution.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="class_exercises_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-2" class="level1">
+<h1>Problem 2</h1>
+<p>Identify the episode names that are present in <code>office_ratings</code> but not in <code>office_director_and_writers</code>. Then, identify the episode names that are present in <code>office_director_and_writers</code> but not in <code>office_ratings</code>. I saved each vector of character values in the list printed below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">'solutions/02_solution.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$titles_unmatched_directors
+ [1] "E-Mail Surveilance"                  "Boys &amp; Girls"                       
+ [3] "A Benihana Christmas (Parts 1&amp;2)"    "The Job (Parts 1&amp;2)"                
+ [5] "The Job (Parts 1&amp;2)"                 "Fun Run (Parts 1&amp;2)"                
+ [7] "Dunder Mifflin Infinity (Parts 1&amp;2)" "Launch Party (Parts 1&amp;2)"           
+ [9] "Money (Parts 1&amp;2)"                   "Goodbye, Toby (Parts 1&amp;2)"          
+[11] "Goodbye, Toby (Parts 1&amp;2)"           "Weight Loss (Parts 1&amp;2)"            
+[13] "Weight Loss (Parts 1&amp;2)"             "Stress Relief (Parts 1&amp;2)"          
+[15] "Lecture Circuit (Part 1)"            "Lecture Circuit (Part 2)"           
+[17] "The Michael Scott Paper Company"     "Niagara (Parts 1&amp;2)"                
+[19] "Niagara (Parts 1&amp;2)"                 "The Manager and the Salesman"       
+[21] "The Delivery (Parts 1&amp;2)"            "The Delivery (Parts 1&amp;2)"           
+[23] "The Cover"                           "The Cover"                          
+[25] "s*x Ed"                              "Classy Christmas (Parts 1&amp;2)"       
+[27] "Search Committee (Parts 1&amp;2)"        "Test The Store"                     
+[29] "Last Day In Florida"                 "Get The Girl"                       
+[31] "The New Guys"                        "A.A.R.M"                            
+
+$titles_unmatched_ratings
+ [1] "E-Mail Surveillance"         "Boys and Girls"             
+ [3] "A Benihana Christmas"        "The Job"                    
+ [5] "Fun Run"                     "Dunder Mifflin Infinity"    
+ [7] "Launch Party"                "Money"                      
+ [9] "Goodbye, Toby"               "Weight Loss"                
+[11] "Stress Relief"               "Lecture Circuit: Part 1"    
+[13] "Lecture Circuit: Part 2"     "Michael Scott Paper Company"
+[15] "Niagara: Part 1"             "Niagara: Part 2"            
+[17] "Manager and Salesman"        "The Delivery: Part 1"       
+[19] "The Delivery: Part 2"        "The Cover-Up"               
+[21] "Sex Ed"                      "Classy Christmas"           
+[23] "Search Committee"            "Test the Store"             
+[25] "Last Day in Florida"         "Get the Girl"               
+[27] "New Guys"                    "A.A.R.M."                   </code></pre>
+</div>
+</div>
+</section>
+<section id="problem-3" class="level1">
+<h1>Problem 3</h1>
+<p>Design and implement a strategy to harmonize the episode names between these two data sets so that they can be joined. When you are finished, <code>anti_join()</code>ing the two data sets should produce an empty data set.</p>
+<p>Once the names are harmonized, left join the <code>office_director_and_writers</code> data with the <code>office_ratings</code> data</p>
+<p>Hints:</p>
+<ul>
+<li><p>I used the following functions to harmonize episode names: <code>tolower()</code>, <code>str_remove_all()</code>, and <code>str_replace()</code>.</p></li>
+<li><p>Don’t worry if it takes more than a few steps to get everything harmonized. Just take it one step at a time.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">'solutions/03_solution.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["season"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["title"],"name":[2],"type":["chr"],"align":["left"]},{"label":["director"],"name":[3],"type":["chr"],"align":["left"]},{"label":["writer"],"name":[4],"type":["chr"],"align":["left"]},{"label":["episode"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["imdb_rating"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["total_votes"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["air_date"],"name":[8],"type":["date"],"align":["right"]}],"data":[{"1":"1","2":"pilot","3":"Ken Kwapis","4":"Ricky Gervais","5":"1","6":"7.6","7":"3706","8":"2005-03-24"},{"1":"1","2":"pilot","3":"Ken Kwapis","4":"Stephen Merchant","5":"1","6":"7.6","7":"3706","8":"2005-03-24"},{"1":"1","2":"pilot","3":"Ken Kwapis","4":"Greg Daniels","5":"1","6":"7.6","7":"3706","8":"2005-03-24"},{"1":"1","2":"diversity day","3":"Ken Kwapis","4":"B.J. Novak","5":"2","6":"8.3","7":"3566","8":"2005-03-29"},{"1":"1","2":"health care","3":"Ken Whittingham","4":"Paul Lieberstein","5":"3","6":"7.9","7":"2983","8":"2005-04-05"},{"1":"1","2":"the alliance","3":"Bryan Gordon","4":"Michael Schur","5":"4","6":"8.1","7":"2886","8":"2005-04-12"},{"1":"1","2":"basketball","3":"Greg Daniels","4":"Greg Daniels","5":"5","6":"8.4","7":"3179","8":"2005-04-19"},{"1":"1","2":"hot girl","3":"Amy Heckerling","4":"Mindy Kaling","5":"6","6":"7.8","7":"2852","8":"2005-04-26"},{"1":"2","2":"the dundies","3":"Greg Daniels","4":"Mindy Kaling","5":"1","6":"8.7","7":"3213","8":"2005-09-20"},{"1":"2","2":"sexual harassment","3":"Ken Kwapis","4":"B.J. Novak","5":"2","6":"8.2","7":"2736","8":"2005-09-27"},{"1":"2","2":"office olympics","3":"Paul Feig","4":"Michael Schur","5":"3","6":"8.4","7":"2742","8":"2005-10-04"},{"1":"2","2":"the fire","3":"Ken Kwapis","4":"B.J. Novak","5":"4","6":"8.4","7":"2713","8":"2005-10-11"},{"1":"2","2":"halloween","3":"Paul Feig","4":"Greg Daniels","5":"5","6":"8.2","7":"2561","8":"2005-10-18"},{"1":"2","2":"the fight","3":"Ken Kwapis","4":"Gene Stupnitsky","5":"6","6":"8.2","7":"2550","8":"2005-11-01"},{"1":"2","2":"the fight","3":"Ken Kwapis","4":"Lee Eisenberg","5":"6","6":"8.2","7":"2550","8":"2005-11-01"},{"1":"2","2":"the client","3":"Greg Daneils","4":"Paul Lieberstein","5":"7","6":"8.6","7":"2631","8":"2005-11-08"},{"1":"2","2":"performance review","3":"Paul Feig","4":"Larry Willmore","5":"8","6":"8.2","7":"2416","8":"2005-11-15"},{"1":"2","2":"e-mail surveillance","3":"Paul Feig","4":"Jennifer Celotta","5":"9","6":"8.4","7":"2527","8":"2005-11-22"},{"1":"2","2":"christmas party","3":"Charles McDougall","4":"Michael Schur","5":"10","6":"8.8","7":"2755","8":"2005-12-06"},{"1":"2","2":"booze cruise","3":"Ken Kwapis","4":"Greg Daniels","5":"11","6":"8.6","7":"2679","8":"2006-01-05"},{"1":"2","2":"the injury","3":"Bryan Gordon","4":"Mindy Kaling","5":"12","6":"9.0","7":"3282","8":"2006-01-12"},{"1":"2","2":"the secret","3":"Dennie Gordon","4":"Lee Eisenberg","5":"13","6":"8.3","7":"2363","8":"2006-01-19"},{"1":"2","2":"the secret","3":"Dennie Gordon","4":"Gene Stupnitsky","5":"13","6":"8.3","7":"2363","8":"2006-01-19"},{"1":"2","2":"the carpet","3":"Victor Nelli Jr.","4":"Paul Lieberstein","5":"14","6":"7.9","7":"2342","8":"2006-01-26"},{"1":"2","2":"boys and girls","3":"Dennie Gordon","4":"B.J. Novak","5":"15","6":"8.2","7":"2323","8":"2006-02-02"},{"1":"2","2":"valentine's day","3":"Greg Daniels","4":"Michael Schur","5":"16","6":"8.3","7":"2345","8":"2006-02-09"},{"1":"2","2":"dwight's speech","3":"Charles McDougal","4":"Paul Lieberstein","5":"17","6":"8.4","7":"2463","8":"2006-03-02"},{"1":"2","2":"take your daughter to work day","3":"Victor Nelli Jr.","4":"Mindy Kaling","5":"18","6":"8.3","7":"2415","8":"2006-03-16"},{"1":"2","2":"michael's birthday","3":"Ken Wittingham","4":"Gene Stupnitsky","5":"19","6":"8.1","7":"2337","8":"2006-03-30"},{"1":"2","2":"michael's birthday","3":"Ken Wittingham","4":"Lee Eisenberg","5":"19","6":"8.1","7":"2337","8":"2006-03-30"},{"1":"2","2":"drug testing","3":"Greg Daniels","4":"Jennifer Celotta","5":"20","6":"8.4","7":"2397","8":"2006-04-27"},{"1":"2","2":"conflict resolution","3":"Greg Daniels","4":"Greg Daniels","5":"21","6":"8.7","7":"2440","8":"2006-05-04"},{"1":"2","2":"casino night","3":"Greg Daniels","4":"Steve Carell","5":"22","6":"9.3","7":"3644","8":"2006-05-11"},{"1":"3","2":"gay witch hunt","3":"Ken Kwapis","4":"Greg Daniels","5":"1","6":"8.9","7":"3087","8":"2006-09-21"},{"1":"3","2":"the convention","3":"Ken Whittingham","4":"Lee Eisenberg","5":"2","6":"8.2","7":"2275","8":"2006-09-28"},{"1":"3","2":"the convention","3":"Ken Whittingham","4":"Gene Stupnitsky","5":"2","6":"8.2","7":"2275","8":"2006-09-28"},{"1":"3","2":"the coup","3":"Greg Daniels","4":"Paul Lieberstein","5":"3","6":"8.5","7":"2388","8":"2006-10-05"},{"1":"3","2":"grief counseling","3":"Roger Nygard","4":"Jennifer Celotta","5":"4","6":"8.0","7":"2311","8":"2006-10-12"},{"1":"3","2":"initiation","3":"Randall Einhorn","4":"B.J. Novak","5":"5","6":"8.2","7":"2254","8":"2006-10-19"},{"1":"3","2":"diwali","3":"Miguel Arteta","4":"Mindy Kaling","5":"6","6":"8.0","7":"2320","8":"2006-11-02"},{"1":"3","2":"branch closing","3":"Tucker Gates","4":"Michael Schur","5":"7","6":"8.5","7":"2260","8":"2006-11-09"},{"1":"3","2":"the merger","3":"Ken Whittingham","4":"Brent Forrester","5":"8","6":"8.7","7":"2376","8":"2006-11-16"},{"1":"3","2":"the convict","3":"Jeffrey Blitz","4":"Ricky Gervais","5":"9","6":"8.2","7":"2373","8":"2006-11-30"},{"1":"3","2":"the convict","3":"Jeffrey Blitz","4":"Stephen Merchant","5":"9","6":"8.2","7":"2373","8":"2006-11-30"},{"1":"3","2":"a benihana christmas","3":"Harold Ramis","4":"Jennifer Celotta","5":"10","6":"8.7","7":"2541","8":"2006-12-14"},{"1":"3","2":"back from vacation","3":"Julian Farino","4":"Justin Spitzer","5":"11","6":"8.5","7":"2255","8":"2007-01-04"},{"1":"3","2":"traveling salesmen","3":"Greg Daniels","4":"Michael Schur","5":"12","6":"8.6","7":"2316","8":"2007-01-11"},{"1":"3","2":"traveling salesmen","3":"Greg Daniels","4":"Lee Eisenberg","5":"12","6":"8.6","7":"2316","8":"2007-01-11"},{"1":"3","2":"traveling salesmen","3":"Greg Daniels","4":"Gene Stupnitsky","5":"12","6":"8.6","7":"2316","8":"2007-01-11"},{"1":"3","2":"the return","3":"Greg Daniels","4":"Lee Eisenberg","5":"13","6":"8.8","7":"2430","8":"2007-01-18"},{"1":"3","2":"the return","3":"Greg Daniels","4":"Gene Stupnitsky","5":"13","6":"8.8","7":"2430","8":"2007-01-18"},{"1":"3","2":"the return","3":"Greg Daniels","4":"Michael Schur","5":"13","6":"8.8","7":"2430","8":"2007-01-18"},{"1":"3","2":"ben franklin","3":"Randall Einhorn","4":"Mindy Kaling","5":"14","6":"8.2","7":"2254","8":"2007-02-01"},{"1":"3","2":"phyllis' wedding","3":"Ken Whittingham","4":"Caroline Williams","5":"15","6":"8.3","7":"2283","8":"2007-02-08"},{"1":"3","2":"business school","3":"Joss Whedon","4":"Brent Forrester","5":"16","6":"8.8","7":"2622","8":"2007-02-15"},{"1":"3","2":"cocktails","3":"J.J. Abrams","4":"Paul Lieberstein","5":"17","6":"8.5","7":"2264","8":"2007-02-22"},{"1":"3","2":"the negotiation","3":"Jeffrey Blitz","4":"Michael Schur","5":"18","6":"8.9","7":"2555","8":"2007-04-05"},{"1":"3","2":"safety training","3":"Harold Ramis","4":"B.J. Novak","5":"19","6":"8.8","7":"2424","8":"2007-04-12"},{"1":"3","2":"product recall","3":"Randall Einhorn","4":"Brent Forrester","5":"20","6":"8.7","7":"2409","8":"2007-04-26"},{"1":"3","2":"product recall","3":"Randall Einhorn","4":"Justin Spitzer","5":"20","6":"8.7","7":"2409","8":"2007-04-26"},{"1":"3","2":"women's appreciation","3":"Tucker Gates","4":"Gene Stupnitsky","5":"21","6":"8.8","7":"2403","8":"2007-05-03"},{"1":"3","2":"women's appreciation","3":"Tucker Gates","4":"Lee Eisenberg","5":"21","6":"8.8","7":"2403","8":"2007-05-03"},{"1":"3","2":"beach games","3":"Harold Ramis","4":"Jennifer Celotta","5":"22","6":"9.1","7":"2783","8":"2007-05-10"},{"1":"3","2":"beach games","3":"Harold Ramis","4":"Greg Daniels","5":"22","6":"9.1","7":"2783","8":"2007-05-10"},{"1":"3","2":"the job","3":"Ken Kwapis","4":"Paul Lieberstein","5":"23","6":"9.3","7":"3010","8":"2007-05-17"},{"1":"3","2":"the job","3":"Ken Kwapis","4":"Michael Schur","5":"23","6":"9.3","7":"3010","8":"2007-05-17"},{"1":"4","2":"fun run","3":"Greg Daniels","4":"Greg Daniels","5":"1","6":"8.8","7":"2826","8":"2007-09-27"},{"1":"4","2":"dunder mifflin infinity","3":"Craig Zisk","4":"Michael Schur","5":"2","6":"8.4","7":"2248","8":"2007-10-04"},{"1":"4","2":"launch party","3":"Ken Whittingham","4":"Jennifer Celotta","5":"3","6":"8.5","7":"2173","8":"2007-10-11"},{"1":"4","2":"money","3":"Paul Lieerstein","4":"Paul Lieberstein","5":"4","6":"8.7","7":"2341","8":"2007-10-18"},{"1":"4","2":"local ad","3":"Jason Reitman","4":"B.J. Novak","5":"5","6":"8.8","7":"2388","8":"2007-10-25"},{"1":"4","2":"branch wars","3":"Joss Whedon","4":"Mindy Kaling","5":"6","6":"8.5","7":"2185","8":"2007-11-01"},{"1":"4","2":"survivor man","3":"Paul Feig","4":"Steve Carell","5":"7","6":"8.3","7":"2110","8":"2007-11-08"},{"1":"4","2":"the deposition","3":"Julian Farino","4":"Lester Lewis","5":"8","6":"8.7","7":"2202","8":"2007-11-15"},{"1":"4","2":"dinner party","3":"Paul Feig","4":"Gene Stupnitsky","5":"9","6":"9.3","7":"4095","8":"2008-04-10"},{"1":"4","2":"dinner party","3":"Paul Feig","4":"Lee Eisenberg","5":"9","6":"9.3","7":"4095","8":"2008-04-10"},{"1":"4","2":"chair model","3":"Jeffrey Blitz","4":"B.J. Novak","5":"10","6":"8.1","7":"2095","8":"2008-04-17"},{"1":"4","2":"night out","3":"Ken Whittingham","4":"Mindy Kaling","5":"11","6":"8.7","7":"2179","8":"2008-04-24"},{"1":"4","2":"did i stutter?","3":"Randall Einhorn","4":"Brent Forrester","5":"12","6":"8.4","7":"2087","8":"2008-05-01"},{"1":"4","2":"did i stutter?","3":"Randall Einhorn","4":"Justin Spitzer","5":"12","6":"8.4","7":"2087","8":"2008-05-01"},{"1":"4","2":"job fair","3":"Tucker Gates","4":"Lee Eisenberg","5":"13","6":"7.9","7":"1977","8":"2008-05-08"},{"1":"4","2":"job fair","3":"Tucker Gates","4":"Gene Stupnitsky","5":"13","6":"7.9","7":"1977","8":"2008-05-08"},{"1":"4","2":"goodbye, toby","3":"Paul Feig","4":"Jennifer Celotta","5":"14","6":"9.3","7":"3010","8":"2008-05-15"},{"1":"4","2":"goodbye, toby","3":"Paul Feig","4":"Paul Lieberstein","5":"14","6":"9.3","7":"3010","8":"2008-05-15"},{"1":"5","2":"weight loss","3":"Paul Feig","4":"Lee Eisenberg","5":"1","6":"8.8","7":"2501","8":"2008-09-25"},{"1":"5","2":"weight loss","3":"Paul Feig","4":"Gene Stupnitsky","5":"1","6":"8.8","7":"2501","8":"2008-09-25"},{"1":"5","2":"business ethics","3":"Jeffrey Blitz","4":"Ryan Koh","5":"2","6":"8.3","7":"1990","8":"2008-10-09"},{"1":"5","2":"baby shower","3":"Greg Daniels","4":"Aaron Shure","5":"3","6":"8.1","7":"1954","8":"2008-10-16"},{"1":"5","2":"crime aid","3":"Jennifer Celotta","4":"Charlie Grandy","5":"4","6":"8.1","7":"1884","8":"2008-10-23"},{"1":"5","2":"employee transfer","3":"David Rogers","4":"Anthony Q. Farrell","5":"5","6":"8.1","7":"1962","8":"2008-10-30"},{"1":"5","2":"customer survey","3":"Stephen Merchant","4":"Lester Lewis","5":"6","6":"8.5","7":"2018","8":"2008-11-06"},{"1":"5","2":"business trip","3":"Randall Einhorn","4":"Brent Forrester","5":"7","6":"8.2","7":"1867","8":"2008-11-13"},{"1":"5","2":"frame toby","3":"Jason Reitman","4":"Mindy Kaling","5":"8","6":"8.6","7":"2089","8":"2008-11-20"},{"1":"5","2":"the surplus","3":"Paul Feig","4":"Gene Stupnitsky","5":"9","6":"8.7","7":"2070","8":"2008-12-04"},{"1":"5","2":"the surplus","3":"Paul Feig","4":"Lee Eisenberg","5":"9","6":"8.7","7":"2070","8":"2008-12-04"},{"1":"5","2":"moroccan christmas","3":"Paul Feig","4":"Justin Spitzer","5":"10","6":"8.4","7":"1951","8":"2008-12-11"},{"1":"5","2":"the duel","3":"Dean Holland","4":"Jennifer Celotta","5":"11","6":"8.7","7":"2011","8":"2009-01-15"},{"1":"5","2":"prince family paper","3":"Asaad Kelada","4":"B.J. Novak","5":"12","6":"8.1","7":"1954","8":"2009-01-22"},{"1":"5","2":"stress relief","3":"Jeffrey Blitz","4":"Paul Lieberstein","5":"13","6":"9.6","7":"5948","8":"2009-02-01"},{"1":"5","2":"lecture circuit","3":"Ken Kwapis","4":"Mindy Kaling","5":"14","6":"8.2","7":"1838","8":"2009-02-05"},{"1":"5","2":"lecture circuit","3":"Ken Kwapis","4":"Mindy Kaling","5":"15","6":"8.2","7":"1808","8":"2009-02-12"},{"1":"5","2":"lecture circuit","3":"Ken Kwapis","4":"Mindy Kaling","5":"14","6":"8.2","7":"1838","8":"2009-02-05"},{"1":"5","2":"lecture circuit","3":"Ken Kwapis","4":"Mindy Kaling","5":"15","6":"8.2","7":"1808","8":"2009-02-12"},{"1":"5","2":"blood drive","3":"Randall Einhorn","4":"Brent Forrester","5":"16","6":"8.1","7":"1847","8":"2009-03-05"},{"1":"5","2":"golden ticket","3":"Randall Einhorn","4":"Mindy Kaling","5":"17","6":"8.7","7":"1987","8":"2009-03-12"},{"1":"5","2":"new boss","3":"Paul Feig","4":"Lee Eisenberg","5":"18","6":"8.3","7":"1875","8":"2009-03-19"},{"1":"5","2":"new boss","3":"Paul Feig","4":"Gene Stupnitsky","5":"18","6":"8.3","7":"1875","8":"2009-03-19"},{"1":"5","2":"two weeks","3":"Paul Lieberstein","4":"Aaron Shure","5":"19","6":"8.4","7":"1864","8":"2009-03-26"},{"1":"5","2":"dream team","3":"Paul Feig","4":"B.J. Novak","5":"20","6":"8.3","7":"1863","8":"2009-04-09"},{"1":"5","2":"michael scott paper company","3":"Gene Stupnitsky;Lee Eisenberg","4":"Justin Spitzer","5":"21","6":"8.7","7":"2032","8":"2009-04-09"},{"1":"5","2":"heavy competition","3":"Ken Whittingham","4":"Ryan Koh","5":"22","6":"8.7","7":"1913","8":"2009-04-16"},{"1":"5","2":"broke","3":"Steve Carell","4":"Charlie Grandy","5":"23","6":"9.1","7":"2509","8":"2009-04-23"},{"1":"5","2":"casual friday","3":"Brent Forrester","4":"Anthony Q. Farrell","5":"24","6":"8.3","7":"1845","8":"2009-04-30"},{"1":"5","2":"cafe disco","3":"Randall Einhorn","4":"Warren Lieberstein","5":"25","6":"8.7","7":"2107","8":"2009-05-07"},{"1":"5","2":"cafe disco","3":"Randall Einhorn","4":"Halsted Sullivan","5":"25","6":"8.7","7":"2107","8":"2009-05-07"},{"1":"5","2":"company picnic","3":"Ken Kwapis","4":"Jennifer Celotta","5":"26","6":"8.9","7":"2232","8":"2009-05-14"},{"1":"5","2":"company picnic","3":"Ken Kwapis","4":"Paul Lieberstein","5":"26","6":"8.9","7":"2232","8":"2009-05-14"},{"1":"6","2":"gossip","3":"Paul Lieberstein","4":"Paul Lieberstein","5":"1","6":"8.7","7":"2127","8":"2009-09-17"},{"1":"6","2":"the meeting","3":"Randall Einhorn","4":"Aaron Shure","5":"2","6":"8.2","7":"1755","8":"2009-09-24"},{"1":"6","2":"the promotion","3":"Jennifer Celotta","4":"Jennifer Celotta","5":"3","6":"8.0","7":"1751","8":"2009-10-01"},{"1":"6","2":"niagara","3":"Paul Feig","4":"Greg Daniels","5":"4","6":"9.3","7":"3579","8":"2009-10-08"},{"1":"6","2":"niagara","3":"Paul Feig","4":"Greg Daniels","5":"5","6":"9.3","7":"1946","8":"2009-10-08"},{"1":"6","2":"niagara","3":"Paul Feig","4":"Mindy Kaling","5":"4","6":"9.3","7":"3579","8":"2009-10-08"},{"1":"6","2":"niagara","3":"Paul Feig","4":"Mindy Kaling","5":"5","6":"9.3","7":"1946","8":"2009-10-08"},{"1":"6","2":"mafia","3":"David Rogers","4":"Brent Forrester","5":"6","6":"7.7","7":"1829","8":"2009-10-15"},{"1":"6","2":"the lover","3":"Lee Eisenberg;Gene Stupnitsky","4":"Lee Eisenberg","5":"7","6":"8.6","7":"1917","8":"2009-10-22"},{"1":"6","2":"the lover","3":"Lee Eisenberg;Gene Stupnitsky","4":"Gene Stupnitsky","5":"7","6":"8.6","7":"1917","8":"2009-10-22"},{"1":"6","2":"koi pond","3":"Reginald Hudlin","4":"Warren Lieberstein","5":"8","6":"8.2","7":"1739","8":"2009-10-29"},{"1":"6","2":"koi pond","3":"Reginald Hudlin","4":"Halsted Sullivan","5":"8","6":"8.2","7":"1739","8":"2009-10-29"},{"1":"6","2":"double date","3":"Seth Gordon","4":"Charlie Grandy","5":"9","6":"8.2","7":"1709","8":"2009-11-05"},{"1":"6","2":"murder","3":"Greg Daniels","4":"Daniel Chun","5":"10","6":"8.6","7":"2016","8":"2009-11-12"},{"1":"6","2":"shareholder meeting","3":"Charles McDougall","4":"Justin Spitzer","5":"11","6":"8.2","7":"1726","8":"2009-11-19"},{"1":"6","2":"scott's tots","3":"B.J. Novak","4":"Gene Stupnitsky","5":"12","6":"8.3","7":"1981","8":"2009-12-03"},{"1":"6","2":"scott's tots","3":"B.J. Novak","4":"Lee Eisenberg","5":"12","6":"8.3","7":"1981","8":"2009-12-03"},{"1":"6","2":"secret santa","3":"Randall Einhorn","4":"Mindy Kaling","5":"13","6":"8.5","7":"1844","8":"2009-12-10"},{"1":"6","2":"the banker","3":"Jeffrey Blitz","4":"Jason Kessler","5":"14","6":"6.8","7":"2288","8":"2010-01-21"},{"1":"6","2":"sabre","3":"John Krasinski","4":"Jennifer Celotta","5":"15","6":"7.8","7":"1681","8":"2010-02-04"},{"1":"6","2":"manager and salesman","3":"Marc Webb","4":"Mindy Kaling","5":"16","6":"8.1","7":"1670","8":"2010-02-11"},{"1":"6","2":"the delivery","3":"Seth Gordon;Harold Ramis","4":"Daniel Chun","5":"17","6":"8.4","7":"1750","8":"2010-03-04"},{"1":"6","2":"the delivery","3":"Seth Gordon;Harold Ramis","4":"Daniel Chun","5":"18","6":"8.5","7":"1769","8":"2010-03-04"},{"1":"6","2":"the delivery","3":"Seth Gordon;Harold Ramis","4":"Charlie Grandy","5":"17","6":"8.4","7":"1750","8":"2010-03-04"},{"1":"6","2":"the delivery","3":"Seth Gordon;Harold Ramis","4":"Charlie Grandy","5":"18","6":"8.5","7":"1769","8":"2010-03-04"},{"1":"6","2":"st. patrick's day","3":"Randall Einhorn","4":"Jonathan Huges","5":"19","6":"7.8","7":"1642","8":"2010-03-11"},{"1":"6","2":"new leads","3":"Brent Forrester","4":"Brent Forrester","5":"20","6":"7.9","7":"1609","8":"2010-03-18"},{"1":"6","2":"happy hour","3":"Matt Sohn","4":"B.J. Novak","5":"21","6":"8.6","7":"1873","8":"2010-03-25"},{"1":"6","2":"secretary's day","3":"Steve Carell","4":"Mindy Kaling","5":"22","6":"7.9","7":"1613","8":"2010-04-22"},{"1":"6","2":"body language","3":"Mindy Kaling","4":"Justin Spitzer","5":"23","6":"8.0","7":"1633","8":"2010-04-29"},{"1":"6","2":"the cover-up","3":"Rainn Wilson","4":"Gene Stupnitsky","5":"24","6":"8.2","7":"1627","8":"2010-05-06"},{"1":"6","2":"the cover-up","3":"Rainn Wilson","4":"Lee Eisenberg","5":"24","6":"8.2","7":"1627","8":"2010-05-06"},{"1":"6","2":"the chump","3":"Randall Einhorn","4":"Aaron Shure","5":"25","6":"7.9","7":"1571","8":"2010-05-13"},{"1":"6","2":"whistleblower","3":"Paul Lieberstein","4":"Warren Lieberstein","5":"26","6":"8.0","7":"1625","8":"2010-05-20"},{"1":"6","2":"whistleblower","3":"Paul Lieberstein","4":"Halsted Sullivan","5":"26","6":"8.0","7":"1625","8":"2010-05-20"},{"1":"7","2":"nepotism","3":"Jeffrey Blitz","4":"Daniel Chun","5":"1","6":"8.4","7":"1897","8":"2010-09-23"},{"1":"7","2":"counseling","3":"Jeffrey Blitz","4":"B.J. Novak","5":"2","6":"8.3","7":"1684","8":"2010-09-30"},{"1":"7","2":"andy's play","3":"John Scott","4":"Charlie Grandy","5":"3","6":"8.2","7":"1802","8":"2010-10-07"},{"1":"7","2":"sex ed","3":"Paul Lieberstein","4":"Paul Lieberstein","5":"4","6":"7.9","7":"1650","8":"2010-10-14"},{"1":"7","2":"the sting","3":"Randall Einhorn","4":"Mindy Kaling","5":"5","6":"7.8","7":"1612","8":"2010-10-21"},{"1":"7","2":"costume contest","3":"Dean Holland","4":"Justin Spitzer","5":"6","6":"8.2","7":"1663","8":"2010-10-28"},{"1":"7","2":"christening","3":"Alex Hardcastle","4":"Peter Ocko","5":"7","6":"7.5","7":"1668","8":"2010-11-04"},{"1":"7","2":"viewing party","3":"Ken Whittingham","4":"Jon Vitti","5":"8","6":"7.9","7":"1633","8":"2010-11-11"},{"1":"7","2":"wuphf.com","3":"Danny Leiner","4":"Aaron Shure","5":"9","6":"7.8","7":"1598","8":"2010-11-18"},{"1":"7","2":"china","3":"Charles McDougall","4":"Halsted Sullivan","5":"10","6":"8.2","7":"1661","8":"2010-12-02"},{"1":"7","2":"china","3":"Charles McDougall","4":"Warren Lieberstein","5":"10","6":"8.2","7":"1661","8":"2010-12-02"},{"1":"7","2":"classy christmas","3":"Rainn Wilson","4":"Mindy Kaling","5":"11","6":"8.9","7":"2138","8":"2010-12-09"},{"1":"7","2":"ultimatum","3":"David Rogers","4":"Carrie Kemper","5":"12","6":"8.3","7":"1695","8":"2011-01-20"},{"1":"7","2":"the seminar","3":"B.J. Novak","4":"Steve Hely","5":"13","6":"7.7","7":"1616","8":"2011-01-27"},{"1":"7","2":"the search","3":"Michael Spiller","4":"Brent Forrester","5":"14","6":"8.5","7":"1742","8":"2011-02-03"},{"1":"7","2":"pda","3":"Greg Daniels","4":"Robert Padnick","5":"15","6":"8.4","7":"1736","8":"2011-02-10"},{"1":"7","2":"threat level midnight","3":"Tucker Gates","4":"B.J. Novak","5":"16","6":"9.3","7":"3525","8":"2011-02-17"},{"1":"7","2":"todd packer","3":"Randall Einhorn","4":"Amelie Gillette","5":"17","6":"7.5","7":"1581","8":"2011-02-24"},{"1":"7","2":"garage sale","3":"Steve Carell","4":"Jon Vitti","5":"18","6":"9.2","7":"2742","8":"2011-03-24"},{"1":"7","2":"training day","3":"Paul Lieberstein","4":"Daniel Chun","5":"19","6":"7.8","7":"1655","8":"2011-04-14"},{"1":"7","2":"michael's last dundies","3":"Mindy Kaling","4":"Mindy Kaling","5":"20","6":"8.9","7":"2182","8":"2011-04-21"},{"1":"7","2":"goodbye, michael","3":"Paul Feig","4":"Greg Daniels","5":"21","6":"9.7","7":"5749","8":"2011-04-28"},{"1":"7","2":"the inner circle","3":"Matt Sohn","4":"Charlie Grandy","5":"22","6":"7.7","7":"1634","8":"2011-05-05"},{"1":"7","2":"dwight k. schrute, (acting) manager","3":"Troy Miller","4":"Justin Spitzer","5":"23","6":"8.7","7":"1840","8":"2011-05-12"},{"1":"7","2":"search committee","3":"Jeffrey Blitz","4":"Paul Lieberstein","5":"24","6":"8.8","7":"2040","8":"2011-05-19"},{"1":"8","2":"the list","3":"B.J. Novak","4":"B.J. Novak","5":"1","6":"8.2","7":"1829","8":"2011-09-22"},{"1":"8","2":"the incentive","3":"Charles McDougall","4":"Paul Lieberstein","5":"2","6":"8.2","7":"1668","8":"2011-09-29"},{"1":"8","2":"lotto","3":"John Krasinski","4":"Charlie Grandy","5":"3","6":"7.3","7":"1601","8":"2011-10-06"},{"1":"8","2":"garden party","3":"David Rogers","4":"Justin Spitzer","5":"4","6":"8.1","7":"1717","8":"2011-10-13"},{"1":"8","2":"spooked","3":"Randall Einhorn","4":"Carrie Kemper","5":"5","6":"7.6","7":"1543","8":"2011-10-27"},{"1":"8","2":"doomsday","3":"Troy Miller","4":"Daniel Chun","5":"6","6":"7.8","7":"1476","8":"2011-11-03"},{"1":"8","2":"pam's replacement","3":"Matt Sohn","4":"Allison Silverman","5":"7","6":"7.7","7":"1563","8":"2011-11-10"},{"1":"8","2":"gettysburg","3":"Jeffrey Blitz","4":"Robert Padnick","5":"8","6":"7.0","7":"1584","8":"2011-11-17"},{"1":"8","2":"mrs. california","3":"Charlie Grandy","4":"Dan Greaney","5":"9","6":"7.7","7":"1553","8":"2011-12-01"},{"1":"8","2":"christmas wishes","3":"Ed Helms","4":"Mindy Kaling","5":"10","6":"8.0","7":"1547","8":"2011-12-08"},{"1":"8","2":"trivia","3":"B.J. Novak","4":"Steve Hely","5":"11","6":"7.9","7":"1488","8":"2012-01-12"},{"1":"8","2":"pool party","3":"Charles McDougall","4":"Owen Ellickson","5":"12","6":"8.0","7":"1612","8":"2012-01-19"},{"1":"8","2":"jury duty","3":"Eric Appel","4":"Aaron Shure","5":"13","6":"7.5","7":"1478","8":"2012-02-02"},{"1":"8","2":"special project","3":"David Rogers","4":"Amelie Gillette","5":"14","6":"7.8","7":"1432","8":"2012-02-09"},{"1":"8","2":"tallahassee","3":"Matt Sohn","4":"Daniel Chun","5":"15","6":"7.9","7":"1522","8":"2012-02-16"},{"1":"8","2":"after hours","3":"Brian Baumgartner","4":"Halsted Sullivan","5":"16","6":"8.1","7":"1567","8":"2012-02-23"},{"1":"8","2":"after hours","3":"Brian Baumgartner","4":"Warren Lieberstein","5":"16","6":"8.1","7":"1567","8":"2012-02-23"},{"1":"8","2":"test the store","3":"Brent Forrester","4":"Mindy Kaling","5":"17","6":"7.8","7":"1478","8":"2012-03-01"},{"1":"8","2":"last day in florida","3":"Matt Sohn","4":"Robert Padnick","5":"18","6":"7.8","7":"1429","8":"2012-03-08"},{"1":"8","2":"get the girl","3":"Rainn Wilson","4":"Charlie Grandy","5":"19","6":"6.7","7":"1642","8":"2012-03-15"},{"1":"8","2":"welcome party","3":"Ed Helms","4":"Steve Hely","5":"20","6":"7.2","7":"1489","8":"2012-04-12"},{"1":"8","2":"angry andy","3":"Claire Scanlon","4":"Justin Spitzer","5":"21","6":"7.1","7":"1585","8":"2012-04-19"},{"1":"8","2":"fundraiser","3":"David Rogers","4":"Owen Ellickson","5":"22","6":"7.1","7":"1453","8":"2012-04-26"},{"1":"8","2":"turf war","3":"Daniel Chun","4":"Warren Lieberstein","5":"23","6":"7.7","7":"1393","8":"2012-05-03"},{"1":"8","2":"turf war","3":"Daniel Chun","4":"Halsted Sullivan","5":"23","6":"7.7","7":"1393","8":"2012-05-03"},{"1":"8","2":"free family portrait studio","3":"B.J. Novak","4":"B.J. Novak","5":"24","6":"7.8","7":"1464","8":"2012-05-10"},{"1":"9","2":"the new guys","3":"Greg Daniels","4":"Greg Daniels","5":"1","6":"7.7","7":"1577","8":"2012-09-20"},{"1":"9","2":"roy's wedding","3":"Matt Sohn","4":"Allison Silverman","5":"2","6":"7.2","7":"1477","8":"2012-09-27"},{"1":"9","2":"andy's ancestry","3":"David Rogers","4":"Jonathan Green","5":"3","6":"7.5","7":"1461","8":"2012-10-04"},{"1":"9","2":"andy's ancestry","3":"David Rogers","4":"Gabe Miller","5":"3","6":"7.5","7":"1461","8":"2012-10-04"},{"1":"9","2":"work bus","3":"Bryan Cranston","4":"Brent Forrester","5":"4","6":"7.9","7":"1551","8":"2012-10-18"},{"1":"9","2":"here comes treble","3":"Claire Scanlong","4":"Owen Ellickson","5":"5","6":"7.1","7":"1515","8":"2012-10-25"},{"1":"9","2":"the boat","3":"John Krasinski","4":"Dan Sterling","5":"6","6":"7.8","7":"1455","8":"2012-11-08"},{"1":"9","2":"the whale","3":"Rodman Flender","4":"Carrie Kemper","5":"7","6":"7.7","7":"1406","8":"2012-11-15"},{"1":"9","2":"the target","3":"Brent Forrester","4":"Graham Wagner","5":"8","6":"7.8","7":"1438","8":"2012-11-29"},{"1":"9","2":"dwight christmas","3":"Charles McDougall","4":"Robert Padnick","5":"9","6":"8.4","7":"1634","8":"2012-12-06"},{"1":"9","2":"lice","3":"Rodman Flender","4":"Nicki Schwartz-Wright","5":"10","6":"7.7","7":"1470","8":"2013-01-10"},{"1":"9","2":"suit warehouse","3":"Matt Sohn","4":"Dan Greaney","5":"11","6":"7.9","7":"1441","8":"2013-01-17"},{"1":"9","2":"customer loyalty","3":"Kelly Cantley-Kashima","4":"Jonathan Green","5":"12","6":"8.0","7":"1508","8":"2013-01-24"},{"1":"9","2":"customer loyalty","3":"Kelly Cantley-Kashima","4":"Gabe Miller","5":"12","6":"8.0","7":"1508","8":"2013-01-24"},{"1":"9","2":"junior salesman","3":"David Rogers","4":"Carrie Kemper","5":"13","6":"7.7","7":"1394","8":"2013-01-31"},{"1":"9","2":"vandalism","3":"Lee Kirk","4":"Owen Ellickson","5":"14","6":"7.6","7":"1402","8":"2013-01-31"},{"1":"9","2":"couples discount","3":"Troy Miller","4":"Allison Silverman","5":"15","6":"7.4","7":"1407","8":"2013-02-07"},{"1":"9","2":"moving on","3":"Jon Favreau","4":"Graham Wagner","5":"16","6":"8.2","7":"1572","8":"2013-02-14"},{"1":"9","2":"the farm","3":"Paul Lieberstein","4":"Paul Lieberstein","5":"17","6":"7.5","7":"1656","8":"2013-03-14"},{"1":"9","2":"promos","3":"Jennifer Celotta","4":"Tim McAuliffe","5":"18","6":"8.0","7":"1445","8":"2013-04-04"},{"1":"9","2":"stairmageddon","3":"Matt Sohn","4":"Dan Sterling","5":"19","6":"8.0","7":"1484","8":"2013-04-11"},{"1":"9","2":"paper airplane","3":"Jesse Peretz","4":"Halsted Sullivan","5":"20","6":"8.0","7":"1482","8":"2013-04-25"},{"1":"9","2":"paper airplane","3":"Jesse Peretz","4":"Warren Lieberstein","5":"20","6":"8.0","7":"1482","8":"2013-04-25"},{"1":"9","2":"livin' the dream","3":"Jeffrey Blitz","4":"Nicki Schwartz-Wright","5":"21","6":"8.9","7":"2041","8":"2013-05-02"},{"1":"9","2":"a.a.r.m.","3":"David Rogers","4":"Brent Forrester","5":"22","6":"9.3","7":"2860","8":"2013-05-09"},{"1":"9","2":"finale","3":"Ken Kwapis","4":"Greg Daniels","5":"23","6":"9.7","7":"7934","8":"2013-05-16"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-4" class="level1">
+<h1>Problem 4</h1>
+<p>Summarize the merged data by computing</p>
+<ol type="1">
+<li>the number of episodes that each writer contributed to.</li>
+<li>the mean rating of episodes by writer.</li>
+</ol>
+<p>Using the summarized data, create a new column that indicates who is a <code>top_writer</code>. The criteria for being identified as a <code>top_writer</code> are having a mean episode rating &gt; 8.6 or writing &gt; 20 episodes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">'solutions/04_solution.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["writer"],"name":[1],"type":["chr"],"align":["left"]},{"label":["episodes_n"],"name":[2],"type":["int"],"align":["right"]},{"label":["imdb_avg"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["top_writer"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Greg Daniels","2":"13","3":"8.769231","4":"True"},{"1":"Michael Schur","2":"10","3":"8.610000","4":"True"},{"1":"Mindy Kaling","2":"24","3":"8.408333","4":"True"},{"1":"Steve Carell","2":"2","3":"8.800000","4":"True"},{"1":"Aaron Shure","2":"6","3":"7.983333","4":"False"},{"1":"Allison Silverman","2":"3","3":"7.433333","4":"False"},{"1":"Amelie Gillette","2":"2","3":"7.650000","4":"False"},{"1":"Anthony Q. Farrell","2":"2","3":"8.200000","4":"False"},{"1":"B.J. Novak","2":"15","3":"8.373333","4":"False"},{"1":"Brent Forrester","2":"11","3":"8.381818","4":"False"},{"1":"Caroline Williams","2":"1","3":"8.300000","4":"False"},{"1":"Carrie Kemper","2":"4","3":"7.825000","4":"False"},{"1":"Charlie Grandy","2":"9","3":"8.022222","4":"False"},{"1":"Dan Greaney","2":"2","3":"7.800000","4":"False"},{"1":"Dan Sterling","2":"2","3":"7.900000","4":"False"},{"1":"Daniel Chun","2":"7","3":"8.200000","4":"False"},{"1":"Gabe Miller","2":"2","3":"7.750000","4":"False"},{"1":"Gene Stupnitsky","2":"15","3":"8.473333","4":"False"},{"1":"Graham Wagner","2":"2","3":"8.000000","4":"False"},{"1":"Halsted Sullivan","2":"7","3":"8.128571","4":"False"},{"1":"Jason Kessler","2":"1","3":"6.800000","4":"False"},{"1":"Jennifer Celotta","2":"11","3":"8.527273","4":"False"},{"1":"Jon Vitti","2":"2","3":"8.550000","4":"False"},{"1":"Jonathan Green","2":"2","3":"7.750000","4":"False"},{"1":"Jonathan Huges","2":"1","3":"7.800000","4":"False"},{"1":"Justin Spitzer","2":"11","3":"8.272727","4":"False"},{"1":"Larry Willmore","2":"1","3":"8.200000","4":"False"},{"1":"Lee Eisenberg","2":"15","3":"8.473333","4":"False"},{"1":"Lester Lewis","2":"2","3":"8.600000","4":"False"},{"1":"Nicki Schwartz-Wright","2":"2","3":"8.300000","4":"False"},{"1":"Owen Ellickson","2":"4","3":"7.450000","4":"False"},{"1":"Paul Lieberstein","2":"16","3":"8.543750","4":"False"},{"1":"Peter Ocko","2":"1","3":"7.500000","4":"False"},{"1":"Ricky Gervais","2":"2","3":"7.900000","4":"False"},{"1":"Robert Padnick","2":"4","3":"7.900000","4":"False"},{"1":"Ryan Koh","2":"2","3":"8.500000","4":"False"},{"1":"Stephen Merchant","2":"2","3":"7.900000","4":"False"},{"1":"Steve Hely","2":"3","3":"7.600000","4":"False"},{"1":"Tim McAuliffe","2":"1","3":"8.000000","4":"False"},{"1":"Warren Lieberstein","2":"7","3":"8.128571","4":"False"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="problem-5" class="level1">
+<h1>Problem 5</h1>
+<p>Merge the data you created in problem 4 with the data you previously merged in problem 3, and then create a dataset that includes the top 5 episodes for each <code>top_writer</code>, arranged by rating. If the <code>top_writer</code> wrote k &lt; 5 episodes, just show the k episodes that the writer contributed to.</p>
+<p>Notes:</p>
+<ul>
+<li><code>group_by()</code>, <code>arrange()</code>, and <code>slice()</code> work extremely well together.</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">'solutions/05_solution.rds'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["title"],"name":[1],"type":["chr"],"align":["left"]},{"label":["writer"],"name":[2],"type":["chr"],"align":["left"]},{"label":["air_date"],"name":[3],"type":["date"],"align":["right"]},{"label":["imdb_rating"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"pilot","2":"Greg Daniels","3":"2005-03-24","4":"7.6"},{"1":"basketball","2":"Greg Daniels","3":"2005-04-19","4":"8.4"},{"1":"halloween","2":"Greg Daniels","3":"2005-10-18","4":"8.2"},{"1":"booze cruise","2":"Greg Daniels","3":"2006-01-05","4":"8.6"},{"1":"the new guys","2":"Greg Daniels","3":"2012-09-20","4":"7.7"},{"1":"the alliance","2":"Michael Schur","3":"2005-04-12","4":"8.1"},{"1":"office olympics","2":"Michael Schur","3":"2005-10-04","4":"8.4"},{"1":"valentine's day","2":"Michael Schur","3":"2006-02-09","4":"8.3"},{"1":"branch closing","2":"Michael Schur","3":"2006-11-09","4":"8.5"},{"1":"dunder mifflin infinity","2":"Michael Schur","3":"2007-10-04","4":"8.4"},{"1":"hot girl","2":"Mindy Kaling","3":"2005-04-26","4":"7.8"},{"1":"diwali","2":"Mindy Kaling","3":"2006-11-02","4":"8.0"},{"1":"secretary's day","2":"Mindy Kaling","3":"2010-04-22","4":"7.9"},{"1":"the sting","2":"Mindy Kaling","3":"2010-10-21","4":"7.8"},{"1":"test the store","2":"Mindy Kaling","3":"2012-03-01","4":"7.8"},{"1":"casino night","2":"Steve Carell","3":"2006-05-11","4":"9.3"},{"1":"survivor man","2":"Steve Carell","3":"2007-11-08","4":"8.3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

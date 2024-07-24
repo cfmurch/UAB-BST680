@@ -40,6 +40,9 @@ website:
           - text: "08 - Characters and Dates"
             href: "Lectures/08_Strings/index.qmd"
             target: _blank
+          - text: "09 - Joins and I/O"
+            href: "Lectures/09_Joins/index.qmd"
+            target: _blank
       - section: "Lecture PDF"
         contents:
           - text: "01 - Introducing Your Tools"
@@ -66,6 +69,9 @@ website:
           - text: "08 - Characters and Dates"
             href: "pdfs/BST680 - 2024 - 08 Characters and Dates.pdf"
             target: _blank
+          - text: "09 - Joins and I/O"
+            href: "pdfs/BST680 - 2024 - 09 Joins and IO.pdf"
+            target: _blank
       - section: "Additional Info"
         contents:
           - text: "01a - Intro to Quarto and gt()"
@@ -88,6 +94,8 @@ website:
             href: "html_files/07_Reshape/class_exercises.qmd"
           - text: "08 - Characters and Dates"
             href: "html_files/08_Strings/class_exercises.qmd"
+          - text: "09 - Joins and I/O"
+            href: "html_files/09_Joins/class_exercises.qmd"
       - section: "Assignment Solutions"
         contents: 
           - text: "01 - Working with Tables"
@@ -104,6 +112,8 @@ website:
             href: "html_files/06_Adv_Visual/exercise_solutions.qmd"
           - text: "07 - Reshaping Data"
             href: "html_files/07_Reshape/exercise_solutions.qmd"
+          - text: "08 - Characters and Dates"
+            href: "html_files/08_Strings/exercise_solutions.qmd"
         
           
             
@@ -116,6 +126,9 @@ website:
         contents: 
           - text: "Midterm Details"
             href: "html_files/Midterm/midterm_start_here.qmd"
+          - text: "Midterm Solutions"
+            href: "html_files/Midterm/midterm_solutions.qmd"
+            
 
 format:
   html:

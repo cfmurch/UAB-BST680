@@ -1,0 +1,927 @@
+---
+title: "Joins and I/O"
+subtitle: "Working with Multiple Data Sets"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: false
+
+library(readr)    # for reading in data
+library(tibble)   # for data printing
+library(tidyr)    # for tidying
+library(dplyr)    # for data manipulation
+library(ggplot2)  # for visualization
+library(gt)       # for tables
+library(forcats)  # for fct_recode
+library(stringr)
+library(lubridate)
+library(nycflights13)
+library(gapminder)
+
+
+
+
+```
+
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Binding data frames
+
+- Merges and joins
+
+- Input and output
+
+
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/excel_meme.png){fig-align="center" width="85%" height="85%"}
+:::
+:::
+
+::::
+
+
+# Binding Data Frames
+
+---
+
+## Binding - Brute Force
+
+- The most basic way to combine data frames or tibbles is using binding
+
+- Can bind by rows (make longer) or by columns (make wider)
+
+- It works but it's not recommended
+
+    - Puts resposibility on the programmer
+    
+    - Is reliant on consistent structure in the data frame
+    
+    - Is brutish compared to formal merges
+    
+- Good as illustrative exercise
+    
+---
+
+
+
+## Binding - One Dataset...to Bind Them 
+
+- Some Lord of the Rings dialogue data
+
+
+```{r}
+
+fship <- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+  "The Fellowship Of The Ring",    "Elf",    1229,   971,
+  "The Fellowship Of The Ring", "Hobbit",      14,  3644,
+  "The Fellowship Of The Ring",    "Man",       0,  1995
+)
+rking <- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+      "The Return Of The King",    "Elf",     183,   510,
+      "The Return Of The King", "Hobbit",       2,  2673,
+      "The Return Of The King",    "Man",     268,  2459
+)
+ttow <- tribble(
+                         ~Film,    ~Race, ~Female, ~Male,
+              "The Two Towers",    "Elf",     331,   513,
+              "The Two Towers", "Hobbit",       0,  2463,
+              "The Two Towers",    "Man",     401,  3589
+)
+
+```
+
+---
+
+## Binding - Binding Row-wise {background-image="img/dplyr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Row binding increases your _observations_
+
+- The main consideration is the nature of the variables
+
+    - Do the same variables exist in each?
+    
+    - Are they the same type/class?
+    
+    - Are they in the same position?
+    
+- If all these hold, then a row bind is feasible using `rbind()` or `rbind.data.frame()` in base R or `bind_rows()` from `dplyr`
+
+:::{.callout-important style="margin-top: -4%"}
+
+Onus is on the programmer to verify these variable criteria
+
+:::
+
+## Binding - The 9 Rows of Man
+
+- Row-wise binding in action
+
+```{r}
+bind_rows(fship, rking, ttow)
+```
+
+
+## Binding - Row Binding Protection
+
+- Simple coercion, mainly factor to character, is allowed
+
+```{r}
+#| error: true
+ttow_factor <- mutate(ttow, Race = fct(Race))
+rbind(fship, rking, ttow_factor)
+```
+
+## Binding - Row Binding Protection
+
+- Factor levels can be disparate
+
+```{r}
+#| error: true
+ttow_factor <- mutate(ttow, Race = fct(Race), Race = fct_expand(Race, "Orc"))
+fship_factor <- mutate(fship, Race = fct(Race), Race = fct_expand(Race, "Ent"))
+rbind(fship_factor, ttow_factor)
+levels(rbind(fship_factor, ttow_factor)$Race)
+```
+
+
+## Binding - Row Binding Protection
+
+- Positioning can be different as long as names match
+
+```{r}
+#| error: true
+ttow_rev <- relocate(ttow, c(Male, Female, Race, Film))
+rbind(fship, rking, ttow_rev)
+```
+
+
+## Binding - Row Binding Protection
+
+- `bind_rows()` will fill empty columns with `NA` but not `rbind()`
+
+```{r}
+#| error: true
+ttow_empty <- select(ttow, c(Film, Race, Female))
+bind_rows(fship, rking, ttow_empty)
+rbind(fship, rking, ttow_empty)
+```
+
+## Binding - Row Binding Gone Wrong
+
+- Some coercion tosses an error
+
+```{r}
+#| error: true
+ttow_numeric <- mutate(ttow, Race = as.numeric(fct(Race)))
+bind_rows(fship, rking, ttow_numeric)
+```
+
+## Binding  - Row Binding Gone Wrong
+
+- But if the same variables have different names, you suffer
+
+```{r}
+#| error: true
+rking_rename <- rename(rking, "Fem" = Female)
+rbind(fship, rking_rename, ttow)
+bind_rows(fship, rking_rename, ttow) |> slice(c(1:6))
+```
+
+- Check your work or even better, don't use row binding
+
+## Binding - Column Binding  {background-image="img/dplyr.svg" background-size="8%" background-position="95% 5%"}
+
+:::{.columns}
+
+:::{.column}
+
+- Much scarier than row binding
+
+- Row MUST be aligned to avoid data quality issues
+
+- Many other safer options exists
+
+    - `mutate()`
+    
+    - `separate_wider_`
+    
+    - Even `$` is better
+    
+:::
+
+:::{.column}
+
+![](img/cbind_meme.jpg){fig-align="center"}
+
+:::
+
+:::
+
+- Enforce constraints rather than using `cbind()` or `bind_cols()`
+
+
+## Binding - Column Binding In Action \<gulp\>
+
+- Column binding frequently works even when you think it shouldn't
+
+```{r}
+#| message: false
+bind_cols(fship, rking, ttow)
+cbind(fship, rking, ttow)
+```
+
+## Binding - Column Binding In Action \<gulp\>
+
+- `cbind()` in particular is frightening because of recycling
+```{r}
+#| include: false
+options(width = 150)
+```
+
+```{r}
+#| output: fragment
+
+fship_rking <- bind_rows(fship, rking)
+cbind(fship_rking, ttow)
+```
+
+- Check your work, or even better, don't use column binding
+
+
+## Binding - Just Don't
+
+
+:::{.columns}
+
+:::{.column}
+
+- Bottom line is this:
+
+    - Row bind when needed but be sure to check your work afterwards
+    
+    - Column bind only if absolutely necessary and be _exceedingly_ distrustful of the results
+
+- There are much better and safer options called <b>joins</b>
+
+:::
+
+:::{.column}
+
+![](img/bind_meme.jpeg){fig-align="center"}
+
+:::
+
+:::
+
+
+# Joins
+
+
+## Joins - Built from Relational Data
+
+:::{.columns}
+
+:::{.column}
+
+- Multiple separate but associated datasets comprise <b>relational data</b>
+
+- Now we think beyond structuring data in rows and columns but to include tables that can be linked (i.e. related)
+
+- These relationships allow for joins by associative variables called keys
+
+- FYI R (like Excel) is NOT a RDBMS
+
+:::
+
+:::{.column}
+
+![](img/rdb.png){fig-align="center" width="85%"}
+
+:::
+
+:::
+
+:::{.footer}
+
+[https://cloud.google.com/learn/what-is-a-relational-database](https://cloud.google.com/learn/what-is-a-relational-database){.external target="_blank"}
+
+:::
+
+
+## Joins - Keys
+
+- All joins involve keys in the connecting tables
+
+    - <b>Primary</b> keys are the unique identifier for a record in a dataset
+    
+        Each table only has _one_ primary key and ensures each observation can be uniquely identified
+    
+    - <b>Compound</b> keys use two or more columns / variables to identify unique records
+    
+        The combination ensures uniqueness although <b>surrogate</b> primary keys may be useful
+        
+    - <b>Foreign</b> keys in one table uniquely identify a record in another table
+    
+        Establish the link from the child table to the parent/referenced table
+
+## Joins - What Keys Do
+
+- Keys are great for many reason like ensuring uniqueness, enforcing integrity, and facilitating indexing
+
+- They are also the backbone of joins since they establish how tables are related
+
+- We join tables by matching the primary keys in one table to the foreign key in another
+
+- By matching tables record-wise by key we can make single tables
+
+
+## Joins - Catching Another Flight
+
+- The `nycflights13` dataset has many tables beyond our `flights`
+
+    - `airlines` records the carrier name and its two letter code (PK)
+    
+    - `airports` gives positional/idetifying data for each airport with each identified by its unique faa call (PK)
+    
+    - `planes` has data about each plane itself with its tail number (PK) as the identifier
+    
+    - `weather` gives weather data at each origin airport by time (compound PK)
+    
+- These primary keys all link back to foreign keys within `flights`
+    
+## Joins - Mapping the Relationships
+
+![](img/relational.png){fig-align="center" width="75%"}
+
+## Joins - Mapping to Flights
+
+- For our joins, we'll consider a reduced set of `flights` called `flight`
+
+```{r}
+flight <- select(flights, c(year, time_hour, origin, dest, tailnum, carrier))
+flight
+```
+
+
+## Joins - Some Caveats
+
+- Life is easier when the same variables have the same name, but not always the case
+
+- Different variables ideally have different names, but not always the case e.g. `year` in `flights` and `planes` are different
+
+- Data WILL be missing from one table of the other
+
+- Rows will invariably have different units of observation
+
+
+## Joins - The `dplyr` Verbs {background-image="img/dplyr.svg" background-size="8%" background-position="95% 5%"}
+
+- `dplyr` has three families of functions used for joins:
+
+    1. <b>Mutating joins</b> combine variables from two data frames by matching rows from one table to another
+    
+    2. <b>Filtering joins</b> filter observations in one table based on whether they match a record in the other table
+    
+    3. <b>Set operations</b> combine observations as if they were set elements
+    
+- For better or worse, `dplyr` only joins two tables at a time `x` and `y`
+
+
+## Joins - `dplyr` Joins by `by` {background-image="img/dplyr.svg" background-size="8%" background-position="95% 5%"}
+
+- All `dplyr` joins generally control matching the same way, with `by`
+
+- `by = NULL` uses all variables common to both tables aka a natural join
+
+- `by = "x"`, where `"x"` is a character vector, is a natural join but only uses some common variables
+
+    Useful when the tables have two distinct variables with the same name
+
+- `by = c("x" = "a")` matches variable `"x"` in table `x` with variable `"a"` in table `y`
+
+    Useful when the matching variables have different names
+    
+- `by = join_by()` using an expression on variable names e.g. `x == a`
+
+    
+## Joins - Mutating Joins to Add Variables
+
+- These joins will return all columns in `x` and all columns in `y`
+
+- If the foreign key matches multiple times, all combinations of PK-FK pairs are returned
+
+    1. Left join - return all rows in `x` and those in `y` that match in `x`
+
+    2. Right join - return all rows in `y` and those in `x` that match in `y`
+
+    3. Inner join - return all rows that match in both `x` and `y`
+
+    4. Full join - return all rows in `x` and all rows in `y` 
+
+- Returned rows that were unmatched get `NA` in the new columns from the other table
+
+## Joins - Visual Diagram of Mutating Joins
+
+![](img/join_meme.jpeg){fig-align="center" width="45%"}
+
+
+## Joins - Left Join via `left_join()`
+
+:::{.columns}
+
+:::{.column}
+
+![](img/left-join.gif){fig-align="center"}
+
+:::
+
+:::{.column}
+
+![](img/left.png){fig-align="center"}
+
+:::
+
+:::
+
+:::{style="margin-top: -5%"}
+
+- Easily the most common, always returns all rows of the parent table `x`
+
+:::
+
+
+## Joins - `left_join()` with `flight`
+
+- A left join between `flight` and `arlines`
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+left_join(flight, airlines)
+```
+
+
+## Joins - `left_join()` with `flight`
+
+- A left join between `flight` and `weather` with a select for temp/wind
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+flight |> left_join(weather |> select(origin, time_hour, temp, wind_speed))
+```
+
+
+## Joins - `left_join()` with `flight`
+
+- A left join between `flight` and `planes` with a failed natural join
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+flight |> left_join(planes)
+```
+
+
+## Joins - `left_join()` with `flight`
+
+- Since `year` means different things, we want to specify `by = tailnum`
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+flight |> left_join(planes, by = "tailnum")
+```
+
+
+## Joins - Right Join via `right_join()`
+
+:::{.columns}
+
+:::{.column}
+
+![](img/right-join.gif){fig-align="center"}
+
+:::
+
+:::{.column}
+
+![](img/right.png){fig-align="center"}
+
+:::
+
+:::
+
+:::{style="margin-top: -5%"}
+
+- Far less common than left joins
+
+:::
+
+## Joins - `right_join()` with `flight`
+
+- A right join between `flight` and `planes`, equivalent to `left_join(airlines, flight)` aside from column order
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+flight |> right_join(planes, by = join_by(tailnum))
+```
+
+
+## Joins - Inner Join via `inner_join()`
+
+:::{.columns}
+
+:::{.column}
+
+![](img/inner-join.gif){fig-align="center"}
+
+:::
+
+:::{.column}
+
+![](img/inner.png){fig-align="center"}
+
+:::
+
+:::
+
+:::{style="margin-top: -5%"}
+
+- Multiple matching returns all combinations so it does make new rows
+
+:::
+
+## Joins - `inner_join()` with `flight`
+
+- Again, combinations are returned even on inner joins if a match is found
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+flight |> inner_join(airports |> filter(faa %in% c("JFK", "LGA")), 
+                     by = join_by(origin == faa))
+```
+
+
+## Joins - Full Join via `full_join()`
+
+:::{.columns}
+
+:::{.column}
+
+![](img/full-join.gif){fig-align="center"}
+
+:::
+
+:::{.column}
+
+![](img/full.png){fig-align="center"}
+
+:::
+
+:::
+
+:::{style="margin-top: -5%"}
+
+- When you don't want to lose any data anywhere
+
+:::
+
+## Joins - Filtering Joins to Reduce Rows
+
+- Primary action is to filter rows, columns are not added from `y` 
+
+- No multiple matching is done, will never return more rows than originally in `x`
+
+    1. Semi-join - keep all rows in `x` that have a match in `y`, discard all other rows from `x`
+    
+        Semi-joins are like inner joins but only return the one row from `x`
+
+    2. Anti-join - returns only those rows `x` that do _NOT_ have a match in `y`
+    
+        Especially useful in identifying data that is implicitly missing
+        
+- `join_by()` expressions using operators like `<` or `>` have great utility
+
+## Joins - Full Join via `full_join()`
+
+:::{.columns}
+
+:::{.column}
+
+![](img/semi-join.gif){fig-align="center"}
+
+:::
+
+:::{.column}
+
+![](img/semi.png){fig-align="center"}
+
+:::
+
+:::
+
+:::{style="margin-top: -5%"}
+
+- Note how this only returns columns from `x`
+
+:::
+
+## Joins - Semi-join with `semi_join()`
+
+- We join `airports` on `flight` to only get the origin airports
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+airports |> semi_join(flight, by = join_by(faa == origin))
+```
+
+
+## Joins - Semi-join with `semi_join()`
+
+- Or to get the destination airports only
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+airports |> semi_join(flight, by = join_by(faa == dest))
+```
+
+- In both cases these are just filtered variants of `airports`
+
+## Joins - Full Join via `full_join()`
+
+:::{.columns}
+
+:::{.column}
+
+![](img/anti-join.gif){fig-align="center"}
+
+:::
+
+:::{.column}
+
+![](img/anti.png){fig-align="center"}
+
+:::
+
+:::
+
+:::{style="margin-top: -5%"}
+
+- Rows from `x` that are missing in `y` i.e. implicitly missing
+
+:::
+
+## Joins - Anti-join with `anti_join()`
+
+- We can find `flight` destinations that don't have a matching `faa` code in `airports`
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+flight |> anti_join(airports, by = join_by(dest == faa)) |>
+  distinct(dest)
+```
+
+- These are destinations in `flight` missing from the `airports` data
+
+## Joins - Set Operations
+
+- The other two-table type of `dplyr` function are `set operations`
+
+    - `x` and `y` are expected to have the same variables
+    
+    - Rows / observations are treated like sets
+    
+1. `intersect(x,y)` returns observations in both `x` and `y`
+
+2. `union(x,y)` returns unique observations in `x` and `y`
+
+3. `setdiff(x,y)` returns observations in `x` but _not_ in `y`
+
+- These behave just like base R's vector-based set operations but function row-wise on tables instead of element-wise on vectors
+
+
+## Joins - Final Comments
+
+- Joins that return columns with the same name have suffixes attached
+
+    - Default is `.x` and `.y`
+    
+    - These can be specified using the `suffix` argument
+
+- Understanding `join_by()` is especially powerful with filter joins
+
+- Base R has `merge()` which can do basically everything by use of the `all`, `by`, `suffixes`, and `no.dups` arguments; `dplyr` is simply more explicit in its functionality
+
+
+# Input / Output
+
+## I/O - What We've Done Before
+
+- Most of our effort has been using .rds files already made in R or stock datasets
+
+- During Advanced Visualization we discussed some other options:
+
+    - Base R functions like `read.table()` and `read.csv()`
+    
+    - Options for other file types most notably Excel with `read_xl()`
+    
+- Aside from saving .rds or .RData files or Quarto rendering not much output
+
+## I/O - The Import Mindset
+
+- During data _import_ you can generally either:
+
+    - Be adventurous - import your data as quickly as possible and start playing
+    
+    - Be consistent - spend time prior to import getting your data as close to a tidy format as possible
+    
+- Both have value and purpose but in general: 
+
+    1. Manipulate the data outside of your reproducible workflow as minimally as you can
+    
+    2. Use arguments during import to get as far as you can as quickly as possible
+    
+## I/O - The Export Mindset
+
+:::{.columns}
+
+:::{.column}
+
+- Today's output is tomorrow's input whether it's:
+
+    1. A tidy data set ready for subsequent analysis and sharing
+    
+    2. An operational output from a pipeline (summary metric, graphical output, statistical result, etc)
+    
+- Don't get fancy, proprietary file formats my be unusable
+    
+:::
+
+:::{.column}
+
+![](img/floppy.jpeg){fig-align="center" width="85%"}
+
+:::
+
+:::
+
+## I/O - Import with `readr`  {background-image="img/readr.svg" background-size="8%" background-position="95% 5%"}
+
+- `readr` functions handle a lot of the basic input functions of base R
+
+    - `read_delim()` is functionally equivalent to `read.table()`
+    
+    - Other variants include `read_csv()`, `read_tsv()`, and `read_rds()`
+    
+- It's main utility is parsing input meaningfully for storage in a tibble
+
+- `readr` will try to make informed guess on column types although you can overwrite these by passing lists to the `col_types` argument
+
+- See the [vignette](https://cran.r-project.org/web/packages/readr/vignettes/readr.html){.external target="_blank"} for more details
+
+
+## I/O - Export with `readr`  {background-image="img/readr.svg" background-size="8%" background-position="95% 5%"}
+
+- Despite its name, `readr` can also write rectangular data to file with `write_delim()`, `write_tsv()`, `write_csv()` and even `write_excel_csv()`
+
+- Major distinction is what the default `delim` argument is with `write_delim()` using the space `" "`
+
+- Otherwise, very similar to base R's `write.table()` and `write.csv()`
+
+## I/O - Working with Excel
+
+- We previously discussed `read_xl` but there is also `write_excel` which has the `write_xlsx()` function
+
+- Both functions have similar arguments where you specify `path` and `sheet`
+
+- `write_xlsx()` is _very_ lightweight and won't allow for formatting during writing
+
+- For more engaged writing to Excel I recommend [`openxlsx2`](https://cran.r-project.org/web/packages/openxlsx2/vignettes/openxlsx2.html){.external target="_blank"} with [`xlsx`](https://cran.r-project.org/web/packages/xlsx/vignettes/excel_report.html){.external target="_blank"} being another alternative
+
+## I/O - A Cautionary Tale
+
+- Saving to a non-R file loses meta information e.g. factors
+
+- Consider `gapminder` with `country` ordered by `lifeExp`
+
+```{r}
+#| class-output: "custom-height custom-height-small"
+gapminder_reorder <- gapminder |>
+  filter(year == 1997) |>
+  mutate(country = fct_reorder(country, desc(lifeExp))) |>
+  arrange(country)
+
+print(gapminder_reorder, n=5)
+```
+
+## I/O - A Cautionary Tale
+
+- The factor levels saves this ordering over the default alphabetical
+
+```{r}
+levels(gapminder_reorder$country)[1:10]
+```
+
+- But if this is saved to file and then reloaded
+
+```{r}
+write_delim(gapminder_reorder, "data/gapminder_reorder.txt", delim = "\t")
+
+gapminder_reorder_readin <- read_delim("data/gapminder_reorder.txt")
+```
+
+- Not only is the reordering lost but `readr` defaults to a character
+
+```{r}
+class(gapminder_reorder_readin$country)
+```
+
+
+## I/O - Improving Your Personal Flows
+
+- Whenever possible, save your objects as .rds files to maintain all R-specific metadata
+
+- These can easily be recalled using `readRDS()` and `writeRDS()` in base R or `read_rds()` or `write_rds()` from `readr`
+
+- Don't be afraid to save entire environments as .RData files with `save()` and `load()`; these can get rather cumbersome though and saving multiple variants can be hard to keep track of
+
+- You may not share these with collaborators but you'll make extensive personal use of them
+
+## I/O - Final Warnings on Delimited Files
+
+:::{.callout-tip}
+
+Write data for computers but write code for humans
+
+:::
+
+- Collaborators never follow the former so delimited files will fail on import in odd ways
+
+   - Your requested delimiters (e.g. `","` or `"\t"`) will be part of the file
+
+   - New lines will lead to jagged rows or missing keys
+
+   - Quotes will be used which cause odd string behavior
+   
+   - More ways you never even considered
+   
+## I/O - Final Warnings on Delimited Files
+
+- If you can limit these issues during data capture it makes your job easier
+
+    e.g. If dropdown menus via REDCap be used do so
+    
+- Avoid free text whenever possible 
+
+    Be ready to scrub those fields with regular expressions when you're inevitably ignored
+
+- Headers as column names can be brutal on read-in 
+
+    Don't forget about proper casing and `janitor`
+
+## Learning More
+
+- `dplyr` has a dedicated vignette on [joining](https://dplyr.tidyverse.org/articles/two-table.html){.external target="_blank"}
+
+- The [Import](https://r4ds.hadley.nz/import){.external target="_blank"} section in R4DS has several chapters on importing data from a variety of formats
+
+- Next time, Quarto

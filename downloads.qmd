@@ -60,3 +60,8 @@ Exercises - <a href="_static/08_class_exercises.qmd" download>[.qmd file]</a> an
 
 Data and Solutions folder - <a href="_static/08_solutions.zip" download>[.zip file]</a>
 
+## 09 - Joins and I/O
+
+Exercises - <a href="_static/09_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/09_class_exercises.R" download>[.R file]</a>
+
+Data and Solutions folder - <a href="_static/09_solutions.zip" download>[.zip file]</a>
