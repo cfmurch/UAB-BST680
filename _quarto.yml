@@ -96,24 +96,7 @@ website:
             href: "html_files/08_Strings/class_exercises.qmd"
           - text: "09 - Joins and I/O"
             href: "html_files/09_Joins/class_exercises.qmd"
-      - section: "Assignment Solutions"
-        contents: 
-          - text: "01 - Working with Tables"
-            href: "html_files/01_Intro/exercise_solutions.qmd" 
-          - text: "02 - Visualization Basics"
-            href: "html_files/02_Visual/exercise_solutions.qmd" 
-          - text: "03 - Programming Basics"
-            href: "html_files/03_Program/exercise_solutions.qmd" 
-          - text: "04 - Isolation with dplyr"
-            href: "html_files/04_Isolate/exercise_solutions.qmd" 
-          - text: "05 - Data Transformation"
-            href: "html_files/05_Transform/exercise_solutions.qmd"
-          - text: "06 - Advanced Visualization"
-            href: "html_files/06_Adv_Visual/exercise_solutions.qmd"
-          - text: "07 - Reshaping Data"
-            href: "html_files/07_Reshape/exercise_solutions.qmd"
-          - text: "08 - Characters and Dates"
-            href: "html_files/08_Strings/exercise_solutions.qmd"
+
         
           
             
@@ -126,8 +109,7 @@ website:
         contents: 
           - text: "Midterm Details"
             href: "html_files/Midterm/midterm_start_here.qmd"
-          - text: "Midterm Solutions"
-            href: "html_files/Midterm/midterm_solutions.qmd"
+
             
 
 format:
