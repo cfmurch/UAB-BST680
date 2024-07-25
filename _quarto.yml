@@ -109,6 +109,8 @@ website:
         contents: 
           - text: "Midterm Details"
             href: "html_files/Midterm/midterm_start_here.qmd"
+          - text: "Midterm Solutions"
+            href: "html_files/Midterm/midterm_solutions.qmd"
 
             
 

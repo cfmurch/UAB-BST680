@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.47">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="YOUR NAME HERE">
 
-<title>BST680 Midterm – BST680 2024</title>
+<title>BST680 2024 - BST680 Midterm</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -102,9 +102,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
 <script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -149,7 +151,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -160,19 +162,19 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../html_files/Midterm/midterm_start_here.html">Midterm</a></li><li class="breadcrumb-item"><a href="../../html_files/Midterm/midterm_solutions.html">Midterm Solutions</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -196,64 +198,64 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Lecture HTML</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/01_Tools/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/01_Tools/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">01 - Introducing Your Tools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/02_VizBasics/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/02_VizBasics/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">02 - Visualization Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/03_Programming/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/03_Programming/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">03 - Programming Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/04_Isolation/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/04_Isolation/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">04 - Data Isolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/05_Transform/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/05_Transform/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">05 - Data Transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/06_Adv_Visual/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/06_Adv_Visual/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">06 - Advanced Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/07_Reshape/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/07_Reshape/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">07 - Reshaping Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/08_Strings/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/08_Strings/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">08 - Characters and Dates</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/09_Joins/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/09_Joins/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">09 - Joins and I/O</span></a>
   </div>
 </li>
@@ -261,64 +263,64 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Lecture PDF</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">01 - Introducing Your Tools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">02 - Visualization Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 03 Programming Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 03 Programming Basics.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">03 - Programming Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 04 dplyr Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 04 dplyr Basics.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">04 - Data Isolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 05 Transforming Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 05 Transforming Data.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">05 - Data Transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">06 - Advanced Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 07 Reshaping Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 07 Reshaping Data.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">07 - Reshaping Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 08 Characters and Dates.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 08 Characters and Dates.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">08 - Characters and Dates</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 09 Joins and IO.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 09 Joins and IO.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">09 - Joins and I/O</span></a>
   </div>
 </li>
@@ -326,9 +328,9 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">Additional Info</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -343,9 +345,9 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
  <span class="menu-text">Assignments</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -408,72 +410,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Assignment Solutions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Downloads</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/01_Intro/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01 - Working with Tables</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/02_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02 - Visualization Basics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/03_Program/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">03 - Programming Basics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/04_Isolate/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">04 - Isolation with dplyr</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/05_Transform/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">05 - Data Transformation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/06_Adv_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">06 - Advanced Visualization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/07_Reshape/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">07 - Reshaping Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/08_Strings/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">08 - Characters and Dates</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text">Downloads</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../downloads.html" class="sidebar-item-text sidebar-link">
@@ -484,13 +427,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
  <span class="menu-text">Midterm</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../html_files/Midterm/midterm_start_here.html" class="sidebar-item-text sidebar-link">
@@ -2159,10 +2102,10 @@ Tip
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Proportion of missing, begin by creating a dataframe initalized with the column names</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>cvd_table <span class="ot">&lt;-</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Variable =</span> <span class="fu">colnames</span>(cvd_data))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Variable =</span> <span class="fu">colnames</span>(cvd_filter))</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Use summarise_all() to get the percentage</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>prop_missing <span class="ot">&lt;-</span> <span class="fu">summarise</span>(cvd_data, <span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.) <span class="sc">/</span> <span class="fu">length</span>(.) <span class="sc">*</span> <span class="dv">100</span>)))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>prop_missing <span class="ot">&lt;-</span> <span class="fu">summarise</span>(cvd_filter, <span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">sum</span>(<span class="fu">is.na</span>(.) <span class="sc">/</span> <span class="fu">length</span>(.) <span class="sc">*</span> <span class="dv">100</span>)))</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Coerce the summary tibble to a numeric</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>cvd_table<span class="sc">$</span><span class="st">`</span><span class="at">Percent Missing</span><span class="st">`</span> <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(prop_missing)</span>
@@ -2636,143 +2579,51 @@ for simulated data variables</th>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="Variable">age</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.00</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.0000000</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Variable">sex</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.00</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">alc</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.47</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">currentsmoker</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.91</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">weight</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.27</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">height</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.27</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">waist</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.32</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">neck</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.24</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">bpmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.79</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">dmmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.83</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">statinmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.91</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">hrtmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">5.71</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">betablkmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">7.26</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">calblkmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">6.82</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">diureticmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">5.77</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">antiarythmeds</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.85</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">sbp</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.41</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">dbp</td>
-<td class="gt_row gt_center" headers="Percent Missing">0.41</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">albumin</td>
-<td class="gt_row gt_center" headers="Percent Missing">38.80</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">creatinine</td>
-<td class="gt_row gt_center" headers="Percent Missing">38.75</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">diabetes</td>
-<td class="gt_row gt_center" headers="Percent Missing">1.17</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">abi</td>
-<td class="gt_row gt_center" headers="Percent Missing">13.13</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">hba1c</td>
-<td class="gt_row gt_center" headers="Percent Missing">4.05</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">fpg</td>
-<td class="gt_row gt_center" headers="Percent Missing">9.37</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">ldl</td>
-<td class="gt_row gt_center" headers="Percent Missing">10.69</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">hdl</td>
-<td class="gt_row gt_center" headers="Percent Missing">10.09</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">trigs</td>
-<td class="gt_row gt_center" headers="Percent Missing">10.07</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">totchol</td>
-<td class="gt_row gt_center" headers="Percent Missing">10.07</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">leptin</td>
-<td class="gt_row gt_center" headers="Percent Missing">2.65</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">hscrp</td>
-<td class="gt_row gt_center" headers="Percent Missing">2.09</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="Variable">endothelin</td>
-<td class="gt_row gt_center" headers="Percent Missing">2.10</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="Variable">aldosterone</td>
-<td class="gt_row gt_center" headers="Percent Missing">2.23</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.0000000</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Variable">scrcc</td>
-<td class="gt_row gt_center" headers="Percent Missing">1.71</td>
+<td class="gt_row gt_center" headers="Percent Missing">1.4322438</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Variable">time_chd_strk</td>
-<td class="gt_row gt_center" headers="Percent Missing">3.45</td>
+<td class="gt_row gt_left" headers="Variable">sbp</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.3672420</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="Variable">dbp</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.3672420</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">albumin</td>
+<td class="gt_row gt_center" headers="Percent Missing">39.7478272</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">creatinine</td>
+<td class="gt_row gt_center" headers="Percent Missing">39.6988615</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">bpmeds</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.7712082</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">dmmeds</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.8079324</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">statinmeds</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.8813808</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">time_chd_strk</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.0000000</td>
+</tr>
+<tr class="even">
 <td class="gt_row gt_left" headers="Variable">chd_strk</td>
-<td class="gt_row gt_center" headers="Percent Missing">3.45</td>
+<td class="gt_row gt_center" headers="Percent Missing">0.0000000</td>
 </tr>
 </tbody>
 </table>
@@ -2785,7 +2636,7 @@ for simulated data variables</th>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cvd_filter <span class="ot">&lt;-</span> cvd_filter <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_all</span>(<span class="fu">everything</span>(), <span class="sc">~!</span><span class="fu">is.na</span>(.x)))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Rows and columns of the dataset using the same kable set-up as the first part of question 1</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Rows and columns of the dataset using the same table set-up as the first part of question 1</span></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>table_curr <span class="ot">&lt;-</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">Dim =</span> <span class="fu">c</span>(<span class="st">"Rows"</span>, <span class="st">"Columns"</span>), </span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">Type =</span> <span class="fu">c</span>(<span class="st">"Observations"</span>, <span class="st">"Variables"</span>),</span>
@@ -3277,7 +3128,7 @@ for simulated data variables</th>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex, age) <span class="sc">|&gt;</span></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Sex =</span> sex, <span class="at">Age =</span> age)</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>   </span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Then knit the kable, including a caption  </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Then knit the gt(), including a tab header with html</span></span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>table_curr_print <span class="ot">&lt;-</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>table_curr <span class="sc">|&gt;</span></span>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
@@ -3784,16 +3635,16 @@ and anti-diabetic medication in male and female groups</th>
 <p>Apply the <code>glimpse</code> function to your data to show column types and values for all variables</p>
 <p><strong>This data will be used in all problems that follow and will be referred to as the sample from problem 3</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Still using the filtered dataset without pre 10-year dropouts, just use mutate followed by if_else commands for the logicals and case_when for the more complex egfr.  End with a mutate_if to cast all character variables as factors</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Still using the filtered dataset without pre 10-year dropouts, just use mutate followed by if_else commands for the logicals and case_when for the more complex egfr.  End with a mutate_if to cast all character variables as factors.  Be sure to albuminuria uses the albumin/creatinine ratio</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cvd_filter <span class="ot">&lt;-</span> cvd_filter <span class="sc">|&gt;</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cvd10 =</span> <span class="fu">if_else</span>(time_chd_strk<span class="sc">&lt;=</span><span class="dv">10</span> <span class="sc">&amp;</span> chd_strk<span class="sc">==</span><span class="st">"Yes"</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>),</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">albuminuria=</span><span class="fu">if_else</span>(albumin<span class="sc">&gt;</span><span class="dv">30</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">albuminuria=</span><span class="fu">if_else</span>((albumin<span class="sc">/</span>creatinine)<span class="sc">&gt;</span><span class="dv">30</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>),</span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">egfr=</span><span class="fu">case_when</span>(sex<span class="sc">==</span><span class="st">"Female"</span> <span class="sc">&amp;</span> scrcc<span class="sc">&lt;=</span><span class="fl">0.7</span> <span class="sc">~</span> <span class="dv">166</span> <span class="sc">*</span> <span class="fl">0.993</span><span class="sc">^</span>age <span class="sc">*</span> (scrcc<span class="sc">/</span><span class="fl">0.7</span>)<span class="sc">^-</span><span class="fl">0.329</span>,</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                   sex<span class="sc">==</span><span class="st">"Female"</span> <span class="sc">&amp;</span> scrcc<span class="sc">&gt;</span> <span class="fl">0.7</span> <span class="sc">~</span> <span class="dv">166</span> <span class="sc">*</span> <span class="fl">0.993</span><span class="sc">^</span>age <span class="sc">*</span> (scrcc<span class="sc">/</span><span class="fl">0.7</span>)<span class="sc">^-</span><span class="fl">1.209</span>,</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                   sex<span class="sc">==</span><span class="st">"Male"</span> <span class="sc">&amp;</span> scrcc<span class="sc">&lt;=</span><span class="fl">0.9</span> <span class="sc">~</span> <span class="dv">163</span> <span class="sc">*</span> <span class="fl">0.993</span><span class="sc">^</span>age <span class="sc">*</span> (scrcc<span class="sc">/</span><span class="fl">0.9</span>)<span class="sc">^-</span><span class="fl">0.411</span>,</span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>                   sex<span class="sc">==</span><span class="st">"Male"</span> <span class="sc">&amp;</span> scrcc<span class="sc">&gt;</span> <span class="fl">0.9</span> <span class="sc">~</span> <span class="dv">163</span> <span class="sc">*</span> <span class="fl">0.993</span><span class="sc">^</span>age <span class="sc">*</span> (scrcc<span class="sc">/</span><span class="fl">0.9</span>)<span class="sc">^-</span><span class="fl">1.209</span>),</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">low_gfr=</span><span class="fu">if_else</span>(egfr<span class="sc">&lt;</span><span class="dv">60</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>),</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">low_gfr=</span><span class="fu">if_else</span>(egfr<span class="sc">&lt;</span>(<span class="dv">60</span>), <span class="st">"Yes"</span>, <span class="st">"No"</span>),</span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">elev_bp=</span><span class="fu">if_else</span>(sbp<span class="sc">&gt;</span><span class="dv">130</span> <span class="sc">|</span> dbp<span class="sc">&gt;</span><span class="dv">80</span> <span class="sc">|</span> bpmeds<span class="sc">==</span><span class="st">"Yes"</span>, <span class="st">"Yes"</span>, <span class="st">"No"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.character, factor)</span>
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -3890,41 +3741,33 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#A little function to help with printing the proportions</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>percer <span class="ot">&lt;-</span> <span class="cf">function</span>(xx, yy){</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  yy <span class="ot">&lt;-</span> <span class="fu">round</span>(yy<span class="sc">*</span><span class="dv">100</span>)</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  out <span class="ot">&lt;-</span> <span class="fu">str_c</span>(xx, <span class="st">" ("</span>, yy, <span class="st">"%)"</span>)} </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">#To prep this final table, use interaction to create the 8-level factor, the sort by frequency (fct_infreq), then lump all but the top four levels (fct_lump), then rename the remaining factor levels as needed (fct_recode)</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>cvd_filter_table <span class="ot">&lt;-</span> cvd_filter <span class="sc">|&gt;</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">med_use =</span> <span class="fu">interaction</span>(bpmeds, dmmeds, statinmeds, <span class="at">sep=</span><span class="st">"_"</span>),</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">med_use =</span> <span class="fu">fct_infreq</span>(med_use), </span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">med_use =</span> <span class="fu">fct_lump</span>(med_use, <span class="at">n=</span><span class="dv">4</span>), </span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">med_use =</span> <span class="fu">fct_recode</span>(med_use, <span class="st">"No Medications"</span><span class="ot">=</span><span class="st">"No_No_No"</span>, <span class="st">"BP Meds Only"</span><span class="ot">=</span><span class="st">"Yes_No_No"</span>, </span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"BP Meds and Statins"</span><span class="ot">=</span><span class="st">"Yes_No_Yes"</span>, <span class="st">"BP and DM Meds"</span><span class="ot">=</span><span class="st">"Yes_Yes_No"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Once the factor is set, group by gender, get a count within the levels, calculate the frequency, and then use the percer function to get the final string that will be presented in the table</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">|&gt;</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(med_use, <span class="at">name =</span> <span class="st">"count_curr"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq_curr =</span> count_curr<span class="sc">/</span><span class="fu">sum</span>(count_curr)) <span class="sc">|&gt;</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">string=</span><span class="fu">percer</span>(count_curr, freq_curr)) <span class="sc">|&gt;</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex, <span class="st">"Medication</span><span class="sc">\n</span><span class="st">Profile"</span><span class="ot">=</span>med_use, string) <span class="sc">|&gt;</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(sex, string)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="co">#Knit the kable annotating as necessary</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>cvd_filter_table <span class="ot">&lt;-</span> cvd_filter_table <span class="sc">|&gt;</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"left"</span>, <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"center"</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="fu">md</span>(<span class="st">"Top four medication profiles</span><span class="sc">\\\n</span><span class="st">in the data from problem 3"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>(<span class="st">"Table values are frequency (%)"</span>)</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>cvd_filter_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#To prep this final table, use interaction to create the 8-level factor, the sort by frequency (fct_infreq), then lump all but the top four levels (fct_lump), then rename the remaining factor levels as needed (fct_recode)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>cvd_filter_table <span class="ot">&lt;-</span> cvd_filter <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">med_use =</span> <span class="fu">interaction</span>(bpmeds, dmmeds, statinmeds, <span class="at">sep=</span><span class="st">"_"</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">med_use =</span> <span class="fu">fct_infreq</span>(med_use), </span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">med_use =</span> <span class="fu">fct_lump</span>(med_use, <span class="at">n=</span><span class="dv">4</span>), </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">med_use =</span> <span class="fu">fct_recode</span>(med_use, <span class="st">"No Medications"</span><span class="ot">=</span><span class="st">"No_No_No"</span>, <span class="st">"BP Meds Only"</span><span class="ot">=</span><span class="st">"Yes_No_No"</span>, </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"BP Meds and Statins"</span><span class="ot">=</span><span class="st">"Yes_No_Yes"</span>, <span class="st">"BP and DM Meds"</span><span class="ot">=</span><span class="st">"Yes_Yes_No"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Once the factor is set, group by gender, get a count within the levels, calculate the frequency, and then use the str_lue to get the final string that will be presented in the table, spread makes the table wide in a pivot fashion</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">|&gt;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(med_use, <span class="at">name =</span> <span class="st">"count_curr"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq_curr =</span> <span class="fu">round</span>(count_curr<span class="sc">/</span><span class="fu">sum</span>(count_curr)<span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">string_curr =</span> <span class="fu">str_glue</span>(<span class="st">"{count_curr} ({freq_curr}%)"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sex, <span class="st">"Medication</span><span class="sc">\n</span><span class="st">Profile"</span><span class="ot">=</span>med_use, string_curr) <span class="sc">|&gt;</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(sex, string_curr)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Format the gt() a bit and we're good</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>cvd_filter_table <span class="ot">&lt;-</span> cvd_filter_table <span class="sc">|&gt;</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"left"</span>, <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_align</span>(<span class="st">"center"</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(<span class="fu">md</span>(<span class="st">"Top four medication profiles</span><span class="sc">\\\n</span><span class="st">in the data from problem 3"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>(<span class="st">"Table values are frequency (%)"</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>cvd_filter_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="ugwqqiaakz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ugwqqiaakz table {
@@ -4468,7 +4311,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -4500,29 +4354,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -4530,7 +4362,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {

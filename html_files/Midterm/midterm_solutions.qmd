@@ -731,10 +731,10 @@ Now, create a table summarizing the proportion of missing values in each column 
 
 #Proportion of missing, begin by creating a dataframe initalized with the column names
 cvd_table <- 
-  tibble(Variable = colnames(cvd_data))
+  tibble(Variable = colnames(cvd_filter))
 
 #Use summarise_all() to get the percentage
-prop_missing <- summarise(cvd_data, across(everything(), ~sum(is.na(.) / length(.) * 100)))
+prop_missing <- summarise(cvd_filter, across(everything(), ~sum(is.na(.) / length(.) * 100)))
 
 #Coerce the summary tibble to a numeric
 cvd_table$`Percent Missing` <- as.numeric(prop_missing)
@@ -780,7 +780,7 @@ Last, remove any row in the data where a participant has a missing value (`NA`) 
 cvd_filter <- cvd_filter |>
   filter(if_all(everything(), ~!is.na(.x)))
 
-#Rows and columns of the dataset using the same kable set-up as the first part of question 1
+#Rows and columns of the dataset using the same table set-up as the first part of question 1
 table_curr <-
   tibble(Dim = c("Rows", "Columns"), 
          Type = c("Observations", "Variables"),
@@ -833,7 +833,7 @@ table_curr <- cvd_filter |>
   select(sex, age) |>
   rename(Sex = sex, Age = age)
    
-#Then knit the kable, including a caption  
+#Then knit the gt(), including a tab header with html
 table_curr_print <-
 table_curr |>
   gt() |>
@@ -897,21 +897,22 @@ Apply the `glimpse` function to your data to show column types and values for al
 ```{r}
 #| include: true
 
-#Still using the filtered dataset without pre 10-year dropouts, just use mutate followed by if_else commands for the logicals and case_when for the more complex egfr.  End with a mutate_if to cast all character variables as factors
+#Still using the filtered dataset without pre 10-year dropouts, just use mutate followed by if_else commands for the logicals and case_when for the more complex egfr.  End with a mutate_if to cast all character variables as factors.  Be sure to albuminuria uses the albumin/creatinine ratio
 cvd_filter <- cvd_filter |>
   mutate(
     cvd10 = if_else(time_chd_strk<=10 & chd_strk=="Yes", "Yes", "No"),
-    albuminuria=if_else(albumin>30, "Yes", "No"),
+    albuminuria=if_else((albumin/creatinine)>30, "Yes", "No"),
     egfr=case_when(sex=="Female" & scrcc<=0.7 ~ 166 * 0.993^age * (scrcc/0.7)^-0.329,
                    sex=="Female" & scrcc> 0.7 ~ 166 * 0.993^age * (scrcc/0.7)^-1.209,
                    sex=="Male" & scrcc<=0.9 ~ 163 * 0.993^age * (scrcc/0.9)^-0.411,
                    sex=="Male" & scrcc> 0.9 ~ 163 * 0.993^age * (scrcc/0.9)^-1.209),
-    low_gfr=if_else(egfr<60, "Yes", "No"),
+    low_gfr=if_else(egfr<(60), "Yes", "No"),
     elev_bp=if_else(sbp>130 | dbp>80 | bpmeds=="Yes", "Yes", "No")) |>
   mutate_if(is.character, factor)
 
 glimpse(cvd_filter)
 ```
+
 
 ```{r}
 #| include: false
@@ -1025,13 +1026,6 @@ Spend some time with `forcats` to see how you can make this process easier
 ```{r}
 #| include: true
 
-#A little function to help with printing the proportions
-percer <- function(xx, yy){
-  yy <- round(yy*100)
-  out <- str_c(xx, " (", yy, "%)")} 
-
-
-
 #To prep this final table, use interaction to create the 8-level factor, the sort by frequency (fct_infreq), then lump all but the top four levels (fct_lump), then rename the remaining factor levels as needed (fct_recode)
 cvd_filter_table <- cvd_filter |>
   mutate(med_use = interaction(bpmeds, dmmeds, statinmeds, sep="_"),
@@ -1040,18 +1034,17 @@ cvd_filter_table <- cvd_filter |>
          med_use = fct_recode(med_use, "No Medications"="No_No_No", "BP Meds Only"="Yes_No_No", 
                             "BP Meds and Statins"="Yes_No_Yes", "BP and DM Meds"="Yes_Yes_No")) |>
  
-#Once the factor is set, group by gender, get a count within the levels, calculate the frequency, and then use the percer function to get the final string that will be presented in the table
+#Once the factor is set, group by gender, get a count within the levels, calculate the frequency, and then use the str_lue to get the final string that will be presented in the table, spread makes the table wide in a pivot fashion
   group_by(sex) |>
   count(med_use, name = "count_curr") |>
   mutate(
-    freq_curr = count_curr/sum(count_curr)) |>
+    freq_curr = round(count_curr/sum(count_curr)*100),
+    string_curr = str_glue("{count_curr} ({freq_curr}%)")) |>
   ungroup() |>
-  mutate(
-    string=percer(count_curr, freq_curr)) |>
-  select(sex, "Medication\nProfile"=med_use, string) |>
-  spread(sex, string)
+  select(sex, "Medication\nProfile"=med_use, string_curr) |>
+  spread(sex, string_curr)
 
-#Knit the kable annotating as necessary
+#Format the gt() a bit and we're good
 cvd_filter_table <- cvd_filter_table |>
   gt() |>
   cols_align("left", 1) |>
