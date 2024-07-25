@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.47">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Rachel Stuckwisch">
 
-<title>Derive information with dplyr – BST680 2024</title>
+<title>BST680 2024 - Derive information with dplyr</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -102,9 +102,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
 <script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -149,7 +151,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -160,19 +162,19 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../html_files/01_Intro/exercises.html">Assignments</a></li><li class="breadcrumb-item"><a href="../../html_files/05_Transform/class_exercises.html">05 - Data Transformation</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -196,64 +198,64 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false">
  <span class="menu-text">Lecture HTML</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/01_Tools/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/01_Tools/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">01 - Introducing Your Tools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/02_VizBasics/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/02_VizBasics/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">02 - Visualization Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/03_Programming/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/03_Programming/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">03 - Programming Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/04_Isolation/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/04_Isolation/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">04 - Data Isolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/05_Transform/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/05_Transform/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">05 - Data Transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/06_Adv_Visual/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/06_Adv_Visual/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">06 - Advanced Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/07_Reshape/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/07_Reshape/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">07 - Reshaping Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/08_Strings/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/08_Strings/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">08 - Characters and Dates</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../Lectures/09_Joins/index.html" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../Lectures/09_Joins/index.html" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">09 - Joins and I/O</span></a>
   </div>
 </li>
@@ -261,64 +263,64 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
  <span class="menu-text">Lecture PDF</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 01 Introducing your Tools.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">01 - Introducing Your Tools</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 02 Basics of Data Visualization.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">02 - Visualization Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 03 Programming Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 03 Programming Basics.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">03 - Programming Basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 04 dplyr Basics.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 04 dplyr Basics.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">04 - Data Isolation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 05 Transforming Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 05 Transforming Data.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">05 - Data Transformation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 06 Advanced Visualization.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">06 - Advanced Visualization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 07 Reshaping Data.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 07 Reshaping Data.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">07 - Reshaping Data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 08 Characters and Dates.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 08 Characters and Dates.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">08 - Characters and Dates</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../pdfs/BST680 - 2024 - 09 Joins and IO.pdf" class="sidebar-item-text sidebar-link" target="_blank">
+  <a href="../../pdfs/BST680 - 2024 - 09 Joins and IO.pdf" class="sidebar-item-text sidebar-link" target="&quot;_blank&quot;">
  <span class="menu-text">09 - Joins and I/O</span></a>
   </div>
 </li>
@@ -326,9 +328,9 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
  <span class="menu-text">Additional Info</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -336,16 +338,16 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../html_files/01_Intro/intro_to_Quarto.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01a - Intro to Quarto and gt()</span></a>
+ <span class="menu-text">Intro to Quarto and gt()</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
  <span class="menu-text">Assignments</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -408,72 +410,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">Assignment Solutions</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false">
+ <span class="menu-text">Downloads</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/01_Intro/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">01 - Working with Tables</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/02_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">02 - Visualization Basics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/03_Program/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">03 - Programming Basics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/04_Isolate/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">04 - Isolation with dplyr</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/05_Transform/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">05 - Data Transformation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/06_Adv_Visual/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">06 - Advanced Visualization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/07_Reshape/exercise_solutions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">07 - Reshaping Data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../html_files/08_Strings/exercise_solutions.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">08 - Characters and Dates</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
- <span class="menu-text">Downloads</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../downloads.html" class="sidebar-item-text sidebar-link">
@@ -484,13 +427,13 @@ window.Quarto = {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false">
  <span class="menu-text">Midterm</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../html_files/Midterm/midterm_start_here.html" class="sidebar-item-text sidebar-link">
@@ -570,6 +513,9 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="import">Import</h2>
 <div class="cell">
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.4.1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
@@ -595,23 +541,23 @@ window.Quarto = {
 <p>Review this briefly and use it as a reference to engage with the exercises below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="cyrzhoahuy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cyrzhoahuy table {
+<div id="slzwuttchn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#slzwuttchn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cyrzhoahuy thead, #cyrzhoahuy tbody, #cyrzhoahuy tfoot, #cyrzhoahuy tr, #cyrzhoahuy td, #cyrzhoahuy th {
+#slzwuttchn thead, #slzwuttchn tbody, #slzwuttchn tfoot, #slzwuttchn tr, #slzwuttchn td, #slzwuttchn th {
   border-style: none;
 }
 
-#cyrzhoahuy p {
+#slzwuttchn p {
   margin: 0;
   padding: 0;
 }
 
-#cyrzhoahuy .gt_table {
+#slzwuttchn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -637,12 +583,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_caption {
+#slzwuttchn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cyrzhoahuy .gt_title {
+#slzwuttchn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -654,7 +600,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#cyrzhoahuy .gt_subtitle {
+#slzwuttchn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -666,7 +612,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#cyrzhoahuy .gt_heading {
+#slzwuttchn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -678,13 +624,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_bottom_border {
+#slzwuttchn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_col_headings {
+#slzwuttchn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -699,7 +645,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_col_heading {
+#slzwuttchn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -719,7 +665,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#cyrzhoahuy .gt_column_spanner_outer {
+#slzwuttchn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -731,15 +677,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#cyrzhoahuy .gt_column_spanner_outer:first-child {
+#slzwuttchn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cyrzhoahuy .gt_column_spanner_outer:last-child {
+#slzwuttchn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cyrzhoahuy .gt_column_spanner {
+#slzwuttchn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -751,11 +697,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#cyrzhoahuy .gt_spanner_row {
+#slzwuttchn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cyrzhoahuy .gt_group_heading {
+#slzwuttchn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -781,7 +727,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#cyrzhoahuy .gt_empty_group_heading {
+#slzwuttchn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -796,15 +742,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#cyrzhoahuy .gt_from_md > :first-child {
+#slzwuttchn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cyrzhoahuy .gt_from_md > :last-child {
+#slzwuttchn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cyrzhoahuy .gt_row {
+#slzwuttchn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -823,7 +769,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#cyrzhoahuy .gt_stub {
+#slzwuttchn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -836,7 +782,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#cyrzhoahuy .gt_stub_row_group {
+#slzwuttchn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -850,15 +796,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#cyrzhoahuy .gt_row_group_first td {
+#slzwuttchn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cyrzhoahuy .gt_row_group_first th {
+#slzwuttchn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cyrzhoahuy .gt_summary_row {
+#slzwuttchn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -868,16 +814,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#cyrzhoahuy .gt_first_summary_row {
+#slzwuttchn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_first_summary_row.thick {
+#slzwuttchn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cyrzhoahuy .gt_last_summary_row {
+#slzwuttchn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -887,7 +833,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_grand_summary_row {
+#slzwuttchn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -897,7 +843,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#cyrzhoahuy .gt_first_grand_summary_row {
+#slzwuttchn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -907,7 +853,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_last_grand_summary_row_top {
+#slzwuttchn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -917,11 +863,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_striped {
+#slzwuttchn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cyrzhoahuy .gt_table_body {
+#slzwuttchn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -930,7 +876,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_footnotes {
+#slzwuttchn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -944,7 +890,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_footnote {
+#slzwuttchn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -953,7 +899,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#cyrzhoahuy .gt_sourcenotes {
+#slzwuttchn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -967,7 +913,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#cyrzhoahuy .gt_sourcenote {
+#slzwuttchn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -975,63 +921,63 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#cyrzhoahuy .gt_left {
+#slzwuttchn .gt_left {
   text-align: left;
 }
 
-#cyrzhoahuy .gt_center {
+#slzwuttchn .gt_center {
   text-align: center;
 }
 
-#cyrzhoahuy .gt_right {
+#slzwuttchn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cyrzhoahuy .gt_font_normal {
+#slzwuttchn .gt_font_normal {
   font-weight: normal;
 }
 
-#cyrzhoahuy .gt_font_bold {
+#slzwuttchn .gt_font_bold {
   font-weight: bold;
 }
 
-#cyrzhoahuy .gt_font_italic {
+#slzwuttchn .gt_font_italic {
   font-style: italic;
 }
 
-#cyrzhoahuy .gt_super {
+#slzwuttchn .gt_super {
   font-size: 65%;
 }
 
-#cyrzhoahuy .gt_footnote_marks {
+#slzwuttchn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cyrzhoahuy .gt_asterisk {
+#slzwuttchn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cyrzhoahuy .gt_indent_1 {
+#slzwuttchn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cyrzhoahuy .gt_indent_2 {
+#slzwuttchn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cyrzhoahuy .gt_indent_3 {
+#slzwuttchn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cyrzhoahuy .gt_indent_4 {
+#slzwuttchn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cyrzhoahuy .gt_indent_5 {
+#slzwuttchn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1162,19 +1108,19 @@ window.Quarto = {
 <li><p>the standard error of systolic blood pressure should be named <code>sbp_se</code></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hints: </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># there is a function in dplyr called n()</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># that counts the number of rows in each group.</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># for example, try running:</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nhanes %&gt;% </span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(exam) %&gt;% </span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(n = n())</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># how could you use this to compute standard error?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Hints: </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># there is a function in dplyr called n()</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># that counts the number of rows in each group.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># for example, try running:</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># nhanes %&gt;% </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(exam) %&gt;% </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarise(n = n())</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># how could you use this to compute standard error?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your solution should look like this:</p>
 <div class="cell">
@@ -1200,7 +1146,7 @@ window.Quarto = {
 <li><p>If you’d like a challenge, add standard error bars. (optional)</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your solution should look like this:</p>
 <div class="cell">
@@ -1222,7 +1168,7 @@ window.Quarto = {
 <li><p>You will want to group by three variables.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your solution should look like this:</p>
 <div class="cell">
@@ -1239,10 +1185,10 @@ window.Quarto = {
 <h1>Exercise 4</h1>
 <p>Learn something new: Later on in the course, we will learn about reshaping data. One of the most useful functions for reshaping is called <code>pivot_wider</code>. Here is how it transforms the long data we created in exercise 3:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create one column for each exam year</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># values in each column are the percent with hypertension</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_rds</span>(<span class="st">'solutions/03_solution.rds'</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> exam, <span class="at">values_from =</span> htn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create one column for each exam year</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># values in each column are the percent with hypertension</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_rds</span>(<span class="st">'solutions/03_solution.rds'</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> exam, <span class="at">values_from =</span> htn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
@@ -1260,28 +1206,28 @@ window.Quarto = {
 <li><p><code>summary_rows</code> is used to create the Overall summary for each sex group.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your solution should look like this:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="vwdkpxtxiv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vwdkpxtxiv table {
+<div id="ipyaadzvec" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ipyaadzvec table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vwdkpxtxiv thead, #vwdkpxtxiv tbody, #vwdkpxtxiv tfoot, #vwdkpxtxiv tr, #vwdkpxtxiv td, #vwdkpxtxiv th {
+#ipyaadzvec thead, #ipyaadzvec tbody, #ipyaadzvec tfoot, #ipyaadzvec tr, #ipyaadzvec td, #ipyaadzvec th {
   border-style: none;
 }
 
-#vwdkpxtxiv p {
+#ipyaadzvec p {
   margin: 0;
   padding: 0;
 }
 
-#vwdkpxtxiv .gt_table {
+#ipyaadzvec .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1307,12 +1253,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_caption {
+#ipyaadzvec .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vwdkpxtxiv .gt_title {
+#ipyaadzvec .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1324,7 +1270,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#vwdkpxtxiv .gt_subtitle {
+#ipyaadzvec .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1336,7 +1282,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#vwdkpxtxiv .gt_heading {
+#ipyaadzvec .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1348,13 +1294,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_bottom_border {
+#ipyaadzvec .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_col_headings {
+#ipyaadzvec .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1369,7 +1315,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_col_heading {
+#ipyaadzvec .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1389,7 +1335,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#vwdkpxtxiv .gt_column_spanner_outer {
+#ipyaadzvec .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1401,15 +1347,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#vwdkpxtxiv .gt_column_spanner_outer:first-child {
+#ipyaadzvec .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vwdkpxtxiv .gt_column_spanner_outer:last-child {
+#ipyaadzvec .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vwdkpxtxiv .gt_column_spanner {
+#ipyaadzvec .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1421,11 +1367,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#vwdkpxtxiv .gt_spanner_row {
+#ipyaadzvec .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vwdkpxtxiv .gt_group_heading {
+#ipyaadzvec .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1451,7 +1397,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#vwdkpxtxiv .gt_empty_group_heading {
+#ipyaadzvec .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1466,15 +1412,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#vwdkpxtxiv .gt_from_md > :first-child {
+#ipyaadzvec .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vwdkpxtxiv .gt_from_md > :last-child {
+#ipyaadzvec .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vwdkpxtxiv .gt_row {
+#ipyaadzvec .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1493,7 +1439,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#vwdkpxtxiv .gt_stub {
+#ipyaadzvec .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1506,7 +1452,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vwdkpxtxiv .gt_stub_row_group {
+#ipyaadzvec .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1520,15 +1466,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#vwdkpxtxiv .gt_row_group_first td {
+#ipyaadzvec .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vwdkpxtxiv .gt_row_group_first th {
+#ipyaadzvec .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vwdkpxtxiv .gt_summary_row {
+#ipyaadzvec .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1538,16 +1484,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vwdkpxtxiv .gt_first_summary_row {
+#ipyaadzvec .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_first_summary_row.thick {
+#ipyaadzvec .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vwdkpxtxiv .gt_last_summary_row {
+#ipyaadzvec .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1557,7 +1503,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_grand_summary_row {
+#ipyaadzvec .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1567,7 +1513,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vwdkpxtxiv .gt_first_grand_summary_row {
+#ipyaadzvec .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1577,7 +1523,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_last_grand_summary_row_top {
+#ipyaadzvec .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1587,11 +1533,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_striped {
+#ipyaadzvec .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vwdkpxtxiv .gt_table_body {
+#ipyaadzvec .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1600,7 +1546,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_footnotes {
+#ipyaadzvec .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1614,7 +1560,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_footnote {
+#ipyaadzvec .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1623,7 +1569,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vwdkpxtxiv .gt_sourcenotes {
+#ipyaadzvec .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1637,7 +1583,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#vwdkpxtxiv .gt_sourcenote {
+#ipyaadzvec .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1645,63 +1591,63 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#vwdkpxtxiv .gt_left {
+#ipyaadzvec .gt_left {
   text-align: left;
 }
 
-#vwdkpxtxiv .gt_center {
+#ipyaadzvec .gt_center {
   text-align: center;
 }
 
-#vwdkpxtxiv .gt_right {
+#ipyaadzvec .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vwdkpxtxiv .gt_font_normal {
+#ipyaadzvec .gt_font_normal {
   font-weight: normal;
 }
 
-#vwdkpxtxiv .gt_font_bold {
+#ipyaadzvec .gt_font_bold {
   font-weight: bold;
 }
 
-#vwdkpxtxiv .gt_font_italic {
+#ipyaadzvec .gt_font_italic {
   font-style: italic;
 }
 
-#vwdkpxtxiv .gt_super {
+#ipyaadzvec .gt_super {
   font-size: 65%;
 }
 
-#vwdkpxtxiv .gt_footnote_marks {
+#ipyaadzvec .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vwdkpxtxiv .gt_asterisk {
+#ipyaadzvec .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vwdkpxtxiv .gt_indent_1 {
+#ipyaadzvec .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vwdkpxtxiv .gt_indent_2 {
+#ipyaadzvec .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vwdkpxtxiv .gt_indent_3 {
+#ipyaadzvec .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vwdkpxtxiv .gt_indent_4 {
+#ipyaadzvec .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vwdkpxtxiv .gt_indent_5 {
+#ipyaadzvec .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1904,19 +1850,19 @@ window.Quarto = {
 <li><p>Relative difference: <span class="math display">\[\frac{\text{prevalence from 2017}}{\text{prevalence from 2013}} - 1\]</span></p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: my solution looks like this:</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ... indicates code you can fill in.</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># data_p3 |&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(exam %in% c('2013', '2017')) |&gt;</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(...) |&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     diff_abs = ...,</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     diff_rel = (...) - 1</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) |&gt;</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   arrange(...)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hint: my solution looks like this:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ... indicates code you can fill in.</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># data_p3 |&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(exam %in% c('2013', '2017')) |&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   group_by(...) |&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   summarize(</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     diff_abs = ...,</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     diff_rel = (...) - 1</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   ) |&gt;</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   arrange(...)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your solution should look like this:</p>
 <div class="cell">
@@ -1939,28 +1885,28 @@ window.Quarto = {
 <li><p>I always skip to the examples when I am looking at function help pages</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Your solution should look like this:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="enfimhahkz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#enfimhahkz table {
+<div id="ujxadaavur" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ujxadaavur table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#enfimhahkz thead, #enfimhahkz tbody, #enfimhahkz tfoot, #enfimhahkz tr, #enfimhahkz td, #enfimhahkz th {
+#ujxadaavur thead, #ujxadaavur tbody, #ujxadaavur tfoot, #ujxadaavur tr, #ujxadaavur td, #ujxadaavur th {
   border-style: none;
 }
 
-#enfimhahkz p {
+#ujxadaavur p {
   margin: 0;
   padding: 0;
 }
 
-#enfimhahkz .gt_table {
+#ujxadaavur .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1986,12 +1932,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_caption {
+#ujxadaavur .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#enfimhahkz .gt_title {
+#ujxadaavur .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2003,7 +1949,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#enfimhahkz .gt_subtitle {
+#ujxadaavur .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2015,7 +1961,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#enfimhahkz .gt_heading {
+#ujxadaavur .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2027,13 +1973,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_bottom_border {
+#ujxadaavur .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_col_headings {
+#ujxadaavur .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2048,7 +1994,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_col_heading {
+#ujxadaavur .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2068,7 +2014,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#enfimhahkz .gt_column_spanner_outer {
+#ujxadaavur .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2080,15 +2026,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#enfimhahkz .gt_column_spanner_outer:first-child {
+#ujxadaavur .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#enfimhahkz .gt_column_spanner_outer:last-child {
+#ujxadaavur .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#enfimhahkz .gt_column_spanner {
+#ujxadaavur .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2100,11 +2046,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#enfimhahkz .gt_spanner_row {
+#ujxadaavur .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#enfimhahkz .gt_group_heading {
+#ujxadaavur .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2130,7 +2076,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#enfimhahkz .gt_empty_group_heading {
+#ujxadaavur .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2145,15 +2091,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#enfimhahkz .gt_from_md > :first-child {
+#ujxadaavur .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#enfimhahkz .gt_from_md > :last-child {
+#ujxadaavur .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#enfimhahkz .gt_row {
+#ujxadaavur .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2172,7 +2118,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#enfimhahkz .gt_stub {
+#ujxadaavur .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2185,7 +2131,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#enfimhahkz .gt_stub_row_group {
+#ujxadaavur .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2199,15 +2145,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#enfimhahkz .gt_row_group_first td {
+#ujxadaavur .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#enfimhahkz .gt_row_group_first th {
+#ujxadaavur .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#enfimhahkz .gt_summary_row {
+#ujxadaavur .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2217,16 +2163,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#enfimhahkz .gt_first_summary_row {
+#ujxadaavur .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_first_summary_row.thick {
+#ujxadaavur .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#enfimhahkz .gt_last_summary_row {
+#ujxadaavur .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2236,7 +2182,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_grand_summary_row {
+#ujxadaavur .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2246,7 +2192,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#enfimhahkz .gt_first_grand_summary_row {
+#ujxadaavur .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2256,7 +2202,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_last_grand_summary_row_top {
+#ujxadaavur .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2266,11 +2212,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_striped {
+#ujxadaavur .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#enfimhahkz .gt_table_body {
+#ujxadaavur .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2279,7 +2225,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_footnotes {
+#ujxadaavur .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2293,7 +2239,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_footnote {
+#ujxadaavur .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2302,7 +2248,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#enfimhahkz .gt_sourcenotes {
+#ujxadaavur .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2316,7 +2262,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#enfimhahkz .gt_sourcenote {
+#ujxadaavur .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2324,63 +2270,63 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#enfimhahkz .gt_left {
+#ujxadaavur .gt_left {
   text-align: left;
 }
 
-#enfimhahkz .gt_center {
+#ujxadaavur .gt_center {
   text-align: center;
 }
 
-#enfimhahkz .gt_right {
+#ujxadaavur .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#enfimhahkz .gt_font_normal {
+#ujxadaavur .gt_font_normal {
   font-weight: normal;
 }
 
-#enfimhahkz .gt_font_bold {
+#ujxadaavur .gt_font_bold {
   font-weight: bold;
 }
 
-#enfimhahkz .gt_font_italic {
+#ujxadaavur .gt_font_italic {
   font-style: italic;
 }
 
-#enfimhahkz .gt_super {
+#ujxadaavur .gt_super {
   font-size: 65%;
 }
 
-#enfimhahkz .gt_footnote_marks {
+#ujxadaavur .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#enfimhahkz .gt_asterisk {
+#ujxadaavur .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#enfimhahkz .gt_indent_1 {
+#ujxadaavur .gt_indent_1 {
   text-indent: 5px;
 }
 
-#enfimhahkz .gt_indent_2 {
+#ujxadaavur .gt_indent_2 {
   text-indent: 10px;
 }
 
-#enfimhahkz .gt_indent_3 {
+#ujxadaavur .gt_indent_3 {
   text-indent: 15px;
 }
 
-#enfimhahkz .gt_indent_4 {
+#ujxadaavur .gt_indent_4 {
   text-indent: 20px;
 }
 
-#enfimhahkz .gt_indent_5 {
+#ujxadaavur .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2504,7 +2450,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -2536,29 +2493,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -2566,7 +2501,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
