@@ -127,8 +127,6 @@ theme_cfm <-
         legend.title = element_text(size = 20),
         legend.text = element_text(size = 16))
 
-#Use theme_set to automatically set the theme for all subsequent plots
-theme_set(theme_cfm)
 
 #Create the plot
 plot_curr <- 
@@ -453,6 +451,7 @@ You can find a great `gganimate` tutorial here: <https://github.com/thomasp85/gg
 #| label: "animate_1"
 #| cache: true
 
+#Building the plot from the ground up
 
 #Set limits and theme
 xlim <- c(6,11)
@@ -466,8 +465,6 @@ theme_cfm <-
         legend.title = element_text(size = 20),
         legend.text = element_text(size = 16))
 
-#Use theme_set to automatically set the theme for all subsequent plots
-theme_set(theme_cfm)
 
 
 
@@ -734,7 +731,7 @@ cvd_table <-
   tibble(Variable = colnames(cvd_filter))
 
 #Use summarise_all() to get the percentage
-prop_missing <- summarise(cvd_filter, across(everything(), ~round(sum(is.na(.) / length(.) * 100),1)))
+prop_missing <- summarise(cvd_filter, across(everything(), ~round(sum(is.na(.) / length(.) * 100),2)))
 
 #Coerce the summary tibble to a numeric
 cvd_table$`Percent Missing` <- as.numeric(prop_missing)

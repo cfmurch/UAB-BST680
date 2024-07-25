@@ -65,3 +65,7 @@ Data and Solutions folder - <a href="_static/08_solutions.zip" download>[.zip fi
 Exercises - <a href="_static/09_class_exercises.qmd" download>[.qmd file]</a> and <a href="_static/09_class_exercises.R" download>[.R file]</a>
 
 Data and Solutions folder - <a href="_static/09_solutions.zip" download>[.zip file]</a>
+
+## Midterm
+
+The midterm project can be downloaded <a href="_static/midterm.zip" download>[here as a .zip]</a>
