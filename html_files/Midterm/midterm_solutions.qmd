@@ -734,7 +734,7 @@ cvd_table <-
   tibble(Variable = colnames(cvd_filter))
 
 #Use summarise_all() to get the percentage
-prop_missing <- summarise(cvd_filter, across(everything(), ~sum(is.na(.) / length(.) * 100)))
+prop_missing <- summarise(cvd_filter, across(everything(), ~round(sum(is.na(.) / length(.) * 100),1)))
 
 #Coerce the summary tibble to a numeric
 cvd_table$`Percent Missing` <- as.numeric(prop_missing)
