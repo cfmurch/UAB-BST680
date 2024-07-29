@@ -1,0 +1,993 @@
+---
+title: "Communication with Quarto"
+subtitle: "Markdown and You"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Quarto overview
+
+- Markdown basics
+
+- Code chunks
+
+- The YAML
+
+- Variants
+
+- Authoring workflows
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/md_meme.jpg){fig-align="center" width="65%" height="65%"}
+:::
+:::
+
+::::
+
+
+# Quarto Overview
+
+---
+
+## Quarto - Basics of Markdown
+
+- Lightweight language the allows for <b>markup</b>
+
+   - Adds formatting elements to plain text
+   
+   - Different from WYSIWYG editors like Word
+   
+- Very versatile, can be used for documents, presentations, websites, etc in a variety of output formats
+
+- Portable, platform independent, and future poof
+
+- Especially useful for "knitting" code into a document combining text prose, code, and output results
+
+   - Promotes reproducibility
+
+## Quarto - How Markdown Works
+
+1. Start with a plain text Markdown file (.md in general, .qmd for Quarto)
+
+2. Use a Markdown application to parse the file using the processor, e.g. the Quarto CLI, into the desired format (HTML, PDF, etc)
+
+3. Render the parsed document for a knitted output of text, code, and style direction
+
+4. Get a raise for having such a beautiful document
+
+![](img/markdown-flowchart.avif){fig-align="center"}
+   
+## Quarto - Basics of Quarto  {background-image="img/quarto.svg" background-size="8%" background-position="95% 5%"} 
+
+- Extended variant of markdown supporting dynamic content
+
+    - R, Python, Julia, etc
+    
+- Strong integration with IDE tools like RStudio and Jupyter
+    
+- Additional syntax support beyond markdown e.g. LaTeX style equations
+
+    $$\alpha + \beta^2 - \gamma \cdot \delta = \frac{\epsilon}{\zeta}$$
+    
+- Expanded output formats including, Word, PDF, Reveal JS, and HTML
+
+- For our purposes, very similar to R Markdown
+
+
+## Quarto - R Markdown vs Quarto
+
+-  R Markdown has significant overlap with Quarto, so why Quarto?
+
+-   Quarto provides a couple of benefits over what R Markdown down has done up to this point
+
+    -   Much of the functionality of the R Markdown ecosystem is unified
+    
+    -   Native support has been extended to other programming languages
+    
+    -   Behavior of niche applications (e.g. `xaringan`) is now consistent
+
+-   Still, for R Markdown specifically, you can always check the [R Markdown cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf){.external target="_blank"}
+
+
+## Quarto - What Makes a Quarto
+
+- Three primary components
+
+    1. A <b>YAML</b> header to control document level formatting and rendering
+    
+    2. <b>Chunks</b> of code (R, Python, etc) with or without output
+    
+    3. Text mixed with <b>formatting and tags</b>
+    
+- Additional components can be embedded as desired like images, videos, and tables
+
+![](img/quarto-flow.png){fig-align="center"}
+
+
+## Quarto - Example .qmd File
+
+```{r}
+#| code-line-numbers: 1-5|7-15,21-28|17-19
+#| class.source: .custom-height-small-code
+
+# ---
+# title: "Diamond sizes"
+# date: "`r Sys.Date()`"
+# format: html
+# ---
+# 
+# ```{r}
+# #| label: setup
+# #| include: false
+# 
+# library(tidyverse)
+# 
+# smaller <- diamonds |> 
+#   filter(carat <= 2.5)
+# ```
+# 
+# We have data about <u>`r nrow(diamonds)` diamonds</u>.
+# Only `r nrow(diamonds) - nrow(smaller)` are **larger than 2.5 carats**.
+# The remainder are plotted below:
+#
+# ```{r}
+# #| label: plot-smaller-diamonds
+# #| echo: false
+#
+# smaller |> 
+#   ggplot(aes(x = carat)) + 
+#   geom_freqpoly(binwidth = 0.01)
+# ```
+```
+
+
+## Quarto - Rendered Example in RStudio
+
+![](img/diamonds.png){fig-align="center"}
+
+
+## Quarto - Visual Editor 
+
+- RStudio does allow for authoring using a visual editor for a WYSIWYG interface
+
+- Can be a good exposure as it uses formats similar to Word and Google Docs
+
+- Buttons along the top menu bar can insert tags, formats, and embeddings
+
+- Can also use [Ctrl-/]{.kbd-shortcut} or [&#x2318;-/]{.kbd-shortcut} as shortcut to insert just about anything
+
+- Visual editor displays content with formatting but save content in the .md format required for pandoc
+
+## Quarto - Visual Editor in Action
+
+![](img/quarto-visual-editor.png){fig-align="center"}
+
+:::{.footer}
+
+[Figure 28.5 from R4DS](https://r4ds.hadley.nz/quarto#fig-visual-editor){.external target="_blank"}
+
+:::
+
+
+## Quarto - Source Editor
+
+- Alternative to the Visual Editor
+
+- Akin to writing R code
+
+- Very useful when debugging Quarto and Markdown syntax
+
+- Much easier utilization of CSS
+
+- Once familiar with the mechanics allows for far greater control over formatting, embedding, and organization
+
+- See the [Quarto Website](https://quarto.org/docs/get-started/hello/rstudio.html){.external target=} to get started and for more details
+
+
+# Markdown Basics
+
+## Markdown - Authoring Basics
+
+- Several shorthands for common authoring aspects exist
+
+    - **Bold** - \*\*Bold\*\* or \_\_Bold\_\_
+    
+    - *Italic* - \*Italic\* or \_Italic\_
+    
+    - ***Bold Italic*** - \*\*\*Bold Italic\*\*\* or \_\_\_Bold Italic\_\_\_
+    
+    - Super^script^ and sub~script~ - Super\^script\^ and sub\~script\~
+    
+    - ~~Strikethrough~~ - \~\~Strikethrough\~\~
+    
+    - `Inline code` - \`Inline code\`
+    
+- To escape special characters you can use \\ as always
+
+## Markdown - Headings
+
+:::{.columns}
+
+:::{.column}
+
+- Up to six types of headings can be used with \# ranging from 1 to six
+
+- The exact display of the headings depends on the type of rendered output
+
+:::
+
+:::{.column}
+
+![](img/headings.png){fig-align="center}
+
+:::
+
+:::
+
+
+## Markdown - Lists
+
+ 
+:::{.columns}
+
+:::{.column width="60%"}
+
+- Unordered lists use various single characters (\- \* \+) or while ordered lists use numbers with period (1\.)
+
+- Sub-items lead with four space inents
+
+:::{style="margin-top: -4%"}
+
+\- Unordered list item 1
+
+:::
+
+\- Item 2
+
+\ \ \ \ \- Item 2a
+
+1\.  Ordered list item 1
+
+3\.  Item "2"
+
+\ \ \ \ Indented continuation
+
+:::
+
+:::{.column width="40%"}
+
+- Unordered list item 1
+
+- Item 2
+
+    - Item 2a
+
+1.  Ordered list item 1
+
+3.  Item "2"
+
+    Indented continuation
+
+:::
+
+:::
+
+
+
+## Markdown - Hyperlinks and Images
+
+- Hyperlinks
+
+    - <https://quarto.org> - in isolation \<https://quarto.org\>
+
+    - [Hyperlinked phrase](https://quarto.org) - \[Hyperlinked phrase\](https://quarto.org)
+    
+- Images
+
+    - All are a convention of !\[Caption text\](path to image)
+
+:::{.columns}
+
+:::{.column}
+    
+![Via URL](https://quarto.org/quarto.png){fig-align="center"}
+
+[!\[Via URL\](https://quarto.org/quarto.png)]{style="font-size: 85%"}
+
+:::
+
+:::{.column}
+    
+![Via folder path](https://quarto.org/quarto.png)
+
+[!\[Via folder path\](img/quarto.png)]{style="font-size: 85%"}
+    
+:::
+
+:::
+
+
+## Markdown - Fences
+
+- Our conversion of a markdown file to rendered output uses Pandoc as a universal document converter
+
+- An important shortcut Quarto/Pandoc understands is the <b>fence</b> of three or more colons (\:::)
+
+- Enclosing text within a fence applies a set of attributes via the attribute list, <b>\{\}</b>, before closing the fence with the same number of colons
+
+\:::{attributes_to_be_applied}
+
+Text receiving the "attributes_to_be_applied"
+
+\:::
+
+## Markdown - Fences as Divs
+
+- Technically, fences are creating an HTML division called a <b>div</b>, the fundamental block in HTML
+
+- They carry no inherent style or semantic meaning themselves but apply styles, positioning elements, and creating layouts using HTML attributes along with CSS and JavaScript
+
+- Controlling divs let you control your output
+
+- For our immediate purposes, there are a number of shorthands that be defined within the attribute list by using named HTML classes
+
+- Classes within attribute lists always begin with periods for CSS reasons
+
+## Markdown - Fences for Columns
+
+- Define columns with `.columns` with 2 or more `.column` classes
+
+:::{.columns}
+
+:::{style="margin-top: -2%; line-height: 8pt"}
+
+:::{.column width=50%}
+
+\<div class="columns">
+
+\ \ \ \ \<div class="column">
+
+\ \ \ \ \ \ Text in column 1
+
+\ \ \ \ \</div>
+
+\ \ \ \ \<div class="column">
+
+\ \ \ \ \ \ Text in column 2
+
+\ \ \ \ \</div>
+
+\</div>
+
+:::
+
+:::{.column width="50%"}
+
+\:::{.columns}
+
+\:::{.column}
+
+Text in column 1
+
+\:::
+
+\:::{.column}
+
+Text in column 2
+
+\:::
+
+\:::
+
+:::
+
+:::
+
+:::
+
+## Markdown - Fencing and Newlines
+
+:::{.callout-note}
+
+Here's a callout note with \:::{.callout-tip}; other callouts include tip, important, caution, and warning
+
+:::
+
+
+:::{.callout-important}
+
+All fenced content needs a space between the opening and closing fences
+
+
+
+
+
+
+In fact, new lines are needed between all content to keep it from running on in a single line
+
+:::
+
+
+:::{.callout-tip}
+
+Consecutive newlines are collapsed into a single line (I have seven  betewen the lines in the important callout and you can't see the one after this semi-colon); 
+multiple newlines are specified with HTML
+
+:::
+
+## Markdown - Spans vs Divs
+
+- A <b>span</b> can be thought of as an in-line div
+
+- Quarto/Pandoc flags spans with square brackets <b>\[</b>span text here<b>\]</b>
+
+- Attributes list with curly brackets come after just like with fence divs
+
+- For example, this [\[underlines text\]\{.underline\}]{.underline} but only inline
+
+    Note, divs are <b>block-level</b> and CSS may behave differently
+
+- Span attributes can be applied to other components which natively use \[ \] like figures and hyperlinks
+
+:::{style="margin-top: -4%"}
+
+![Using \{fig-align="right" height=120\} makes a larger figure with right alignment](img/quarto.png){fig-align="right" height=120}
+
+:::
+
+## Markdown - Attribute Lists
+
+- Divs and spans can have any combination of HTML identifiers, classes, and (potentially many) key-values attribute pairs in their attribute list
+
+- Order matters just like in like HTML tags to have attributes apply
+
+    1. Define ids with \# e.g. \#id
+    
+    2. Next is the class leading with a period e.g. \.class
+    
+    3. Finally any HTML attributes that need specified keys with each spearated by a space e.g. key1="value1" key2="value2"
+    
+- So \[This would work\]\{#id .class key1="value1" key2="value2"}
+
+- But \[This would not\]\{.class key1="value1" key2="value2" #id}
+
+
+## Markdown - Final Comments on HTML and CSS
+
+- Knowing these semantics allows you to customize your own markdown <b>AND</b> read someone elses
+
+- Every shorthand described up to this point can be written as HTML, CSS and JavaScript
+
+- This lets you make and apply your own custom CSS using inline attributes via \{style="CSS: here;"\}
+
+- The flexibility also lets your create your own linkable CSS style files or add CSS definitions in a document with <b>code chunks</b>
+
+- Check out either "Markdown Quick Reference" from RStudio's help menu or the Quarto [authoring guide](https://quarto.org/docs/authoring/markdown-basics.html){.external target="_blank"}
+
+# Code and Code Chunks
+
+## Code - Displaying Code Formats
+
+- Code tags use surrounding backticks \` \` to `give a code "format"`
+
+```
+Delimit blocks (i.e. "chunks") of code with three back ticks ``` fencing text
+```
+
+\`\`\`
+
+Delimit blocks (i.e. "chunks") of code with three back ticks \`\`\` fencing text
+
+\`\`\`
+
+:::{style="margin-top: -3%"}
+
+- Quarto can format code to be representative of over 100 languages by writing the language name after the first set of \`\`\` e.g. \`\`\`r
+
+```r
+1 + 1
+Note for() is colored as a dedicated function
+#A comment
+```
+
+- This does NOT execute the code
+
+:::
+
+
+## Code - Executing Code
+
+- To execute code enclose the program name in \{ \} after backticks
+
+```{r}
+#This is executed using ```{r} instead of just ```r
+
+#You see both the code block and the rendered output
+
+.fun <- \(x){x^2}
+
+.fun(2)
+```
+
+- This can also execute code in-line by using a single backtick
+
+- So using \`\{r} .fun(2)\` gives the same output but using span in-line style: `{r} .fun(2)`
+
+- Any function/object defined within the document can be used later on
+
+## Code - Chunk Options
+
+- Code chunk options are included as special comments at the top of a code chunk by using `#|` instead of the usual `#`
+
+- These do follow YAML formatting; R code can be used via `!expr`
+
+```{{r}}
+#| echo: false
+#| label: "Air Quality"
+#| fig-cap: !expr 'paste("Air", "Quality")'
+#| fig-height: 2.75
+#| fig-asp: 0.618
+
+
+library(ggplot2)
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE)
+```
+
+## Code - Chunk Options
+
+- `echo` prevents the code <b>chunk</b> from rendering; `label` names the chunk for navigation in RStudio and referencing; `fig-cap` provides the caption for the rendered plot (using an expression); `fig-height` and `fig-asp` helps control size of the plot output
+
+```{r}
+#| echo: false
+#| label: "Air Quality plot"
+#| fig-cap: !expr 'paste("Air", "Quality")'
+#| fig-height: 2.75
+#| fig-asp: 0.618
+#| cache: true
+
+library(ggplot2)
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess", se = FALSE)
+```
+
+## Code - Execution via `knitr` Package
+
+- Quarto uses the `knitr` package to execute code, same as RMarkdown
+
+- Thus, chunk options used in R code chunks also use `knitr` options e.g.
+
+    - `eval: false` - prevent the code from being evaluated
+    
+    - `include: false` - run the code but show neither code nor results
+    
+    - `echo: false` - render only the output, not the code
+    
+    - `message: false` / `warning: false` - prevents them in output
+    
+    - `error: true` - allow rendering to continue but give error text
+
+- See the [`knitr` documentation](https://yihui.org/knitr/options/){.external target="_blank"} for all options
+
+## Code - `knitr` Options for Figures
+
+- `fig-width` and `fig-height` - output size in inches
+
+- `fig-aps` - figure aspect ratio, provide with only width or height
+
+- `out-width` - percent of the body width occupied by the output
+
+- `fig-align` - alignment of the plot e.g. `#| fig-align: "center"`
+
+- `layout-ncol` - number of columns for multiple side-by-side plots
+
+- `fig-show: hold` - hold plots until after code is rendered
+
+- `cache: true` - Save output/objects to file to save computational time; persists until code chunk is edited
+
+## Code - Chunks and HTML
+
+- All code chunks themselves are <b>pre</b> elements in HTML i.e. they use the `<pre>` tag; thus they can accept attributes and styles
+
+- Output can also have styles defined although this is more complicated
+
+    1. Define a class or id in CSS either in your document or .css file e.g. `.custom-output-class`
+    
+    2. Use the `#| class-output: ".custom-output-class"` to apply the custom style to your output
+    
+- In general, simply focus on the predefined options found in the [Quarto documentation](https://quarto.org/docs/reference/cells/cells-knitr.html){.external target="_blank"}
+    
+    
+## Code - Tables in Quarto
+
+- Tables from code chunks, by default, are controlled by the `kable()` function in `knitr`
+
+- Formatting can be modified directly via `knitr::kable()`; this can be fed into functions from the `kableExtra` for further customization
+
+- `kable` tables are ideal for dynamic table content in HTML documents
+
+- Tables can be coded by hand if desired (see [documentation for details](https://quarto.org/docs/authoring/tables.htm){.external target="_blank"})
+
+  Thus, ALL tables can have styles altered as well
+
+- Other R packages (e.g. `gt`) can also be used
+
+
+    
+# The YAML
+
+## YAML - Basics
+
+- Options defined within code chunks or fences are local
+
+- "Whole document" setting are controlling by adjusting the <b>YAML</b>
+
+- The YAML is found at the top of every markdown document as a header and demarcated using three dashes `---`
+
+- Heirarchical in nature with sub-options indented on new lines and defined in `key: value` pairs
+
+````{verbatim}
+---
+title: "Quarto title"
+format: 
+  html:
+    html_key: html_value
+---
+````
+
+## YAML - Global Options
+
+- In most cases, the YAML is used to control various configurations for the various engines used for rendering (i.e. `knitr` and Pandoc)
+
+- First a `format` is passed with `html` as the default
+
+    Global options like `title`, `date`, and `author` are not under format
+
+- All manner of format-specific options can then be set:
+
+    - Styles like font, color, and layout locations
+    
+    - Display of code, tables and figures
+    
+    - Execution options either in general via `execute` for universal options (`eval`, `echo`, etc) or for the specific engine
+    
+## YAML - Parameters in the YAML
+
+- Parameters used during execution can be defined in the YAML and then accessed within a `params` object
+
+````{verbatim}
+---
+params:
+  my_class: "suv"
+---
+````
+
+- This can now be accessed within code as `params$my_class`
+
+````{verbatim}
+class <- mpg |> filter(class == params$my_class)
+ggplot(class, aes(x = displ, y= hwy)) + geom_point
+````
+
+
+## YAML - Countless Parameters
+
+- Again, YAML options are typically format specific
+
+- Multiple formats can be specified for multiple renderings, each with their own configurations
+
+- Other options include specifying bibliographies and citations; also possible via the Visual Editor
+
+- All usable options in Quarto can be found in their [reference guide](https://quarto.org/docs/reference/){.external target="_blank"}
+
+    These are delineated by all the various output formats supported by Quarto
+
+## YAML - Today's YAML
+
+:::{.columns}
+
+:::{.column}
+
+```{verbatim}
+---
+title: "Communication with Quarto"
+subtitle: "Markdown and You"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+```
+
+:::
+
+:::{.column}
+
+```{verbatim}
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+```
+
+:::
+
+:::
+
+- The YAML for today's slides
+
+
+# Format Variants
+
+## Variants - Output Formats
+
+- HTML as a <b>document</b> is one of many types of output formats
+
+- Again, these are specified in the YAML
+
+    - Some are global e.g. `toc` for table of contents
+    
+    - Some format specific e.g. code-fold for folding code chunks in HTML
+    
+- Multiple formats can even  be rendered simultaneously
+
+```{verbatim}
+---
+format:
+  html:
+    toc: true
+    toc_float: true
+  pdf: default
+  docx: default
+---
+```
+  
+
+## Variants - Documents
+
+- `html` is the most ubiquitous for either single HTML pages or formally organized websites
+
+- `pdf` makes PDF's using LaTeX which may need to be installed
+
+    - LaTeX style equations can still be created using `$` operators
+    
+- `docx` and `odt` for Word and OpenDocument files
+
+    - These benefit from setting `echo: false` as a global `execute:` option to suppress all code chunks
+    
+## Variants - Presentations
+
+- Presentations gives less visual control but again allow for interleaving code with text
+
+- `pptx` for PowerPoint presentations which can then be modified post-hoc for animations, transitions, etc
+
+- `beamer` for direct creation of PDF presentations via LaTeX beamer
+
+- `revealjs` for HTML presentations with JavaScript support
+
+    - All slides in this course were rendered with revealjs
+    
+    - PDF slides can also be printed from the HTML
+    
+    - Multiple renderings don't always work though
+    
+    
+## Variants - HTML Interactivity
+
+- Interactive and dynamic components are feasible for HTML outputs
+
+- All R interactivity elements are supported by JavaScript
+
+- Much R based JavaScript is via the `htmlwidgets` package
+
+    - Available widgets can be found [on the package website](https://gallery.htmlwidgets.org/){.external target="_blank"}
+
+- Shiny applications can be used to provide server-side R interaction
+  
+```{verbatim}
+title: "Shiny Application"
+format: html
+server: shiny
+```
+
+- Shiny inputs e.g. `textInput("name", "Your name here")` can be called using `input$name` within `#| context: server` chunks
+
+## Variants - `leaflet` Interaction Example
+
+```{r}
+#| eval: false
+library(leaflet)
+leaflet() |> addTiles() |>
+  setView(-86.764, 33.489, zoom = 16) |> 
+  addMarkers(33.502, -86.804, popup = "Ryals") 
+```
+  
+```{r}
+#| echo: false
+#| cache: false
+
+leaflet::leaflet() |>
+  leaflet::setView(-86.764, 33.489, zoom = 16) |> 
+  leaflet::addTiles() |>
+  leaflet::addPopups(-86.804, 33.502, , popup = "Ryals SOPH") |>
+  htmlwidgets::onRender("function(el, x) { el.style.width = '600px'; el.style.height = '400px'; }")
+```
+
+
+## Variants - Full Websites
+
+- Books using `bookdown` can be started by setting a `project:` options with `type: book` as a sub-option
+
+- Websites with multiple .qmd pages are made as follows:
+
+    - All .qmd files are in a single directory, [index.qmd]{.kbd-shortcut} is the homepage
+    
+    - A dedicated YAML file named [_quarto.yml]{.kbd-shortcut} provides navigation
+    
+    - Hyperlinks throughout the site are leveraged using `<a>` tags
+    
+    - Navbars and sidebars can be used along with other design choices
+    
+## Variants - YAML Portion for BST680's Site
+
+- One part of what our site uses
+
+```{verbatim}    
+project:
+  type: website
+website:
+  title: "BST680 2024"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+  sidebar:
+    collapse-level: 1
+    style: "docked"
+    logo: "uab_logo.png"
+    contents:
+      - section: "Lecture HTML"
+        contents: 
+          - text: "01 - Introducing Your Tools"
+            href: "Lectures/01_Tools/index.qmd"
+            target: _blank 
+```
+
+
+# Workflow
+
+## Workflow - Why Quarto
+
+- Quarto enforces the idea of communication
+
+![](img/workflow_r4ds.png){fig-align="center" height=200}
+
+:::{style="margin-top: -5%"}
+
+- Natural extension of interactive coding via the console into persistent reproducible capture within the script editor
+
+    1. The console lets you find code that works
+    
+    2. The script editor lets you iterate and refine code
+    
+    3. Markdown coalesces prose, code and output to express ideas
+    
+:::
+
+## Workflow - Use Cases
+
+- Excellent for compiling sharable documents
+
+- Reports in common formats i.e. Word
+
+- Creation of web sites / books / bookdown
+
+    - Can host on local servers or via GitHub
+    
+- Presentations via revealjs, PDF, or PowerPoint
+
+## Workflow - As a Lab Notebook
+
+- R4DS encourages use as a [lab notebook](https://r4ds.hadley.nz/quarto#workflow){.external target="_blank"}
+
+- Can provide better recording of thoughts and processes than just comments
+
+    - Can force writing rationale/thoughts instead of smaller comments
+    
+- YAML can support dates/titles/authorship for conceptualization
+
+- Can help with a rendering to ensure everything work as it should in a de novo environment
+
+## Workflow - Reproducibility
+
+- Modularization of projects is good regardless of Quarto utilization
+
+- Use of `renv` to ensure [package versioning]( https://rstudio.github.io/renv/index.html){.external target="_blank"}
+
+    - Not great but the best we have
+    
+- Use of Git for environment versioning
+
+- Building (and saving) [workflows and pipelines](https://books.ropensci.org/targets/){.external target="_blank"} with `targets`
+
+## Learning More
+
+- Spend time with the Quarto website
+
+    - Comprehensive guides based on [output and authoring](https://quarto.org/docs/guide/){.external target="_blank"}
+
+    - Options for the [YAML configuration](https://quarto.org/docs/reference/){.external target="_blank"}
+    
+    - General tutorial guide for [RStudio](https://quarto.org/docs/get-started/hello/rstudio.html){.external target="_blank"}
+    
+- The `knitr` [package guide](https://yihui.org/knitr/){.external target="_blank"} for translating Quarto/RMarkdown to generalized Markdown
+
+    - Using `kable` for [dynamic tables](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html){.external target="_blank"}
+
+- Next time - Iteration
+    
+    
+
+
+
+
+
+
+
+
+

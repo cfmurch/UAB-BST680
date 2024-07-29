@@ -43,6 +43,9 @@ website:
           - text: "09 - Joins and I/O"
             href: "Lectures/09_Joins/index.qmd"
             target: _blank
+          - text: "10 - Quarto"
+            href: "Lectures/10_Quarto/index.qmd"
+            target: _blank
       - section: "Lecture PDF"
         contents:
           - text: "01 - Introducing Your Tools"
@@ -72,6 +75,9 @@ website:
           - text: "09 - Joins and I/O"
             href: "pdfs/BST680 - 2024 - 09 Joins and IO.pdf"
             target: _blank
+          - text: "10 - Quarto"
+            href: "pdfs/BST680 - 2024 - 10 Communication with Quarto.pdf"
+            target: _blank
       - section: "Additional Info"
         contents:
           - text: "Intro to Quarto and gt()"
@@ -96,6 +102,8 @@ website:
             href: "html_files/08_Strings/class_exercises.qmd"
           - text: "09 - Joins and I/O"
             href: "html_files/09_Joins/class_exercises.qmd"
+          - text: "10 - Quarto"
+            href: "html_files/10_Quarto/class_exercises.qmd"
       # - section: "Solutions"
       #   contents: 
       #     - text: "01 - Working with Tables"
@@ -116,6 +124,7 @@ website:
       #       href: "html_files/08_Strings/exercise_solutions.qmd"
       #     - text: "09 - Joins and I/O"
       #       href: "html_files/09_Joins/exercise_solutions.qmd"
+
         
           
             

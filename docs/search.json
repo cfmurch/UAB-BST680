@@ -6289,5 +6289,593 @@
       "Downloads",
       "Exercise Downloads"
     ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#agenda",
+    "href": "Lectures/10_Quarto/index.html#agenda",
+    "title": "Communication with Quarto",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nQuarto overview\nMarkdown basics\nCode chunks\nThe YAML\nVariants\nAuthoring workflows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---basics-of-markdown",
+    "href": "Lectures/10_Quarto/index.html#quarto---basics-of-markdown",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Basics of Markdown",
+    "text": "Quarto - Basics of Markdown\n\nLightweight language the allows for markup\n\nAdds formatting elements to plain text\nDifferent from WYSIWYG editors like Word\n\nVery versatile, can be used for documents, presentations, websites, etc in a variety of output formats\nPortable, platform independent, and future poof\nEspecially useful for “knitting” code into a document combining text prose, code, and output results\n\nPromotes reproducibility",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---how-markdown-works",
+    "href": "Lectures/10_Quarto/index.html#quarto---how-markdown-works",
+    "title": "Communication with Quarto",
+    "section": "Quarto - How Markdown Works",
+    "text": "Quarto - How Markdown Works\n\nStart with a plain text Markdown file (.md in general, .qmd for Quarto)\nUse a Markdown application to parse the file using the processor, e.g. the Quarto CLI, into the desired format (HTML, PDF, etc)\nRender the parsed document for a knitted output of text, code, and style direction\nGet a raise for having such a beautiful document",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---basics-of-quarto",
+    "href": "Lectures/10_Quarto/index.html#quarto---basics-of-quarto",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Basics of Quarto",
+    "text": "Quarto - Basics of Quarto\n\nExtended variant of markdown supporting dynamic content\n\nR, Python, Julia, etc\n\nStrong integration with IDE tools like RStudio and Jupyter\nAdditional syntax support beyond markdown e.g. LaTeX style equations\n\\[\\alpha + \\beta^2 - \\gamma \\cdot \\delta = \\frac{\\epsilon}{\\zeta}\\]\nExpanded output formats including, Word, PDF, Reveal JS, and HTML\nFor our purposes, very similar to R Markdown",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---r-markdown-vs-quarto",
+    "href": "Lectures/10_Quarto/index.html#quarto---r-markdown-vs-quarto",
+    "title": "Communication with Quarto",
+    "section": "Quarto - R Markdown vs Quarto",
+    "text": "Quarto - R Markdown vs Quarto\n\nR Markdown has significant overlap with Quarto, so why Quarto?\nQuarto provides a couple of benefits over what R Markdown down has done up to this point\n\nMuch of the functionality of the R Markdown ecosystem is unified\nNative support has been extended to other programming languages\nBehavior of niche applications (e.g. xaringan) is now consistent\n\nStill, for R Markdown specifically, you can always check the R Markdown cheat sheet",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---what-makes-a-quarto",
+    "href": "Lectures/10_Quarto/index.html#quarto---what-makes-a-quarto",
+    "title": "Communication with Quarto",
+    "section": "Quarto - What Makes a Quarto",
+    "text": "Quarto - What Makes a Quarto\n\nThree primary components\n\nA YAML header to control document level formatting and rendering\nChunks of code (R, Python, etc) with or without output\nText mixed with formatting and tags\n\nAdditional components can be embedded as desired like images, videos, and tables",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---example-.qmd-file",
+    "href": "Lectures/10_Quarto/index.html#quarto---example-.qmd-file",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Example .qmd File",
+    "text": "Quarto - Example .qmd File\n\n# ---\n# title: \"Diamond sizes\"\n# date: \"`r Sys.Date()`\"\n# format: html\n# ---\n# \n# ```{r}\n# #| label: setup\n# #| include: false\n# \n# library(tidyverse)\n# \n# smaller &lt;- diamonds |&gt; \n#   filter(carat &lt;= 2.5)\n# ```\n# \n# We have data about &lt;u&gt;`r nrow(diamonds)` diamonds&lt;/u&gt;.\n# Only `r nrow(diamonds) - nrow(smaller)` are **larger than 2.5 carats**.\n# The remainder are plotted below:\n#\n# ```{r}\n# #| label: plot-smaller-diamonds\n# #| echo: false\n#\n# smaller |&gt; \n#   ggplot(aes(x = carat)) + \n#   geom_freqpoly(binwidth = 0.01)\n# ```",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---rendered-example-in-rstudio",
+    "href": "Lectures/10_Quarto/index.html#quarto---rendered-example-in-rstudio",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Rendered Example in RStudio",
+    "text": "Quarto - Rendered Example in RStudio",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---visual-editor",
+    "href": "Lectures/10_Quarto/index.html#quarto---visual-editor",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Visual Editor",
+    "text": "Quarto - Visual Editor\n\nRStudio does allow for authoring using a visual editor for a WYSIWYG interface\nCan be a good exposure as it uses formats similar to Word and Google Docs\nButtons along the top menu bar can insert tags, formats, and embeddings\nCan also use Ctrl-/ or ⌘-/ as shortcut to insert just about anything\nVisual editor displays content with formatting but save content in the .md format required for pandoc",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---visual-editor-in-action",
+    "href": "Lectures/10_Quarto/index.html#quarto---visual-editor-in-action",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Visual Editor in Action",
+    "text": "Quarto - Visual Editor in Action\n\n\nFigure 28.5 from R4DS",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#quarto---source-editor",
+    "href": "Lectures/10_Quarto/index.html#quarto---source-editor",
+    "title": "Communication with Quarto",
+    "section": "Quarto - Source Editor",
+    "text": "Quarto - Source Editor\n\nAlternative to the Visual Editor\nAkin to writing R code\nVery useful when debugging Quarto and Markdown syntax\nMuch easier utilization of CSS\nOnce familiar with the mechanics allows for far greater control over formatting, embedding, and organization\nSee the Quarto Website to get started and for more details",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---authoring-basics",
+    "href": "Lectures/10_Quarto/index.html#markdown---authoring-basics",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Authoring Basics",
+    "text": "Markdown - Authoring Basics\n\nSeveral shorthands for common authoring aspects exist\n\nBold - **Bold** or __Bold__\nItalic - *Italic* or _Italic_\nBold Italic - ***Bold Italic*** or ___Bold Italic___\nSuperscript and subscript - Super^script^ and sub~script~\nStrikethrough - ~~Strikethrough~~\nInline code - `Inline code`\n\nTo escape special characters you can use \\ as always",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---headings",
+    "href": "Lectures/10_Quarto/index.html#markdown---headings",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Headings",
+    "text": "Markdown - Headings\n\n\n\nUp to six types of headings can be used with # ranging from 1 to six\nThe exact display of the headings depends on the type of rendered output",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---lists",
+    "href": "Lectures/10_Quarto/index.html#markdown---lists",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Lists",
+    "text": "Markdown - Lists\n\n\n\nUnordered lists use various single characters (- * +) or while ordered lists use numbers with period (1.)\nSub-items lead with four space inents\n\n\n- Unordered list item 1\n\n- Item 2\n    - Item 2a\n1. Ordered list item 1\n3. Item “2”\n    Indented continuation\n\n\nUnordered list item 1\nItem 2\n\nItem 2a\n\n\n\nOrdered list item 1\nItem “2”\nIndented continuation",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---hyperlinks-and-images",
+    "href": "Lectures/10_Quarto/index.html#markdown---hyperlinks-and-images",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Hyperlinks and Images",
+    "text": "Markdown - Hyperlinks and Images\n\nHyperlinks\n\nhttps://quarto.org - in isolation &lt;https://quarto.org&gt;\nHyperlinked phrase - [Hyperlinked phrase](https://quarto.org)\n\nImages\n\nAll are a convention of ![Caption text](path to image)\n\n\n\n\n\n\n\nVia URL\n\n\n![Via URL](https://quarto.org/quarto.png)\n\n\n\n\nVia folder path\n\n\n![Via folder path](img/quarto.png)",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---fences",
+    "href": "Lectures/10_Quarto/index.html#markdown---fences",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Fences",
+    "text": "Markdown - Fences\n\nOur conversion of a markdown file to rendered output uses Pandoc as a universal document converter\nAn important shortcut Quarto/Pandoc understands is the fence of three or more colons (:::)\nEnclosing text within a fence applies a set of attributes via the attribute list, {}, before closing the fence with the same number of colons\n\n:::{attributes_to_be_applied}\nText receiving the “attributes_to_be_applied”\n:::",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---fences-as-divs",
+    "href": "Lectures/10_Quarto/index.html#markdown---fences-as-divs",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Fences as Divs",
+    "text": "Markdown - Fences as Divs\n\nTechnically, fences are creating an HTML division called a div, the fundamental block in HTML\nThey carry no inherent style or semantic meaning themselves but apply styles, positioning elements, and creating layouts using HTML attributes along with CSS and JavaScript\nControlling divs let you control your output\nFor our immediate purposes, there are a number of shorthands that be defined within the attribute list by using named HTML classes\nClasses within attribute lists always begin with periods for CSS reasons",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---fences-for-columns",
+    "href": "Lectures/10_Quarto/index.html#markdown---fences-for-columns",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Fences for Columns",
+    "text": "Markdown - Fences for Columns\n\nDefine columns with .columns with 2 or more .column classes\n\n\n\n\n&lt;div class=“columns”&gt;\n    &lt;div class=“column”&gt;\n      Text in column 1\n    &lt;/div&gt;\n    &lt;div class=“column”&gt;\n      Text in column 2\n    &lt;/div&gt;\n&lt;/div&gt;\n\n:::{.columns}\n:::{.column}\nText in column 1\n:::\n:::{.column}\nText in column 2\n:::\n:::",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---fencing-and-newlines",
+    "href": "Lectures/10_Quarto/index.html#markdown---fencing-and-newlines",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Fencing and Newlines",
+    "text": "Markdown - Fencing and Newlines\n\n\n\n\n\n\nNote\n\n\nHere’s a callout note with :::{.callout-tip}; other callouts include tip, important, caution, and warning\n\n\n\n\n\n\n\n\n\nImportant\n\n\nAll fenced content needs a space between the opening and closing fences\nIn fact, new lines are needed between all content to keep it from running on in a single line\n\n\n\n\n\n\n\n\n\nTip\n\n\nConsecutive newlines are collapsed into a single line (I have seven betewen the lines in the important callout and you can’t see the one after this semi-colon); multiple newlines are specified with HTML",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---spans-vs-divs",
+    "href": "Lectures/10_Quarto/index.html#markdown---spans-vs-divs",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Spans vs Divs",
+    "text": "Markdown - Spans vs Divs\n\nA span can be thought of as an in-line div\nQuarto/Pandoc flags spans with square brackets [span text here]\nAttributes list with curly brackets come after just like with fence divs\nFor example, this [underlines text]{.underline} but only inline\nNote, divs are block-level and CSS may behave differently\nSpan attributes can be applied to other components which natively use [ ] like figures and hyperlinks\n\n\n\n\n\nUsing {fig-align=“right” height=120} makes a larger figure with right alignment",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---attribute-lists",
+    "href": "Lectures/10_Quarto/index.html#markdown---attribute-lists",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Attribute Lists",
+    "text": "Markdown - Attribute Lists\n\nDivs and spans can have any combination of HTML identifiers, classes, and (potentially many) key-values attribute pairs in their attribute list\nOrder matters just like in like HTML tags to have attributes apply\n\nDefine ids with # e.g. #id\nNext is the class leading with a period e.g. .class\nFinally any HTML attributes that need specified keys with each spearated by a space e.g. key1=“value1” key2=“value2”\n\nSo [This would work]{#id .class key1=“value1” key2=“value2”}\nBut [This would not]{.class key1=“value1” key2=“value2” #id}",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#markdown---final-comments-on-html-and-css",
+    "href": "Lectures/10_Quarto/index.html#markdown---final-comments-on-html-and-css",
+    "title": "Communication with Quarto",
+    "section": "Markdown - Final Comments on HTML and CSS",
+    "text": "Markdown - Final Comments on HTML and CSS\n\nKnowing these semantics allows you to customize your own markdown AND read someone elses\nEvery shorthand described up to this point can be written as HTML, CSS and JavaScript\nThis lets you make and apply your own custom CSS using inline attributes via {style=“CSS: here;”}\nThe flexibility also lets your create your own linkable CSS style files or add CSS definitions in a document with code chunks\nCheck out either “Markdown Quick Reference” from RStudio’s help menu or the Quarto authoring guide",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---displaying-code-formats",
+    "href": "Lectures/10_Quarto/index.html#code---displaying-code-formats",
+    "title": "Communication with Quarto",
+    "section": "Code - Displaying Code Formats",
+    "text": "Code - Displaying Code Formats\n\nCode tags use surrounding backticks ` ` to give a code \"format\"\n\nDelimit blocks (i.e. \"chunks\") of code with three back ticks ``` fencing text\n```\nDelimit blocks (i.e. “chunks”) of code with three back ticks ``` fencing text\n```\n\n\nQuarto can format code to be representative of over 100 languages by writing the language name after the first set of ``` e.g. ```r\n\n1 + 1\nNote for() is colored as a dedicated function\n#A comment\n\nThis does NOT execute the code",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---executing-code",
+    "href": "Lectures/10_Quarto/index.html#code---executing-code",
+    "title": "Communication with Quarto",
+    "section": "Code - Executing Code",
+    "text": "Code - Executing Code\n\nTo execute code enclose the program name in { } after backticks\n\n\n#This is executed using ```{r} instead of just ```r\n\n#You see both the code block and the rendered output\n\n.fun &lt;- \\(x){x^2}\n\n.fun(2)\n\n[1] 4\n\n\n\nThis can also execute code in-line by using a single backtick\nSo using `{r} .fun(2)` gives the same output but using span in-line style: 4\nAny function/object defined within the document can be used later on",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---chunk-options",
+    "href": "Lectures/10_Quarto/index.html#code---chunk-options",
+    "title": "Communication with Quarto",
+    "section": "Code - Chunk Options",
+    "text": "Code - Chunk Options\n\nCode chunk options are included as special comments at the top of a code chunk by using #| instead of the usual #\nThese do follow YAML formatting; R code can be used via !expr\n\n```{r}\n#| echo: false\n#| label: \"Air Quality\"\n#| fig-cap: !expr 'paste(\"Air\", \"Quality\")'\n#| fig-height: 2.75\n#| fig-asp: 0.618\n\n\nlibrary(ggplot2)\nggplot(airquality, aes(Temp, Ozone)) + \n  geom_point() + \n  geom_smooth(method = \"loess\", se = FALSE)\n```",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---chunk-options-1",
+    "href": "Lectures/10_Quarto/index.html#code---chunk-options-1",
+    "title": "Communication with Quarto",
+    "section": "Code - Chunk Options",
+    "text": "Code - Chunk Options\n\necho prevents the code chunk from rendering; label names the chunk for navigation in RStudio and referencing; fig-cap provides the caption for the rendered plot (using an expression); fig-height and fig-asp helps control size of the plot output\n\n\nAir Quality",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---execution-via-knitr-package",
+    "href": "Lectures/10_Quarto/index.html#code---execution-via-knitr-package",
+    "title": "Communication with Quarto",
+    "section": "Code - Execution via knitr Package",
+    "text": "Code - Execution via knitr Package\n\nQuarto uses the knitr package to execute code, same as RMarkdown\nThus, chunk options used in R code chunks also use knitr options e.g.\n\neval: false - prevent the code from being evaluated\ninclude: false - run the code but show neither code nor results\necho: false - render only the output, not the code\nmessage: false / warning: false - prevents them in output\nerror: true - allow rendering to continue but give error text\n\nSee the knitr documentation for all options",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---knitr-options-for-figures",
+    "href": "Lectures/10_Quarto/index.html#code---knitr-options-for-figures",
+    "title": "Communication with Quarto",
+    "section": "Code - knitr Options for Figures",
+    "text": "Code - knitr Options for Figures\n\nfig-width and fig-height - output size in inches\nfig-aps - figure aspect ratio, provide with only width or height\nout-width - percent of the body width occupied by the output\nfig-align - alignment of the plot e.g. #| fig-align: \"center\"\nlayout-ncol - number of columns for multiple side-by-side plots\nfig-show: hold - hold plots until after code is rendered\ncache: true - Save output/objects to file to save computational time; persists until code chunk is edited",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---chunks-and-html",
+    "href": "Lectures/10_Quarto/index.html#code---chunks-and-html",
+    "title": "Communication with Quarto",
+    "section": "Code - Chunks and HTML",
+    "text": "Code - Chunks and HTML\n\nAll code chunks themselves are pre elements in HTML i.e. they use the &lt;pre&gt; tag; thus they can accept attributes and styles\nOutput can also have styles defined although this is more complicated\n\nDefine a class or id in CSS either in your document or .css file e.g. .custom-output-class\nUse the #| class-output: \".custom-output-class\" to apply the custom style to your output\n\nIn general, simply focus on the predefined options found in the Quarto documentation",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#code---tables-in-quarto",
+    "href": "Lectures/10_Quarto/index.html#code---tables-in-quarto",
+    "title": "Communication with Quarto",
+    "section": "Code - Tables in Quarto",
+    "text": "Code - Tables in Quarto\n\nTables from code chunks, by default, are controlled by the kable() function in knitr\nFormatting can be modified directly via knitr::kable(); this can be fed into functions from the kableExtra for further customization\nkable tables are ideal for dynamic table content in HTML documents\nTables can be coded by hand if desired (see documentation for details)\nThus, ALL tables can have styles altered as well\nOther R packages (e.g. gt) can also be used",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#yaml---basics",
+    "href": "Lectures/10_Quarto/index.html#yaml---basics",
+    "title": "Communication with Quarto",
+    "section": "YAML - Basics",
+    "text": "YAML - Basics\n\nOptions defined within code chunks or fences are local\n“Whole document” setting are controlling by adjusting the YAML\nThe YAML is found at the top of every markdown document as a header and demarcated using three dashes ---\nHeirarchical in nature with sub-options indented on new lines and defined in key: value pairs\n\n---\ntitle: \"Quarto title\"\nformat: \n  html:\n    html_key: html_value\n---",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#yaml---global-options",
+    "href": "Lectures/10_Quarto/index.html#yaml---global-options",
+    "title": "Communication with Quarto",
+    "section": "YAML - Global Options",
+    "text": "YAML - Global Options\n\nIn most cases, the YAML is used to control various configurations for the various engines used for rendering (i.e. knitr and Pandoc)\nFirst a format is passed with html as the default\nGlobal options like title, date, and author are not under format\nAll manner of format-specific options can then be set:\n\nStyles like font, color, and layout locations\nDisplay of code, tables and figures\nExecution options either in general via execute for universal options (eval, echo, etc) or for the specific engine",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#yaml---parameters-in-the-yaml",
+    "href": "Lectures/10_Quarto/index.html#yaml---parameters-in-the-yaml",
+    "title": "Communication with Quarto",
+    "section": "YAML - Parameters in the YAML",
+    "text": "YAML - Parameters in the YAML\n\nParameters used during execution can be defined in the YAML and then accessed within a params object\n\n---\nparams:\n  my_class: \"suv\"\n---\n\nThis can now be accessed within code as params$my_class\n\nclass &lt;- mpg |&gt; filter(class == params$my_class)\nggplot(class, aes(x = displ, y= hwy)) + geom_point",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#yaml---countless-parameters",
+    "href": "Lectures/10_Quarto/index.html#yaml---countless-parameters",
+    "title": "Communication with Quarto",
+    "section": "YAML - Countless Parameters",
+    "text": "YAML - Countless Parameters\n\nAgain, YAML options are typically format specific\nMultiple formats can be specified for multiple renderings, each with their own configurations\nOther options include specifying bibliographies and citations; also possible via the Visual Editor\nAll usable options in Quarto can be found in their reference guide\nThese are delineated by all the various output formats supported by Quarto",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#yaml---todays-yaml",
+    "href": "Lectures/10_Quarto/index.html#yaml---todays-yaml",
+    "title": "Communication with Quarto",
+    "section": "YAML - Today’s YAML",
+    "text": "YAML - Today’s YAML\n\n\n---\ntitle: \"Communication with Quarto\"\nsubtitle: \"Markdown and You\"\nauthor: \"Chad Murchison\"\ndate: last-modified\nformat: \n  revealjs:\n    width: 1280\n    theme: \n      - simple\n    css: \"slides.css\"\n    logo: img/intro_2R_hex.png\n    lib_dir: libs\n    slide-number: true\n    reveal_options:\n      highlightStyle: github\n      highlightLines: true\n\n    knitr: \n      opts_chunk: \n        echo: true\n        warning: false\n        message: false\n        fig-width: 12\n        fig-height: 5.5\n        dpi: 375\nexecute: \n  cache: true\n---\n\n\nThe YAML for today’s slides",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---output-formats",
+    "href": "Lectures/10_Quarto/index.html#variants---output-formats",
+    "title": "Communication with Quarto",
+    "section": "Variants - Output Formats",
+    "text": "Variants - Output Formats\n\nHTML as a document is one of many types of output formats\nAgain, these are specified in the YAML\n\nSome are global e.g. toc for table of contents\nSome format specific e.g. code-fold for folding code chunks in HTML\n\nMultiple formats can even be rendered simultaneously\n\n---\nformat:\n  html:\n    toc: true\n    toc_float: true\n  pdf: default\n  docx: default\n---",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---documents",
+    "href": "Lectures/10_Quarto/index.html#variants---documents",
+    "title": "Communication with Quarto",
+    "section": "Variants - Documents",
+    "text": "Variants - Documents\n\nhtml is the most ubiquitous for either single HTML pages or formally organized websites\npdf makes PDF’s using LaTeX which may need to be installed\n\nLaTeX style equations can still be created using $ operators\n\ndocx and odt for Word and OpenDocument files\n\nThese benefit from setting echo: false as a global execute: option to suppress all code chunks",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---presentations",
+    "href": "Lectures/10_Quarto/index.html#variants---presentations",
+    "title": "Communication with Quarto",
+    "section": "Variants - Presentations",
+    "text": "Variants - Presentations\n\nPresentations gives less visual control but again allow for interleaving code with text\npptx for PowerPoint presentations which can then be modified post-hoc for animations, transitions, etc\nbeamer for direct creation of PDF presentations via LaTeX beamer\nrevealjs for HTML presentations with JavaScript support\n\nAll slides in this course were rendered with revealjs\nPDF slides can also be printed from the HTML\nMultiple renderings don’t always work though",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---html-interactivity",
+    "href": "Lectures/10_Quarto/index.html#variants---html-interactivity",
+    "title": "Communication with Quarto",
+    "section": "Variants - HTML Interactivity",
+    "text": "Variants - HTML Interactivity\n\nInteractive and dynamic components are feasible for HTML outputs\nAll R interactivity elements are supported by JavaScript\nMuch R based JavaScript is via the htmlwidgets package\n\nAvailable widgets can be found on the package website\n\nShiny applications can be used to provide server-side R interaction\n\ntitle: \"Shiny Application\"\nformat: html\nserver: shiny\n\nShiny inputs e.g. textInput(\"name\", \"Your name here\") can be called using input$name within #| context: server chunks",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---leaflet-interaction-example",
+    "href": "Lectures/10_Quarto/index.html#variants---leaflet-interaction-example",
+    "title": "Communication with Quarto",
+    "section": "Variants - leaflet Interaction Example",
+    "text": "Variants - leaflet Interaction Example\n\nlibrary(leaflet)\nleaflet() |&gt; addTiles() |&gt;\n  setView(-86.764, 33.489, zoom = 16) |&gt; \n  addMarkers(33.502, -86.804, popup = \"Ryals\")",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---full-websites",
+    "href": "Lectures/10_Quarto/index.html#variants---full-websites",
+    "title": "Communication with Quarto",
+    "section": "Variants - Full Websites",
+    "text": "Variants - Full Websites\n\nBooks using bookdown can be started by setting a project: options with type: book as a sub-option\nWebsites with multiple .qmd pages are made as follows:\n\nAll .qmd files are in a single directory, index.qmd is the homepage\nA dedicated YAML file named _quarto.yml provides navigation\nHyperlinks throughout the site are leveraged using &lt;a&gt; tags\nNavbars and sidebars can be used along with other design choices",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#variants---yaml-portion-for-bst680s-site",
+    "href": "Lectures/10_Quarto/index.html#variants---yaml-portion-for-bst680s-site",
+    "title": "Communication with Quarto",
+    "section": "Variants - YAML Portion for BST680’s Site",
+    "text": "Variants - YAML Portion for BST680’s Site\n\nOne part of what our site uses\n\nproject:\n  type: website\nwebsite:\n  title: \"BST680 2024\"\n  navbar:\n    left:\n      - href: index.qmd\n        text: Home\n  sidebar:\n    collapse-level: 1\n    style: \"docked\"\n    logo: \"uab_logo.png\"\n    contents:\n      - section: \"Lecture HTML\"\n        contents: \n          - text: \"01 - Introducing Your Tools\"\n            href: \"Lectures/01_Tools/index.qmd\"\n            target: _blank",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#workflow---why-quarto",
+    "href": "Lectures/10_Quarto/index.html#workflow---why-quarto",
+    "title": "Communication with Quarto",
+    "section": "Workflow - Why Quarto",
+    "text": "Workflow - Why Quarto\n\nQuarto enforces the idea of communication\n\n\n\n\n\n\n\n\nNatural extension of interactive coding via the console into persistent reproducible capture within the script editor\n\nThe console lets you find code that works\nThe script editor lets you iterate and refine code\nMarkdown coalesces prose, code and output to express ideas",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#workflow---use-cases",
+    "href": "Lectures/10_Quarto/index.html#workflow---use-cases",
+    "title": "Communication with Quarto",
+    "section": "Workflow - Use Cases",
+    "text": "Workflow - Use Cases\n\nExcellent for compiling sharable documents\nReports in common formats i.e. Word\nCreation of web sites / books / bookdown\n\nCan host on local servers or via GitHub\n\nPresentations via revealjs, PDF, or PowerPoint",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#workflow---as-a-lab-notebook",
+    "href": "Lectures/10_Quarto/index.html#workflow---as-a-lab-notebook",
+    "title": "Communication with Quarto",
+    "section": "Workflow - As a Lab Notebook",
+    "text": "Workflow - As a Lab Notebook\n\nR4DS encourages use as a lab notebook\nCan provide better recording of thoughts and processes than just comments\n\nCan force writing rationale/thoughts instead of smaller comments\n\nYAML can support dates/titles/authorship for conceptualization\nCan help with a rendering to ensure everything work as it should in a de novo environment",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#workflow---reproducibility",
+    "href": "Lectures/10_Quarto/index.html#workflow---reproducibility",
+    "title": "Communication with Quarto",
+    "section": "Workflow - Reproducibility",
+    "text": "Workflow - Reproducibility\n\nModularization of projects is good regardless of Quarto utilization\nUse of renv to ensure package versioning\n\nNot great but the best we have\n\nUse of Git for environment versioning\nBuilding (and saving) workflows and pipelines with targets",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "Lectures/10_Quarto/index.html#learning-more",
+    "href": "Lectures/10_Quarto/index.html#learning-more",
+    "title": "Communication with Quarto",
+    "section": "Learning More",
+    "text": "Learning More\n\nSpend time with the Quarto website\n\nComprehensive guides based on output and authoring\nOptions for the YAML configuration\nGeneral tutorial guide for RStudio\n\nThe knitr package guide for translating Quarto/RMarkdown to generalized Markdown\n\nUsing kable for dynamic tables\n\nNext time - Iteration",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/class_exercises.html",
+    "href": "html_files/10_Quarto/class_exercises.html",
+    "title": "Working with Quarto",
+    "section": "",
+    "text": "Everything today is focused on helping you create, author, format, and render a Quarto document. You’ll be making your own Quarto documents rather than modifying and rendering this one.\n\n\nWe’ll be using the stock datasets available within R as well as ggplot2. You will be rendering to PDF so you may need install LaTeX although RStudio will prompt you if necessary.",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/class_exercises.html#setup",
+    "href": "html_files/10_Quarto/class_exercises.html#setup",
+    "title": "Working with Quarto",
+    "section": "",
+    "text": "We’ll be using the stock datasets available within R as well as ggplot2. You will be rendering to PDF so you may need install LaTeX although RStudio will prompt you if necessary.",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "10 - Quarto"
+    ]
   }
 ]

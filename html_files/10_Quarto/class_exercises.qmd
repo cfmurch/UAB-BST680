@@ -1,0 +1,76 @@
+---
+title: "Working with Quarto"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+# Overview
+
+Everything today is focused on helping you create, author, format, and render a Quarto document.  You'll be making your own Quarto documents rather than modifying and rendering this one.
+
+## Setup
+
+We'll be using the stock datasets available within R as well as ggplot2.  You will be rendering to PDF so you may need install LaTeX although RStudio will prompt you if necessary.
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+
+library(tidyverse)
+library(glue)
+library(gt)
+
+```
+
+
+# Problem 1
+
+Create a new Quarto document and give it a title as well as your name.  Choose HTML as the output format to start and make sure the rendering engine is Knitr which should be default.  Use the Visual Editor to start if you'd like.  Delete the minimal content within the Quarto document.
+
+Modify your YAML so you have three formats (HTML, PDF, Word).  You can either make three individual files or a single file that creates each output with a single rendering.  Render all three to make sure everything has properly installed.  You can find details on multiple formats on the [Quarto website](https://quarto.org/docs/get-started/authoring/rstudio.html#multiple-formats){.external target="_blank"}.
+
+Next, recreate the content in the Visual Editor example from R4DS displayed here using either the Source or Visual Editor.Don't worry about the menus in the image, just recreate the formatting, headings, links/images, and tables components.
+
+![Figure 28.5 from [R4DS](https://r4ds.hadley.nz/quarto#visual-editor)](https://r4ds.hadley.nz/quarto/quarto-visual-editor.png)
+
+Insert a citation on [Literate Programming](https://doi.org/10.1093/comjnl/27.2.97){.external target="_blank} using the DOI (digital object identifier) 10.1093/comjnl/27.2.97.  This is easiest from the Visual Editor with <b>Insert > Citation</b> and then search using the DOI. Source Editor citations use a format of `@citation` or `[@citation]`.  Render the document and observe how the reference shows up in the document and take note of how your YAML has changed.
+
+# Problem 2
+
+Create a new Quarto document for rendering to HTML using either editor.  Create a code block that loads the `iris` dataset and set the global option for echo to false within the YAML (note, this will use the `knitr` component of the YAML).
+
+Print the first 30 rows of the iris data in three tables and include relevant table captions for each using the `tbl-cap` option in the code chunks.
+
+1. Use the standard Quarto rendering and set the printing of the table using `df-print` to paged
+    
+2. Using the `kable` function from knitr
+    
+3. Using `gt` as we've done previously
+
+In another chunk, create a `ggplot2` plot that shows the relationship between sepal width and length using geom_point and colored be species.  Display the code in your HTML document but only for this chunk.  Modify the chunk options as to add a caption using `fig-cap` as well as set the height to 4 and adjust the aspect ratio to the golden ratio of 0.618 using `fig-asp`.
+    
+In a third chunk make two histograms, one for sepal width and another for sepal length, again colored by species.  Plot both side-by-side with an appropriate caption.
+
+In a final chunk, create a summary table with the mean, median, standard deviation, and count of sepal width and length for the three species.  Render the table using both `kable` and `gt`.
+
+Render these documents to all three formats to see how their layouts differ between HTML, PDF, and Word outputs.
+
+
+
+
+
+
+
+
