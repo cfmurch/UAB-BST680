@@ -6877,5 +6877,521 @@
       "Assignments",
       "10 - Quarto"
     ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#agenda",
+    "href": "Lectures/11_Iteration/index.html#agenda",
+    "title": "Functionals and Iteration",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nFunctional programming\nIteration basics\nFunctionals in R\nThe purrr package\nOther iteration in R",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---basics",
+    "href": "Lectures/11_Iteration/index.html#functionality---basics",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - Basics",
+    "text": "Functionality - Basics\n\nR is (largely) a functional language\nThis informs both its properties and its approach\nCode is constructed by defining and using functions\nOnce written, they are immutable\n\nThe function is defined somewhere and then applied elsewhere\nFunction behavior is consistent\nOur data itself is also immutable\n\nAll this gives a reproducible “paper trail”",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---two-common-threads",
+    "href": "Lectures/11_Iteration/index.html#functionality---two-common-threads",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - Two Common Threads",
+    "text": "Functionality - Two Common Threads\n\nFunction purity\n\nFunction output depends only on the input i.e. the same input always gives the same input\nFunctions have no side-effects e.g. changing a global variable, write to disk, print to screen\n\n\n\nSo what about Sys.time(), rnorm(), read.*(), write.*(), etc?\n\n\nc(rnorm(1), rnorm(1))\n\n[1] -0.75726209 -0.05949201\n\n\n\nprint(\"I wrote this!\")\n\n[1] \"I wrote this!\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---two-common-threads-1",
+    "href": "Lectures/11_Iteration/index.html#functionality---two-common-threads-1",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - Two Common Threads",
+    "text": "Functionality - Two Common Threads\n\nUse of first-class and higher-order functions\n\nFirst-class functions behave like any other data structure e.g. assign them to a variable, store them in a list\nHigher-order functions are functions that can take functions as arguments and/or return other functions\n\n\n\n#A custom higher-order function\nmean_na_action &lt;- function(xx, na_action){\n  \n  #Apply an NA action (i.e. function) to the vector\n  xx &lt;- na_action(xx)\n  \n  #Return the mean of the vector\n  mean(xx)\n}",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---higher-orders-in-na-action",
+    "href": "Lectures/11_Iteration/index.html#functionality---higher-orders-in-na-action",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - Higher Orders in (NA) Action",
+    "text": "Functionality - Higher Orders in (NA) Action\n\nThe na_action argument of the higher-order custom function accepts one of the first-class na.action functions\n\n\n#For a vector with an NA\n.vec &lt;- c(1,3,5,7,NA)\n.vec\n\n[1]  1  3  5  7 NA\n\n\n\n#Use na.omit to mimic na.rm = TRUE\nmean_na_action(.vec, na_action = na.omit)\n\n[1] 4\n\n#Use na.pass to mimic na.rm = FALSE\nmean_na_action(.vec, na_action = na.pass)\n\n[1] NA\n\n#Use na.fail to return an error instead\nmean_na_action(.vec, na_action = na.fail)\n\nError in na.fail.default(xx): missing values in object",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---the-functional-mindset",
+    "href": "Lectures/11_Iteration/index.html#functionality---the-functional-mindset",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - The Functional Mindset",
+    "text": "Functionality - The Functional Mindset\n\nTake a big problem and decompose it into a series of smaller and more manageable (purer) problems\nLet everything operate independently and build a discrete pipeline;one thematic step, one thematic function\nComplexity comes from the pipeline and organization of the functions, not the functions themselves\n\n\n\nAmberle McKee - Data Camp",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---functional-goals",
+    "href": "Lectures/11_Iteration/index.html#functionality---functional-goals",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - Functional Goals",
+    "text": "Functionality - Functional Goals\n\nKeep functions small and focused, emphasize purity\nAvoid mutable data structures between data tasks\nLeverage higher-order functions using functions as arguments\nUse functional composition to combine functions into new functions\nUse all these to avoid code duplication",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionality---avoid-duplication",
+    "href": "Lectures/11_Iteration/index.html#functionality---avoid-duplication",
+    "title": "Functionals and Iteration",
+    "section": "Functionality - Avoid Duplication",
+    "text": "Functionality - Avoid Duplication\n\nTwo ways to avoid duplication in functional languages\n\nTake pure functions and use composition to create new higher-order functions\nUse iteration to express repeated actions using these higher-order compositions\n\nAddressing the second point is the realm of control flow and iteration",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---loops",
+    "href": "Lectures/11_Iteration/index.html#iteration---loops",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - Loops",
+    "text": "Iteration - Loops\n\nLoops are fundamental for computer science\nConcept is to replicate a process a certain number of times\nCritically, each replication varies in its parameters to distinguish it\nCommon loops are for() and while(), both of which exist in R\nThese are examples of control flow, just like if() statements",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---for-loops",
+    "href": "Lectures/11_Iteration/index.html#iteration---for-loops",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - for() Loops",
+    "text": "Iteration - for() Loops\n\nLike other languages, syntax is for(i in seq) expr\n\nBegins with the index i\nSteps through a set of pre-defined values in an atomic vector in seq e.g. i=1, then 2, etc.\nFor each iteration, do everything in expr\n\n\n\nfor(i in 1:5) print(i)\n\n[1] 1\n[1] 2\n[1] 3\n[1] 4\n[1] 5",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---for-loops-1",
+    "href": "Lectures/11_Iteration/index.html#iteration---for-loops-1",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - for() Loops",
+    "text": "Iteration - for() Loops\n\nfor loops are very flexible\nIndexing through seq can use any vectors like characters\n\n\nfor(i in names(gapminder)) print(i)\n\n[1] \"country\"\n[1] \"continent\"\n[1] \"year\"\n[1] \"lifeExp\"\n[1] \"pop\"\n[1] \"gdpPercap\"\n\n\n\nThe index i doesn’t even need to be part of expr",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#interation---while-loops",
+    "href": "Lectures/11_Iteration/index.html#interation---while-loops",
+    "title": "Functionals and Iteration",
+    "section": "Interation - while() Loops",
+    "text": "Interation - while() Loops\n\nSimilar to for() loops but instead of indexing through a set of pre-defined values it checks to see if a condition is met\n\n\nxx &lt;- 5\ni &lt;- 1\n\nwhile(i &lt;= 5){\n  print(i^2)\n  i &lt;- i + 1\n}\n\n[1] 1\n[1] 4\n[1] 9\n[1] 16\n[1] 25",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---good-about-loops",
+    "href": "Lectures/11_Iteration/index.html#iteration---good-about-loops",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - Good About Loops",
+    "text": "Iteration - Good About Loops\n\nThe are very flexible and convey what is being iterated\nThey make repeated tasks far less tedious\n\n\nfor(i in names(gapminder)){\n  \n  #Use an if to check for numeric variables\n  if(is.numeric(gapminder[[i]])){\n    \n    #If so, print...\n    print(stringr::str_glue(\n      \n      #The name of the variable and the mean\n      \"Mean of {i}: {mean_na_action(gapminder[[i]], na.omit)}\"\n      ))}}\n\nMean of year: 1979.5\nMean of lifeExp: 59.4744393661972\nMean of pop: 29601212.3245305\nMean of gdpPercap: 7215.32708121215",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---bad-about-loops",
+    "href": "Lectures/11_Iteration/index.html#iteration---bad-about-loops",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - Bad About Loops",
+    "text": "Iteration - Bad About Loops\n\nThe are very flexible and don’t convey the results\nThey modify the global environment so storing data gets complex\n\n\n#Initialize some empty vectors\nmean_values &lt;- mean_names &lt;- c()\n\n#Same for loop but saving the mean value and mean names\nfor(i in names(gapminder)){\n  if(is.numeric(gapminder[[i]])){\n    \n    #Append the mean value and name\n    mean_values &lt;- c(mean_values, mean_na_action(gapminder[[i]], na.omit))\n    mean_names &lt;- c(mean_names, i)\n  }}\n#Name the vector of mean values\nnames(mean_values) &lt;- mean_names\nmean_values\n\n        year      lifeExp          pop    gdpPercap \n1.979500e+03 5.947444e+01 2.960121e+07 7.215327e+03",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---appendingmodifying-is-really-bad",
+    "href": "Lectures/11_Iteration/index.html#iteration---appendingmodifying-is-really-bad",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - Appending/Modifying is REALLY Bad",
+    "text": "Iteration - Appending/Modifying is REALLY Bad\n\nThese modification are exceedingly inefficient and slow; preallocation of the vector length is required\n\n\n\n\ntime_start &lt;- Sys.time()\n\n#Initialize an empty vector length 0\n.vec &lt;- numeric()\n\n#Append and modify\n.mem &lt;- peakRAM::peakRAM(\n  for(i in 1:10000){\n    .vec &lt;- c(.vec, i)\n  })\n\nSys.time() - time_start\n\nTime difference of 0.5279641 secs\n\n.mem$Peak_RAM_Used_MiB\n\n[1] 50.7\n\n\n\n\ntime_start &lt;- Sys.time()\n\n#Preallocate full vector length\n.vec &lt;- numeric(10000)\n\n#Assign to the element\n.mem &lt;- peakRAM::peakRAM(\n  for(i in 1:10000){\n  .vec[i] &lt;- i\n  })\n\nSys.time() - time_start\n\nTime difference of 0.2256248 secs\n\n.mem$Peak_RAM_Used_MiB\n\n[1] 0.1",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#iteration---a-better-option",
+    "href": "Lectures/11_Iteration/index.html#iteration---a-better-option",
+    "title": "Functionals and Iteration",
+    "section": "Iteration - A Better Option",
+    "text": "Iteration - A Better Option\n\n\n\nRather than relying on traditional control loops, it is better to leverage R’s ability for vectorization\nOther (unexpected) examples include facet_*() and group_by()\nThe best use of vectorization for iteration in R are functionals",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---quick-reminder-on-lists",
+    "href": "Lectures/11_Iteration/index.html#functionals---quick-reminder-on-lists",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - Quick Reminder on Lists",
+    "text": "Functionals - Quick Reminder on Lists\n\nReminder, lists are collections of objects and the most generalizable data architecture in R\nUnlike atomic vectors or data frame columns, lists are not limit to single types of objects\nRecall, the tibble and data.frame are special cases of lists\nEach element (variable) has the same number of values, values within elements are all the same type\nFunctions are data structures like any other in R and can be treated as such, including list assignment",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---example-list",
+    "href": "Lectures/11_Iteration/index.html#functionals---example-list",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - Example List",
+    "text": "Functionals - Example List\n\nA list of lists with data.frame and function entries\n\n\nlist_curr &lt;- list(\n  first_entry = list(\n    a = 1,\n    b = 2,\n    c = \"string\"\n  ),\n  second_entry = list(\n    dat = data.frame(\n      V1 = rnorm(2),\n      V2 = c(\"A\", \"B\")\n    ),\n    my_func = mean_na_action\n  )\n)\n\n\nAlthough all data frames are lists, not all lists are data frames",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---accessing-lists",
+    "href": "Lectures/11_Iteration/index.html#functionals---accessing-lists",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - Accessing Lists",
+    "text": "Functionals - Accessing Lists\n\nLists can be accessed one of three ways:\n\n[] returns a list with the elements in brackets\nThis indexing MUST use numerics but multiple can be called\n[[]] returns the object within the specified entry\nThis can accept the element name or its numeric index, but only 1 element can be called\n$ functions just like [[]] returning the object but will only accept the entry’s name",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---peppering-your-list",
+    "href": "Lectures/11_Iteration/index.html#functionals---peppering-your-list",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - Peppering Your List",
+    "text": "Functionals - Peppering Your List\n\n\n\n\n\n\nImportant\n\n\n[[]] drills down into the list while [] returns a new, smaller list\n\n\n\n\n\n\n\n\n\nhttps://r4ds.hadley.nz/base-r#fig-pepper",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---definition",
+    "href": "Lectures/11_Iteration/index.html#functionals---definition",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - Definition",
+    "text": "Functionals - Definition\n\nFunctionals take another function as an input and returns another data structure as output\n\n\n#Make a functional, this is a higher-order function\nrandom_func &lt;- function(xx) xx(runif(100))\n\n#Pass a first class function to the higher order function\nrandom_func(mean)\n\n[1] 0.4838811\n\nrandom_func(sum)\n\n[1] 49.4929\n\n\n\nFunctionals are also the most efficient way to iterate in base R via the apply family",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---the-apply-family",
+    "href": "Lectures/11_Iteration/index.html#functionals---the-apply-family",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - The apply Family",
+    "text": "Functionals - The apply Family\n\nAll apply functions do the same thing: they apply a function over something and return the output of that function, most commonly…\n\napply() - applies the function of the margins (i.e. the rows or columns) of a matrix, data frame, or array\nlapply() - applies the function over the elements of an object coerced to a list, returning a list of the same length as the original\nsapply() - similar to lapply() but it tries to return a vector or matrix if possible\nmapply() - multivariate sapply() that accepts multiple objects into the function arguments",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#functionals---the-problems-with-apply",
+    "href": "Lectures/11_Iteration/index.html#functionals---the-problems-with-apply",
+    "title": "Functionals and Iteration",
+    "section": "Functionals - The Problems with apply",
+    "text": "Functionals - The Problems with apply\n\nLike many base R functions, the output is inconsistent and is not type-stable nor guaranteed\nDepending on the function, you’re always guaranteed to at least get a list back with one element per application of the function\nInput and arguments are inconsistent:\nmapply() begins with the function with the rest begin with data\napply() requires margins be specified\nThe tidyverse solution is the purrr package",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---typical-tidyverse",
+    "href": "Lectures/11_Iteration/index.html#purrr---typical-tidyverse",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Typical tidyverse",
+    "text": "purrr - Typical tidyverse\n\nAttempts to be more consistent compared to the apply family\nUses . prefixes for purrr arguments to avoid conflicts with arguments of the applied function\nIgnores simplification done by functions like sapply(); input-output combinations are dictated by purrr functions\nStandard tidyverse convention of beginning with data means purrr is |&gt; and %&gt;% friendly\nWorkhorse function is map()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---map",
+    "href": "Lectures/11_Iteration/index.html#purrr---map",
+    "title": "Functionals and Iteration",
+    "section": "purrr - map()",
+    "text": "purrr - map()\n\n\n\nFunctions just like lapply():\n\nTakes an object with listwise elements\nApplies a function to those elements\nReturns the function output in a list\n\nThus map(1:3, f) is equivalent to list(f(1), f(2), f(3))\nFormat is map(.x, .f, ...) where .x is the data, .f. is the function and ... are any additional arguments",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---mapping-mean_na_action",
+    "href": "Lectures/11_Iteration/index.html#purrr---mapping-mean_na_action",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Mapping mean_na_action",
+    "text": "purrr - Mapping mean_na_action\n\n\n\nPassing individual arguments\n\n\ngapminder |&gt;\n  select(where(is.numeric)) |&gt;\n  map(.f = mean_na_action, \n      na_action = na.omit)\n\n$year\n[1] 1979.5\n\n$lifeExp\n[1] 59.47444\n\n$pop\n[1] 29601212\n\n$gdpPercap\n[1] 7215.327\n\n\n\n\nMapping as a formula/expression\n\n\ngapminder |&gt;\n  select(where(is.numeric)) |&gt;\n  map(.f = ~ mean_na_action(.x, \n                            na_action = na.omit))\n\n$year\n[1] 1979.5\n\n$lifeExp\n[1] 59.47444\n\n$pop\n[1] 29601212\n\n$gdpPercap\n[1] 7215.327\n\n\n\nThis is specific to purrr",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---different-map-outputs",
+    "href": "Lectures/11_Iteration/index.html#purrr---different-map-outputs",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Different map Outputs",
+    "text": "purrr - Different map Outputs\n\nmap() like lapply() always returns a list for consistency\nDifferent mapping functions return different outputs if possible e.g. four types of atomic vectors\n\nmap_chr() - always returns a character vector\nmap_lgl() - always returns a logical vector\nmap_int() - always returns an integer vector\nmap_dbl() - always returns a double (i.e. numeric) vector\n\nNote, the map_*() conventions only refers to differences in the output",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---map_chr-and-map_dbl",
+    "href": "Lectures/11_Iteration/index.html#purrr---map_chr-and-map_dbl",
+    "title": "Functionals and Iteration",
+    "section": "purrr - map_chr() and map_dbl()",
+    "text": "purrr - map_chr() and map_dbl()\n\nA character vector\n\n\ngapminder |&gt;\n  select(where(is.numeric)) |&gt;\n  map_chr(.f = mean_na_action, na_action = na.omit)\n\n             year           lifeExp               pop         gdpPercap \n    \"1979.500000\"       \"59.474439\" \"29601212.324531\"     \"7215.327081\" \n\n\n\nA numeric vector\n\n\ngapminder |&gt;\n  select(where(is.numeric)) |&gt;\n  map_dbl(.f = mean_na_action, na_action = na.omit)\n\n        year      lifeExp          pop    gdpPercap \n1.979500e+03 5.947444e+01 2.960121e+07 7.215327e+03",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---map_df-for-tibbles",
+    "href": "Lectures/11_Iteration/index.html#purrr---map_df-for-tibbles",
+    "title": "Functionals and Iteration",
+    "section": "purrr - map_df() for Tibbles",
+    "text": "purrr - map_df() for Tibbles\n\nBeyond just vectors, map_df() binds the list output into a tibble\n\n\ngapminder |&gt;\n  select(where(is.numeric)) |&gt;\n  map_df(.f = mean_na_action, na_action = na.omit)\n\n# A tibble: 1 × 4\n   year lifeExp       pop gdpPercap\n  &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 1980.    59.5 29601212.     7215.\n\n\n\nIn base R, this is a cbind() application to the list output",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---inputs-and-outputs-of-map",
+    "href": "Lectures/11_Iteration/index.html#purrr---inputs-and-outputs-of-map",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Inputs and Outputs of map",
+    "text": "purrr - Inputs and Outputs of map\n\n\n\nAll map_*() functions take listwise elements as inputs i.e. they apply functions on vectors\nThis works on all standard R data structures by coercion e.g. a data.frame is a collection of equilength vectors\nNo matter the returned object, the output is always the same length as the input\n\n\n\nVectors as listwise elements",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---passing-arguments",
+    "href": "Lectures/11_Iteration/index.html#purrr---passing-arguments",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Passing Arguments",
+    "text": "purrr - Passing Arguments\n\n\n\nArguments can be passed either:\n\nAs additional arguments after the function .f\nAs part of an anonymous function in the purrr acceptable formulaic format\n\nRecommended to craft functions and pass by name to map_*() with arguments after, simpler",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---passing-arguments-1",
+    "href": "Lectures/11_Iteration/index.html#purrr---passing-arguments-1",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Passing Arguments",
+    "text": "purrr - Passing Arguments\n\n\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\nOnly the data object is vectorized, the additional arguments are NOT decomposed\nInstead each function iteration gets ALL added arguments applied",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---more-map-variants",
+    "href": "Lectures/11_Iteration/index.html#purrr---more-map-variants",
+    "title": "Functionals and Iteration",
+    "section": "purrr - More map() Variants",
+    "text": "purrr - More map() Variants\n\nThere are another 17 (!) variants although only a handful of concepts\n\nmodify() - output is the same as the input\nwalk() - returns nothing but is useful for side effects\nmap2() - iteration over two data structures\nimap() - iteration over a data structure and an index\npmap() - iterate over any number of inputs\n\nAgain, all further variants just direct input and output structure",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---modify-and-walk",
+    "href": "Lectures/11_Iteration/index.html#purrr---modify-and-walk",
+    "title": "Functionals and Iteration",
+    "section": "purrr - modify() and walk()",
+    "text": "purrr - modify() and walk()\n\nmodify() always returns the same class of output as its input e.g. a modified tibble returns another tibble\nwalk() returns nothing but can be useful for side effects such as saving to the disk or printing to the console",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---multiple-data-structures",
+    "href": "Lectures/11_Iteration/index.html#purrr---multiple-data-structures",
+    "title": "Functionals and Iteration",
+    "section": "purrr - Multiple Data Structures",
+    "text": "purrr - Multiple Data Structures\n\n\n\nmap2() accepts two data structures and vectorizes over both element-wise\n\n\n\n\n\n\n\n\nAdditional arguments and handled just as they are with map() and applied in whole to all iterations",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---imap-to-include-indices",
+    "href": "Lectures/11_Iteration/index.html#purrr---imap-to-include-indices",
+    "title": "Functionals and Iteration",
+    "section": "purrr - imap() to Include Indices",
+    "text": "purrr - imap() to Include Indices\n\nimap() is similar but includes one of two indexings for imap(x, f)\n\nIf the structure is named, it is equivalent to map2(x, names(x), f)\nIf it is unnamed, it is equivalent to map2(x, seq_along(x), f)\n\n\n\nimap_chr(iris, ~ paste0(\"The first value of \", .y, \" is \", .x[[1]]))\n\n                            Sepal.Length \n\"The first value of Sepal.Length is 5.1\" \n                             Sepal.Width \n \"The first value of Sepal.Width is 3.5\" \n                            Petal.Length \n\"The first value of Petal.Length is 1.4\" \n                             Petal.Width \n \"The first value of Petal.Width is 0.2\" \n                                 Species \n  \"The first value of Species is setosa\"",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#purrr---pmap-as-a-map2-generalization",
+    "href": "Lectures/11_Iteration/index.html#purrr---pmap-as-a-map2-generalization",
+    "title": "Functionals and Iteration",
+    "section": "purrr - pmap() as a map2() Generalization",
+    "text": "purrr - pmap() as a map2() Generalization\n\npmap() accepts a single list and vectorizes over the elements of that list elementwise; finer control but more challenging conceptualization",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#other-iteration---already-in-use",
+    "href": "Lectures/11_Iteration/index.html#other-iteration---already-in-use",
+    "title": "Functionals and Iteration",
+    "section": "Other Iteration - Already in Use",
+    "text": "Other Iteration - Already in Use\n\nThere have been many instances where “iteration” has already been used i.e. doing the same thing over multiple times\n\nfacet_grid() to do plotting on subsets\ngroup_by() with summarise() to get aggregations on groups\nAnything done to a vector e.g. c(1:10)^2\n\ndplyr does this as well specifically on columns in data frames using across()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#other-iteration---across-on-columns",
+    "href": "Lectures/11_Iteration/index.html#other-iteration---across-on-columns",
+    "title": "Functionals and Iteration",
+    "section": "Other Iteration - across() on Columns",
+    "text": "Other Iteration - across() on Columns\n\nacross() has two arguments\n\n.cols - the columns you are operating on, using tidy selection\n.fns - the (list of) function(s) being applied to each column\n\n\n\ngapminder |&gt;\n  group_by(continent) |&gt;\n  summarise(across(c(lifeExp:gdpPercap), mean))\n\n# A tibble: 5 × 4\n  continent lifeExp       pop gdpPercap\n  &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 Africa       48.9  9916003.     2194.\n2 Americas     64.7 24504795.     7136.\n3 Asia         60.1 77038722.     7902.\n4 Europe       71.9 17169765.    14469.\n5 Oceania      74.3  8874672.    18622.",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#other-iteration---across-on-columns-1",
+    "href": "Lectures/11_Iteration/index.html#other-iteration---across-on-columns-1",
+    "title": "Functionals and Iteration",
+    "section": "Other Iteration - across() on Columns",
+    "text": "Other Iteration - across() on Columns\n\nAlthough across() is most frequently used with summarise() it can be useful with mutate() as well\n\n\ngapminder |&gt;\n  mutate(across(.cols = where(is.numeric), \n                .fns = ~ round(.x, digits = 0)))|&gt;\n  print(n=5)\n\n# A tibble: 1,704 × 6\n  country     continent  year lifeExp      pop gdpPercap\n  &lt;fct&gt;       &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 Afghanistan Asia       1952      29  8425333       779\n2 Afghanistan Asia       1957      30  9240934       821\n3 Afghanistan Asia       1962      32 10267083       853\n4 Afghanistan Asia       1967      34 11537966       836\n5 Afghanistan Asia       1972      36 13079460       740\n# ℹ 1,699 more rows",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#other-iteration---across-with-multiple-functions",
+    "href": "Lectures/11_Iteration/index.html#other-iteration---across-with-multiple-functions",
+    "title": "Functionals and Iteration",
+    "section": "Other Iteration - across() with multiple functions",
+    "text": "Other Iteration - across() with multiple functions\n\nacross() can also take lists of functions and apply .names\n\n\nmin_max &lt;- list(\n  min = ~min(.x, na.rm = TRUE),\n  max = ~max(.x, na.rm = TRUE))\n\ngapminder |&gt;\n  group_by(continent) |&gt;\n  summarise(across(.cols = where(is.numeric), \n                   .fns = min_max,\n                   .names = \"{.fn}_{.col}\"))\n\n# A tibble: 5 × 9\n  continent min_year max_year min_lifeExp max_lifeExp min_pop    max_pop\n  &lt;fct&gt;        &lt;int&gt;    &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;   &lt;int&gt;      &lt;int&gt;\n1 Africa        1952     2007        23.6        76.4   60011  135031164\n2 Americas      1952     2007        37.6        80.7  662850  301139947\n3 Asia          1952     2007        28.8        82.6  120447 1318683096\n4 Europe        1952     2007        43.6        81.8  147962   82400996\n5 Oceania       1952     2007        69.1        81.2 1994794   20434176\n# ℹ 2 more variables: min_gdpPercap &lt;dbl&gt;, max_gdpPercap &lt;dbl&gt;",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#other-iteration---.cols-and-tidy-selection",
+    "href": "Lectures/11_Iteration/index.html#other-iteration---.cols-and-tidy-selection",
+    "title": "Functionals and Iteration",
+    "section": "Other Iteration - .cols and tidy selection",
+    "text": "Other Iteration - .cols and tidy selection\n\nacross() can accept any type of tidy selection operator\n\n: for ranges of consecutive variables by index or name\n! & and | for variable sets\nc() for disjoint selections\n\nIt can also take many selection helpers like everything() for all columns or regular expression matching of columns with matches()\nwhere() is an especially powerful higher-order predicate, it takes another function and selects all columns that return TRUE",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "Lectures/11_Iteration/index.html#learning-more",
+    "href": "Lectures/11_Iteration/index.html#learning-more",
+    "title": "Functionals and Iteration",
+    "section": "Learning More",
+    "text": "Learning More\n\nThe reference manual for purrr\n\nDon’t forget the cheat sheet\n\nThe colwise vignette of dplyr\nNext time: function composition",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "11 - Functionals and Iteration"
+    ]
   }
 ]

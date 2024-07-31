@@ -1,0 +1,876 @@
+---
+title: "Functionals and Iteration"
+subtitle: "Why Apply is Better than For"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: FALSE
+
+library(tidyverse)
+library(gt)
+library(gapminder)
+library(nycflights13)
+
+```
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Functional programming
+
+- Iteration basics
+
+- Functionals in R
+
+- The `purrr` package
+
+- Other iteration in R
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -2%"}
+![](img/do_while_meme.jpg){fig-align="center"}
+:::
+:::
+
+::::
+
+
+# Functional Programming 
+
+## Functionality - Basics
+
+- R is (largely) a <b>functional</b> language
+
+    This informs both its properties and its approach
+    
+- Code is constructed by defining and using functions
+
+- Once written, they are <b>immutable</b>
+
+    - The function is defined somewhere and then applied elsewhere
+    
+    - Function behavior is consistent
+    
+    - Our data itself is also immutable
+    
+- All this gives a reproducible "paper trail"
+
+    
+    
+## Functionality - Two Common Threads
+
+1. Function <b>purity</b>
+
+    - Function output depends only on the input i.e. the same input _always_ gives the same input
+    
+    - Functions have no side-effects e.g. changing a global variable, write to disk, print to screen
+    
+- So what about `Sys.time()`, `rnorm()`, `read.*()`, `write.*()`, etc?
+
+```{r}
+c(rnorm(1), rnorm(1))
+```
+
+```{r}
+print("I wrote this!")
+```
+
+
+
+## Functionality - Two Common Threads
+
+2. Use of <b>first-class</b> and <b>higher-order</b> functions
+
+    - First-class functions behave like any other data structure e.g. assign them to a variable, store them in a list
+    
+    - Higher-order functions are functions that can take functions as arguments and/or return other functions
+    
+```{r}
+#A custom higher-order function
+mean_na_action <- function(xx, na_action){
+  
+  #Apply an NA action (i.e. function) to the vector
+  xx <- na_action(xx)
+  
+  #Return the mean of the vector
+  mean(xx)
+}
+```
+    
+## Functionality - Higher Orders in (NA) Action
+    
+- The `na_action` argument of the higher-order custom function accepts one of the first-class `na.action` functions
+
+```{r}
+#| error: true
+
+#For a vector with an NA
+.vec <- c(1,3,5,7,NA)
+.vec
+```
+
+```{r}
+#| error: true
+
+#Use na.omit to mimic na.rm = TRUE
+mean_na_action(.vec, na_action = na.omit)
+
+#Use na.pass to mimic na.rm = FALSE
+mean_na_action(.vec, na_action = na.pass)
+
+#Use na.fail to return an error instead
+mean_na_action(.vec, na_action = na.fail)
+
+```
+
+
+
+## Functionality - The Functional Mindset
+
+- Take a big problem and decompose it into a series of smaller and more manageable (purer) problems
+
+- Let everything operate independently and build a discrete pipeline;<br>one thematic step, one thematic function
+
+- Complexity comes from the pipeline and organization of the functions, not the functions themselves
+
+![](img/func_pipe.png){fig-align="center"}
+
+:::{.footer}
+
+[Amberle McKee - Data Camp](https://www.datacamp.com/tutorial/functional-programming-vs-object-oriented-programming){.external target="_blank"}
+
+:::
+
+
+## Functionality - Functional Goals
+
+- Keep functions small and focused, emphasize purity
+
+- Avoid mutable data structures between data tasks
+
+- Leverage higher-order functions using functions as arguments
+
+- Use functional composition to combine functions into new functions
+
+- Use all these to avoid <b>code duplication</b>
+
+
+## Functionality - Avoid Duplication
+
+- Two ways to avoid duplication in functional languages
+
+    1. Take pure functions and use composition to create new higher-order functions
+    
+    2. Use iteration to express repeated actions using these higher-order compositions
+    
+- Addressing the second point is the realm of control flow and iteration
+
+
+# Iteration Basics
+
+## Iteration - Loops
+
+- Loops are fundamental for computer science
+
+- Concept is to replicate a process a certain number of times
+
+- Critically, each replication varies in its parameters to distinguish it
+
+- Common loops are `for()` and `while()`, both of which exist in R
+
+- These are examples of control flow, just like `if()` statements
+
+
+## Iteration - `for()` Loops
+
+- Like other languages, syntax is `for(i in seq) expr` 
+
+    - Begins with the index `i`
+    
+    - Steps through a set of pre-defined values in an atomic vector in `seq` e.g. `i`=1, then 2, etc.
+    
+    - For each iteration, do everything in `expr`
+
+```{r}
+for(i in 1:5) print(i)
+```
+
+## Iteration - `for()` Loops
+
+- `for` loops are very flexible
+
+- Indexing through `seq` can use any vectors like characters
+
+```{r}
+for(i in names(gapminder)) print(i)
+```
+
+- The index `i` doesn't even need to be part of `expr`
+
+## Interation - `while()` Loops
+
+- Similar to `for()` loops but instead of indexing through a set of pre-defined values it checks to see if a condition is met
+
+```{r}
+xx <- 5
+i <- 1
+
+while(i <= 5){
+  print(i^2)
+  i <- i + 1
+}
+
+```
+
+
+## Iteration - Good About Loops
+
+- The are very flexible and convey what is being iterated
+
+- They make repeated tasks far less tedious
+
+```{r}
+for(i in names(gapminder)){
+  
+  #Use an if to check for numeric variables
+  if(is.numeric(gapminder[[i]])){
+    
+    #If so, print...
+    print(stringr::str_glue(
+      
+      #The name of the variable and the mean
+      "Mean of {i}: {mean_na_action(gapminder[[i]], na.omit)}"
+      ))}}
+```
+
+
+## Iteration - Bad About Loops
+
+- The are very flexible and don't convey the results
+
+- They modify the global environment so storing data gets complex
+
+```{r}
+#Initialize some empty vectors
+mean_values <- mean_names <- c()
+
+#Same for loop but saving the mean value and mean names
+for(i in names(gapminder)){
+  if(is.numeric(gapminder[[i]])){
+    
+    #Append the mean value and name
+    mean_values <- c(mean_values, mean_na_action(gapminder[[i]], na.omit))
+    mean_names <- c(mean_names, i)
+  }}
+#Name the vector of mean values
+names(mean_values) <- mean_names
+mean_values
+```
+
+## Iteration - Appending/Modifying is REALLY Bad
+
+- These modification are exceedingly inefficient and slow; preallocation of the vector length is required
+
+:::{.columns}
+
+:::{.column}
+
+```{r}
+#| include: false
+gc()
+```
+
+```{r}
+time_start <- Sys.time()
+
+#Initialize an empty vector length 0
+.vec <- numeric()
+
+#Append and modify
+.mem <- peakRAM::peakRAM(
+  for(i in 1:10000){
+    .vec <- c(.vec, i)
+  })
+
+Sys.time() - time_start
+.mem$Peak_RAM_Used_MiB
+```
+
+:::
+
+:::{.column}
+
+```{r}
+#| include: false
+gc()
+```
+
+```{r}
+time_start <- Sys.time()
+
+#Preallocate full vector length
+.vec <- numeric(10000)
+
+#Assign to the element
+.mem <- peakRAM::peakRAM(
+  for(i in 1:10000){
+  .vec[i] <- i
+  })
+
+Sys.time() - time_start
+.mem$Peak_RAM_Used_MiB
+```
+
+:::
+
+:::
+
+
+## Iteration - A Better Option
+
+:::{.columns}
+
+:::{.column}
+
+- Rather than relying on traditional control loops, it is better to leverage R's ability for vectorization
+
+- Other (unexpected) examples include `facet_*()` and `group_by()`
+
+- The best use of vectorization for iteration in R are <b>functionals</b>
+
+:::
+
+:::{.column}
+
+![](img/vector_meme.jpg){fig-align="center"}
+
+:::
+
+:::
+
+# Functionals
+
+## Functionals - Quick Reminder on Lists
+
+- Reminder, lists are collections of objects and the most generalizable data architecture in R
+
+- Unlike atomic vectors or data frame columns, lists are not limit to single types of objects
+
+- Recall, the `tibble` and `data.frame` are special cases of lists
+
+   Each element (variable) has the same number of values, values within elements are all the same type
+   
+- Functions are data structures like any other in R and can be treated as such, including list assignment
+
+
+## Functionals - Example List
+
+- A `list` of lists with `data.frame` and function entries
+
+```{r}
+list_curr <- list(
+  first_entry = list(
+    a = 1,
+    b = 2,
+    c = "string"
+  ),
+  second_entry = list(
+    dat = data.frame(
+      V1 = rnorm(2),
+      V2 = c("A", "B")
+    ),
+    my_func = mean_na_action
+  )
+)
+```
+
+- Although all data frames are lists, not all lists are data frames
+
+
+## Functionals - Accessing Lists
+
+- Lists can be accessed one of three ways:
+
+    1. `[]` returns a <u>list</u> with the elements in brackets
+    
+        This indexing MUST use numerics but multiple can be called
+    
+    2. `[[]]` returns the <u>object</u> within the specified entry
+    
+        This can accept the element name or its numeric index, but only 1 element can be called
+    
+    3. `$` functions just like `[[]]` returning the <u>object</u> but will only accept the entry's name
+    
+## Functionals - Peppering Your List
+
+:::{.callout-important}
+
+`[[]]` drills down into the list while `[]` returns a new, smaller list
+
+:::
+
+![](img/pepper_shaker.png){fig-align="center" height=400}
+
+
+:::{.footer}
+
+<https://r4ds.hadley.nz/base-r#fig-pepper>
+
+:::
+
+
+## Functionals - Definition
+
+- Functionals take another function as an input and returns another data structure as output
+
+```{r}
+#Make a functional, this is a higher-order function
+random_func <- function(xx) xx(runif(100))
+
+#Pass a first class function to the higher order function
+random_func(mean)
+random_func(sum)
+
+```
+
+- Functionals are also the most efficient way to iterate in base R via the `apply` family
+
+
+## Functionals - The `apply` Family
+
+- All `apply` functions do the same thing: they apply a function over something and return the output of that function, most commonly...
+
+    1. `apply()` - applies the function of the margins (i.e. the rows or columns) of a matrix, data frame, or array
+    
+    2. `lapply()` - applies the function over the elements of an object coerced to a list, returning a list of the same length as the original
+    
+    3. `sapply()` - similar to `lapply()` but it tries to return a vector or matrix if possible
+    
+    4. `mapply()` - multivariate `sapply()` that accepts multiple objects into the function arguments
+    
+
+## Functionals - The Problems with `apply`
+
+- Like many base R functions, the output is inconsistent and is not type-stable nor guaranteed
+    
+- Depending on the function, you're always guaranteed to at least get a list back with one element per application of the function
+
+- Input and arguments are inconsistent: 
+
+    `mapply()` begins with the function with the rest begin with data 
+
+    `apply()` requires margins be specified
+
+- The `tidyverse` solution is the `purrr` package
+
+
+# The `purrr` Package
+
+## `purrr` - Typical `tidyverse`   {background-image="img/purrr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Attempts to be more consistent compared to the `apply` family
+
+- Uses `.` prefixes for `purrr` arguments to avoid conflicts with arguments of the applied function
+
+- Ignores simplification done by functions like `sapply()`; input-output combinations are dictated by `purrr` functions
+
+- Standard tidyverse convention of beginning with data means `purrr` is `|>` and `%>%` friendly
+
+- Workhorse function is `map()`
+
+## `purrr` - `map()`   {background-image="img/purrr.svg" background-size="8%" background-position="95% 5%"} 
+
+:::{.columns}
+
+:::{.column width="60%"}
+
+- Functions just like `lapply()`: 
+
+    1. Takes an object with listwise elements
+    
+    2. Applies a function to those elements 
+    
+    3. Returns the function output in a list
+
+- Thus `map(1:3, f)` is equivalent to `list(f(1), f(2), f(3))`
+
+- Format is `map(.x, .f, ...)` where `.x` is the data, `.f.` is the function and `...` are any additional arguments
+
+:::
+
+:::{.column width="40%"}
+<br>
+![](img/map.png){fig-align="center"}
+
+:::
+
+:::
+
+## `purrr` - Mapping `mean_na_action`
+
+:::{.columns}
+
+:::{.column}
+
+- Passing individual arguments
+
+```{r}
+#| code-line-numbers: 3-4
+
+gapminder |>
+  select(where(is.numeric)) |>
+  map(.f = mean_na_action, 
+      na_action = na.omit)
+
+```
+
+:::
+
+:::{.column}
+
+- Mapping as a formula/expression
+
+```{r}
+#| code-line-numbers: 3-4
+
+gapminder |>
+  select(where(is.numeric)) |>
+  map(.f = ~ mean_na_action(.x, 
+                            na_action = na.omit))
+
+```
+
+- This is specific to `purrr`
+
+:::
+
+:::
+
+
+## `purrr` - Different `map` Outputs
+
+- `map()` like `lapply()` always returns a list for consistency
+
+- Different mapping functions return different outputs if possible e.g. four types of atomic vectors
+
+    1. `map_chr()` - always returns a <u>character</u> vector
+    
+    2. `map_lgl()` - always returns a <u>logical</u> vector
+    
+    3. `map_int()` - always returns an <u>integer</u> vector
+    
+    4. `map_dbl()` - always returns a <u>double</u> (i.e. numeric) vector
+    
+- Note, the `map_*()` conventions only refers to differences in the _output_
+
+## `purrr` - `map_chr()` and `map_dbl()`
+
+- A character vector
+
+```{r}
+#| code-line-numbers: 3-4
+
+gapminder |>
+  select(where(is.numeric)) |>
+  map_chr(.f = mean_na_action, na_action = na.omit)
+
+```
+
+- A numeric vector
+
+```{r}
+#| code-line-numbers: 3-4
+
+gapminder |>
+  select(where(is.numeric)) |>
+  map_dbl(.f = mean_na_action, na_action = na.omit)
+
+```
+
+
+## `purrr` - `map_df()` for Tibbles
+
+- Beyond just vectors, `map_df()` binds the list output into a tibble
+
+```{r}
+#| code-line-numbers: 3-4
+
+gapminder |>
+  select(where(is.numeric)) |>
+  map_df(.f = mean_na_action, na_action = na.omit)
+
+```
+
+- In base R, this is a `cbind()` application to the list output
+
+## `purrr` - Inputs and Outputs of `map`
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- All `map_*()` functions take listwise elements as inputs i.e. they apply functions on vectors
+
+- This works on all standard R data structures by coercion e.g. a `data.frame` is a collection of equilength vectors
+
+- No matter the returned object, the output is always the same length as the input
+
+:::
+
+:::{.column width="50%"}
+
+:::{style="text-align: center"}
+
+Vectors as listwise elements
+
+:::
+
+![](img/map-list.png){fig-align="center"}
+
+
+:::
+
+:::
+
+
+## `purrr` - Passing Arguments   {background-image="img/purrr.svg" background-size="8%" background-position="95% 5%"} 
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Arguments can be passed either:
+
+    1. As additional arguments __after__ the function `.f` 
+    
+    2. As part of an anonymous function in the `purrr` acceptable formulaic format
+    
+- Recommended to craft functions and pass by name to `map_*()` with arguments after, simpler
+
+:::
+
+:::{.column width="50%"}
+<br>
+![](img/map-arg.png){fig-align="center"}
+
+:::
+
+:::
+
+
+## `purrr` - Passing Arguments   {background-image="img/purrr.svg" background-size="8%" background-position="95% 5%"} 
+
+
+![](img/map-arg-recycle.png){fig-align="center" height=350}
+
+:::{.callout-important style="margin-top: -4%"}
+
+Only the data object is vectorized, the additional arguments are NOT decomposed
+
+Instead each function iteration gets ALL added arguments applied
+
+:::
+
+
+## `purrr` - More `map()` Variants
+
+- There are another 17 (!) variants although only a handful of concepts
+
+    1. `modify()` - output is the same as the input
+    
+    2. `walk()` - returns nothing but is useful for side effects
+    
+    3. `map2()` - iteration over two data structures
+    
+    4. `imap()` - iteration over a data structure and an index
+    
+    5. `pmap()` - iterate over any number of inputs
+    
+- Again, all further variants just direct input and output structure
+
+## `purrr` - `modify()` and `walk()`
+
+- `modify()` always returns the same class of output as its input e.g. a modified `tibble` returns another `tibble`
+
+- `walk()` returns nothing but can be useful for side effects such as saving to the disk or printing to the console
+
+## `purrr` - Multiple Data Structures
+
+:::{.columns}
+
+:::{.column}
+
+- `map2()` accepts two data structures and vectorizes over both element-wise
+
+![](img/map2.png){fig-align="center"}
+
+:::
+
+:::{.column}
+
+- Additional arguments and handled just as they are with `map()` and applied in whole to all iterations
+
+![](img/map2-arg.png){fig-align="center"}
+
+:::
+
+:::
+
+## `purrr` - `imap()` to Include Indices
+
+- `imap()` is similar but includes one of two indexings for `imap(x, f)`
+
+    1. If the structure is named, it is equivalent to `map2(x, names(x), f)`
+    
+    2. If it is unnamed, it is equivalent to `map2(x, seq_along(x), f)`
+    
+```{r}
+imap_chr(iris, ~ paste0("The first value of ", .y, " is ", .x[[1]]))
+```
+
+
+## `purrr` - `pmap()` as a `map2()` Generalization
+
+- `pmap()` accepts a single list and vectorizes over the elements of that list elementwise; finer control but more challenging conceptualization
+
+![](img/pmap-3.png){fig-align="center" height=350}
+
+
+# Other Iteration in R
+
+## Other Iteration - Already in Use
+
+- There have been many instances where "iteration" has already been used i.e. doing the same thing over multiple times
+
+    - `facet_grid()` to do plotting on subsets
+    
+    - `group_by()` with `summarise()` to get aggregations on groups
+    
+    - Anything done to a vector e.g. `c(1:10)^2`
+    
+- `dplyr` does this as well specifically on columns in data frames using `across()`
+
+
+## Other Iteration - `across()` on Columns   {background-image="img/dplyr.svg" background-size="8%" background-position="95% 5%"} 
+
+- `across()` has two arguments
+
+    1. `.cols` - the columns you are operating on, using tidy selection
+    
+    2. `.fns` - the (list of) function(s) being applied to each column
+
+```{r}
+#| code-line-numbers: 3-3
+gapminder |>
+  group_by(continent) |>
+  summarise(across(c(lifeExp:gdpPercap), mean))
+
+```
+
+
+## Other Iteration -  `across()` on Columns   {background-image="img/dplyr.svg" background-size="8%" background-position="95% 5%"} 
+
+- Although `across()` is most frequently used with `summarise()` it can be useful with `mutate()` as well
+
+```{r}
+#| code-line-numbers: 2-3
+gapminder |>
+  mutate(across(.cols = where(is.numeric), 
+                .fns = ~ round(.x, digits = 0)))|>
+  print(n=5)
+
+```
+
+
+## Other Iteration -  `across()` with multiple functions
+
+- `across()` can also take lists of functions and apply `.names`
+
+```{r}
+#| code-line-numbers: 1-3,7-9
+min_max <- list(
+  min = ~min(.x, na.rm = TRUE),
+  max = ~max(.x, na.rm = TRUE))
+
+gapminder |>
+  group_by(continent) |>
+  summarise(across(.cols = where(is.numeric), 
+                   .fns = min_max,
+                   .names = "{.fn}_{.col}"))
+```
+
+
+## Other Iteration - `.cols` and tidy selection
+
+- `across()` can accept any type of tidy selection operator
+
+    - `:` for ranges of consecutive variables by index or name
+    
+    - `!` `&` and `|` for variable sets
+    
+    - `c()` for disjoint selections
+
+- It can also take many selection helpers like `everything()` for all columns or regular expression matching of columns with `matches()`
+
+- `where()` is an especially powerful higher-order predicate, it takes another function and selects all columns that return `TRUE`
+
+## Learning More
+
+- The [reference manual](https://purrr.tidyverse.org/reference/index.html){.external target="_blank"} for `purrr`
+
+    - Don't forget the [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf){.external target="_blank"}
+
+- The [colwise vignette](https://dplyr.tidyverse.org/articles/colwise.html){.external target="_blank"} of `dplyr`
+
+- Next time: function composition
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

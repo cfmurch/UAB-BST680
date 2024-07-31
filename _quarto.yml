@@ -46,6 +46,9 @@ website:
           - text: "10 - Quarto"
             href: "Lectures/10_Quarto/index.qmd"
             target: _blank
+          - text: "11 - Functionals and Iteration"
+            href: "Lectures/11_Iteration/index.qmd"
+            target: _blank
       - section: "Lecture PDF"
         contents:
           - text: "01 - Introducing Your Tools"
@@ -77,6 +80,9 @@ website:
             target: _blank
           - text: "10 - Quarto"
             href: "pdfs/BST680 - 2024 - 10 Communication with Quarto.pdf"
+            target: _blank
+          - text: "11 - Functionals and Iteration"
+            href: "pdfs/BST680 - 2024 - 11 Functionals and Iteration.pdf"
             target: _blank
       - section: "Additional Info"
         contents:
