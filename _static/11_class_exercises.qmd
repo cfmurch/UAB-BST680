@@ -38,6 +38,16 @@ theme_cfm <- readRDS("solutions/theme.rds")
 
 ```
 
+```{r}
+#The theme I used for the various plots, feel free to use or adapt it
+theme_cfm <- 
+  theme_bw() + 
+  theme(plot.title = element_text(size = 30, hjust = 0.5),
+        axis.title = element_text(size = 20), 
+        axis.text = element_text(size = 16),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 16))
+```
 
 # Ordinary least squares regression and lines of fit
 
