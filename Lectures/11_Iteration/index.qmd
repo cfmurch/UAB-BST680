@@ -817,7 +817,7 @@ gapminder |>
 ```
 
 
-## Other Iteration -  `across()` with multiple functions
+## Other Iteration -  `across()` with Multiple Functions
 
 - `across()` can also take lists of functions and apply `.names`
 
@@ -835,7 +835,7 @@ gapminder |>
 ```
 
 
-## Other Iteration - `.cols` and tidy selection
+## Other Iteration - `.cols` and Tidy Selection
 
 - `across()` can accept any type of tidy selection operator
 

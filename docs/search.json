@@ -3455,7 +3455,7 @@
     "href": "downloads.html",
     "title": "BST680 Downloads",
     "section": "",
-    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nThe midterm project can be downloaded [here as a .zip]",
+    "text": "All exercises can be downloaded here in both .qmd and .R formats\n\n\nTo properly render Quarto Markdown files, be sure to download the .rds solutions and data files\nSolutions are in a .zip file that should be extracted in the same location as the .qmd file to properly render\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nSolutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file] and [.R file]\nData and Solutions folder - [.zip file]\n\n\n\nExercises - [.qmd file]\n\n\n\nExercises - [.qmd file]\n\n\n\nThe midterm project can be downloaded [here as a .zip]",
     "crumbs": [
       "Home",
       "Downloads",
@@ -7362,8 +7362,8 @@
     "objectID": "Lectures/11_Iteration/index.html#other-iteration---across-with-multiple-functions",
     "href": "Lectures/11_Iteration/index.html#other-iteration---across-with-multiple-functions",
     "title": "Functionals and Iteration",
-    "section": "Other Iteration - across() with multiple functions",
-    "text": "Other Iteration - across() with multiple functions\n\nacross() can also take lists of functions and apply .names\n\n\nmin_max &lt;- list(\n  min = ~min(.x, na.rm = TRUE),\n  max = ~max(.x, na.rm = TRUE))\n\ngapminder |&gt;\n  group_by(continent) |&gt;\n  summarise(across(.cols = where(is.numeric), \n                   .fns = min_max,\n                   .names = \"{.fn}_{.col}\"))\n\n# A tibble: 5 × 9\n  continent min_year max_year min_lifeExp max_lifeExp min_pop    max_pop\n  &lt;fct&gt;        &lt;int&gt;    &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;   &lt;int&gt;      &lt;int&gt;\n1 Africa        1952     2007        23.6        76.4   60011  135031164\n2 Americas      1952     2007        37.6        80.7  662850  301139947\n3 Asia          1952     2007        28.8        82.6  120447 1318683096\n4 Europe        1952     2007        43.6        81.8  147962   82400996\n5 Oceania       1952     2007        69.1        81.2 1994794   20434176\n# ℹ 2 more variables: min_gdpPercap &lt;dbl&gt;, max_gdpPercap &lt;dbl&gt;",
+    "section": "Other Iteration - across() with Multiple Functions",
+    "text": "Other Iteration - across() with Multiple Functions\n\nacross() can also take lists of functions and apply .names\n\n\nmin_max &lt;- list(\n  min = ~min(.x, na.rm = TRUE),\n  max = ~max(.x, na.rm = TRUE))\n\ngapminder |&gt;\n  group_by(continent) |&gt;\n  summarise(across(.cols = where(is.numeric), \n                   .fns = min_max,\n                   .names = \"{.fn}_{.col}\"))\n\n# A tibble: 5 × 9\n  continent min_year max_year min_lifeExp max_lifeExp min_pop    max_pop\n  &lt;fct&gt;        &lt;int&gt;    &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;   &lt;int&gt;      &lt;int&gt;\n1 Africa        1952     2007        23.6        76.4   60011  135031164\n2 Americas      1952     2007        37.6        80.7  662850  301139947\n3 Asia          1952     2007        28.8        82.6  120447 1318683096\n4 Europe        1952     2007        43.6        81.8  147962   82400996\n5 Oceania       1952     2007        69.1        81.2 1994794   20434176\n# ℹ 2 more variables: min_gdpPercap &lt;dbl&gt;, max_gdpPercap &lt;dbl&gt;",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -7374,8 +7374,8 @@
     "objectID": "Lectures/11_Iteration/index.html#other-iteration---.cols-and-tidy-selection",
     "href": "Lectures/11_Iteration/index.html#other-iteration---.cols-and-tidy-selection",
     "title": "Functionals and Iteration",
-    "section": "Other Iteration - .cols and tidy selection",
-    "text": "Other Iteration - .cols and tidy selection\n\nacross() can accept any type of tidy selection operator\n\n: for ranges of consecutive variables by index or name\n! & and | for variable sets\nc() for disjoint selections\n\nIt can also take many selection helpers like everything() for all columns or regular expression matching of columns with matches()\nwhere() is an especially powerful higher-order predicate, it takes another function and selects all columns that return TRUE",
+    "section": "Other Iteration - .cols and Tidy Selection",
+    "text": "Other Iteration - .cols and Tidy Selection\n\nacross() can accept any type of tidy selection operator\n\n: for ranges of consecutive variables by index or name\n! & and | for variable sets\nc() for disjoint selections\n\nIt can also take many selection helpers like everything() for all columns or regular expression matching of columns with matches()\nwhere() is an especially powerful higher-order predicate, it takes another function and selects all columns that return TRUE",
     "crumbs": [
       "Home",
       "Lecture HTML",
@@ -7392,6 +7392,90 @@
       "Home",
       "Lecture HTML",
       "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/class_exercises.html",
+    "href": "html_files/11_Iteration/class_exercises.html",
+    "title": "Iteration and Functionals",
+    "section": "",
+    "text": "Today we’re going to be using iteration to solve our single statistical problem of the course: fitting a linear regression line of best fit.\n\n\nEverything today can be handled with base R and the tidyverse. Specifically, we’ll be focusing on purrr. We also load ggforce for bonus points.",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/class_exercises.html#setup",
+    "href": "html_files/11_Iteration/class_exercises.html#setup",
+    "title": "Iteration and Functionals",
+    "section": "",
+    "text": "Everything today can be handled with base R and the tidyverse. Specifically, we’ll be focusing on purrr. We also load ggforce for bonus points.",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/class_exercises.html#identify-the-slope",
+    "href": "html_files/11_Iteration/class_exercises.html#identify-the-slope",
+    "title": "Iteration and Functionals",
+    "section": "Identify the slope",
+    "text": "Identify the slope\nFix int_est at 1 and then use purrr to look through 100 equally spaced potential values for slope_est between 2 and 4. Pick the one that minimizes the sum of squared errors and make a plot.\n\n#Create 100 potential slopes\nslope_est &lt;- seq(2, 4, length.out = 100)\n\n#Calculate the MSE for those slopes using purrr\nmse_slope_vals &lt;- purrr::???\n\n#Make a data frame from the MSE values\npred_slope &lt;- tibble(\n  slope = slope_est,\n  mse_vals = mse_slope_vals\n)\n\n#Make a plot of the results\nggplot(???)\n\n#Find the slope with the smallest MSE loss\nslope_est &lt;- ???",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/class_exercises.html#identify-the-intercept",
+    "href": "html_files/11_Iteration/class_exercises.html#identify-the-intercept",
+    "title": "Iteration and Functionals",
+    "section": "Identify the intercept",
+    "text": "Identify the intercept\nNext, fix your slope at the value of slope_min that you found and then evaluate 100 equally spaced estimates for the intercept ranging from 0 to 2. Again, find the intercept that minimizes our MSE loss.\n\n#Create 100 potential estimates\nint_est &lt;- seq(0, 2, length.out = 100)\n\n#Calculate the MSE for those slopes using purrr\nmse_int_vals &lt;- purrr::???\n\n#Make a data frame from the MSE values\npred_int &lt;- tibble(\n  int = int_est,\n  mse_vals = mse_int_vals\n)\n\n#Make a plot for the intercept results\nggplot(???)\n\n#Find the slope with the smallest MSE loss\nint_est &lt;- ???",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/class_exercises.html#compare",
+    "href": "html_files/11_Iteration/class_exercises.html#compare",
+    "title": "Iteration and Functionals",
+    "section": "Compare",
+    "text": "Compare\nFinally, report your estimates for intercept and slope and plot both it and the known line-of-best fit. Your results and plot should look something like this:\nSlope estimate from map(): 3.232\nIntercept estimate from map(): 0.869\n\n\n\n\n\n\n\n\n\n\n##YOUR CODE HERE",
+    "crumbs": [
+      "Home",
+      "Assignments",
+      "11 - Functionals and Iteration"
+    ]
+  },
+  {
+    "objectID": "downloads.html#communication-with-quarto",
+    "href": "downloads.html#communication-with-quarto",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
+    ]
+  },
+  {
+    "objectID": "downloads.html#functionals-and-iteration",
+    "href": "downloads.html#functionals-and-iteration",
+    "title": "BST680 Downloads",
+    "section": "",
+    "text": "Exercises - [.qmd file]",
+    "crumbs": [
+      "Home",
+      "Downloads",
+      "Exercise Downloads"
     ]
   }
 ]

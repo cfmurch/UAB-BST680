@@ -110,6 +110,8 @@ website:
             href: "html_files/09_Joins/class_exercises.qmd"
           - text: "10 - Quarto"
             href: "html_files/10_Quarto/class_exercises.qmd"
+          - text: "11 - Functionals and Iteration"
+            href: "html_files/11_Iteration/class_exercises.qmd"
       # - section: "Solutions"
       #   contents: 
       #     - text: "01 - Working with Tables"
