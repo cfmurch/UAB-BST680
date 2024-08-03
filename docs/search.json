@@ -7477,5 +7477,185 @@
       "Downloads",
       "Exercise Downloads"
     ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/exercise_solutions.html",
+    "href": "html_files/11_Iteration/exercise_solutions.html",
+    "title": "Iteration and Functionals",
+    "section": "",
+    "text": "Today we’re going to be using iteration to solve our single statistical problem of the course: fitting a linear regression line of best fit.\n\n\nEverything today can be handled with base R and the tidyverse. Specifically, we’ll be focusing on purrr. We also load ggforce for bonus points.\n\n#|include: false\n#saveRDS(theme_cfm, \"theme.rds\")",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "11 - Functionals and Interation"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/exercise_solutions.html#setup",
+    "href": "html_files/11_Iteration/exercise_solutions.html#setup",
+    "title": "Iteration and Functionals",
+    "section": "",
+    "text": "Everything today can be handled with base R and the tidyverse. Specifically, we’ll be focusing on purrr. We also load ggforce for bonus points.\n\n#|include: false\n#saveRDS(theme_cfm, \"theme.rds\")",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "11 - Functionals and Interation"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/exercise_solutions.html#identify-the-slope",
+    "href": "html_files/11_Iteration/exercise_solutions.html#identify-the-slope",
+    "title": "Iteration and Functionals",
+    "section": "Identify the slope",
+    "text": "Identify the slope\nFix int_est at 1 and then use purrr to look through 100 equally spaced potential values for slope_est between 2 and 4. Pick the one that minimizes the sum of squared errors and make a plot.\n\n#Create 100 potential slopes\nslope_est &lt;- seq(2, 4, length.out = 100)\n\n#Calculate the MSE for those slopes using purrr\nmse_slope_vals &lt;- purrr::???\n\n#Make a data frame from the MSE values\npred_slope &lt;- tibble(\n  slope = slope_est,\n  mse_vals = mse_slope_vals\n)\n\n#Make a plot of the results\nggplot(???)\n\n#Find the slope with the smallest MSE loss\nslope_est &lt;- ???",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "11 - Functionals and Interation"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/exercise_solutions.html#identify-the-intercept",
+    "href": "html_files/11_Iteration/exercise_solutions.html#identify-the-intercept",
+    "title": "Iteration and Functionals",
+    "section": "Identify the intercept",
+    "text": "Identify the intercept\nNext, fix your slope at the value of slope_min that you found and then evaluate 100 equally spaced estimates for the intercept ranging from 0 to 2. Again, find the intercept that minimizes our MSE loss.\n\n#Create 100 potential estimates\nint_est &lt;- seq(0, 2, length.out = 100)\n\n#Calculate the MSE for those slopes using purrr\nmse_int_vals &lt;- purrr::???\n\n#Make a data frame from the MSE values\npred_int &lt;- tibble(\n  int = int_est,\n  mse_vals = mse_int_vals\n)\n\n#Make a plot for the intercept results\nggplot(???)\n\n#Find the slope with the smallest MSE loss\nint_est &lt;- ???",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "11 - Functionals and Interation"
+    ]
+  },
+  {
+    "objectID": "html_files/11_Iteration/exercise_solutions.html#compare",
+    "href": "html_files/11_Iteration/exercise_solutions.html#compare",
+    "title": "Iteration and Functionals",
+    "section": "Compare",
+    "text": "Compare\nFinally, report your estimates for intercept and slope and plot both it and the known line-of-best fit. Your results and plot should look something like this:\n\n#map step 1 - the slope\nslope_est &lt;- seq(2, 4, length.out = 100); int_est &lt;- 1\nmse_slope_vals &lt;- map_dbl(slope_est, ~mse(predicted = int_est + x * .x, observed = y))\nslope_est &lt;- slope_est[which.min((mse_slope_vals))]\n\n#map step 2 - the intercept\nint_est &lt;- seq(0, 2, length.out = 100)\nmse_int_vals &lt;- map_dbl(int_est, ~mse(predicted = .x + x * slope_est, observed = y))\nint_est &lt;- int_est[which.min((mse_int_vals))]\n\nest_curr &lt;- c(slope_est, int_est)\n\nSlope estimate from map(): 3.232\nIntercept estimate from map(): 0.869\n\nplot_map &lt;-\nggplot(dat_curr, aes(x = x, y = y)) +\n  geom_point(shape = 21, color = \"black\", fill = \"grey\", size = 3) + \n  geom_smooth(method = \"lm\", color=\"red\", linetype = \"solid\", linewidth = 1.75, se = FALSE) + \n  geom_abline(intercept = int_est, slope = slope_est, \n              color = \"blue\", linetype = \"dashed\", linewidth = 1.75) + \n  theme_cfm\n\nplot_map",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "11 - Functionals and Interation"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/exercise_solutions.html",
+    "href": "html_files/10_Quarto/exercise_solutions.html",
+    "title": "Exercise 10 - Quarto",
+    "section": "",
+    "text": "This YAML was used for this document. Note this inclusion of some additional options such as df-print: paged and how bibliography: references.bib was generated after the citation inclusion. In addition, multi-rendering required rendering from the terminal in RStudio as the Render button only renders the first format option.\n---\ntitle: \"Exercise 10 - Quarto\"\nauthor: \"Chad Murchison\"\nformat: \n  html:\n    df-print: paged\n  docx: default\n  pdf: default\nknitr:\n  opts_chunk: \n    echo: false\nbibliography: references.bib\nexecute:\n  cache: true\n---\n\n\n\nThe following code will yield the formatting shown in figure 28.5 from R4DS as well as the citation for Literate Programming.\n# Text formatting\n\n*italic* **bold** [underline]{.underline} ~~strikeout~~ [small caps]{.smallcaps} `code` superscript^2^ and subscript~2~\n\n# Headings\n\n# 1st Level Header\n\n## 2nd Level Header\n\n### 3rd Level Header\n\n# Lists\n\n-   Bulleted list item 1\n\n-   Item 2\n\n    -   Item 2a\n\n    -   Item 2b\n\n1.  Numberlist item 1\n\n2.  Item 2. The numbers are incremented automatically in the output.\n\n# Links and images\n\n&lt;https://quarto.org&gt;\n\n[linked phrase](https://quarto.org)\n\n![optional caption text](https://quarto.org/quarto.png)\n\n[@knuth1984]",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/exercise_solutions.html#yaml",
+    "href": "html_files/10_Quarto/exercise_solutions.html#yaml",
+    "title": "Exercise 10 - Quarto",
+    "section": "",
+    "text": "This YAML was used for this document. Note this inclusion of some additional options such as df-print: paged and how bibliography: references.bib was generated after the citation inclusion. In addition, multi-rendering required rendering from the terminal in RStudio as the Render button only renders the first format option.\n---\ntitle: \"Exercise 10 - Quarto\"\nauthor: \"Chad Murchison\"\nformat: \n  html:\n    df-print: paged\n  docx: default\n  pdf: default\nknitr:\n  opts_chunk: \n    echo: false\nbibliography: references.bib\nexecute:\n  cache: true\n---",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/exercise_solutions.html#formatting",
+    "href": "html_files/10_Quarto/exercise_solutions.html#formatting",
+    "title": "Exercise 10 - Quarto",
+    "section": "",
+    "text": "The following code will yield the formatting shown in figure 28.5 from R4DS as well as the citation for Literate Programming.\n# Text formatting\n\n*italic* **bold** [underline]{.underline} ~~strikeout~~ [small caps]{.smallcaps} `code` superscript^2^ and subscript~2~\n\n# Headings\n\n# 1st Level Header\n\n## 2nd Level Header\n\n### 3rd Level Header\n\n# Lists\n\n-   Bulleted list item 1\n\n-   Item 2\n\n    -   Item 2a\n\n    -   Item 2b\n\n1.  Numberlist item 1\n\n2.  Item 2. The numbers are incremented automatically in the output.\n\n# Links and images\n\n&lt;https://quarto.org&gt;\n\n[linked phrase](https://quarto.org)\n\n![optional caption text](https://quarto.org/quarto.png)\n\n[@knuth1984]",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/exercise_solutions.html#iris-data",
+    "href": "html_files/10_Quarto/exercise_solutions.html#iris-data",
+    "title": "Exercise 10 - Quarto",
+    "section": "Iris data",
+    "text": "Iris data\nLoad the first 30 rows of Iris into a dedicated object with some simple table printing. The chunk option for #| tbl-cap: was used for captions.\n\nlibrary(tidyverse)\nlibrary(knitr)\nlibrary(gt)\n\ndata_curr &lt;- as_tibble(iris[1:30,])\n\n\n# #| tbl-cap: \"Standard printing\"\n\ndata_curr\n\n Standard printing\n  \n\n\n\n\n# #| tbl-cap: \"Kable printing\"\n\nknitr::kable(data_curr)\n\n\nKable printing\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n5.4\n3.9\n1.7\n0.4\nsetosa\n\n\n4.6\n3.4\n1.4\n0.3\nsetosa\n\n\n5.0\n3.4\n1.5\n0.2\nsetosa\n\n\n4.4\n2.9\n1.4\n0.2\nsetosa\n\n\n4.9\n3.1\n1.5\n0.1\nsetosa\n\n\n5.4\n3.7\n1.5\n0.2\nsetosa\n\n\n4.8\n3.4\n1.6\n0.2\nsetosa\n\n\n4.8\n3.0\n1.4\n0.1\nsetosa\n\n\n4.3\n3.0\n1.1\n0.1\nsetosa\n\n\n5.8\n4.0\n1.2\n0.2\nsetosa\n\n\n5.7\n4.4\n1.5\n0.4\nsetosa\n\n\n5.4\n3.9\n1.3\n0.4\nsetosa\n\n\n5.1\n3.5\n1.4\n0.3\nsetosa\n\n\n5.7\n3.8\n1.7\n0.3\nsetosa\n\n\n5.1\n3.8\n1.5\n0.3\nsetosa\n\n\n5.4\n3.4\n1.7\n0.2\nsetosa\n\n\n5.1\n3.7\n1.5\n0.4\nsetosa\n\n\n4.6\n3.6\n1.0\n0.2\nsetosa\n\n\n5.1\n3.3\n1.7\n0.5\nsetosa\n\n\n4.8\n3.4\n1.9\n0.2\nsetosa\n\n\n5.0\n3.0\n1.6\n0.2\nsetosa\n\n\n5.0\n3.4\n1.6\n0.4\nsetosa\n\n\n5.2\n3.5\n1.5\n0.2\nsetosa\n\n\n5.2\n3.4\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.6\n0.2\nsetosa\n\n\n\n\n\n\n# #| tbl-cap: \"gt printing\"\n\ngt(data_curr)\n\n\n\n\n\ngt printing\n\n\nSepal.Length\nSepal.Width\nPetal.Length\nPetal.Width\nSpecies\n\n\n\n\n5.1\n3.5\n1.4\n0.2\nsetosa\n\n\n4.9\n3.0\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.3\n0.2\nsetosa\n\n\n4.6\n3.1\n1.5\n0.2\nsetosa\n\n\n5.0\n3.6\n1.4\n0.2\nsetosa\n\n\n5.4\n3.9\n1.7\n0.4\nsetosa\n\n\n4.6\n3.4\n1.4\n0.3\nsetosa\n\n\n5.0\n3.4\n1.5\n0.2\nsetosa\n\n\n4.4\n2.9\n1.4\n0.2\nsetosa\n\n\n4.9\n3.1\n1.5\n0.1\nsetosa\n\n\n5.4\n3.7\n1.5\n0.2\nsetosa\n\n\n4.8\n3.4\n1.6\n0.2\nsetosa\n\n\n4.8\n3.0\n1.4\n0.1\nsetosa\n\n\n4.3\n3.0\n1.1\n0.1\nsetosa\n\n\n5.8\n4.0\n1.2\n0.2\nsetosa\n\n\n5.7\n4.4\n1.5\n0.4\nsetosa\n\n\n5.4\n3.9\n1.3\n0.4\nsetosa\n\n\n5.1\n3.5\n1.4\n0.3\nsetosa\n\n\n5.7\n3.8\n1.7\n0.3\nsetosa\n\n\n5.1\n3.8\n1.5\n0.3\nsetosa\n\n\n5.4\n3.4\n1.7\n0.2\nsetosa\n\n\n5.1\n3.7\n1.5\n0.4\nsetosa\n\n\n4.6\n3.6\n1.0\n0.2\nsetosa\n\n\n5.1\n3.3\n1.7\n0.5\nsetosa\n\n\n4.8\n3.4\n1.9\n0.2\nsetosa\n\n\n5.0\n3.0\n1.6\n0.2\nsetosa\n\n\n5.0\n3.4\n1.6\n0.4\nsetosa\n\n\n5.2\n3.5\n1.5\n0.2\nsetosa\n\n\n5.2\n3.4\n1.4\n0.2\nsetosa\n\n\n4.7\n3.2\n1.6\n0.2\nsetosa",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/exercise_solutions.html#plots",
+    "href": "html_files/10_Quarto/exercise_solutions.html#plots",
+    "title": "Exercise 10 - Quarto",
+    "section": "Plots",
+    "text": "Plots\nA standard scatter plot:\n\n# #| echo: true\n# #| fig-cap: \"Iris Sepal Length vs Width by Species\"\n# #| fig-height: 4\n# #| fig-asp: 0.618\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + \n  geom_point(aes(color = Species)) +\n  theme_bw()\n\n\n\n\nIris Sepal Length vs Width by Species\n\n\n\n\nA pair of histograms\n# #| echo: true\n# #| layout-ncol: 2\n# #| fig-cap: \"Histograms of Width (L) and Length (R) in Iris\"\n\nggplot(iris, aes(x = Sepal.Width)) + \n  geom_histogram(aes(fill = Species), position = position_dodge(), bins = 30) + \n  theme_bw()\nggplot(iris, aes(x = Sepal.Length)) + \n  geom_histogram(aes(fill = Species), position = position_dodge(), bins = 30) + \n  theme_bw()\n\n\n\n\n\n\nHistograms of Width (L) and Length (R) in Iris\n\n\n\n\n\n\n\nHistograms of Width (L) and Length (R) in Iris",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/10_Quarto/exercise_solutions.html#summary-tables-with-kable-and-gt",
+    "href": "html_files/10_Quarto/exercise_solutions.html#summary-tables-with-kable-and-gt",
+    "title": "Exercise 10 - Quarto",
+    "section": "Summary tables with kable() and gt()",
+    "text": "Summary tables with kable() and gt()\n\ntable_out &lt;- iris |&gt;\n  group_by(Species) |&gt;\n  summarise(Count = n(),\n            Mean_Length = mean(Sepal.Length),\n            Median_Length = median(Sepal.Length),\n            SD_Length = sd(Sepal.Length),\n            Mean_Width = mean(Sepal.Width),\n            Median_Width = median(Sepal.Width),\n            SD_Width = sd(Sepal.Width))\n\nkable(table_out)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSpecies\nCount\nMean_Length\nMedian_Length\nSD_Length\nMean_Width\nMedian_Width\nSD_Width\n\n\n\n\nsetosa\n50\n5.006\n5.0\n0.3524897\n3.428\n3.4\n0.3790644\n\n\nversicolor\n50\n5.936\n5.9\n0.5161711\n2.770\n2.8\n0.3137983\n\n\nvirginica\n50\n6.588\n6.5\n0.6358796\n2.974\n3.0\n0.3224966\n\n\n\n\ngt(table_out)\n\n\n\n\n\n\n\nSpecies\nCount\nMean_Length\nMedian_Length\nSD_Length\nMean_Width\nMedian_Width\nSD_Width\n\n\n\n\nsetosa\n50\n5.006\n5.0\n0.3524897\n3.428\n3.4\n0.3790644\n\n\nversicolor\n50\n5.936\n5.9\n0.5161711\n2.770\n2.8\n0.3137983\n\n\nvirginica\n50\n6.588\n6.5\n0.6358796\n2.974\n3.0\n0.3224966",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "10 - Quarto"
+    ]
+  },
+  {
+    "objectID": "html_files/09_Joins/exercise_solutions.html",
+    "href": "html_files/09_Joins/exercise_solutions.html",
+    "title": "Joining data",
+    "section": "",
+    "text": "These exercises will help you practice applying functions in the join family and the stringr and glue packages. You will use two datasets that describe a TV show called ‘The Office’.\n\n\nPackages used for this exercise set are loaded below.\n\n\n\nThe analysis will involve two datasets:\n\noffice_ratings.csv: the IMDB rating for each episode.\noffice_director_and_writers.csv the writers and director of each episode.\n\n\nratings_descr &lt;-\n  c(\"season\"      = \"Season that the episode aired\",\n    \"episode\"     = \"Episode number, relative to Season start\",\n    \"title\"       = \"Title of the episode\",\n    \"imdb_rating\" = \"Mean IMDB rating\",\n    \"total_votes\" = \"Total number of IMDB members who rated the episode\",\n    \"air_date\"    = \"Date that the episode aired\")\n\ndrctr_wrtr_descr &lt;- \n  c(\"season\"   = \"Season that the episode aired\", \n    \"title\"    = \"Title of the episode\", \n    \"director\" = \"Name of the episode's director\", \n    \"writer\"   = \"Name of contributing writer\")\n\ndata_names &lt;- c(\"ratings\", \"director and writers\")\n\ntbls &lt;- list(ratings_descr, drctr_wrtr_descr) |&gt; \n  map2(.y = data_names,\n    ~ enframe(.x) |&gt;\n      gt(rowname_col = \"name\") |&gt;\n      tab_stubhead(label = 'Variable name') |&gt; \n      cols_label(value = 'Variable description') |&gt; \n      cols_align('left') %&gt;% \n      tab_header(title = glue('Description of {.y} data'))\n  )\n\ntbls[[1]]\n\n\n\n\n\n\n\nDescription of ratings data\n\n\nVariable name\nVariable description\n\n\n\n\nseason\nSeason that the episode aired\n\n\nepisode\nEpisode number, relative to Season start\n\n\ntitle\nTitle of the episode\n\n\nimdb_rating\nMean IMDB rating\n\n\ntotal_votes\nTotal number of IMDB members who rated the episode\n\n\nair_date\nDate that the episode aired\n\n\n\n\n\n\n\n\ntbls[[2]]\n\n\n\n\n\n\n\nDescription of director and writers data\n\n\nVariable name\nVariable description\n\n\n\n\nseason\nSeason that the episode aired\n\n\ntitle\nTitle of the episode\n\n\ndirector\nName of the episode's director\n\n\nwriter\nName of contributing writer\n\n\n\n\n\n\n\n\n\n\nYou can import the two datasets using the read_csv() function. Note that your project directory is the root of the file path.\n\ndata_one &lt;- read_csv(\"data/office_director_and_writers.csv\")\n\nRows: 223 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (3): episode_name, director, writer\ndbl (1): season\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndata_rate &lt;- read_csv(\"data/office_ratings.csv\")\n\nRows: 188 Columns: 6\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (1): title\ndbl  (4): season, episode, imdb_rating, total_votes\ndate (1): air_date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nhead(data_one)\n\n\n  \n\n\nhead(data_rate)",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "09 - Joins and I/O"
+    ]
+  },
+  {
+    "objectID": "html_files/09_Joins/exercise_solutions.html#setup",
+    "href": "html_files/09_Joins/exercise_solutions.html#setup",
+    "title": "Joining data",
+    "section": "",
+    "text": "Packages used for this exercise set are loaded below.",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "09 - Joins and I/O"
+    ]
+  },
+  {
+    "objectID": "html_files/09_Joins/exercise_solutions.html#data-dictionary",
+    "href": "html_files/09_Joins/exercise_solutions.html#data-dictionary",
+    "title": "Joining data",
+    "section": "",
+    "text": "The analysis will involve two datasets:\n\noffice_ratings.csv: the IMDB rating for each episode.\noffice_director_and_writers.csv the writers and director of each episode.\n\n\nratings_descr &lt;-\n  c(\"season\"      = \"Season that the episode aired\",\n    \"episode\"     = \"Episode number, relative to Season start\",\n    \"title\"       = \"Title of the episode\",\n    \"imdb_rating\" = \"Mean IMDB rating\",\n    \"total_votes\" = \"Total number of IMDB members who rated the episode\",\n    \"air_date\"    = \"Date that the episode aired\")\n\ndrctr_wrtr_descr &lt;- \n  c(\"season\"   = \"Season that the episode aired\", \n    \"title\"    = \"Title of the episode\", \n    \"director\" = \"Name of the episode's director\", \n    \"writer\"   = \"Name of contributing writer\")\n\ndata_names &lt;- c(\"ratings\", \"director and writers\")\n\ntbls &lt;- list(ratings_descr, drctr_wrtr_descr) |&gt; \n  map2(.y = data_names,\n    ~ enframe(.x) |&gt;\n      gt(rowname_col = \"name\") |&gt;\n      tab_stubhead(label = 'Variable name') |&gt; \n      cols_label(value = 'Variable description') |&gt; \n      cols_align('left') %&gt;% \n      tab_header(title = glue('Description of {.y} data'))\n  )\n\ntbls[[1]]\n\n\n\n\n\n\n\nDescription of ratings data\n\n\nVariable name\nVariable description\n\n\n\n\nseason\nSeason that the episode aired\n\n\nepisode\nEpisode number, relative to Season start\n\n\ntitle\nTitle of the episode\n\n\nimdb_rating\nMean IMDB rating\n\n\ntotal_votes\nTotal number of IMDB members who rated the episode\n\n\nair_date\nDate that the episode aired\n\n\n\n\n\n\n\n\ntbls[[2]]\n\n\n\n\n\n\n\nDescription of director and writers data\n\n\nVariable name\nVariable description\n\n\n\n\nseason\nSeason that the episode aired\n\n\ntitle\nTitle of the episode\n\n\ndirector\nName of the episode's director\n\n\nwriter\nName of contributing writer",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "09 - Joins and I/O"
+    ]
+  },
+  {
+    "objectID": "html_files/09_Joins/exercise_solutions.html#import",
+    "href": "html_files/09_Joins/exercise_solutions.html#import",
+    "title": "Joining data",
+    "section": "",
+    "text": "You can import the two datasets using the read_csv() function. Note that your project directory is the root of the file path.\n\ndata_one &lt;- read_csv(\"data/office_director_and_writers.csv\")\n\nRows: 223 Columns: 4\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (3): episode_name, director, writer\ndbl (1): season\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\ndata_rate &lt;- read_csv(\"data/office_ratings.csv\")\n\nRows: 188 Columns: 6\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (1): title\ndbl  (4): season, episode, imdb_rating, total_votes\ndate (1): air_date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\nhead(data_one)\n\n\n  \n\n\nhead(data_rate)",
+    "crumbs": [
+      "Home",
+      "Solutions",
+      "09 - Joins and I/O"
+    ]
   }
 ]

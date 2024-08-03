@@ -1,0 +1,202 @@
+---
+title: "Exercise 10 - Quarto"
+author: "Chad Murchison"
+format: 
+  html:
+    df-print: paged
+#  docx: default
+#  pdf: default
+knitr:
+  opts_chunk: 
+    echo: false
+bibliography: references.bib
+execute:
+  cache: true
+---
+
+# Problem 1
+
+## YAML
+
+This YAML was used for this document.  Note this inclusion of some additional options such as `df-print: paged` and how `bibliography: references.bib` was generated after the citation inclusion.  In addition, multi-rendering required rendering from the terminal in RStudio as the Render button only renders the first format option.
+
+```
+---
+title: "Exercise 10 - Quarto"
+author: "Chad Murchison"
+format: 
+  html:
+    df-print: paged
+  docx: default
+  pdf: default
+knitr:
+  opts_chunk: 
+    echo: false
+bibliography: references.bib
+execute:
+  cache: true
+---
+```
+
+
+## Formatting
+
+The following code will yield the formatting shown in [figure 28.5 from R4DS](https://r4ds.hadley.nz/quarto#visual-editor){.external target="_blank"} as well as the citation for [Literate Programming](https://doi.org/10.1093/comjnl/27.2.97){.external target="_blank"}. 
+
+```
+# Text formatting
+
+*italic* **bold** [underline]{.underline} ~~strikeout~~ [small caps]{.smallcaps} `code` superscript^2^ and subscript~2~
+
+# Headings
+
+# 1st Level Header
+
+## 2nd Level Header
+
+### 3rd Level Header
+
+# Lists
+
+-   Bulleted list item 1
+
+-   Item 2
+
+    -   Item 2a
+
+    -   Item 2b
+
+1.  Numberlist item 1
+
+2.  Item 2. The numbers are incremented automatically in the output.
+
+# Links and images
+
+<https://quarto.org>
+
+[linked phrase](https://quarto.org)
+
+![optional caption text](https://quarto.org/quarto.png)
+
+[@knuth1984]
+
+```
+
+# Problem 2
+
+## Iris data
+
+Load the first 30 rows of Iris into a dedicated object with some simple table printing.  The chunk option for `#| tbl-cap:` was used for captions.
+
+```{r}
+#| message: false
+#| echo: true
+
+library(tidyverse)
+library(knitr)
+library(gt)
+
+data_curr <- as_tibble(iris[1:30,])
+```
+
+
+```{r}
+#| tbl-cap: "Standard printing"
+#| echo: true
+
+# #| tbl-cap: "Standard printing"
+
+data_curr
+```
+
+```{r}
+#| tbl-cap: "Kable printing"
+#| echo: true
+
+# #| tbl-cap: "Kable printing"
+
+knitr::kable(data_curr)
+```
+
+
+```{r}
+#| tbl-cap: "gt printing"
+#| echo: true
+
+# #| tbl-cap: "gt printing"
+
+gt(data_curr)
+```
+
+## Plots
+
+A standard scatter plot:
+
+```{r}
+#| echo: true
+#| fig-cap: "Iris Sepal Length vs Width by Species"
+#| fig-height: 4
+#| fig-asp: 0.618
+
+# #| echo: true
+# #| fig-cap: "Iris Sepal Length vs Width by Species"
+# #| fig-height: 4
+# #| fig-asp: 0.618
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + 
+  geom_point(aes(color = Species)) +
+  theme_bw()
+```
+
+A pair of histograms
+
+```{r}
+#| echo: true
+#| layout-ncol: 2
+#| fig-cap: "Histograms of Width (L) and Length (R) in Iris"
+
+
+# #| echo: true
+# #| layout-ncol: 2
+# #| fig-cap: "Histograms of Width (L) and Length (R) in Iris"
+
+ggplot(iris, aes(x = Sepal.Width)) + 
+  geom_histogram(aes(fill = Species), position = position_dodge(), bins = 30) + 
+  theme_bw()
+  
+ggplot(iris, aes(x = Sepal.Length)) + 
+  geom_histogram(aes(fill = Species), position = position_dodge(), bins = 30) + 
+  theme_bw()
+
+```
+
+## Summary tables with `kable()` and `gt()`
+
+```{r}
+#| echo: true
+
+table_out <- iris |>
+  group_by(Species) |>
+  summarise(Count = n(),
+            Mean_Length = mean(Sepal.Length),
+            Median_Length = median(Sepal.Length),
+            SD_Length = sd(Sepal.Length),
+            Mean_Width = mean(Sepal.Width),
+            Median_Width = median(Sepal.Width),
+            SD_Width = sd(Sepal.Width))
+
+kable(table_out)
+
+gt(table_out)
+
+```
+
+
+
+
+
+
+
+
+
+

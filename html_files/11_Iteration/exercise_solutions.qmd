@@ -1,0 +1,412 @@
+---
+title: "Iteration and Functionals"
+author: "Rachel Stuckwisch"
+date-modified: last-modified
+format:
+  html:
+    code-folding: show
+    df-print: paged
+    fig-caption: true
+    fig-asp: 0.618
+    fig-width: 12
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+execute:
+  cache: true
+---
+
+# Overview
+
+Today we're going to be using iteration to solve our single statistical problem of the course: fitting a linear regression line of best fit.
+
+## Setup
+
+Everything today can be handled with base R and the tidyverse.  Specifically, we'll be focusing on `purrr`.  We also load `ggforce` for bonus points.
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+
+library(tidyverse)
+library(ggforce)
+
+theme_cfm <- 
+  theme_bw() + 
+  theme(plot.title = element_text(size = 30, hjust = 0.5),
+        axis.title = element_text(size = 20), 
+        axis.text = element_text(size = 16),
+        legend.title = element_text(size = 20),
+        legend.text = element_text(size = 16))
+```
+
+```{r}
+#|include: false
+#saveRDS(theme_cfm, "theme.rds")
+
+
+```
+
+
+# Ordinary least squares regression and lines of fit
+
+Ordinary least squares (OLS) regression is used to create a line of best fit.  Let's begin by creating some example data. After randomly generating some normally distributed data, we'll make another vector that has a linear association as follows:
+
+1. If `x` increases by 1, then `y` increases by 3 on average
+2. If `x` is equal to 0, then `y` is equal to 1, again on average
+3. Finally, we add some randomly distributed noise
+
+```{r}
+
+#This is key for reproducing results!!
+set.seed(654321)
+
+#Create 250 randomly generated points
+x <- rnorm(250)
+
+#Now make some data that is going to be linearly associated with x, this has three components:
+#  If x increases by 1, then y increases by 3 on average
+#  If x is equal to 0, then y is equal to 1 (on average)
+#  Finally, we add some randomly distributed noise
+y <- 3 * x + 1 + rnorm(250, sd = 5)
+
+dat_curr <- tibble(x = x, y = y)
+dat_curr
+```
+
+We can see from the plot there's a clear linear trend:
+
+```{r}
+#| code-fold: true
+ggplot(dat_curr) + 
+  geom_point(aes(x = x, y = y), size = 3) + 
+  theme_cfm
+```
+
+OLS regression fits a linear that minimizes the sum of squared difference between the <b>predicted</b> values (the red line on the plot below) and the <b>observed</b> values (gray points in the plot).
+
+```{r}
+#| code-fold: true
+#| message: false
+
+ggplot(dat_curr, aes(x = x, y = y)) +
+  geom_point(shape = 21, color = "black", fill = "grey", size = 3) + 
+  geom_smooth(method = "lm", color="red", linetype = "solid", linewidth = 1.75, se = FALSE) + 
+  theme_cfm
+```
+
+In other words, we minimize the sum of the squared values for the blue vertical lines in this plot:
+
+```{r}
+#| echo: false
+#| message: false
+
+dat_curr$pred <- predict(lm(y ~ x, data = dat_curr))
+
+plot_lm <- 
+ggplot(dat_curr, aes(x = x, y = y)) +
+  geom_segment(aes(x = x, xend = x, y = y, yend = pred), color = "blue", linetype = "dashed") + 
+  geom_point(shape = 21, color = "black", fill = "grey", size = 3) + 
+  geom_smooth(method = "lm", color="red", linetype = "solid", linewidth = 1.75, se = FALSE) + 
+  theme_cfm
+plot_lm
+
+```
+
+
+```{r}
+#| include: false
+
+#saveRDS(dat_curr, "lm_data.rds")
+#saveRDS(plot_lm, "solution1.rds")
+```
+
+This line of best fit has a <b>slope</b> and an <b>intercept</b>.  Now we could get those using the `lm()` command in R and then replace `geom_smooth()` with `geom_abline()` using the coefficient values from the linear regression.
+
+```{r}
+
+#Fit the linear model
+lm_curr <- lm(y ~ x, data = dat_curr)
+
+#Get the coefficients
+coef_curr <- coef(lm_curr)
+
+```
+
+Linear regression slope estimate: `r round(coef_curr[2], 3)`
+
+Linear regression intercept estimate: `r round(coef_curr[1], 3)`
+
+```{r}
+#| message: false
+#| code-line-numbers: 3-3
+
+ggplot(dat_curr, aes(x = x, y = y)) +
+  geom_point(shape = 21, color = "black", fill = "grey", size = 3) + 
+  geom_abline(intercept = coef_curr[1], slope = coef_curr[2], 
+              color = "red", linetype = "solid", linewidth = 1.75) + 
+  theme_cfm
+```
+
+But that uses boring linear algebra.  Instead, let's try to identify the least-squares regression line ourselves by making random guesses.  Essentially, let's fit a whole bunch of lines and find the one that minimizes the sum of squared distances.
+
+```{r}
+#| message: false
+#| echo: false
+
+ggplot(dat_curr, aes(x = x, y = y)) +
+  geom_point(shape = 21, color = "black", fill = "grey", size = 3) + 
+  geom_abline(intercept = 1, col = 'red', slope = 0) + 
+  geom_abline(intercept = 1, col = 'red', slope = 1) + 
+  geom_abline(intercept = 1, col = 'red', slope = 2) +
+  geom_abline(intercept = 1, col = 'red', slope = 3) +
+  geom_abline(intercept = 1, col = 'red', slope = 4) +
+  geom_abline(intercept = 1, col = 'red', slope = 0.5) + 
+  geom_abline(intercept = 1, col = 'red', slope = 1.5) + 
+  geom_abline(intercept = 1, col = 'red', slope = 2.5) +
+  geom_abline(intercept = 1, col = 'red', slope = 3.5) +
+  geom_abline(intercept = 1, col = 'red', slope = 4.5) +
+  theme_cfm
+```
+
+# Making the random guesses
+
+First, we want to create small function that will calculate the <b>mean square error</b>, the loss function we're minimizing for our line of best fit.
+
+```{r}
+
+#Our MSE function
+mse <- function(predicted, observed){
+  mean(sum((predicted-observed)^2))
+}
+```
+
+Next, let's make a random guess for our slope and intercept values and calculate our predicted values of y from our known values of x.  We'll start with our "on average" values of 3 for the slope and 1 for the intercept:
+
+```{r}
+
+#Let's start with intercept of 1 and slope of 3
+int_est <- 1
+slope_est <- 3
+
+#Calculate the MSE from the predictions of y for our values of x
+first_guess <- mse(
+  predicted = int_est + slope_est * x,
+  observed = y
+)
+```
+
+Let's also make a second guess, setting our intercept to 0 and slope to 1
+
+```{r}
+int_est <- 0
+slope_est <- 1
+
+second_guess <- mse(
+  predicted = int_est + slope_est * x,
+  observed = y
+)
+
+```
+
+As we can see, our first guess is smaller than our second guess so it's a better line of best fit.
+```{r}
+first_guess
+```
+
+```{r}
+second_guess
+```
+
+But is it the <i>best</i> guess?  For that we'll want to try a whole bunch of intercept and slope combinations.  While we could copy-and-paste our code we're better than that so we'll use `purrr` instead.
+
+# Problem 1 - Two passes using `map()`
+
+## Identify the slope
+
+Fix `int_est` at 1 and then use `purrr` to look through 100 equally spaced potential values for `slope_est` between 2 and 4.  Pick the one that minimizes the sum of squared errors and make a plot.
+
+```{r}
+#| eval: false
+
+#Create 100 potential slopes
+slope_est <- seq(2, 4, length.out = 100)
+
+#Calculate the MSE for those slopes using purrr
+mse_slope_vals <- purrr::???
+
+#Make a data frame from the MSE values
+pred_slope <- tibble(
+  slope = slope_est,
+  mse_vals = mse_slope_vals
+)
+
+#Make a plot of the results
+ggplot(???)
+
+#Find the slope with the smallest MSE loss
+slope_est <- ???
+```
+
+## Identify the intercept
+
+Next, fix your slope at the value of `slope_min` that you found and then evaluate 100 equally spaced estimates for the intercept ranging from 0 to 2.  Again, find the intercept that minimizes our MSE loss.
+
+```{r}
+#| eval: false
+
+#Create 100 potential estimates
+int_est <- seq(0, 2, length.out = 100)
+
+#Calculate the MSE for those slopes using purrr
+mse_int_vals <- purrr::???
+
+#Make a data frame from the MSE values
+pred_int <- tibble(
+  int = int_est,
+  mse_vals = mse_int_vals
+)
+
+#Make a plot for the intercept results
+ggplot(???)
+
+#Find the slope with the smallest MSE loss
+int_est <- ???
+```
+
+## Compare
+
+Finally, report your estimates for intercept and slope and plot both it and the known line-of-best fit.  Your results and plot should look something like this:
+
+```{r}
+#| message: false
+
+#map step 1 - the slope
+slope_est <- seq(2, 4, length.out = 100); int_est <- 1
+mse_slope_vals <- map_dbl(slope_est, ~mse(predicted = int_est + x * .x, observed = y))
+slope_est <- slope_est[which.min((mse_slope_vals))]
+
+#map step 2 - the intercept
+int_est <- seq(0, 2, length.out = 100)
+mse_int_vals <- map_dbl(int_est, ~mse(predicted = .x + x * slope_est, observed = y))
+int_est <- int_est[which.min((mse_int_vals))]
+
+est_curr <- c(slope_est, int_est)
+```
+
+```{r}
+#| include: false
+
+#saveRDS(est_curr, "solution2.rds")
+```
+
+Slope estimate from `map()`: `r round(slope_est, 3)`
+
+Intercept estimate from `map()`: `r round(int_est, 3)`
+
+```{r}
+#| message: false
+
+plot_map <-
+ggplot(dat_curr, aes(x = x, y = y)) +
+  geom_point(shape = 21, color = "black", fill = "grey", size = 3) + 
+  geom_smooth(method = "lm", color="red", linetype = "solid", linewidth = 1.75, se = FALSE) + 
+  geom_abline(intercept = int_est, slope = slope_est, 
+              color = "blue", linetype = "dashed", linewidth = 1.75) + 
+  theme_cfm
+
+plot_map
+```
+
+```{r}
+#| include: false
+
+#saveRDS(plot_map, "solution3.rds")
+
+```
+
+
+# Problem 2 - Being even more saavy with `map2()`
+
+Although our two pass approach worked very well, it would be better to iterate through the slopes and intercepts at the same time.  Fixing requires hard coding and I hate hard coding.  Instead, let's map over the slopes the estimates using `map2()`.
+
+An important point, since `map2()` does elementwise vectorization it won't give all combinations of the slopes and the intercepts.  Intead it will pair the first slope with the first intercept, the second slope with the second intercept, and so on.  We'll have to expand our potential values into a single data structure.  Luckily, there's an easy way to do this with `expand.grid()` in base R.
+
+Let's make 50 slope and intercepts using those same ranges and then expand them out.
+
+```{r}
+
+#Build our expanded estimate data and make it a tibble
+estimate_set <- expand.grid(
+  int = seq(0, 2, length.out = 50),
+  slope = seq(2, 4, length.out = 50)) |>
+  as_tibble()
+
+dim(estimate_set)
+```
+
+With our `{r} nrow(estimate_set)` pairs, we can now use `map2()` to identify the intercept and slope simultaneously.
+
+Use `map2()` to identify the slopes, and then plot your slopes as a function of the MSE loss function.  This will show how `map2()` is sweeping back and forth as it calculates the MSE and zeros in on the ideal slope and intercept.  For bonus points, use `geom_mark_circle()` from the `ggforce` package to highlight your results on the plot.  You should ultimately get something like this:
+
+
+```{r}
+#| message: false
+
+#Using map2 to iterate over the exansion done to estiamte_set
+#map2 only pairs the same index so the expansion won't work otherwise
+estimate_set$mse <- 
+  map2_dbl(
+    .x = estimate_set$int,
+    .y = estimate_set$slope,
+    .f = function(.int_estm, .slope_estm){ 
+      mse(
+        predicted = .int_estm + .slope_estm * x,
+        observed = y)
+      })
+
+#Recast intercept to a factor and reorderit by mse to make the plott prettier
+estimate_set <- 
+  estimate_set |>
+    mutate(
+      int = factor(int),
+      int = fct_reorder(int, mse)) 
+
+
+plot_map2 <- 
+  ggplot(estimate_set) +
+  
+  #Color by the intercept using viridis
+  aes(x=slope, y = mse, col = factor(int)) + 
+  geom_line() + 
+  scale_color_viridis_d() + 
+  
+  #Using geom_mark_circle to highlight the smallest MSE and labelling it
+  geom_mark_circle(
+    aes(filter = mse == min(mse),
+        label = paste('Best estimates:'),
+        description = paste0(
+        'Intercept: ', format(round(as.numeric(as.character(int)),3), nsmall = 2), 
+        '\nSlope: ', format(round(slope,3), nsmall = 2)))) + 
+  
+  labs(y = 'Mean squared error',
+       x = 'Estimated slope') + 
+  theme_cfm + 
+  theme(legend.position = "none")
+
+plot_map2
+
+```
+
+```{r}
+#| include: false
+#saveRDS(plot_map2, "solution4.rds")
+
+```
+
+
+
+
+

@@ -1,0 +1,256 @@
+---
+title: "Joining data"
+date-modified: last-modified
+format:
+  html:
+    code_folding: show
+    df-print: paged
+    fig-caption: true
+    fig-height: 4
+    fig-width: 7
+    highlight: tango
+    theme: cosmo
+    toc: true
+    toc-float: true
+---
+
+# Overview
+
+These exercises will help you practice applying functions in the `join` family and the `stringr` and `glue` packages. You will use two datasets that describe a TV show called 'The Office'.
+
+## Setup
+
+Packages used for this exercise set are loaded below.
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+
+library(tidyverse)
+library(glue)
+library(gt)
+
+```
+
+## Data dictionary
+
+The analysis will involve two datasets:
+
+-   `office_ratings.csv`: the IMDB rating for each episode.
+
+-   `office_director_and_writers.csv` the writers and director of each episode.
+
+```{r}
+
+ratings_descr <-
+  c("season"      = "Season that the episode aired",
+    "episode"     = "Episode number, relative to Season start",
+    "title"       = "Title of the episode",
+    "imdb_rating" = "Mean IMDB rating",
+    "total_votes" = "Total number of IMDB members who rated the episode",
+    "air_date"    = "Date that the episode aired")
+
+drctr_wrtr_descr <- 
+  c("season"   = "Season that the episode aired", 
+    "title"    = "Title of the episode", 
+    "director" = "Name of the episode's director", 
+    "writer"   = "Name of contributing writer")
+
+data_names <- c("ratings", "director and writers")
+
+tbls <- list(ratings_descr, drctr_wrtr_descr) |> 
+  map2(.y = data_names,
+    ~ enframe(.x) |>
+      gt(rowname_col = "name") |>
+      tab_stubhead(label = 'Variable name') |> 
+      cols_label(value = 'Variable description') |> 
+      cols_align('left') %>% 
+      tab_header(title = glue('Description of {.y} data'))
+  )
+
+tbls[[1]]
+
+```
+
+```{r}
+
+tbls[[2]]
+
+```
+
+## Import
+
+You can import the two datasets using the `read_csv()` function. Note that your project directory is the root of the file path.
+
+```{r}
+data_one <- read_csv("data/office_director_and_writers.csv")
+
+data_rate <- read_csv("data/office_ratings.csv")
+
+head(data_one)
+head(data_rate)
+```
+
+
+# Problem 1
+
+Conduct exploratory data analysis of the `office_ratings` data and produce the figure shown below. 
+
+```{r}
+ex1 <- data_rate
+
+ex1$season_lab <- factor(ex1$season, 
+                         labels = c("Season 1", "Season 2", "Season 3",
+                                    "Season 4", "Season 5", "Season 6",
+                                    "Season 7", "Season 8", "Season 9"))
+
+tbl1 <-
+  ggplot(ex1, 
+         aes(x=air_date, 
+             y = imdb_rating)) +
+  geom_point(color = "grey") +
+  xlab("Air Date") +
+  ylab("Mean IMDB rating") +
+  facet_wrap(vars(season_lab), scales = "free_x") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(fill = NA, color = "black"),
+        strip.background = element_rect(color = "black"))
+tbl1
+
+```
+
+
+# Problem 2
+
+Identify the episode names that are present in `office_ratings` but not in `office_director_and_writers`. Then, identify the episode names that are present in `office_director_and_writers` but not in `office_ratings`. I saved each vector of character values in the list printed below.
+
+```{r}
+titles_unmatched_directors <- data_rate |>
+  select(episode_name = title) |>
+  anti_join(data_one)
+
+titles_unmatched_ratings <- data_one |>
+  select(title = episode_name) |>
+  anti_join(data_rate)
+
+
+titles_unmatched_directors
+titles_unmatched_ratings
+```
+
+# Problem 3
+
+Design and implement a strategy to harmonize the episode names between these two data sets so that they can be joined. When you are finished, `anti_join()`ing the two data sets should produce an empty data set.
+
+Once the names are harmonized, left join the `office_director_and_writers` data with the `office_ratings` data
+
+Hints: 
+
+- I used the following functions to harmonize episode names: `tolower()`, `str_remove_all()`, and `str_replace()`.
+
+- Don't worry if it takes more than a few steps to get everything harmonized. Just take it one step at a time.
+
+```{r}
+ex3_rate <- data_rate
+ex3_rate$title <- tolower(ex3_rate$title)
+ex3_rate$title <- str_remove(ex3_rate$title,": part 1")
+ex3_rate$title <- str_remove(ex3_rate$title,": part 2")
+ex3_rate$title <- str_replace(ex3_rate$title,"new guys", "the new guys")
+```
+
+```{r}
+ex3_direct <- data_one
+ex3_direct$episode_name <- tolower(ex3_direct$episode_name)
+ex3_direct$episode_name <- str_remove(ex3_direct$episode_name," \\(parts 1&2\\)")
+ex3_direct$episode_name <- str_remove(ex3_direct$episode_name," \\(part 1\\)")
+ex3_direct$episode_name <- str_remove(ex3_direct$episode_name," \\(part 2\\)")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"(s\\*x)", "sex")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"(surveilance)", "surveillance")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"(&)", "and")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"(a\\.a\\.r\\.m)", "a.a.r.m.")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"the michael scott paper company", "michael scott paper company")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"the cover", "the cover-up")
+ex3_direct$episode_name <- str_replace(ex3_direct$episode_name,"the manager and the salesman", "manager and salesman")
+names(ex3_direct)[names(ex3_direct) == "episode_name"] <- "title"
+
+
+### Helpful site for pattern making in str_remove and str_replace
+## https://rdrr.io/cran/stringi/man/about_search_regex.html
+```
+
+```{r}
+#ex3_direct |>
+#  select(title = title) |>
+#  anti_join(ex3_rate)
+
+
+ex3 <- ex3_direct |> left_join(ex3_rate)
+
+#saveRDS(ex3, "~/Desktop/BST680/rstudio-export09/solutions/03_solution.rds")
+```
+
+# Problem 4
+
+Summarize the merged data by computing 
+
+1. the number of episodes that each writer contributed to.
+1. the mean rating of episodes by writer.
+
+Using the summarized data, create a new column that indicates who is a `top_writer`. The criteria for being identified as a `top_writer` are having a mean episode rating > 8.6 or writing > 20 episodes.
+
+```{r}
+ex4 <- ex3 |>
+  group_by(writer) |>
+  summarise(episodes_n = n(), 
+            imdb_avg = mean(imdb_rating)) |>
+  ungroup()
+
+ex4 <- ex4 |> 
+  mutate(top_writer = if_else(episodes_n > 20 | imdb_avg >8.6, "True", "False")) |>
+  arrange(desc(top_writer))
+
+ex4
+
+#saveRDS(ex4, "~/Desktop/BST680/rstudio-export09/solutions/04_solution.rds")
+```
+
+# Problem 5
+
+Merge the data you created in problem 4 with the data you previously merged in problem 3, and then create a dataset that has the top 5 episodes for each `top_writer`, arranged by rating. If the `top_writer` wrote k < 5 episodes, just show the k episodes that the writer contributed to. 
+
+Notes: 
+
+- `group_by()`, `arrange()`, and `slice()` work extremely well together.
+
+
+```{r}
+
+ex5 <- ex3 |> left_join(ex4)
+
+ex5 <- ex5 |> filter(top_writer == "True") |>
+  group_by(writer) |>
+  arrange(imdb_rating) |>
+  slice_head(n=5) |> 
+  ungroup() |>
+  arrange(writer, air_date) |>
+  select(c(title, writer, air_date,imdb_rating))
+
+ex5
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
