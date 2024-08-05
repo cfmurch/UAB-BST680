@@ -7657,5 +7657,425 @@
       "Solutions",
       "09 - Joins and I/O"
     ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#agenda",
+    "href": "Lectures/12_Functions/index.html#agenda",
+    "title": "Function Composition",
+    "section": "Agenda",
+    "text": "Agenda\n\n\n\nComposition basics\nUsage of composed functions\nFunction environments\nIndirection",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---the-goal",
+    "href": "Lectures/12_Functions/index.html#composition---the-goal",
+    "title": "Function Composition",
+    "section": "Composition - The Goal",
+    "text": "Composition - The Goal\n\nFunction composition is (nearly) the apex of automation\nLike functionals, greatly helps with reducing code duplication\nCombine pure code into higher-order functions that provide a wide variety of output formats\n\nR can create vector, lists, plots, any desired data structure\n\nMuch more general and powerful than copy-pasting",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---no-more-copy-pasta",
+    "href": "Lectures/12_Functions/index.html#composition---no-more-copy-pasta",
+    "title": "Function Composition",
+    "section": "Composition - No More Copy Pasta",
+    "text": "Composition - No More Copy Pasta\n\nAdvantages over copy-pasting\n\nYou can name your code base and organize it according to tasks\nCode only needs to be updated or adapted at its definition point\nGreatly improves QA/QC by limiting entry and edit errors\nMakes re-using code across projects much more tractable\n\n\n\n\n\n\n\n\nTip\n\n\nIf you’ve copied a block of code more than twice, consider writing a function",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---checking-a-help-page",
+    "href": "Lectures/12_Functions/index.html#composition---checking-a-help-page",
+    "title": "Function Composition",
+    "section": "Composition - Checking a Help Page",
+    "text": "Composition - Checking a Help Page",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---whats-inside",
+    "href": "Lectures/12_Functions/index.html#composition---whats-inside",
+    "title": "Function Composition",
+    "section": "Composition - What’s Inside",
+    "text": "Composition - What’s Inside\n\nFour main components of a function\n\nName - the “alias” for the composition\nArguments - inputs and parameters passed to the function\n\nArguments can have defaults or can be required to be defined\n... is a special “catch all” for unnamed arguments\n\nDetails - the body of code applied to the arguments\nValue - the resulting output that is returned from the function\n\nOnly one output (i.e. a single data structure) is ever returned from a function although multiple potential outputs may exist",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---the-basic-framework",
+    "href": "Lectures/12_Functions/index.html#composition---the-basic-framework",
+    "title": "Function Composition",
+    "section": "Composition - The Basic Framework",
+    "text": "Composition - The Basic Framework\n\n#Functions are assigned to a name\nfunction_name &lt;- \n  \n  #Use the function() function and define the arguments\n  function(arguments){\n    \n    #The body of processing code\n    code body\n    \n    #The final returned data structure\n    return(value)\n  }\n\n\nIf nothing is explicitly returned, the most recent expression in the body is returned by default\n\\(x) is a short-hand alias for function(x)",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---a-motivating-example",
+    "href": "Lectures/12_Functions/index.html#composition---a-motivating-example",
+    "title": "Function Composition",
+    "section": "Composition - A Motivating Example",
+    "text": "Composition - A Motivating Example\n\nReturning to the iris data\n\n\ndat &lt;- iris |&gt; \n  slice(1:10) |&gt;\n  select(-Species)\ndat\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width\n1           5.1         3.5          1.4         0.2\n2           4.9         3.0          1.4         0.2\n3           4.7         3.2          1.3         0.2\n4           4.6         3.1          1.5         0.2\n5           5.0         3.6          1.4         0.2\n6           5.4         3.9          1.7         0.4\n7           4.6         3.4          1.4         0.3\n8           5.0         3.4          1.5         0.2\n9           4.4         2.9          1.4         0.2\n10          4.9         3.1          1.5         0.1\n\n\n\nLet’s rescale the data so each column range from 0 to 1 i.e. renormalize",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---the-hard-way",
+    "href": "Lectures/12_Functions/index.html#composition---the-hard-way",
+    "title": "Function Composition",
+    "section": "Composition - The Hard Way",
+    "text": "Composition - The Hard Way\n\ndat |&gt; mutate(\n  Sepal.Length = (Sepal.Length - min(Sepal.Length, na.rm = TRUE)) / \n    (max(Sepal.Length, na.rm = TRUE) - min(Sepal.Length, na.rm = TRUE)),\n  Sepal.Width = (Sepal.Width - min(Sepal.Width, na.rm = TRUE)) / \n    (max(Sepal.Width, na.rm = TRUE) - min(Sepal.Width, na.rm = TRUE)),\n  Petal.Length = (Petal.Length - min(Sepal.Length, na.rm = TRUE)) / \n    (max(Petal.Length, na.rm = TRUE) - min(Petal.Length, na.rm = TRUE)),\n  Petal.Width = (Petal.Width - min(Petal.Width, na.rm = TRUE)) / \n    (max(Petal.Width, na.rm = TRUE) - min(Petal.Width, na.rm = TRUE)),\n)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width\n1           0.7         0.6         3.50   0.3333333\n2           0.5         0.1         3.50   0.3333333\n3           0.3         0.3         3.25   0.3333333\n4           0.2         0.2         3.75   0.3333333\n5           0.6         0.7         3.50   0.3333333\n6           1.0         1.0         4.25   1.0000000\n7           0.2         0.5         3.50   0.6666667\n8           0.6         0.5         3.75   0.3333333\n9           0.0         0.0         3.50   0.3333333\n10          0.5         0.2         3.75   0.0000000",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---prepping-the-function",
+    "href": "Lectures/12_Functions/index.html#composition---prepping-the-function",
+    "title": "Function Composition",
+    "section": "Composition - Prepping the Function",
+    "text": "Composition - Prepping the Function\n\nThe first step is recognizing where we copy and pasted code\nThe second step is understanding what changes with each iteration\n\n(███ - min(███, na.rm = TRUE)) / (max(███, na.rm = TRUE) - min(███, na.rm = TRUE))\n\nThis can serve as the body of the code\nThe ███ is what changes which indicates it’s the argument\n\nIs it the only argument?\n\nWe can use the default output for our return so that leaves only a name",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---writing-the-function",
+    "href": "Lectures/12_Functions/index.html#composition---writing-the-function",
+    "title": "Function Composition",
+    "section": "Composition - Writing the Function",
+    "text": "Composition - Writing the Function\n\nBring everything together with the function() function\n\nGive it a name e.g. renormalize\nReplace ███ with an arbitrary argument e.g. xx\n\n\n\nrenormalize &lt;- function(xx){\n  (xx - min(xx, na.rm = TRUE)) / (max(xx, na.rm = TRUE) - min(xx, na.rm = TRUE))\n}\n\n\nFor diligence with arguments we can default na.rm\n\n\nrenormalize &lt;- function(xx, na_rm = TRUE){\n  (xx - min(xx, na.rm = na_rm)) / (max(xx, na.rm = na_rm) - min(xx, na.rm = na_rm))\n}\n\n\nRenormalize can now take a vector and will return a vector",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#composition---using-the-function",
+    "href": "Lectures/12_Functions/index.html#composition---using-the-function",
+    "title": "Function Composition",
+    "section": "Composition - Using the Function",
+    "text": "Composition - Using the Function\n\nInstead of copy-pasting like barbarians, we can use our new function\n\n\ndat |&gt; mutate(\n  Sepal.Length = renormalize(Sepal.Length),\n  Sepal.Width = renormalize(Sepal.Width),\n  Petal.Length = renormalize(Petal.Length),\n  Petal.Width = renormalize(Petal.Width)\n)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width\n1           0.7         0.6         0.25   0.3333333\n2           0.5         0.1         0.25   0.3333333\n3           0.3         0.3         0.00   0.3333333\n4           0.2         0.2         0.50   0.3333333\n5           0.6         0.7         0.25   0.3333333\n6           1.0         1.0         1.00   1.0000000\n7           0.2         0.5         0.25   0.6666667\n8           0.6         0.5         0.50   0.3333333\n9           0.0         0.0         0.25   0.3333333\n10          0.5         0.2         0.50   0.0000000",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---basics",
+    "href": "Lectures/12_Functions/index.html#usage---basics",
+    "title": "Function Composition",
+    "section": "Usage - Basics",
+    "text": "Usage - Basics\n\nEvery function you write will behave just like a stock function in base R or a package\nWhat matters is understanding the input and the output\nIf a vector is expected then a vector needs to be returned etc\n\nRemember, tibbles and data frames are lists and may behave badly if they are passed other lists as outputs\n\nHowever, everything done up to this point can be applied to any bespoke function",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---doing-better-with-renormalize",
+    "href": "Lectures/12_Functions/index.html#usage---doing-better-with-renormalize",
+    "title": "Function Composition",
+    "section": "Usage - Doing Better with renormalize()",
+    "text": "Usage - Doing Better with renormalize()\n\nRather the copy-paste a function name, we can use functionals\n\n\nmap(dat, renormalize)\n\n$Sepal.Length\n [1] 0.7 0.5 0.3 0.2 0.6 1.0 0.2 0.6 0.0 0.5\n\n$Sepal.Width\n [1] 0.6 0.1 0.3 0.2 0.7 1.0 0.5 0.5 0.0 0.2\n\n$Petal.Length\n [1] 0.25 0.25 0.00 0.50 0.25 1.00 0.25 0.50 0.25 0.50\n\n$Petal.Width\n [1] 0.3333333 0.3333333 0.3333333 0.3333333 0.3333333 1.0000000 0.6666667\n [8] 0.3333333 0.3333333 0.0000000",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---renormalize-with-mutate",
+    "href": "Lectures/12_Functions/index.html#usage---renormalize-with-mutate",
+    "title": "Function Composition",
+    "section": "Usage - renormalize() with mutate()",
+    "text": "Usage - renormalize() with mutate()\n\nWe can also use dplyr’s standard mutate() with tidy selection, useful for making a new data object\n\n\ndat_renorm &lt;- dat |&gt;\n  mutate(across(everything(), renormalize))\ndat_renorm\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width\n1           0.7         0.6         0.25   0.3333333\n2           0.5         0.1         0.25   0.3333333\n3           0.3         0.3         0.00   0.3333333\n4           0.2         0.2         0.50   0.3333333\n5           0.6         0.7         0.25   0.3333333\n6           1.0         1.0         1.00   1.0000000\n7           0.2         0.5         0.25   0.6666667\n8           0.6         0.5         0.50   0.3333333\n9           0.0         0.0         0.25   0.3333333\n10          0.5         0.2         0.50   0.0000000",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---renormalize-with-dplyr",
+    "href": "Lectures/12_Functions/index.html#usage---renormalize-with-dplyr",
+    "title": "Function Composition",
+    "section": "Usage - renormalize() with dplyr",
+    "text": "Usage - renormalize() with dplyr\n\nrenormalize will work just like any other function and can be combined with things like group_by()\n\n\n\niris |&gt; \n  group_by(Species) |&gt;\n  mutate(across(everything(), renormalize) ) |&gt;\n  group_by(Species) |&gt;  slice(1:3)\n\n# A tibble: 9 × 5\n# Groups:   Species [3]\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species   \n         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;     \n1        0.533       0.571        0.444       0.2   setosa    \n2        0.400       0.333        0.444       0.2   setosa    \n3        0.267       0.429        0.333       0.2   setosa    \n4        1           0.857        0.810       0.5   versicolor\n5        0.714       0.857        0.714       0.625 versicolor\n6        0.952       0.786        0.905       0.625 versicolor\n7        0.467       0.687        0.625       1     virginica \n8        0.300       0.313        0.250       0.455 virginica \n9        0.733       0.5          0.583       0.636 virginica",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---functions-and-summarise",
+    "href": "Lectures/12_Functions/index.html#usage---functions-and-summarise",
+    "title": "Function Composition",
+    "section": "Usage - Functions and summarise()",
+    "text": "Usage - Functions and summarise()\n\nAs long as the output matches expected conventions, any previously used dplyr functionality can be used, including summarise()\nWhile mutate() needs a vector of the same length, summarise() is expecting a single value\nHere’s a function for the coefficient of variation, calculated as thestandard deviation / mean\n\n\n#Function for CV\ncv &lt;- function(xx, ...){\n  sd(xx, ...) / mean(xx, ...)\n}\n\n\nNote the use of ... to pass additional arguments",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---functions-and-summarise-1",
+    "href": "Lectures/12_Functions/index.html#usage---functions-and-summarise-1",
+    "title": "Function Composition",
+    "section": "Usage - Functions and summarise()",
+    "text": "Usage - Functions and summarise()\n\nAgain, summarise() expects only one row\n\n\niris |&gt;\n  select(starts_with(\"S\")) |&gt;\n  group_by(Species) |&gt;\n  summarise(across(everything(), \n                   list(Mean = mean, SD = sd, CV = cv), na.rm = TRUE))\n\n# A tibble: 3 × 7\n  Species    Sepal.Length_Mean Sepal.Length_SD Sepal.Length_CV Sepal.Width_Mean\n  &lt;fct&gt;                  &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;\n1 setosa                  5.01           0.352          0.0704             3.43\n2 versicolor              5.94           0.516          0.0870             2.77\n3 virginica               6.59           0.636          0.0965             2.97\n# ℹ 2 more variables: Sepal.Width_SD &lt;dbl&gt;, Sepal.Width_CV &lt;dbl&gt;\n\n\n\nna.rm = TRUE is an unnamed argument passed via ...",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#usage---applications",
+    "href": "Lectures/12_Functions/index.html#usage---applications",
+    "title": "Function Composition",
+    "section": "Usage - Applications",
+    "text": "Usage - Applications\n\nFunction versatility means any allowed processing is viable\n\nActions on other data types like characters, dates, factors\n\nThese can be part of the body, the arguments, or the results\nThe only restrictions are:\n\nYour assigned object must be able to accept the class and data structure of the output\nOnly a single data structure is returned once a function resolves\n\nBut what’s going on inside the function?",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#environments---scoping-and-local-environments",
+    "href": "Lectures/12_Functions/index.html#environments---scoping-and-local-environments",
+    "title": "Function Composition",
+    "section": "Environments - Scoping and Local Environments",
+    "text": "Environments - Scoping and Local Environments\n\nRecall our discussion on global and local environments\nMost assignments end up in the global environment for easy access\n\n\nx &lt;- 1:5\n\n\nBut dataframes and lists also create their own internal environments\n\n\ndf &lt;- tibble(x = c('a','b','c','d','e'))\n\n\nThis gives us our pair of x’s\n\n\n\nThe vector of numbers in our global environment i.e. x\nThe variable of letters which exists inside the df tibble i.e. df$x",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#environments---function-environments",
+    "href": "Lectures/12_Functions/index.html#environments---function-environments",
+    "title": "Function Composition",
+    "section": "Environments - Function Environments",
+    "text": "Environments - Function Environments\n\nFunctions are similar, like a data frame they have their own internal environment scoped within the body of the function code\nThe function body can access anything defined in the global environment, a parent environment, created in the function body, or passed as an initial argument\n\n\n\n\n\n\n\nImportant\n\n\n\nAnything defined in the body of a function that is not returned is discarded once the function resolves; it can no longer be accessed from the global environment or any other downstream function",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#environmnets---discarding-after-resolving",
+    "href": "Lectures/12_Functions/index.html#environmnets---discarding-after-resolving",
+    "title": "Function Composition",
+    "section": "Environmnets - Discarding After Resolving",
+    "text": "Environmnets - Discarding After Resolving\n\nA function that has two internal assignments both of which are strings\nUpon resolution discarded is removed while returned is, well, returned\n\n\ndiscard_func &lt;- function(){\n  \n  discarded &lt;- \"This string will be discarded\"\n  returned &lt;- \"This string is returned\"\n  \n  print(discarded)\n  print(returned)\n  \n  return(returned)\n}",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#environments---discarding-in-action",
+    "href": "Lectures/12_Functions/index.html#environments---discarding-in-action",
+    "title": "Function Composition",
+    "section": "Environments - Discarding in Action",
+    "text": "Environments - Discarding in Action\n\nCalling the function will print both strings as part of the body, they exist within the local environment of the discard_func() function\n\n\na_test &lt;- discard_func()\n\n[1] \"This string will be discarded\"\n[1] \"This string is returned\"\n\n\n\nSince returned was assigned to a_test it can be aliased\n\n\na_test\n\n[1] \"This string is returned\"\n\n\n\nBut discarded is lost once the function resolves\n\n\ndiscarded\n\nError in eval(expr, envir, enclos): object 'discarded' not found",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#environments---when-the-reverse-matters",
+    "href": "Lectures/12_Functions/index.html#environments---when-the-reverse-matters",
+    "title": "Function Composition",
+    "section": "Environments - When the Reverse Matters",
+    "text": "Environments - When the Reverse Matters\n\nGenerally, being mindful of what you’re returning resolves any scoping issues\nThe reverse, i.e. the function body not having access to something, happens with indirection\nMost frequently this is because an argument is conflicting with other variables\nIt’s also where using tidyverse verbs in compositional functions can fail",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---a-function-of-dplyr-verbs",
+    "href": "Lectures/12_Functions/index.html#indirection---a-function-of-dplyr-verbs",
+    "title": "Function Composition",
+    "section": "Indirection - A Function of dplyr Verbs",
+    "text": "Indirection - A Function of dplyr Verbs\n\nConsider a function that will behave like a tidyverse function\n\nIt begins with a data frame or tibble as input\nIt uses dplyr verbs\nIt uses |&gt; internally to establish a chain\n\nThe goal is to calculate the mean of any variable in a data frame after being passed a grouping variable\n\n\ngrouped_mean &lt;- function(dat, group_var, mean_var){\n  dat |&gt;\n    group_by(group_var) |&gt;\n    summarize(mean(mean_var))}",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---indirection-at-work",
+    "href": "Lectures/12_Functions/index.html#indirection---indirection-at-work",
+    "title": "Function Composition",
+    "section": "Indirection - Indirection at Work",
+    "text": "Indirection - Indirection at Work\n\nUsing gapminder let’s get the mean population by continent\n\n\ngapminder |&gt; grouped_mean(continent, pop)\n\n\n\n\nError in `group_by()`:\n! Must group by variables found in `.data`.\n✖ Column `group_var` is not found.",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---a-clearer-example",
+    "href": "Lectures/12_Functions/index.html#indirection---a-clearer-example",
+    "title": "Function Composition",
+    "section": "Indirection - A Clearer Example",
+    "text": "Indirection - A Clearer Example\n\nConsider the following data frame\n\n\ndf &lt;- data.frame(\n  mean_var = -888,\n  group_var = \"wat?\",\n  group = \"Group\",\n  x = 10, y = 100)\n\n#Should return Group and 10\ndf |&gt; grouped_mean(group, x)\n\n# A tibble: 1 × 2\n  group_var `mean(mean_var)`\n  &lt;chr&gt;                &lt;dbl&gt;\n1 wat?                  -888\n\n#Should return Group and 100\ndf |&gt; grouped_mean(group, y)\n\n# A tibble: 1 × 2\n  group_var `mean(mean_var)`\n  &lt;chr&gt;                &lt;dbl&gt;\n1 wat?                  -888",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---failures-of-tidy-selection",
+    "href": "Lectures/12_Functions/index.html#indirection---failures-of-tidy-selection",
+    "title": "Function Composition",
+    "section": "Indirection - Failures of Tidy Selection",
+    "text": "Indirection - Failures of Tidy Selection\n\nSince dplyr uses tidy evaluation, variables are referred to by bare strings\nThis makes it completely context (i.e. environmentally) dependent\nWhen tidy evaluation is part of a function, the argument values are supplanted by the tidy selection variants of the argument names\nThus grouped_mean() will always attempt to group by a variable named group_var and take the mean of the variable mean_var",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---resolving-with-embracing",
+    "href": "Lectures/12_Functions/index.html#indirection---resolving-with-embracing",
+    "title": "Function Composition",
+    "section": "Indirection - Resolving with Embracing",
+    "text": "Indirection - Resolving with Embracing\n\nTo tell a tidyverse verb to use a referenced the value stored in the argument and not the argument name, use embracing\nEmbracing within the body of the function with { } so var becomes { var }\nThis rewrites grouped_mean() mean as follows:\n\n\ngrouped_mean &lt;- function(dat, group_var, mean_var){\n  dat |&gt;\n    group_by({{ group_var }}) |&gt;\n    summarize(mean({{ mean_var }}))}\n\n\nStrictly speaking {{ }} isn’t necessary but can help with legibility",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---embracing-in-action",
+    "href": "Lectures/12_Functions/index.html#indirection---embracing-in-action",
+    "title": "Function Composition",
+    "section": "Indirection - Embracing in Action",
+    "text": "Indirection - Embracing in Action\n\nReturning to gapminder with our embraced function\n\n\ngapminder |&gt; grouped_mean(continent, pop)\n\n# A tibble: 5 × 2\n  continent `mean(pop)`\n  &lt;fct&gt;           &lt;dbl&gt;\n1 Africa       9916003.\n2 Americas    24504795.\n3 Asia        77038722.\n4 Europe      17169765.\n5 Oceania      8874672.\n\n\n\ngapminder |&gt; grouped_mean(continent, lifeExp)\n\n# A tibble: 5 × 2\n  continent `mean(lifeExp)`\n  &lt;fct&gt;               &lt;dbl&gt;\n1 Africa               48.9\n2 Americas             64.7\n3 Asia                 60.1\n4 Europe               71.9\n5 Oceania              74.3",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---when-to-embrace",
+    "href": "Lectures/12_Functions/index.html#indirection---when-to-embrace",
+    "title": "Function Composition",
+    "section": "Indirection - When to Embrace",
+    "text": "Indirection - When to Embrace\n\nAny tidyverse function you want to include which utilizes data masking or tidy selection will need to have argument names embraced in the body of the compositional function\n\nData masking includes function like arrange(), filter(), and summarize() that perform actions upon data frame variables\nTidy selection functions include select() and across() which select variables and variable ranges from a data frame\n\nBest way to see if a tidyverse function uses tidy evaluation is to check the help pages",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---some-comments",
+    "href": "Lectures/12_Functions/index.html#indirection---some-comments",
+    "title": "Function Composition",
+    "section": "Indirection - Some Comments",
+    "text": "Indirection - Some Comments\n\nIf you want to use tidy selection inside a function that uses data masking, you’ll need to use the pick() function\nCheck section 25.3.4 in R4DS or the help entry for the pick() function\nEmbracing combined with pick() will resolve about 90% of indirection issues with the tidyverse\n\nThe other 10% is why I don’t use it\n\nOne common use case of embracing is condensing plot code via ggplot() to reduce duplication",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---embracing-ggplot",
+    "href": "Lectures/12_Functions/index.html#indirection---embracing-ggplot",
+    "title": "Function Composition",
+    "section": "Indirection - Embracing ggplot()",
+    "text": "Indirection - Embracing ggplot()\n\nConsider adding a linear line of best fit to a Loess line\n\n\nlinear_line_plot &lt;- function(dat, x_var, y_var){\n  dat |&gt;\n    ggplot() + \n    \n    #Use embracing for the aes() call where data masking is used\n    aes(x = {{ x_var }}, y = {{ y_var }}) + \n    \n    geom_point(alpha = 0.5) + \n    geom_smooth(method = \"loess\", formula = y ~ x, color = \"red\", se = FALSE) + \n    geom_smooth(method = \"lm\", formula = y ~ x, color = \"blue\", se = FALSE) + \n    theme_bw()\n  \n}",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---embracing-ggplot-1",
+    "href": "Lectures/12_Functions/index.html#indirection---embracing-ggplot-1",
+    "title": "Function Composition",
+    "section": "Indirection - Embracing ggplot()",
+    "text": "Indirection - Embracing ggplot()\n\nlinear_line_plot(gapminder, x_var = gdpPercap, y_var = lifeExp)",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#indirection---using-ggplot-conventions",
+    "href": "Lectures/12_Functions/index.html#indirection---using-ggplot-conventions",
+    "title": "Function Composition",
+    "section": "Indirection - Using ggplot() Conventions",
+    "text": "Indirection - Using ggplot() Conventions\n\nlinear_line_plot(gapminder, x_var = gdpPercap, y_var = lifeExp) + \n  scale_x_log10()",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
+  },
+  {
+    "objectID": "Lectures/12_Functions/index.html#learning-more",
+    "href": "Lectures/12_Functions/index.html#learning-more",
+    "title": "Function Composition",
+    "section": "Learning More",
+    "text": "Learning More\n\nTidy evaluation programming is more trouble than its worth but it’s worth reading the article on data masking for details on what’s going on\nCleaning up ggplot2 code is heavily detailed in the chapter on programming with ggplot2 in the ggplot2 book\nNext time: your presentations!",
+    "crumbs": [
+      "Home",
+      "Lecture HTML",
+      "12 - Function Composition"
+    ]
   }
 ]

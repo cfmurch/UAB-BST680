@@ -49,6 +49,9 @@ website:
           - text: "11 - Functionals and Iteration"
             href: "Lectures/11_Iteration/index.qmd"
             target: _blank
+          - text: "12 - Function Composition"
+            href: "Lectures/12_Functions/index.qmd"
+            target: _blank
       - section: "Lecture PDF"
         contents:
           - text: "01 - Introducing Your Tools"
@@ -83,6 +86,9 @@ website:
             target: _blank
           - text: "11 - Functionals and Iteration"
             href: "pdfs/BST680 - 2024 - 11 Functionals and Iteration.pdf"
+            target: _blank
+          - text: "12 - Function Composition"
+            href: "pdfs/BST680 - 2024 - 12 Function Composition.pdf"
             target: _blank
       - section: "Additional Info"
         contents:

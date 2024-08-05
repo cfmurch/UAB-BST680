@@ -1,0 +1,650 @@
+---
+title: "Function Composition"
+subtitle: "Better Than Copying"
+author: "Chad Murchison"
+date: last-modified
+format: 
+  revealjs:
+    width: 1280
+    theme: 
+      - simple
+    css: "slides.css"
+    logo: img/intro_2R_hex.png
+    lib_dir: libs
+    slide-number: true
+    reveal_options:
+      highlightStyle: github
+      highlightLines: true
+    knitr: 
+      opts_chunk: 
+        echo: true
+        warning: false
+        message: false
+        fig-width: 12
+        fig-height: 5.5
+        dpi: 375
+execute: 
+  cache: true
+---
+
+```{r}
+#| include: FALSE
+
+library(tidyverse)
+library(gt)
+library(gapminder)
+library(nycflights13)
+
+```
+
+
+## Agenda
+
+:::{.columns}
+
+:::{.column width="50%"}
+
+- Composition basics
+
+- Usage of composed functions
+
+- Function environments
+
+- Indirection
+
+
+
+
+:::
+
+::: {.column width="50%"}
+
+
+
+:::{style="margin-top: -13%"}
+![](img/func_meme.jpg){fig-align="center" width=55%}
+:::
+:::
+
+::::
+
+
+
+# Composition Basics
+
+## Composition - The Goal
+
+- Function composition is (nearly) the apex of automation
+
+- Like functionals, greatly helps with reducing code duplication
+
+- Combine pure code into higher-order functions that provide a wide variety of output formats
+
+    - R can create vector, lists, plots, _any_ desired data structure
+
+- Much more general and powerful than copy-pasting
+
+ 
+## Composition - No More Copy Pasta
+
+- Advantages over copy-pasting
+
+    1. You can name your code base and organize it according to tasks
+    
+    2. Code only needs to be updated or adapted at its definition point
+    
+    3. Greatly improves QA/QC by limiting entry and edit errors
+    
+    4. Makes re-using code across projects much more tractable
+    
+:::{.callout-tip}
+
+If you've copied a block of code more than twice, consider writing a function
+
+:::
+
+
+## Composition - Checking a Help Page
+
+![](img/scale.png){fig-align="center"}
+ 
+## Composition - What's Inside
+
+- Four main components of a function
+
+    1. <b>Name</b> - the "alias" for the composition
+    
+    2. <b>Arguments</b> - inputs and parameters passed to the function
+    
+        - Arguments can have defaults or can be required to be defined
+        
+        - `...` is a special "catch all" for unnamed arguments
+        
+    3. <b>Details</b> - the body of code applied to the arguments
+    
+    4. <b>Value</b> - the resulting output that is returned from the function
+    
+        - Only one output (i.e. a single data structure) is ever returned from a function although multiple potential outputs may exist
+
+## Composition - The Basic Framework
+
+```{r}
+#| code-line-numbers: 1-3|4-5|7-8|10-11
+#| eval: false
+ 
+#Functions are assigned to a name
+function_name <- 
+  
+  #Use the function() function and define the arguments
+  function(arguments){
+    
+    #The body of processing code
+    code body
+    
+    #The final returned data structure
+    return(value)
+  }
+```
+
+- If nothing is explicitly returned, the most recent expression in the body is returned by default
+
+- `\(x)` is a short-hand alias for `function(x)`
+
+
+## Composition - A Motivating Example
+
+- Returning to the `iris` data
+
+```{r}
+
+dat <- iris |> 
+  slice(1:10) |>
+  select(-Species)
+dat
+```
+
+- Let's rescale the data so each column range from 0 to 1 i.e. <b>renormalize</b>
+
+## Composition - The Hard Way
+
+```{r}
+#| code-line-numbers: 1-12|6-6
+
+dat |> mutate(
+  Sepal.Length = (Sepal.Length - min(Sepal.Length, na.rm = TRUE)) / 
+    (max(Sepal.Length, na.rm = TRUE) - min(Sepal.Length, na.rm = TRUE)),
+  Sepal.Width = (Sepal.Width - min(Sepal.Width, na.rm = TRUE)) / 
+    (max(Sepal.Width, na.rm = TRUE) - min(Sepal.Width, na.rm = TRUE)),
+  Petal.Length = (Petal.Length - min(Sepal.Length, na.rm = TRUE)) / 
+    (max(Petal.Length, na.rm = TRUE) - min(Petal.Length, na.rm = TRUE)),
+  Petal.Width = (Petal.Width - min(Petal.Width, na.rm = TRUE)) / 
+    (max(Petal.Width, na.rm = TRUE) - min(Petal.Width, na.rm = TRUE)),
+)
+```
+
+
+## Composition - Prepping the Function
+
+- The first step is recognizing where we copy and pasted code
+
+- The second step is understanding what changes with each iteration
+
+```r
+(███ - min(███, na.rm = TRUE)) / (max(███, na.rm = TRUE) - min(███, na.rm = TRUE))
+```
+
+- This can serve as the body of the code
+
+- The ███ is what changes which indicates it's the argument
+
+    - Is it the only argument?
+    
+- We can use the default output for our return so that leaves only a name
+
+
+## Composition - Writing the Function
+
+- Bring everything together with the `function()` function
+
+    - Give it a name e.g. `renormalize`
+    
+    - Replace ███ with an arbitrary argument e.g. `xx`
+
+```{r}
+
+renormalize <- function(xx){
+  (xx - min(xx, na.rm = TRUE)) / (max(xx, na.rm = TRUE) - min(xx, na.rm = TRUE))
+}
+
+```
+
+- For diligence with arguments we can default `na.rm`
+
+```{r}
+renormalize <- function(xx, na_rm = TRUE){
+  (xx - min(xx, na.rm = na_rm)) / (max(xx, na.rm = na_rm) - min(xx, na.rm = na_rm))
+}
+
+```
+
+- Renormalize can now take a vector and will return a vector
+
+
+## Composition - Using the Function
+
+- Instead of copy-pasting like barbarians, we can use our new function
+
+```{r}
+
+dat |> mutate(
+  Sepal.Length = renormalize(Sepal.Length),
+  Sepal.Width = renormalize(Sepal.Width),
+  Petal.Length = renormalize(Petal.Length),
+  Petal.Width = renormalize(Petal.Width)
+)
+
+```
+
+
+# Usage of Function Composition
+
+## Usage - Basics
+
+- Every function you write will behave just like a stock function in base R or a package
+
+- What matters is understanding the input and the output
+
+- If a vector is expected then a vector needs to be returned etc
+
+    - Remember, tibbles and data frames are lists and may behave badly if they are passed other lists as outputs
+
+- However, everything done up to this point can be applied to any bespoke function
+
+
+## Usage - Doing Better with `renormalize()`
+
+- Rather the copy-paste a function name, we can use functionals
+
+```{r}
+map(dat, renormalize)
+```
+
+## Usage - `renormalize()` with `mutate()`
+
+- We can also use `dplyr`'s standard `mutate()` with tidy selection, useful for making a new data object
+
+```{r}
+
+dat_renorm <- dat |>
+  mutate(across(everything(), renormalize))
+dat_renorm
+
+```
+
+
+## Usage - `renormalize()` with `dplyr`
+
+- `renormalize` will work just like any other function and can be combined with things like `group_by()`
+
+:::{style="margin-top: -2%"}
+
+```{r}
+
+iris |> 
+  group_by(Species) |>
+  mutate(across(everything(), renormalize) ) |>
+  group_by(Species) |>  slice(1:3)
+```
+
+:::
+
+## Usage - Functions and `summarise()`
+
+- As long as the output matches expected conventions, any previously used `dplyr` functionality can be used, including `summarise()`
+
+- While `mutate()` needs a vector of the same length, `summarise()` is expecting a single value
+
+- Here's a function for the coefficient of variation, calculated as the<br>standard deviation / mean
+
+```{r}
+#Function for CV
+cv <- function(xx, ...){
+  sd(xx, ...) / mean(xx, ...)
+}
+```
+
+- Note the use of `...` to pass additional arguments
+
+## Usage - Functions and `summarise()`
+
+- Again, `summarise()` expects only one row
+
+```{r}
+
+iris |>
+  select(starts_with("S")) |>
+  group_by(Species) |>
+  summarise(across(everything(), 
+                   list(Mean = mean, SD = sd, CV = cv), na.rm = TRUE))
+
+```
+
+
+- `na.rm = TRUE` is an unnamed argument passed via `...`
+
+## Usage - Applications
+
+- Function versatility means any allowed processing is viable
+
+    - Actions on other data types like characters, dates, factors
+    
+- These can be part of the body, the arguments, or the results
+
+- The only restrictions are:
+
+    1. Your assigned object must be able to accept the class and data structure of the output
+    
+    2. Only a single data structure is returned once a function resolves
+
+- But what's going on inside the function?
+
+
+
+
+# Function Environments
+
+
+## Environments - Scoping and Local Environments
+
+- Recall our discussion on global and local environments
+
+- Most assignments end up in the global environment for easy access
+
+
+```{r}
+#| echo: true
+
+x <- 1:5
+```
+
+- But dataframes and lists also create their own internal environments
+
+```{r}
+#| echo: true
+
+df <- tibble(x = c('a','b','c','d','e'))
+```
+
+- This gives us our pair of `x`'s
+
+:::{style="margin-top: -2%"}
+
+1) The vector of numbers in our global environment i.e. `x`
+
+2) The variable of letters which exists inside the `df` tibble i.e. `df$x`
+
+:::
+
+## Environments - Function Environments
+
+- Functions are similar, like a data frame they have their own internal environment scoped within the body of the function code
+
+- The function body can access anything defined in the global environment, a `parent` environment, created in the function body, or passed as an initial argument
+
+:::{.callout-important}
+
+:::{style="font-size: 120%; color: red"}
+
+Anything defined in the body of a function that is not returned is discarded once the function resolves; it can no longer be accessed from the global environment or any other downstream function
+
+:::
+
+:::
+
+
+## Environmnets - Discarding After Resolving
+
+- A function that has two internal assignments both of which are strings
+
+- Upon resolution `discarded` is removed while `returned` is, well, returned
+
+```{r}
+
+discard_func <- function(){
+  
+  discarded <- "This string will be discarded"
+  returned <- "This string is returned"
+  
+  print(discarded)
+  print(returned)
+  
+  return(returned)
+}
+
+```
+
+## Environments - Discarding in Action
+
+- Calling the function will print both strings as part of the body, they exist within the local environment of the `discard_func()` function
+
+```{r}
+a_test <- discard_func()
+```
+
+- Since `returned` was assigned to `a_test` it can be aliased
+
+```{r}
+a_test
+```
+
+- But `discarded` is lost once the function resolves
+
+```{r}
+#| error: true
+discarded
+```
+
+## Environments - When the Reverse Matters
+
+- Generally, being mindful of what you're returning resolves any scoping issues
+
+- The reverse, i.e. the function body not having access to something, happens with `indirection`
+
+- Most frequently this is because an argument is conflicting with other variables
+
+- It's also where using tidyverse verbs in compositional functions can fail
+
+
+# Indirection
+
+
+## Indirection - A Function of `dplyr` Verbs
+
+- Consider a function that will behave like a `tidyverse` function
+
+    - It begins with a data frame or tibble as input
+    
+    - It uses `dplyr` verbs
+    
+    - It uses `|>` internally to establish a chain
+    
+- The goal is to calculate the mean of _any_ variable in a data frame after being passed a grouping variable
+
+```{r}
+
+grouped_mean <- function(dat, group_var, mean_var){
+  dat |>
+    group_by(group_var) |>
+    summarize(mean(mean_var))}
+```
+
+
+## Indirection - Indirection at Work
+
+- Using `gapminder` let's get the mean population by continent
+
+```{r}
+#| error: true
+#| eval: false
+
+gapminder |> grouped_mean(continent, pop)
+
+```
+
+. . .
+
+```{r}
+#| error: true
+#| echo: false
+
+gapminder |> grouped_mean(continent, pop)
+
+```
+
+. . .
+
+![](img/wat.jpg){fig-align="center"}
+
+
+## Indirection - A Clearer Example
+
+- Consider the following data frame
+
+```{r}
+
+df <- data.frame(
+  mean_var = -888,
+  group_var = "wat?",
+  group = "Group",
+  x = 10, y = 100)
+
+#Should return Group and 10
+df |> grouped_mean(group, x)
+
+#Should return Group and 100
+df |> grouped_mean(group, y)
+```
+
+
+## Indirection - Failures of Tidy Selection
+
+- Since `dplyr` uses tidy evaluation, variables are referred to by bare strings
+
+- This makes it completely context (i.e. environmentally) dependent
+
+- When tidy evaluation is part of a function, the argument <b><i>values</b></i> are supplanted by the tidy selection variants of the argument <b><i>names</b></i>
+
+- Thus `grouped_mean()` will always attempt to group by a variable named `group_var` and take the mean of the variable `mean_var`
+
+
+## Indirection - Resolving with Embracing
+
+- To tell a `tidyverse` verb to use a referenced the value stored in the argument and not the argument name, use <b>embracing</b>
+
+- Embracing within the body of the function with `{ }` so `var` becomes<br> `{ var }`
+
+- This rewrites `grouped_mean()` mean as follows:
+
+```{r}
+
+grouped_mean <- function(dat, group_var, mean_var){
+  dat |>
+    group_by({{ group_var }}) |>
+    summarize(mean({{ mean_var }}))}
+```
+
+- Strictly speaking `{{`  `}}` isn't necessary but can help with legibility
+
+
+## Indirection - Embracing in Action
+
+- Returning to `gapminder` with our embraced function
+
+```{r}
+#| error: true
+
+gapminder |> grouped_mean(continent, pop)
+
+```
+
+
+```{r}
+#| error: true
+
+gapminder |> grouped_mean(continent, lifeExp)
+
+```
+
+
+## Indirection - When to Embrace
+
+- Any `tidyverse` function you want to include which utilizes <b>data masking</b> or <b>tidy selection</b> will need to have argument names embraced in the body of the compositional function
+
+    - Data masking includes function like `arrange()`, `filter()`, and `summarize()` that perform actions upon data frame variables
+    
+    - Tidy selection functions include `select()` and `across()` which select variables and variable ranges from a data frame
+    
+- Best way to see if a `tidyverse` function uses tidy evaluation is to check the help pages
+
+
+## Indirection - Some Comments
+
+- If you want to use tidy selection inside a function that uses data masking, you'll need to use the `pick()` function
+
+    Check section [25.3.4 in R4DS](https://r4ds.hadley.nz/functions#data-masking-vs.-tidy-selection){.external target="_blank"} or the help entry for the [`pick()` function](https://dplyr.tidyverse.org/reference/pick.html){.external target="_blank"}
+    
+- Embracing combined with `pick()` will resolve about 90% of indirection issues with the `tidyverse`
+
+    - The other 10% is why I don't use it
+
+- One common use case of embracing is condensing plot code via `ggplot()` to reduce duplication
+
+## Indirection - Embracing `ggplot()`
+
+- Consider adding a linear line of best fit to a Loess line
+
+```{r}
+
+linear_line_plot <- function(dat, x_var, y_var){
+  dat |>
+    ggplot() + 
+    
+    #Use embracing for the aes() call where data masking is used
+    aes(x = {{ x_var }}, y = {{ y_var }}) + 
+    
+    geom_point(alpha = 0.5) + 
+    geom_smooth(method = "loess", formula = y ~ x, color = "red", se = FALSE) + 
+    geom_smooth(method = "lm", formula = y ~ x, color = "blue", se = FALSE) + 
+    theme_bw()
+  
+}
+
+```
+
+
+## Indirection - Embracing `ggplot()`
+
+```{r}
+#| fig-height: 5
+
+linear_line_plot(gapminder, x_var = gdpPercap, y_var = lifeExp)
+```
+
+## Indirection - Using `ggplot()` Conventions
+
+```{r}
+#| fig-height: 5
+
+linear_line_plot(gapminder, x_var = gdpPercap, y_var = lifeExp) + 
+  scale_x_log10()
+```
+
+
+## Learning More
+
+- Tidy evaluation programming is more trouble than its worth but it's worth reading the [article on data masking](https://rlang.r-lib.org/reference/topic-data-mask.html){.external target="_blankl"} for details on what's going on
+
+- Cleaning up `ggplot2` code is heavily detailed in the chapter on [programming with `ggplot2`](https://ggplot2-book.org/programming.html){.external target="_blankl"} in the `ggplot2` book
+
+- Next time: your presentations!
+
